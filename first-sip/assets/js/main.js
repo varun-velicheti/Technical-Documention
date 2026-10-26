@@ -22,13 +22,15 @@
   const BACKUP = ["photo-1495474472287-4d71bcdd2085", "photo-1509042239860-f550ce710b93", "photo-1447933601403-0c6688de566e",
     "photo-1511920170033-f8396924c348", "photo-1442512595331-e89e73853f31", "photo-1501339847302-ac426a4a7cbb",
     "photo-1554118811-1e0d58224f24", "photo-1514432324607-a09d9b4aefdd", "photo-1453614512568-c4024d13c247"];
+  const PEOPLE = ["photo-1500648767791-00dcc994a43e", "photo-1507003211169-0a1dd7228f2d", "photo-1472099645785-5658abf4ff4e"];
   const onImgError = (im) => {
     const tries = +(im.dataset.fb || 0);
     if (tries < 3 && /images\.unsplash\.com/.test(im.src)) {
       im.dataset.fb = tries + 1;
       const w = (im.src.match(/[?&]w=(\d+)/) || [])[1] || 900;
       let h = 7; for (const c of (im.alt || im.src)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-      im.src = `https://images.unsplash.com/${BACKUP[(h + tries) % BACKUP.length]}?auto=format&fit=crop&w=${w}&q=80`;
+      const pool = im.closest(".member, .quote__who, .manifesto-sig") ? PEOPLE : BACKUP;
+      im.src = `https://images.unsplash.com/${pool[(h + tries) % pool.length]}?auto=format&fit=crop&w=${w}&q=80`;
     } else im.classList.add("is-broken");
   };
   document.addEventListener("error", (e) => { if (e.target && e.target.tagName === "IMG") onImgError(e.target); }, true);
@@ -599,6 +601,45 @@
     $("[data-legend]").innerHTML = data.map(([l, p, c]) => `<li><i style="background:${c}"></i><span>${l}</span><b>${p}%</b></li>`).join("");
     const io = new IntersectionObserver((ents) => { if (ents[0].isIntersecting) { $$(".seg", donut).forEach((c) => c.setAttribute("stroke-dasharray", `${c.dataset.len} ${C}`)); io.disconnect(); } }, { threshold: .4 });
     io.observe(donut);
+  }
+
+  /* ---------- Franchise calculator ---------- */
+  const calc = $("[data-calc]");
+  if (calc) {
+    const CUPS_PER_BILL = 1.4, DAYS = 30, MONTHS = 36;
+    const lakh = (n) => (n >= 100 ? `₹${(n / 100).toFixed(2).replace(/0$/, "")} Cr` : `₹${n.toFixed(1)} L`);
+    const inputs = Object.fromEntries($$("[data-in]", calc).map((i) => [i.dataset.in, i]));
+    const out = (k) => $(`[data-out='${k}']`, calc), res = (k) => $(`[data-r='${k}']`, calc);
+    const chart = res("chart");
+    const bars = Array.from({ length: MONTHS }, (_, i) => {
+      const r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      r.setAttribute("x", i * 10 + 1.5); r.setAttribute("width", 7); r.setAttribute("rx", 3.5);
+      chart.appendChild(r); return r;
+    });
+    const update = () => {
+      const cups = +inputs.cups.value, bill = +inputs.bill.value, inv = +inputs.inv.value, margin = +inputs.margin.value;
+      Object.values(inputs).forEach((i) => i.style.setProperty("--pct", `${((i.value - i.min) / (i.max - i.min)) * 100}%`));
+      out("cups").textContent = cups;
+      out("bill").textContent = `₹${bill}`;
+      out("inv").textContent = inv >= 100 ? `₹${(inv / 100).toFixed(2).replace(/0$/, "")} Cr` : `₹${inv} L`;
+      out("margin").textContent = `${margin}%`;
+      const rev = (cups / CUPS_PER_BILL) * bill * DAYS / 1e5;          // ₹ lakh per month
+      const profit = rev * margin / 100;
+      const payback = profit > 0 ? Math.ceil(inv / profit) : Infinity;
+      res("rev").textContent = lakh(rev);
+      res("profit").textContent = lakh(profit);
+      res("payback").textContent = payback === Infinity ? "Not reached" : payback > 99 ? "99+ months" : `${payback} month${payback === 1 ? "" : "s"}`;
+      res("breakeven").textContent = payback <= MONTHS ? `Break-even · month ${payback}` : "No break-even within 3 years";
+      const vals = bars.map((_, m) => -inv + profit * (m + 1));
+      const max = Math.max(inv, ...vals.map(Math.abs)) || 1;
+      bars.forEach((r, m) => {
+        const v = vals[m], h = Math.max(2, Math.abs(v) / max * 116);
+        r.setAttribute("y", 120 - h); r.setAttribute("height", h);
+        r.setAttribute("fill", v < 0 ? "#dcc3a3" : "#1f5f45");
+      });
+    };
+    Object.values(inputs).forEach((i) => i.addEventListener("input", update));
+    update();
   }
 
   /* ---------- Forms ---------- */

@@ -9,7 +9,7 @@ A 7-page, fully interactive website for **First Sip**, an Indian specialty coffe
 | `story.html` | Founder note, animated timeline, values, sustainability, team |
 | `shop.html` | Product grid, quick-view modal (grind choice), working cart drawer with free-delivery bar |
 | `locations.html` | Map of India with café pins, live "Open now" status (IST), hours, directions |
-| `invest.html` | Investor overview: KPIs, market, business model, animated charts, unit economics, roadmap, the ask, meeting form |
+| `franchise.html` | Franchise: formats, profit & payback calculator, growth chart, how it works, application form, FAQ |
 | `contact.html` | Contact + table reservation forms with validation, FAQ accordion |
 
 ## View it
