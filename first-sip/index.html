@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>First Sip — Specialty Coffee House</title>
+<meta name="description" content="First Sip is a premium Indian specialty coffee house. Estate-grown beans from Coorg, Chikmagalur and Araku, roasted in small batches and poured with care.">
+<meta name="theme-color" content="#fbf7f0">
+<meta property="og:title" content="First Sip — Specialty Coffee House">
+<meta property="og:description" content="First Sip is a premium Indian specialty coffee house. Estate-grown beans from Coorg, Chikmagalur and Araku, roasted in small batches and poured with care.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="index">
+<div class="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <svg class="preloader__logo" viewBox="0 0 120 120" aria-hidden="true"><path class="steam" d="M60 46c-6-6 6-10 0-16" fill="none" stroke="#C9A36A" stroke-width="3.2" stroke-linecap="round"/><path class="heart" d="M60 30c-7-6-15-10-12-17 3-5 10-4 12 2 2-6 9-7 12-2 3 7-5 11-12 17z" fill="#E4C58F"/><path d="M28 52h64v17c0 18-13 31-32 31S28 87 28 69z" fill="#C9A36A"/><path d="M92 58c13 0 14 21 0 22" fill="none" stroke="#C9A36A" stroke-width="6" stroke-linecap="round"/><ellipse cx="60" cy="105" rx="40" ry="5" fill="#C9A36A" opacity=".55"/><path d="M44 70q5-6 10 0M66 70q5-6 10 0M53 80q7 7 14 0" fill="none" stroke="#1A110D" stroke-width="3.2" stroke-linecap="round"/><circle cx="41" cy="78" r="4" fill="#E79C8F" opacity=".85"/><circle cx="79" cy="78" r="4" fill="#E79C8F" opacity=".85"/></svg>
+    <div class="preloader__word"><span>First</span> <span style="animation-delay:.12s"><i>Sip</i></span></div>
+    <div class="preloader__count"><span data-count>0</span>%</div>
+  </div>
+</div>
+<div class="curtain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span>View</span></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="brand" href="index.html" aria-label="First Sip home">
+      <svg class="brand__mark" viewBox="0 0 120 120" aria-hidden="true"><path class="steam" d="M60 46c-6-6 6-10 0-16" fill="none" stroke="#C9A36A" stroke-width="3.2" stroke-linecap="round"/><path class="heart" d="M60 30c-7-6-15-10-12-17 3-5 10-4 12 2 2-6 9-7 12-2 3 7-5 11-12 17z" fill="#E4C58F"/><path d="M28 52h64v17c0 18-13 31-32 31S28 87 28 69z" fill="#C9A36A"/><path d="M92 58c13 0 14 21 0 22" fill="none" stroke="#C9A36A" stroke-width="6" stroke-linecap="round"/><ellipse cx="60" cy="105" rx="40" ry="5" fill="#C9A36A" opacity=".55"/><path d="M44 70q5-6 10 0M66 70q5-6 10 0M53 80q7 7 14 0" fill="none" stroke="#1A110D" stroke-width="3.2" stroke-linecap="round"/><circle cx="41" cy="78" r="4" fill="#E79C8F" opacity=".85"/><circle cx="79" cy="78" r="4" fill="#E79C8F" opacity=".85"/></svg>
+      <span class="brand__name">First <i>Sip</i></span>
+    </a>
+    <nav class="nav" aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="menu.html">Menu</a><a href="story.html">Our Story</a><a href="shop.html">Shop</a><a href="locations.html">Cafés</a><a href="invest.html">Investors</a><a href="contact.html">Contact</a></nav>
+    <div class="header__actions">
+      <a class="btn btn--sm" href="contact.html#reserve" data-magnetic>Reserve a table</a>
+      <button class="icon-btn" type="button" data-cart-open aria-label="Open cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-cart-count>0</span></button>
+      <button class="icon-btn burger" type="button" data-burger aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" aria-hidden="true">
+  <nav aria-label="Mobile"><a href="index.html" aria-current="page" style="transition-delay:120ms"><small>01</small>Home</a><a href="menu.html" style="transition-delay:180ms"><small>02</small>Menu</a><a href="story.html" style="transition-delay:240ms"><small>03</small>Our Story</a><a href="shop.html" style="transition-delay:300ms"><small>04</small>Shop</a><a href="locations.html" style="transition-delay:360ms"><small>05</small>Cafés</a><a href="invest.html" style="transition-delay:420ms"><small>06</small>Investors</a><a href="contact.html" style="transition-delay:480ms"><small>07</small>Contact</a></nav>
+  <div class="mobile-menu__foot">
+    <span>hello@firstsip.coffee</span><span>+91 98200 12345</span><span>Mumbai · Bengaluru · Delhi</span>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-label="Introduction">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <span class="eyebrow" data-reveal>Specialty coffee house · Est. 2024</span>
+      <h1 class="hero__title" data-split>Every great day begins with the <em>first sip.</em></h1>
+      <p class="hero__sub" data-reveal="400">Estate-grown Indian coffee, roasted in small batches every morning and poured by people who care about every detail.</p>
+      <div class="hero__ctas" data-reveal="550">
+        <a class="btn" href="menu.html" data-magnetic>Explore the menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--ghost" href="invest.html" data-magnetic>Investor overview</a>
+      </div>
+      <div class="hero__proof" data-reveal="700">
+        <div><b data-counter="4.9" data-suffix="★">0</b><span>12,000+ guest reviews</span></div>
+        <div><b data-counter="40">0</b><span>Partner estates</span></div>
+        <div><b data-counter="100" data-suffix="%">0</b><span>Indian-grown coffee</span></div>
+      </div>
+    </div>
+    <div class="hero__visual" data-reveal="200">
+      <div class="media" data-cursor="view">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="A cup of coffee in soft morning light" data-parallax="0.06" fetchpriority="high">
+      </div>
+      <div class="hero__badge" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100 100m-80 0a80 80 0 1 1 160 0a80 80 0 1 1-160 0"/></defs>
+          <text style="font-family:var(--f-mono);font-size:15px;letter-spacing:5px;fill:#d9b77e"><textPath href="#circ">ROASTED FRESH · POURED WITH LOVE ·</textPath></text></svg>
+        <img src="assets/img/logo.svg" alt="">
+      </div>
+      <div class="hero__card">
+        <div class="media"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt=""></div>
+        <div><small>Today's roast</small><strong>Araku Valley Natural</strong><br><span class="muted" style="font-size:var(--fs-sm)">Blueberry · cacao · 1,200 m</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="beans" aria-hidden="true"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee marquee--gold" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__item">Single-estate Indian beans <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z"/></svg></span>
+    <span class="marquee__item">Roasted every morning <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z"/></svg></span>
+    <span class="marquee__item">Direct trade with 40 farms <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z"/></svg></span>
+    <span class="marquee__item">Pastry baked in-house <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z"/></svg></span>
+    <span class="marquee__item">Brewed at 93°C <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z"/></svg></span>
+  </div>
+</div>
+
+<!-- FROM BEAN TO CUP (scroll animation) -->
+<section class="brew" id="process" aria-label="From bean to cup">
+  <div class="container brew__grid">
+    <div class="brew__steps">
+      <div class="brew__intro">
+        <span class="eyebrow">From bean to cup</span>
+        <h2 class="display" data-split>Watch your cup <em>come to life.</em></h2>
+        <p class="lead" data-reveal>Scroll slowly. Every First Sip goes through four careful steps, and we control each one ourselves.</p>
+        <div class="scroll-cue" data-reveal><i></i>Keep scrolling</div>
+      </div>
+      <article class="brew__step">
+        <span class="brew__num"><b>01</b>Roasted</span>
+        <h3>Beans from our own estates</h3>
+        <p>Shade-grown arabica from Coorg, Chikmagalur and Araku, roasted in 12 kg batches and rested for seven days so the flavour settles.</p>
+        <div class="brew__facts"><span class="chip">1,000–1,500 m altitude</span><span class="chip">Hand-picked</span><span class="chip">Small-batch roast</span></div>
+      </article>
+      <article class="brew__step">
+        <span class="brew__num"><b>02</b>Ground</span>
+        <h3>Ground fresh, seconds before brewing</h3>
+        <p>Conical steel burrs grind each dose to order. Freshly ground coffee keeps the aromas that pre-ground coffee loses within minutes.</p>
+        <div class="brew__facts"><span class="chip">18 g dose</span><span class="chip">Calibrated daily</span></div>
+      </article>
+      <article class="brew__step">
+        <span class="brew__num"><b>03</b>Brewed</span>
+        <h3>Slow-brewed with water at 93°C</h3>
+        <p>We bloom the grounds for 40 seconds, then pour in slow spirals. Filtered, mineral-balanced water lets the coffee taste of its origin.</p>
+        <div class="brew__facts"><span class="chip">40 s bloom</span><span class="chip">1 : 16 ratio</span><span class="chip">4 minutes</span></div>
+      </article>
+      <article class="brew__step">
+        <span class="brew__num"><b>04</b>Served</span>
+        <h3>Poured for you, with a little love</h3>
+        <p>Into hand-finished porcelain, crema intact, with a heart on top. Then comes the best part of the day: your first sip.</p>
+        <div><a class="btn" href="menu.html" data-magnetic>Choose your cup <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+    </div>
+    <div class="brew__stage">
+      <div class="brew__sticky">
+        <canvas data-brew-canvas role="img" aria-label="Animation of coffee beans being ground, brewed into a glass mug and poured into a porcelain cup"></canvas>
+        <div class="brew__meta"><span data-brew-meta-k>Roast temp</span><b data-brew-meta-v>218°C</b></div>
+        <div class="brew__hud">
+          <span class="brew__label"><i></i><span data-brew-label>Roasted beans</span></span>
+          <span class="brew__dots" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="section section--dark">
+  <div class="container manifesto-grid">
+    <div><span class="eyebrow">Our promise</span></div>
+    <div>
+      <p class="manifesto">India grows some of the world's finest coffee, and most of it leaves the country. We bring it home: <em>picked by hand, roasted with patience,</em> and poured for you at its very best.</p>
+      <div class="manifesto-sig" data-reveal>
+        <div class="media"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="Portrait of the First Sip founder" loading="lazy"></div>
+        <div><strong>Ananya Rao</strong><br><span class="muted">Founder &amp; Head Roaster</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE DRINKS (horizontal scroll) -->
+<section class="hscroll" aria-label="Signature drinks">
+  <div class="hscroll__sticky">
+    <div class="container"><div class="hscroll__progress"><i></i></div></div>
+    <div class="hscroll__track">
+      <div class="drink drink--intro">
+        <span class="eyebrow">Signature pours</span>
+        <h2 class="display">Six cups we're <em>known</em> for.</h2>
+        <p class="lead">Each recipe starts with one of our single-estate coffees and one ingredient from an Indian kitchen.</p>
+        <a class="link-arrow" href="menu.html">See the full menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <article class="drink" data-cursor="view">
+        <div class="media"><img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Cappuccino with latte art" loading="lazy"></div>
+        <div class="drink__top"><h3 class="drink__name">The First Sip Latte</h3><span class="drink__price">₹320</span></div>
+        <div class="drink__notes"><span class="chip">Wild honey</span><span class="chip">Green cardamom</span><span class="chip">Coorg espresso</span></div>
+      </article>
+      <article class="drink" data-cursor="view">
+        <div class="media"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Cortado in a small glass" loading="lazy"></div>
+        <div class="drink__top"><h3 class="drink__name">Kashmiri Saffron Cortado</h3><span class="drink__price">₹360</span></div>
+        <div class="drink__notes"><span class="chip">Pampore saffron</span><span class="chip">Steamed milk</span></div>
+      </article>
+      <article class="drink" data-cursor="view">
+        <div class="media"><img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Iced cold brew in a tall glass" loading="lazy"></div>
+        <div class="drink__top"><h3 class="drink__name">Coorg Cold Brew</h3><span class="drink__price">₹290</span></div>
+        <div class="drink__notes"><span class="chip">18-hour steep</span><span class="chip">Cacao</span><span class="chip">Orange peel</span></div>
+      </article>
+      <article class="drink" data-cursor="view">
+        <div class="media"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Filter coffee with beans" loading="lazy"></div>
+        <div class="drink__top"><h3 class="drink__name">Filter Kaapi Royale</h3><span class="drink__price">₹240</span></div>
+        <div class="drink__notes"><span class="chip">Brass dabara</span><span class="chip">Jaggery</span></div>
+      </article>
+      <article class="drink" data-cursor="view">
+        <div class="media"><img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Mocha topped with cocoa" loading="lazy"></div>
+        <div class="drink__top"><h3 class="drink__name">Gulkand Rose Mocha</h3><span class="drink__price">₹340</span></div>
+        <div class="drink__notes"><span class="chip">Rose petal jam</span><span class="chip">70% dark chocolate</span></div>
+      </article>
+      <article class="drink" data-cursor="view">
+        <div class="media"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Iced coffee with milk" loading="lazy"></div>
+        <div class="drink__top"><h3 class="drink__name">Coconut Cloud</h3><span class="drink__price">₹310</span></div>
+        <div class="drink__notes"><span class="chip">Tender coconut</span><span class="chip">Double ristretto</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section section--alt">
+  <div class="container feature">
+    <div class="feature__media">
+      <div class="media reveal-img" data-cursor="view"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Warm café interior with wooden tables" loading="lazy"></div>
+      <div class="media media--small reveal-img"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Top-down view of a latte" loading="lazy"></div>
+    </div>
+    <div class="stack">
+      <span class="eyebrow">The café experience</span>
+      <h2 class="display" data-split>A room that feels like your <em>favourite morning.</em></h2>
+      <p class="lead" data-reveal>Warm teak, handmade Khurja tiles and soft daylight. Our cafés are designed for long conversations, focused work and the ten quiet minutes you deserve.</p>
+      <ul class="feature__list" data-stagger>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Open 7 am to 11 pm, seven days a week</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Fresh viennoiserie baked in-house every morning</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Order ahead in the app and skip the queue</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Weekend brew classes with our head roaster</span></li>
+      </ul>
+      <div><a class="btn" href="locations.html" data-magnetic>Find a café <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">First Sip in numbers</span><h2 class="h2" data-split>Small batches, <em>growing fast.</em></h2></div>
+    <div class="stats">
+      <div class="stat" data-reveal="0"><span class="stat__num" data-counter="40">0</span><span class="stat__label">Partner farms across Karnataka, Kerala and Andhra Pradesh</span></div>
+      <div class="stat" data-reveal="100"><span class="stat__num" data-counter="4.9" data-suffix="★">0</span><span class="stat__label">Average rating from 12,000+ guest reviews</span></div>
+      <div class="stat" data-reveal="200"><span class="stat__num" data-counter="2400">0</span><span class="stat__label">Cups poured every day across our cafés</span></div>
+      <div class="stat" data-reveal="300"><span class="stat__num" data-counter="7" data-suffix=" days">0</span><span class="stat__label">From roaster to your cup, never more than two weeks</span></div>
+    </div>
+    <p class="fine" style="margin-top:30px">Figures shown are placeholders for this presentation.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="container quotes" data-quotes>
+    <div class="stack">
+      <span class="eyebrow">Guest notes</span>
+      <h2 class="h2" data-split>Loved by the people who <em>know coffee.</em></h2>
+      <div class="quotes__nav">
+        <button class="icon-btn" type="button" data-prev aria-label="Previous review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button class="icon-btn" type="button" data-next aria-label="Next review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <div class="quotes__dots"></div>
+      </div>
+    </div>
+    <div class="quotes__stage">
+      <figure class="quote is-active">
+        <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+        <blockquote>“The saffron cortado is the best coffee I have had in Mumbai. You can taste the care in every detail, down to the cup.”</blockquote>
+        <figcaption class="quote__who"><div class="media"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" loading="lazy"></div><div><strong>Meera Kapoor</strong><span class="muted">Food writer, Mumbai</span></div></figcaption>
+      </figure>
+      <figure class="quote">
+        <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+        <blockquote>“I hold every client meeting at the BKC lounge now. Quiet, beautiful, and the cold brew is outstanding.”</blockquote>
+        <figcaption class="quote__who"><div class="media"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" loading="lazy"></div><div><strong>Arjun Mehta</strong><span class="muted">Partner, venture fund</span></div></figcaption>
+      </figure>
+      <figure class="quote">
+        <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+        <blockquote>“Finally, an Indian brand that treats our own coffee like the world-class product it is. The Araku natural is extraordinary.”</blockquote>
+        <figcaption class="quote__who"><div class="media"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" loading="lazy"></div><div><strong>Rohan Iyer</strong><span class="muted">Licensed Q-grader, Bengaluru</span></div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section section--alt" style="padding-top:clamp(70px,9vw,120px)">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack"><span class="eyebrow">@firstsip.coffee</span><h2 class="h2" data-split>Moments worth <em>savouring.</em></h2></div>
+      <div style="justify-self:end"><a class="link-arrow" href="https://instagram.com" target="_blank" rel="noopener">Follow on Instagram <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="gallery" data-stagger>
+      <a href="https://instagram.com" target="_blank" rel="noopener" data-cursor="view" aria-label="Instagram post"><div class="media"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Latte art heart" loading="lazy"></div></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" data-cursor="view" aria-label="Instagram post"><div class="media"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Café seating" loading="lazy"></div></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" data-cursor="view" aria-label="Instagram post"><div class="media"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Fresh croissants" loading="lazy"></div></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" data-cursor="view" aria-label="Instagram post"><div class="media"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Coffee beans close up" loading="lazy"></div></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" data-cursor="view" aria-label="Instagram post"><div class="media"><img src="https://images.unsplash.com/photo-1442975631115-c4f7b05b8a2c?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Pour-over brewing" loading="lazy"></div></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" data-cursor="view" aria-label="Instagram post"><div class="media"><img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Barista at the counter" loading="lazy"></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section" style="padding-block:clamp(60px,8vw,110px)">
+  <div class="container">
+    <div class="cta-band" data-reveal>
+      <div class="stack">
+        <h2 class="h2">Get <em>15% off</em> your first bag of beans.</h2>
+        <p class="lead">Join the First Sip letter for new roasts, café openings and invitations to private tastings. One email a fortnight.</p>
+      </div>
+      <div>
+        <form class="newsletter" data-newsletter novalidate>
+          <label class="sr-only" for="nl-email">Email address</label>
+          <input id="nl-email" type="email" placeholder="you@example.com" autocomplete="email">
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+        <p class="form-note" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="stack" style="max-width:360px">
+        <a class="brand" href="index.html" aria-label="First Sip home"><svg class="brand__mark" viewBox="0 0 120 120" aria-hidden="true"><path class="steam" d="M60 46c-6-6 6-10 0-16" fill="none" stroke="#C9A36A" stroke-width="3.2" stroke-linecap="round"/><path class="heart" d="M60 30c-7-6-15-10-12-17 3-5 10-4 12 2 2-6 9-7 12-2 3 7-5 11-12 17z" fill="#E4C58F"/><path d="M28 52h64v17c0 18-13 31-32 31S28 87 28 69z" fill="#C9A36A"/><path d="M92 58c13 0 14 21 0 22" fill="none" stroke="#C9A36A" stroke-width="6" stroke-linecap="round"/><ellipse cx="60" cy="105" rx="40" ry="5" fill="#C9A36A" opacity=".55"/><path d="M44 70q5-6 10 0M66 70q5-6 10 0M53 80q7 7 14 0" fill="none" stroke="#1A110D" stroke-width="3.2" stroke-linecap="round"/><circle cx="41" cy="78" r="4" fill="#E79C8F" opacity=".85"/><circle cx="79" cy="78" r="4" fill="#E79C8F" opacity=".85"/></svg><span class="brand__name">First <i>Sip</i></span></a>
+        <p class="muted">Specialty coffee from Indian estates, roasted in small batches and served with care. The best part of the day is the first sip.</p>
+        <div class="socials">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://x.com" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5z"/></svg></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 9h3v12H3zM9 9h2.9v1.7c.5-.9 1.7-2 3.6-2 3.8 0 4.5 2.4 4.5 5.6V21h-3v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v6H9z"/></svg></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8zM10 15.2V8.8l5.2 3.2-5.2 3.2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="locations.html">Our cafés</a></li>
+          <li><a href="contact.html#reserve">Reservations</a></li>
+          <li><a href="contact.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">Coffee beans</a></li>
+          <li><a href="shop.html#subscribe">Subscriptions</a></li>
+          <li><a href="shop.html">Brew gear</a></li>
+          <li><a href="shop.html">Gift boxes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="story.html">Our story</a></li>
+          <li><a href="invest.html">Investors</a></li>
+          <li><a href="invest.html#franchise">Franchise</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__big" aria-hidden="true">First <i>Sip</i></div>
+    <div class="footer__bottom">
+      <span>© <span data-year>2026</span> First Sip Coffee Co. All rights reserved.</span>
+      <span>Grown in India · Roasted in Coorg · Poured with love</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Back to top">
+  <svg class="ring" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" stroke="rgba(244,234,217,.12)"/><circle cx="27" cy="27" r="25" stroke="#c9a36a" data-ring stroke-dasharray="157" stroke-dashoffset="157"/></svg>
+  <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+</button>
+
+<div class="overlay" data-overlay></div>
+<aside class="drawer" data-drawer aria-label="Cart" aria-hidden="true">
+  <div class="drawer__head">
+    <h3>Your bag</h3>
+    <button class="drawer__close" type="button" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer__body" data-cart-lines></div>
+  <div class="drawer__foot">
+    <div class="ship-bar"><span data-ship-msg>Add ₹1,500 more for free delivery</span><div class="ship-bar__track"><i data-ship-bar></i></div></div>
+    <div class="row-between"><span>Subtotal</span><strong data-cart-total>₹0</strong></div>
+    <button class="btn btn--dark" type="button" data-checkout style="justify-content:center">Checkout <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</aside>
+<div class="toast" role="status" aria-live="polite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.8 2.8L16 10"/></svg><span data-toast-msg></span></div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/brew.js" defer></script>
+</body>
+</html>

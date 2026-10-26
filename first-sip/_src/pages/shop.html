@@ -1,0 +1,79 @@
+<!--
+title: Shop
+description: Shop First Sip single-estate Indian coffee beans, brew gear and gift boxes, roasted to order and delivered fresh across India.
+nav: shop
+-->
+
+<section class="page-hero">
+  <div class="container page-hero__grid">
+    <div class="stack" style="gap:28px">
+      <div class="page-hero__crumb"><a href="index.html">Home</a><span>/</span><span>Shop</span></div>
+      <h1 data-split>The roastery, <em>delivered.</em></h1>
+      <p class="lead" data-reveal="300">Roasted to order on Monday and Thursday, packed in a one-way valve bag and at your door within 72 hours anywhere in India.</p>
+    </div>
+    <div class="media reveal-img" data-cursor="view"><img src="{{img:photo-1559056199-641a0ac8b55e:1000}}" alt="Roasted coffee beans" data-parallax="0.06"></div>
+  </div>
+</section>
+
+<section class="section" style="padding-block:40px;border-block:1px solid rgba(201,163,106,.18)">
+  <div class="container perks" data-stagger>
+    <div class="perk">{{icon:truck}}<div><strong>Free delivery</strong><span>On orders over ₹1,500</span></div></div>
+    <div class="perk">{{icon:flame}}<div><strong>Roasted to order</strong><span>Never older than 10 days</span></div></div>
+    <div class="perk">{{icon:gift}}<div><strong>Gift wrapping</strong><span>Hand-tied, with a note</span></div></div>
+    <div class="perk">{{icon:shield}}<div><strong>Love it or swap it</strong><span>Free replacement, no questions</span></div></div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="menu-toolbar">
+      <h2 class="h2">Shop all</h2>
+      <div class="filters" role="group" aria-label="Filter products">
+        <button type="button" class="is-active" data-filter="all">All</button>
+        <button type="button" data-filter="beans">Coffee beans</button>
+        <button type="button" data-filter="gear">Brew gear</button>
+        <button type="button" data-filter="gifts">Gifts</button>
+      </div>
+    </div>
+    <div class="shop-grid" data-shop-grid></div>
+  </div>
+</section>
+
+<section class="section" id="subscribe">
+  <div class="container feature">
+    <div class="feature__media">
+      <div class="media reveal-img"><img src="{{img:photo-1442512595331-e89e73853f31:1100}}" alt="Coffee and a journal on a table" loading="lazy"></div>
+    </div>
+    <div class="stack">
+      <span class="eyebrow">First Sip Club</span>
+      <h2 class="display" data-split>Never run out of <em>good mornings.</em></h2>
+      <p class="lead" data-reveal>A new single-estate coffee every two or four weeks, chosen by our head roaster, with tasting notes and a story from the farm.</p>
+      <ul class="feature__list" data-stagger>
+        <li>{{icon:check}}<span>Save 15% on every bag, plus free delivery</span></li>
+        <li>{{icon:check}}<span>Skip, pause or cancel any time in two taps</span></li>
+        <li>{{icon:check}}<span>Members-only micro-lots and café tasting invitations</span></li>
+      </ul>
+      <div style="display:flex;flex-wrap:wrap;gap:12px"><button class="btn" type="button" data-add="firstsip" data-opt="Club subscription · every 2 weeks" data-magnetic>Start for ₹594 / bag {{icon:arrow}}</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- Quick view -->
+<div class="modal" data-modal role="dialog" aria-modal="true" aria-label="Product details">
+  <div class="modal__box">
+    <div class="media"><img data-m-img src="" alt=""></div>
+    <div class="modal__content">
+      <button class="drawer__close" type="button" data-close aria-label="Close">{{icon:close}}</button>
+      <span class="eyebrow" data-m-origin></span>
+      <h3 class="h2" data-m-name></h3>
+      <strong class="mono" data-m-price style="font-size:1.2rem"></strong>
+      <p class="muted" data-m-notes></p>
+      <div class="opt-group" data-m-grind>
+        <label class="lbl">Grind</label>
+        <div class="opts"><button type="button">Whole bean</button><button type="button">Espresso</button><button type="button">Filter</button><button type="button">French press</button><button type="button">South Indian filter</button></div>
+      </div>
+      <button class="btn btn--dark" type="button" data-m-add style="justify-content:center">Add to bag {{icon:arrow}}</button>
+      <p class="muted" style="font-size:var(--fs-sm)">Ships in 2 to 3 days. Free delivery over ₹1,500.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cafés · First Sip</title>
+<meta name="description" content="Find a First Sip café in Mumbai, Bengaluru, New Delhi and Hyderabad. Opening hours, addresses and directions.">
+<meta name="theme-color" content="#fbf7f0">
+<meta property="og:title" content="Cafés · First Sip">
+<meta property="og:description" content="Find a First Sip café in Mumbai, Bengaluru, New Delhi and Hyderabad. Opening hours, addresses and directions.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="locations">
+<div class="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <svg class="preloader__logo" viewBox="0 0 120 120" aria-hidden="true"><path class="steam" d="M60 46c-6-6 6-10 0-16" fill="none" stroke="#C9A36A" stroke-width="3.2" stroke-linecap="round"/><path class="heart" d="M60 30c-7-6-15-10-12-17 3-5 10-4 12 2 2-6 9-7 12-2 3 7-5 11-12 17z" fill="#E4C58F"/><path d="M28 52h64v17c0 18-13 31-32 31S28 87 28 69z" fill="#C9A36A"/><path d="M92 58c13 0 14 21 0 22" fill="none" stroke="#C9A36A" stroke-width="6" stroke-linecap="round"/><ellipse cx="60" cy="105" rx="40" ry="5" fill="#C9A36A" opacity=".55"/><path d="M44 70q5-6 10 0M66 70q5-6 10 0M53 80q7 7 14 0" fill="none" stroke="#1A110D" stroke-width="3.2" stroke-linecap="round"/><circle cx="41" cy="78" r="4" fill="#E79C8F" opacity=".85"/><circle cx="79" cy="78" r="4" fill="#E79C8F" opacity=".85"/></svg>
+    <div class="preloader__word"><span>First</span> <span style="animation-delay:.12s"><i>Sip</i></span></div>
+    <div class="preloader__count"><span data-count>0</span>%</div>
+  </div>
+</div>
+<div class="curtain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span>View</span></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<header class="header" id="top">
+  <div class="container header__inner">
+    <a class="brand" href="index.html" aria-label="First Sip home">
+      <svg class="brand__mark" viewBox="0 0 120 120" aria-hidden="true"><path class="steam" d="M60 46c-6-6 6-10 0-16" fill="none" stroke="#C9A36A" stroke-width="3.2" stroke-linecap="round"/><path class="heart" d="M60 30c-7-6-15-10-12-17 3-5 10-4 12 2 2-6 9-7 12-2 3 7-5 11-12 17z" fill="#E4C58F"/><path d="M28 52h64v17c0 18-13 31-32 31S28 87 28 69z" fill="#C9A36A"/><path d="M92 58c13 0 14 21 0 22" fill="none" stroke="#C9A36A" stroke-width="6" stroke-linecap="round"/><ellipse cx="60" cy="105" rx="40" ry="5" fill="#C9A36A" opacity=".55"/><path d="M44 70q5-6 10 0M66 70q5-6 10 0M53 80q7 7 14 0" fill="none" stroke="#1A110D" stroke-width="3.2" stroke-linecap="round"/><circle cx="41" cy="78" r="4" fill="#E79C8F" opacity=".85"/><circle cx="79" cy="78" r="4" fill="#E79C8F" opacity=".85"/></svg>
+      <span class="brand__name">First <i>Sip</i></span>
+    </a>
+    <nav class="nav" aria-label="Main"><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="story.html">Our Story</a><a href="shop.html">Shop</a><a href="locations.html" aria-current="page">Cafés</a><a href="invest.html">Investors</a><a href="contact.html">Contact</a></nav>
+    <div class="header__actions">
+      <a class="btn btn--sm" href="contact.html#reserve" data-magnetic>Reserve a table</a>
+      <button class="icon-btn" type="button" data-cart-open aria-label="Open cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-count" data-cart-count>0</span></button>
+      <button class="icon-btn burger" type="button" data-burger aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" aria-hidden="true">
+  <nav aria-label="Mobile"><a href="index.html" style="transition-delay:120ms"><small>01</small>Home</a><a href="menu.html" style="transition-delay:180ms"><small>02</small>Menu</a><a href="story.html" style="transition-delay:240ms"><small>03</small>Our Story</a><a href="shop.html" style="transition-delay:300ms"><small>04</small>Shop</a><a href="locations.html" aria-current="page" style="transition-delay:360ms"><small>05</small>Cafés</a><a href="invest.html" style="transition-delay:420ms"><small>06</small>Investors</a><a href="contact.html" style="transition-delay:480ms"><small>07</small>Contact</a></nav>
+  <div class="mobile-menu__foot">
+    <span>hello@firstsip.coffee</span><span>+91 98200 12345</span><span>Mumbai · Bengaluru · Delhi</span>
+  </div>
+</div>
+
+<main id="main">
+
+<section class="page-hero" style="padding-bottom:40px">
+  <div class="container page-hero__grid" style="align-items:center">
+    <div class="stack" style="gap:28px">
+      <div class="page-hero__crumb"><a href="index.html">Home</a><span>/</span><span>Cafés</span></div>
+      <h1 data-split>Find your <em>nearest</em> first sip.</h1>
+      <p class="lead" data-reveal="300">Five cafés across four cities, each designed with a local architect and each with its own house pastry. Tap a café or a pin on the map.</p>
+    </div>
+    <div class="india-map" data-reveal="200">
+      <svg viewBox="-10 -10 390 490" role="img" aria-label="Map of India with First Sip café locations">
+        <path d="M81 0L121 24L136 72L161 108L198 153L248 145L258 151L291 146L360 143L341 167L322 199L304 231L305 238L291 207L270 186L254 199L260 238L236 246L211 278L180 318L152 342L151 382L149 425L117 460L99 429L84 385L72 342L60 286L57 254L31 259L12 234L6 215L25 199L31 151L50 127L81 95L74 64L68 32Z"
+          fill="rgba(201,163,106,.08)" stroke="rgba(201,163,106,.55)" stroke-width="1.5" stroke-linejoin="round"/>
+        <g font-family="DM Mono, monospace" font-size="10" fill="#8a6330" letter-spacing="1.5">
+          <text x="70" y="128">DELHI</text>
+          <text x="2" y="300">MUMBAI</text>
+          <text x="140" y="316">HYDERABAD</text>
+          <text x="128" y="392">BENGALURU</text>
+        </g>
+        <g data-pins></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:40px">
+  <div class="container loc-layout">
+    <div class="loc-list" data-loc-list></div>
+    <div class="loc-detail fade-swap" data-loc-detail aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div class="stack"><span class="eyebrow">Coming soon</span><h2 class="display" data-split>Next stops on the <em>map.</em></h2></div>
+      <p class="lead" data-reveal>Twelve new cafés are planned for 2027. Want First Sip in your city or building? Tell us on the contact page.</p>
+    </div>
+    <div class="streams" data-stagger style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="pairing__card"><span class="mono">Q1 2027</span><h3 class="h3">Pune</h3><p class="muted">Koregaon Park</p></div>
+      <div class="pairing__card"><span class="mono">Q2 2027</span><h3 class="h3">Chennai</h3><p class="muted">Alwarpet</p></div>
+      <div class="pairing__card"><span class="mono">Q2 2027</span><h3 class="h3">Gurugram</h3><p class="muted">Golf Course Road</p></div>
+      <div class="pairing__card"><span class="mono">Q3 2027</span><h3 class="h3">Kolkata</h3><p class="muted">Park Street</p></div>
+      <div class="pairing__card"><span class="mono">Q4 2027</span><h3 class="h3">Goa</h3><p class="muted">Assagao</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band" data-reveal>
+      <div class="stack">
+        <h2 class="h2">Host a First Sip <em>at work.</em></h2>
+        <p class="lead">Corporate coffee bars, event carts and office subscriptions for teams of 20 to 20,000.</p>
+      </div>
+      <div><a class="btn btn--dark" href="contact.html" data-magnetic>Talk to our team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="stack" style="max-width:360px">
+        <a class="brand" href="index.html" aria-label="First Sip home"><svg class="brand__mark" viewBox="0 0 120 120" aria-hidden="true"><path class="steam" d="M60 46c-6-6 6-10 0-16" fill="none" stroke="#C9A36A" stroke-width="3.2" stroke-linecap="round"/><path class="heart" d="M60 30c-7-6-15-10-12-17 3-5 10-4 12 2 2-6 9-7 12-2 3 7-5 11-12 17z" fill="#E4C58F"/><path d="M28 52h64v17c0 18-13 31-32 31S28 87 28 69z" fill="#C9A36A"/><path d="M92 58c13 0 14 21 0 22" fill="none" stroke="#C9A36A" stroke-width="6" stroke-linecap="round"/><ellipse cx="60" cy="105" rx="40" ry="5" fill="#C9A36A" opacity=".55"/><path d="M44 70q5-6 10 0M66 70q5-6 10 0M53 80q7 7 14 0" fill="none" stroke="#1A110D" stroke-width="3.2" stroke-linecap="round"/><circle cx="41" cy="78" r="4" fill="#E79C8F" opacity=".85"/><circle cx="79" cy="78" r="4" fill="#E79C8F" opacity=".85"/></svg><span class="brand__name">First <i>Sip</i></span></a>
+        <p class="muted">Specialty coffee from Indian estates, roasted in small batches and served with care. The best part of the day is the first sip.</p>
+        <div class="socials">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://x.com" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5z"/></svg></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 9h3v12H3zM9 9h2.9v1.7c.5-.9 1.7-2 3.6-2 3.8 0 4.5 2.4 4.5 5.6V21h-3v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v6H9z"/></svg></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8zM10 15.2V8.8l5.2 3.2-5.2 3.2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="locations.html">Our cafés</a></li>
+          <li><a href="contact.html#reserve">Reservations</a></li>
+          <li><a href="contact.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">Coffee beans</a></li>
+          <li><a href="shop.html#subscribe">Subscriptions</a></li>
+          <li><a href="shop.html">Brew gear</a></li>
+          <li><a href="shop.html">Gift boxes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="story.html">Our story</a></li>
+          <li><a href="invest.html">Investors</a></li>
+          <li><a href="invest.html#franchise">Franchise</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__big" aria-hidden="true">First <i>Sip</i></div>
+    <div class="footer__bottom">
+      <span>© <span data-year>2026</span> First Sip Coffee Co. All rights reserved.</span>
+      <span>Grown in India · Roasted in Coorg · Poured with love</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Back to top">
+  <svg class="ring" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" stroke="rgba(244,234,217,.12)"/><circle cx="27" cy="27" r="25" stroke="#c9a36a" data-ring stroke-dasharray="157" stroke-dashoffset="157"/></svg>
+  <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+</button>
+
+<div class="overlay" data-overlay></div>
+<aside class="drawer" data-drawer aria-label="Cart" aria-hidden="true">
+  <div class="drawer__head">
+    <h3>Your bag</h3>
+    <button class="drawer__close" type="button" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer__body" data-cart-lines></div>
+  <div class="drawer__foot">
+    <div class="ship-bar"><span data-ship-msg>Add ₹1,500 more for free delivery</span><div class="ship-bar__track"><i data-ship-bar></i></div></div>
+    <div class="row-between"><span>Subtotal</span><strong data-cart-total>₹0</strong></div>
+    <button class="btn btn--dark" type="button" data-checkout style="justify-content:center">Checkout <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</aside>
+<div class="toast" role="status" aria-live="polite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.8 2.8L16 10"/></svg><span data-toast-msg></span></div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

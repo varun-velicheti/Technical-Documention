@@ -1,0 +1,134 @@
+<!--
+title: Menu
+description: The First Sip menu: espresso classics, signature Indian-inspired pours, slow-bar filter coffee, cold brews and pastry baked in-house.
+nav: menu
+-->
+
+<section class="page-hero">
+  <div class="container page-hero__grid">
+    <div class="stack" style="gap:28px">
+      <div class="page-hero__crumb"><a href="index.html">Home</a><span>/</span><span>Menu</span></div>
+      <h1 data-split>Crafted cups, <em>honest</em> ingredients.</h1>
+      <p class="lead" data-reveal="300">Every drink is made with our own single-estate coffee, A2 milk from a farm outside Pune, and syrups we cook in-house. Oat, almond and coconut milk at no extra charge.</p>
+    </div>
+    <div class="media reveal-img" data-cursor="view"><img src="{{img:photo-1447933601403-0c6688de566e:1000}}" alt="Latte art being poured" data-parallax="0.06"></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:20px">
+  <div class="container">
+    <div class="menu-toolbar">
+      <div class="tabs" data-tabs role="tablist" aria-label="Menu categories">
+        <span class="tabs__pill" aria-hidden="true"></span>
+        <button type="button" class="is-active" data-tab="all" role="tab" aria-selected="true">All</button>
+        <button type="button" data-tab="signature" role="tab" aria-selected="false">Signature</button>
+        <button type="button" data-tab="espresso" role="tab" aria-selected="false">Espresso</button>
+        <button type="button" data-tab="slow" role="tab" aria-selected="false">Slow bar</button>
+        <button type="button" data-tab="cold" role="tab" aria-selected="false">Cold</button>
+        <button type="button" data-tab="bakery" role="tab" aria-selected="false">Bakery</button>
+      </div>
+      <div class="size-toggle"><span>Cup size</span>
+        <div class="seg" role="group" aria-label="Cup size">
+          <button type="button" data-size="0">Small</button>
+          <button type="button" data-size="1" class="is-active">Regular</button>
+          <button type="button" data-size="2">Large</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-grid" data-stagger>
+      <article class="menu-item" data-cat="signature">
+        <div class="menu-item__img"><span class="badge">House favourite</span><div class="media" data-cursor="view"><img src="{{img:photo-1572442388796-11668a67e53d:600}}" alt="The First Sip Latte" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>The First Sip Latte</h3><span class="menu-item__price" data-prices="280,320,370">₹320</span></div>
+        <p>Coorg espresso, wild forest honey and freshly ground green cardamom, finished with velvet milk.</p>
+        <div class="menu-item__tags"><span class="chip">Hot or iced</span><span class="chip">Bestseller</span></div>
+      </article>
+      <article class="menu-item" data-cat="signature">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1514432324607-a09d9b4aefdd:600}}" alt="Kashmiri Saffron Cortado" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Kashmiri Saffron Cortado</h3><span class="menu-item__price" data-prices="320,360">₹360</span></div>
+        <p>A short, strong cortado with Pampore saffron steeped overnight in warm milk.</p>
+        <div class="menu-item__tags"><span class="chip">Small batch</span></div>
+      </article>
+      <article class="menu-item" data-cat="signature">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1578314675249-a6910f80cc4e:600}}" alt="Gulkand Rose Mocha" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Gulkand Rose Mocha</h3><span class="menu-item__price" data-prices="300,340,390">₹340</span></div>
+        <p>70% single-origin Idukki chocolate, rose petal gulkand and a double shot. Dessert in a cup.</p>
+        <div class="menu-item__tags"><span class="chip">Contains nuts</span></div>
+      </article>
+      <article class="menu-item" data-cat="espresso">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1510707577719-ae7c14805e3a:600}}" alt="Espresso shot" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Espresso</h3><span class="menu-item__price" data-prices="180,220">₹220</span></div>
+        <p>Our First Sip Blend: hazelnut, milk chocolate and a clean, sweet finish. Single or double.</p>
+        <div class="menu-item__tags"><span class="chip">18 g · 36 g · 28 s</span></div>
+      </article>
+      <article class="menu-item" data-cat="espresso">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1534778101976-62847782c213:600}}" alt="Cappuccino" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Cappuccino</h3><span class="menu-item__price" data-prices="240,280,320">₹280</span></div>
+        <p>Equal parts espresso, steamed milk and dense microfoam. The way Italians intended.</p>
+        <div class="menu-item__tags"><span class="chip">Any milk</span></div>
+      </article>
+      <article class="menu-item" data-cat="espresso">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1511920170033-f8396924c348:600}}" alt="Flat white" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Flat White</h3><span class="menu-item__price" data-prices="260,300">₹300</span></div>
+        <p>A ristretto double with a thin layer of silky milk. Strong, smooth and sweet.</p>
+        <div class="menu-item__tags"><span class="chip">Ristretto</span></div>
+      </article>
+      <article class="menu-item" data-cat="slow">
+        <div class="menu-item__img"><span class="badge">Seasonal</span><div class="media" data-cursor="view"><img src="{{img:photo-1442975631115-c4f7b05b8a2c:600}}" alt="Pour-over coffee" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Araku Pour-Over</h3><span class="menu-item__price" data-prices="340,420">₹420</span></div>
+        <p>Hand-poured V60 of our Araku Valley natural. Blueberry, cacao nib and wildflower honey.</p>
+        <div class="menu-item__tags"><span class="chip">Served black</span><span class="chip">4 minutes</span></div>
+      </article>
+      <article class="menu-item" data-cat="slow">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1509042239860-f550ce710b93:600}}" alt="South Indian filter coffee" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Filter Kaapi Royale</h3><span class="menu-item__price" data-prices="200,240">₹240</span></div>
+        <p>Brass-filter decoction with 20% chicory, frothed with jaggery milk and served in a dabara set.</p>
+        <div class="menu-item__tags"><span class="chip">Heritage</span></div>
+      </article>
+      <article class="menu-item" data-cat="cold">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1517701604599-bb29b565090c:600}}" alt="Cold brew" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Coorg Cold Brew</h3><span class="menu-item__price" data-prices="250,290,330">₹290</span></div>
+        <p>Steeped for 18 hours, served over a single clear ice cube with a twist of orange.</p>
+        <div class="menu-item__tags"><span class="chip">Vegan</span><span class="chip">No sugar</span></div>
+      </article>
+      <article class="menu-item" data-cat="cold">
+        <div class="menu-item__img"><span class="badge">New</span><div class="media" data-cursor="view"><img src="{{img:photo-1461023058943-07fcbe16d735:600}}" alt="Coconut iced coffee" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Coconut Cloud</h3><span class="menu-item__price" data-prices="270,310,350">₹310</span></div>
+        <p>Tender coconut water, double ristretto and a coconut cream cold foam.</p>
+        <div class="menu-item__tags"><span class="chip">Vegan</span></div>
+      </article>
+      <article class="menu-item" data-cat="bakery">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1555507036-ab1f4038808a:600}}" alt="Butter croissant" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Cultured Butter Croissant</h3><span class="menu-item__price" data-prices="220">₹220</span></div>
+        <p>Laminated over three days with French-style cultured butter. Baked every morning at 6.</p>
+        <div class="menu-item__tags"><span class="chip">Vegetarian</span></div>
+      </article>
+      <article class="menu-item" data-cat="bakery">
+        <div class="menu-item__img"><div class="media" data-cursor="view"><img src="{{img:photo-1509440159596-0249088772ff:600}}" alt="Sourdough loaf" loading="lazy"></div></div>
+        <div class="menu-item__top"><h3>Cardamom Morning Bun</h3><span class="menu-item__price" data-prices="190">₹190</span></div>
+        <p>Swirled brioche with cardamom sugar and orange zest. Best with the First Sip Latte.</p>
+        <div class="menu-item__tags"><span class="chip">Vegetarian</span><span class="chip">Pairs with latte</span></div>
+      </article>
+    </div>
+    <p class="muted" style="font-size:var(--fs-sm);margin-top:48px">Prices include GST. Please tell our team about any allergies. All dairy is A2; plant milks are free.</p>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">Perfect pairings</span><h2 class="h2" data-split>Our baristas <em>recommend.</em></h2></div>
+    <div class="pairing" data-stagger>
+      <div class="pairing__card" data-tilt><span class="mono">Morning</span><h3 class="h3">First Sip Latte + Cardamom Morning Bun</h3><p class="muted">Honey and cardamom on both sides of the plate. Our most ordered breakfast.</p><strong class="mono">₹480 together</strong></div>
+      <div class="pairing__card" data-tilt><span class="mono">Afternoon</span><h3 class="h3">Coorg Cold Brew + Dark Chocolate Tart</h3><p class="muted">The cacao notes in the brew meet 70% Idukki chocolate. Rich, cool and clean.</p><strong class="mono">₹520 together</strong></div>
+      <div class="pairing__card" data-tilt><span class="mono">Slow evening</span><h3 class="h3">Araku Pour-Over + Butter Croissant</h3><p class="muted">Fruit-forward coffee with plain, perfect pastry. Let the coffee lead.</p><strong class="mono">₹600 together</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__item">Order ahead in the First Sip app {{icon:sparkle}}</span>
+    <span class="marquee__item">Plant milks at no extra cost {{icon:sparkle}}</span>
+    <span class="marquee__item">Bring your own cup, save ₹20 {{icon:sparkle}}</span>
+  </div>
+</div>

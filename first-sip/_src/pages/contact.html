@@ -1,0 +1,109 @@
+<!--
+title: Contact
+description: Contact First Sip, reserve a table at one of our cafés, or find answers to common questions about orders, events and franchising.
+nav: contact
+-->
+
+<section class="page-hero" style="padding-bottom:30px">
+  <div class="container stack" style="gap:28px">
+    <div class="page-hero__crumb"><a href="index.html">Home</a><span>/</span><span>Contact</span></div>
+    <h1 data-split style="max-width:14ch">Say hello, or <em>save a seat.</em></h1>
+  </div>
+</section>
+
+<section class="section" id="reserve" style="padding-top:40px">
+  <div class="container contact-grid">
+    <div class="stack">
+      <p class="lead" data-reveal>Questions, feedback, events or press, our team reads every message. For tables of 7 or more, or private events, use the reservation form and we'll call you back.</p>
+      <div class="contact-cards" data-stagger>
+        <div class="contact-card"><span class="ic">{{icon:mail}}</span><div><strong>hello@firstsip.coffee</strong><br><button class="copy-btn" type="button" data-copy="hello@firstsip.coffee">Copy email</button></div></div>
+        <div class="contact-card"><span class="ic">{{icon:phone}}</span><div><strong>+91 98200 12345</strong><br><button class="copy-btn" type="button" data-copy="+91 98200 12345">Copy number</button></div></div>
+        <div class="contact-card"><span class="ic">{{icon:clock}}</span><div><strong>Every day, 7 am – 11 pm</strong><br><span class="muted">Customer care 9 am – 9 pm IST</span></div></div>
+        <div class="contact-card"><span class="ic">{{icon:pin}}</span><div><strong>Head office &amp; roastery</strong><br><span class="muted">Carter Road, Bandra West, Mumbai 400050</span></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="seg-tabs" data-seg role="tablist" aria-label="Form type">
+        <button type="button" class="is-active" data-target="message" role="tab" aria-selected="true">Send a message</button>
+        <button type="button" data-target="reserve" role="tab" aria-selected="false">Reserve a table</button>
+      </div>
+
+      <div data-panel="message">
+        <form class="form" data-form novalidate>
+          <div class="form-row">
+            <div class="field"><input id="c-name" name="name" placeholder=" " data-rules="required" autocomplete="name"><label for="c-name">Your name</label><span class="err"></span></div>
+            <div class="field"><input id="c-email" name="email" type="email" placeholder=" " data-rules="required email" autocomplete="email"><label for="c-email">Email</label><span class="err"></span></div>
+          </div>
+          <div class="field">
+            <select id="c-topic" name="topic" data-rules="required">
+              <option value="">Choose a topic</option>
+              <option>General question</option>
+              <option>Online order</option>
+              <option>Corporate &amp; events</option>
+              <option>Press</option>
+              <option>Careers</option>
+            </select><label for="c-topic">Topic</label><span class="err"></span>
+          </div>
+          <div class="field"><textarea id="c-msg" name="message" placeholder=" " data-rules="required"></textarea><label for="c-msg">How can we help?</label><span class="err"></span></div>
+          <div><button class="btn" type="submit" data-magnetic>Send message {{icon:arrow}}</button></div>
+        </form>
+      </div>
+
+      <div data-panel="reserve" hidden>
+        <form class="form" data-form novalidate data-success="Table requested{name}. We'll confirm by SMS within 30 minutes.">
+          <div class="form-row">
+            <div class="field"><input id="r-name" name="name" placeholder=" " data-rules="required" autocomplete="name"><label for="r-name">Your name</label><span class="err"></span></div>
+            <div class="field"><input id="r-phone" name="phone" type="tel" placeholder=" " data-rules="required phone" autocomplete="tel"><label for="r-phone">Mobile number</label><span class="err"></span></div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <select id="r-cafe" name="cafe" data-rules="required">
+                <option value="">Choose a café</option>
+                <option>Bandra Flagship, Mumbai</option>
+                <option>BKC Business Lounge, Mumbai</option>
+                <option>Indiranagar House, Bengaluru</option>
+                <option>Khan Market Atelier, New Delhi</option>
+              </select><label for="r-cafe">Café</label><span class="err"></span>
+            </div>
+            <div class="field"><input id="r-date" name="date" type="date" placeholder=" " data-rules="required"><label for="r-date">Date</label><span class="err"></span></div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <select id="r-time" name="time" data-rules="required">
+                <option value="">Choose a time</option>
+                <option>8:00 am</option><option>9:30 am</option><option>11:00 am</option><option>1:00 pm</option><option>3:30 pm</option><option>5:00 pm</option><option>7:00 pm</option><option>8:30 pm</option>
+              </select><label for="r-time">Time</label><span class="err"></span>
+            </div>
+            <div class="field" style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border:1px solid rgba(244,234,217,.18);border-radius:14px">
+              <output for="r-guests" aria-live="polite">2 guests</output>
+              <div class="guests" data-guests>
+                <input id="r-guests" name="guests" type="hidden" value="2">
+                <button class="icon-btn" type="button" data-step="-1" aria-label="Fewer guests">−</button>
+                <button class="icon-btn" type="button" data-step="1" aria-label="More guests">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="field"><textarea id="r-notes" name="notes" placeholder=" "></textarea><label for="r-notes">Occasion or requests (optional)</label><span class="err"></span></div>
+          <div><button class="btn" type="submit" data-magnetic>Request table {{icon:arrow}}</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="faq">
+  <div class="container contact-grid">
+    <div class="stack">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="display" data-split>Good <em>questions.</em></h2>
+      <p class="lead" data-reveal>Can't find your answer? Write to hello@firstsip.coffee.</p>
+    </div>
+    <div class="faq">
+      <div class="faq__item"><button class="faq__q" type="button" aria-expanded="false">Where does your coffee come from?<span class="plus" aria-hidden="true"></span></button><div class="faq__a"><div><p>Every bean is grown in India, on 40 partner estates in Coorg, Chikmagalur, Wayanad and the Araku Valley. Each bag lists the farm, altitude, variety and harvest month.</p></div></div></div>
+      <div class="faq__item"><button class="faq__q" type="button" aria-expanded="false">How fresh are the beans I order online?<span class="plus" aria-hidden="true"></span></button><div class="faq__a"><div><p>We roast on Mondays and Thursdays and ship within 48 hours of roasting. Your coffee will never be more than 10 days off the roaster when it arrives.</p></div></div></div>
+      <div class="faq__item"><button class="faq__q" type="button" aria-expanded="false">Do you offer plant-based milk?<span class="plus" aria-hidden="true"></span></button><div class="faq__a"><div><p>Yes. Oat, almond and coconut milk are available in every drink at no extra charge.</p></div></div></div>
+      <div class="faq__item"><button class="faq__q" type="button" aria-expanded="false">Can First Sip cater our office or event?<span class="plus" aria-hidden="true"></span></button><div class="faq__a"><div><p>We run espresso carts for events, full coffee bars for offices and monthly bean subscriptions for teams. Choose "Corporate &amp; events" in the form above.</p></div></div></div>
+      <div class="faq__item"><button class="faq__q" type="button" aria-expanded="false">How do I open a First Sip franchise?<span class="plus" aria-hidden="true"></span></button><div class="faq__a"><div><p>Our franchise programme opens in 2028 for tier-2 cities. Visit the <a class="link-arrow" href="invest.html#franchise" style="border:0;padding:0">investor page</a> to register your interest.</p></div></div></div>
+    </div>
+  </div>
+</section>
