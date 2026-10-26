@@ -4,7 +4,7 @@ A 7-page, fully interactive website for **First Sip**, an Indian specialty coffe
 
 | Page | What's on it |
 |---|---|
-| `index.html` | Animated hero with floating beans, signature-drink horizontal scroller, bean-to-cup process, stats, reviews slider, gallery, newsletter |
+| `index.html` | Scroll-driven bean-to-cup animation (beans → grinder → brew → pour), light hero with floating beans, signature-drink horizontal scroller, bean-to-cup process, stats, reviews slider, gallery, newsletter |
 | `menu.html` | Filterable menu with sliding tabs, cup-size price switcher, pairings |
 | `story.html` | Founder note, animated timeline, values, sustainability, team |
 | `shop.html` | Product grid, quick-view modal (grind choice), working cart drawer with free-delivery bar |
@@ -21,10 +21,11 @@ Page content lives in `_src/pages/*.html`; the shared header, footer, cart and i
 `_src/build.py`. After editing, run:
 
 ```
-python3 _src/build.py
+python3 _src/build.py        # pages in this folder
+python3 _src/standalone.py   # single-file copies in ../first-sip-html/
 ```
 
-Styles: `assets/css/style.css` (colour tokens at the top). Interactions and shop/café data: `assets/js/main.js`.
+Styles: `assets/css/style.css` (colour tokens at the top). Interactions and shop/café data: `assets/js/main.js`. Bean-to-cup animation: `assets/js/brew.js`.
 
 ## Before presenting
 - All business numbers (KPIs, unit economics, projections, raise amount) are **illustrative placeholders**. Replace them with your real figures.

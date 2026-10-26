@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>First Sip — Specialty Coffee House</title>
 <meta name="description" content="First Sip is a premium Indian specialty coffee house. Estate-grown beans from Coorg, Chikmagalur and Araku, roasted in small batches and poured with care.">
-<meta name="theme-color" content="#1a110d">
+<meta name="theme-color" content="#fbf7f0">
 <meta property="og:title" content="First Sip — Specialty Coffee House">
 <meta property="og:description" content="First Sip is a premium Indian specialty coffee house. Estate-grown beans from Coorg, Chikmagalur and Araku, roasted in small batches and poured with care.">
 <meta property="og:type" content="website">
@@ -54,28 +54,37 @@
 
 <!-- HERO -->
 <section class="hero" aria-label="Introduction">
-  <div class="hero__bg media" style="border-radius:0">
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=2000&amp;q=80" alt="A cup of coffee on a dark wooden table in soft morning light" data-parallax="0.12" fetchpriority="high">
-  </div>
-  <div class="beans" aria-hidden="true"></div>
-  <div class="hero__meta"><span>Est. 2024 · Coorg, India</span><span>19.0596° N, 72.8295° E</span></div>
-  <div class="container hero__content">
-    <span class="eyebrow">Specialty coffee house</span>
-    <h1 class="hero__title" data-split>Every great day begins with the <em>first sip.</em></h1>
-    <div class="hero__row">
-      <p class="hero__sub" data-reveal="400">Estate-grown Indian coffee, roasted in small batches every morning and poured by people who care about the details.</p>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <span class="eyebrow" data-reveal>Specialty coffee house · Est. 2024</span>
+      <h1 class="hero__title" data-split>Every great day begins with the <em>first sip.</em></h1>
+      <p class="hero__sub" data-reveal="400">Estate-grown Indian coffee, roasted in small batches every morning and poured by people who care about every detail.</p>
       <div class="hero__ctas" data-reveal="550">
         <a class="btn" href="menu.html" data-magnetic>Explore the menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn--ghost" href="invest.html" data-magnetic>Investor overview</a>
       </div>
+      <div class="hero__proof" data-reveal="700">
+        <div><b data-counter="4.9" data-suffix="★">0</b><span>12,000+ guest reviews</span></div>
+        <div><b data-counter="40">0</b><span>Partner estates</span></div>
+        <div><b data-counter="100" data-suffix="%">0</b><span>Indian-grown coffee</span></div>
+      </div>
     </div>
-    <div class="scroll-cue" data-reveal="700"><i></i>Scroll to taste</div>
+    <div class="hero__visual" data-reveal="200">
+      <div class="media" data-cursor="view">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="A cup of coffee in soft morning light" data-parallax="0.06" fetchpriority="high">
+      </div>
+      <div class="hero__badge" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100 100m-80 0a80 80 0 1 1 160 0a80 80 0 1 1-160 0"/></defs>
+          <text style="font-family:var(--f-mono);font-size:15px;letter-spacing:5px;fill:#d9b77e"><textPath href="#circ">ROASTED FRESH · POURED WITH LOVE ·</textPath></text></svg>
+        <img src="assets/img/logo.svg" alt="">
+      </div>
+      <div class="hero__card">
+        <div class="media"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt=""></div>
+        <div><small>Today's roast</small><strong>Araku Valley Natural</strong><br><span class="muted" style="font-size:var(--fs-sm)">Blueberry · cacao · 1,200 m</span></div>
+      </div>
+    </div>
   </div>
-  <div class="hero__badge" aria-hidden="true">
-    <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
-      <text style="font-family:var(--f-mono);font-size:13.5px;letter-spacing:5px;fill:#e4c58f"><textPath href="#circ">ROASTED FRESH · POURED WITH LOVE · FIRST SIP ·</textPath></text></svg>
-    <img src="assets/img/logo.svg" alt="">
-  </div>
+  <div class="beans" aria-hidden="true"></div>
 </section>
 
 <!-- MARQUEE -->
@@ -89,8 +98,56 @@
   </div>
 </div>
 
+<!-- FROM BEAN TO CUP (scroll animation) -->
+<section class="brew" id="process" aria-label="From bean to cup">
+  <div class="container brew__grid">
+    <div class="brew__steps">
+      <div class="brew__intro">
+        <span class="eyebrow">From bean to cup</span>
+        <h2 class="display" data-split>Watch your cup <em>come to life.</em></h2>
+        <p class="lead" data-reveal>Scroll slowly. Every First Sip goes through four careful steps, and we control each one ourselves.</p>
+        <div class="scroll-cue" data-reveal><i></i>Keep scrolling</div>
+      </div>
+      <article class="brew__step">
+        <span class="brew__num"><b>01</b>Roasted</span>
+        <h3>Beans from our own estates</h3>
+        <p>Shade-grown arabica from Coorg, Chikmagalur and Araku, roasted in 12 kg batches and rested for seven days so the flavour settles.</p>
+        <div class="brew__facts"><span class="chip">1,000–1,500 m altitude</span><span class="chip">Hand-picked</span><span class="chip">Small-batch roast</span></div>
+      </article>
+      <article class="brew__step">
+        <span class="brew__num"><b>02</b>Ground</span>
+        <h3>Ground fresh, seconds before brewing</h3>
+        <p>Conical steel burrs grind each dose to order. Freshly ground coffee keeps the aromas that pre-ground coffee loses within minutes.</p>
+        <div class="brew__facts"><span class="chip">18 g dose</span><span class="chip">Calibrated daily</span></div>
+      </article>
+      <article class="brew__step">
+        <span class="brew__num"><b>03</b>Brewed</span>
+        <h3>Slow-brewed with water at 93°C</h3>
+        <p>We bloom the grounds for 40 seconds, then pour in slow spirals. Filtered, mineral-balanced water lets the coffee taste of its origin.</p>
+        <div class="brew__facts"><span class="chip">40 s bloom</span><span class="chip">1 : 16 ratio</span><span class="chip">4 minutes</span></div>
+      </article>
+      <article class="brew__step">
+        <span class="brew__num"><b>04</b>Served</span>
+        <h3>Poured for you, with a little love</h3>
+        <p>Into hand-finished porcelain, crema intact, with a heart on top. Then comes the best part of the day: your first sip.</p>
+        <div><a class="btn" href="menu.html" data-magnetic>Choose your cup <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </article>
+    </div>
+    <div class="brew__stage">
+      <div class="brew__sticky">
+        <canvas data-brew-canvas role="img" aria-label="Animation of coffee beans being ground, brewed into a glass mug and poured into a porcelain cup"></canvas>
+        <div class="brew__meta"><span data-brew-meta-k>Roast temp</span><b data-brew-meta-v>218°C</b></div>
+        <div class="brew__hud">
+          <span class="brew__label"><i></i><span data-brew-label>Roasted beans</span></span>
+          <span class="brew__dots" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- MANIFESTO -->
-<section class="section section--light">
+<section class="section section--dark">
   <div class="container manifesto-grid">
     <div><span class="eyebrow">Our promise</span></div>
     <div>
@@ -148,24 +205,8 @@
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section section--light">
-  <div class="container">
-    <div class="section-head section-head--split">
-      <div class="stack"><span class="eyebrow">Bean to cup</span><h2 class="display" data-split>Four steps. <em>No shortcuts.</em></h2></div>
-      <p class="lead" data-reveal>We control every stage, from the estates we partner with to the barista who hands you your cup. That is how every First Sip tastes the same in Bandra and in Indiranagar.</p>
-    </div>
-    <div class="process">
-      <div class="process__step" style="--i:0"><span class="process__num">01 · Grown</span><span class="process__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4C9 4 4 9 4 16c0 1.5.3 2.8.8 4C6 14 10 10 15 8c-4 3-7 7-8.5 12C14 20 20 15 20 4z"/></svg></span><h3>Shade-grown estates</h3><p class="muted">Arabica grown under silver oak and pepper vines at 1,000 to 1,500 m in the Western and Eastern Ghats.</p></div>
-      <div class="process__step" style="--i:1"><span class="process__num">02 · Roasted</span><span class="process__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4 0 7-2.7 7-7 0-4-3-6-4-10-1.5 2-2 3.5-2 5-1-1-2-2.5-2-4.5C8 8 5 11 5 15c0 4.3 3 7 7 7z"/><path d="M12 22c-1.7 0-3-1.3-3-3 0-2 1.5-3 3-5 1.5 2 3 3 3 5 0 1.7-1.3 3-3 3z"/></svg></span><h3>Small-batch roasting</h3><p class="muted">12 kg batches on our Coorg roaster, profiled for each lot and rested for 7 days before brewing.</p></div>
-      <div class="process__step" style="--i:2"><span class="process__num">03 · Brewed</span><span class="process__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V9z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c-.8 1 .8 2 0 3M12 3c-.8 1 .8 2 0 3"/></svg></span><h3>Dialled in daily</h3><p class="muted">Every café calibrates grind, dose and yield each morning. Espresso is pulled at 93°C, 18 g in, 36 g out.</p></div>
-      <div class="process__step" style="--i:3"><span class="process__num">04 · Served</span><span class="process__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15h3l4 3h5a2 2 0 0 0 0-4h-3"/><path d="M6 15V11l5-2 7 3a2 2 0 0 1-1 3.8"/><path d="M14 6a2.5 2.5 0 1 0 0-.01"/></svg></span><h3>Poured with care</h3><p class="muted">Trained baristas, hand-thrown ceramics and a space designed for you to slow down and enjoy it.</p></div>
-    </div>
-  </div>
-</section>
-
 <!-- EXPERIENCE -->
-<section class="section">
+<section class="section section--alt">
   <div class="container feature">
     <div class="feature__media">
       <div class="media reveal-img" data-cursor="view"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Warm café interior with wooden tables" loading="lazy"></div>
@@ -187,7 +228,7 @@
 </section>
 
 <!-- STATS -->
-<section class="section section--roast">
+<section class="section section--dark">
   <div class="container">
     <div class="section-head"><span class="eyebrow">First Sip in numbers</span><h2 class="h2" data-split>Small batches, <em>growing fast.</em></h2></div>
     <div class="stats">
@@ -196,7 +237,7 @@
       <div class="stat" data-reveal="200"><span class="stat__num" data-counter="2400">0</span><span class="stat__label">Cups poured every day across our cafés</span></div>
       <div class="stat" data-reveal="300"><span class="stat__num" data-counter="7" data-suffix=" days">0</span><span class="stat__label">From roaster to your cup, never more than two weeks</span></div>
     </div>
-    <p class="muted mono" style="font-size:11px;margin-top:30px;letter-spacing:.08em">Figures shown are placeholders for this presentation.</p>
+    <p class="fine" style="margin-top:30px">Figures shown are placeholders for this presentation.</p>
   </div>
 </section>
 
@@ -220,7 +261,7 @@
       </figure>
       <figure class="quote">
         <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
-        <blockquote>“I hold every client meeting at the BKC lounge now. Quiet, beautiful and the cold brew is outstanding.”</blockquote>
+        <blockquote>“I hold every client meeting at the BKC lounge now. Quiet, beautiful, and the cold brew is outstanding.”</blockquote>
         <figcaption class="quote__who"><div class="media"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=200&amp;q=80" alt="" loading="lazy"></div><div><strong>Arjun Mehta</strong><span class="muted">Partner, venture fund</span></div></figcaption>
       </figure>
       <figure class="quote">
@@ -233,7 +274,7 @@
 </section>
 
 <!-- GALLERY -->
-<section class="section section--roast" style="padding-top:clamp(70px,9vw,120px)">
+<section class="section section--alt" style="padding-top:clamp(70px,9vw,120px)">
   <div class="container">
     <div class="section-head section-head--split">
       <div class="stack"><span class="eyebrow">@firstsip.coffee</span><h2 class="h2" data-split>Moments worth <em>savouring.</em></h2></div>
@@ -342,5 +383,6 @@
 
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/brew.js" defer></script>
 </body>
 </html>

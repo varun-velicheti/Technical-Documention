@@ -87,7 +87,7 @@ def head(title, description):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{full}</title>
 <meta name="description" content="{description}">
-<meta name="theme-color" content="#1a110d">
+<meta name="theme-color" content="#fbf7f0">
 <meta property="og:title" content="{full}">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="website">
@@ -243,6 +243,10 @@ def build():
             for k, v in (line.split(":", 1) for line in meta_match.group(1).strip().splitlines())
         )
         body = text[meta_match.end():]
+        extra = "".join(
+            f'<script src="assets/js/{name.strip()}.js" defer></script>\n'
+            for name in meta.get("scripts", "").split(",") if name.strip()
+        )
         page = (
             head(meta["title"], meta["description"])
             + f'\n<body data-page="{meta["nav"]}">'
@@ -250,7 +254,7 @@ def build():
             + '\n<main id="main">'
             + body
             + "</main>\n"
-            + FOOTER
+            + FOOTER.replace("</body>", extra + "</body>")
         )
         out = ROOT / src.name
         out.write_text(expand(page), encoding="utf-8")

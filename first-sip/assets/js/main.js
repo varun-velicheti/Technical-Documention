@@ -18,10 +18,21 @@
   };
 
   /* ---------- Images: hide broken photos so the styled fallback shows ---------- */
-  document.addEventListener("error", (e) => {
-    if (e.target && e.target.tagName === "IMG") e.target.classList.add("is-broken");
-  }, true);
-  $$("img").forEach((im) => { if (im.complete && im.naturalWidth === 0 && im.src) im.classList.add("is-broken"); });
+  // If an online photo fails, swap in a backup coffee photo before giving up.
+  const BACKUP = ["photo-1495474472287-4d71bcdd2085", "photo-1509042239860-f550ce710b93", "photo-1447933601403-0c6688de566e",
+    "photo-1511920170033-f8396924c348", "photo-1442512595331-e89e73853f31", "photo-1501339847302-ac426a4a7cbb",
+    "photo-1554118811-1e0d58224f24", "photo-1514432324607-a09d9b4aefdd", "photo-1453614512568-c4024d13c247"];
+  const onImgError = (im) => {
+    const tries = +(im.dataset.fb || 0);
+    if (tries < 3 && /images\.unsplash\.com/.test(im.src)) {
+      im.dataset.fb = tries + 1;
+      const w = (im.src.match(/[?&]w=(\d+)/) || [])[1] || 900;
+      let h = 7; for (const c of (im.alt || im.src)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+      im.src = `https://images.unsplash.com/${BACKUP[(h + tries) % BACKUP.length]}?auto=format&fit=crop&w=${w}&q=80`;
+    } else im.classList.add("is-broken");
+  };
+  document.addEventListener("error", (e) => { if (e.target && e.target.tagName === "IMG") onImgError(e.target); }, true);
+  $$("img").forEach((im) => { if (im.complete && im.naturalWidth === 0 && im.getAttribute("src")) onImgError(im); });
 
   /* ---------- Year ---------- */
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
@@ -583,8 +594,8 @@
     const C = 2 * Math.PI * 80; let off = 0;
     const segs = data.map(([, p, c]) => { const seg = `<circle class="seg" cx="110" cy="110" r="80" stroke="${c}" stroke-dasharray="0 ${C}" data-len="${(p / 100) * C - 3}" stroke-dashoffset="${-off}" transform="rotate(-90 110 110)"/>`; off += (p / 100) * C; return seg; }).join("");
     donut.innerHTML = `<svg class="donut" viewBox="0 0 220 220" role="img" aria-label="Use of funds">${segs}
-      <text x="110" y="104" text-anchor="middle" style="font-family:var(--f-display);font-size:30px;fill:var(--ink)">100%</text>
-      <text x="110" y="128" text-anchor="middle" style="font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;fill:var(--muted-light)">OF THE ROUND</text></svg>`;
+      <text x="110" y="104" text-anchor="middle" style="font-family:var(--f-display);font-size:30px;fill:var(--fg)">100%</text>
+      <text x="110" y="128" text-anchor="middle" style="font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;fill:var(--muted)">OF THE ROUND</text></svg>`;
     $("[data-legend]").innerHTML = data.map(([l, p, c]) => `<li><i style="background:${c}"></i><span>${l}</span><b>${p}%</b></li>`).join("");
     const io = new IntersectionObserver((ents) => { if (ents[0].isIntersecting) { $$(".seg", donut).forEach((c) => c.setAttribute("stroke-dasharray", `${c.dataset.len} ${C}`)); io.disconnect(); } }, { threshold: .4 });
     io.observe(donut);
