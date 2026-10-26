@@ -10,8 +10,8 @@ css = (root / "assets/css/style.css").read_text().replace('url("../img/logo.svg"
 def js(name): return "<script>\n" + (root / f"assets/js/{name}.js").read_text().replace("assets/img/logo.svg", logo).replace("</script>", "<\\/script>") + "\n</script>"
 for p in sorted(root.glob("*.html")):
     h = p.read_text()
-    h = re.sub(r'<link rel="stylesheet" href="assets/css/style\.css(\?v=\d+)?">', lambda m: "<style>\n" + css + "\n</style>", h)
-    h = re.sub(r'<script src="assets/js/([a-z]+)\.js(?:\?v=\d+)?" defer></script>', lambda m: js(m.group(1)), h)
+    h = h.replace('<link rel="stylesheet" href="assets/css/style.css">', "<style>\n" + css + "\n</style>")
+    h = re.sub(r'<script src="assets/js/([a-z]+)\.js" defer></script>', lambda m: js(m.group(1)), h)
     h = h.replace('href="assets/img/favicon.svg"', f'href="{fav}"').replace("assets/img/logo.svg", logo)
     assert "assets/" not in h, p
     (out / p.name).write_text(h)
