@@ -30,7 +30,7 @@ NAV = [
 ]
 
 ICONS = {
-    "branch": '<svg viewBox="0 0 220 260" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 250C60 200 90 150 110 100S150 30 200 10"/><path d="M60 196c-30-6-50-26-52-52 26 0 48 20 52 52zM60 196C40 176 26 160 8 144"/><path d="M66 186c10-30 34-48 62-50-4 28-28 46-62 50zM66 186c22-18 40-34 62-50"/><path d="M96 132c-30-10-46-34-44-60 26 6 44 30 44 60zM96 132C82 112 68 92 52 72"/><path d="M108 108c14-28 40-42 68-40-8 28-34 42-68 40zM108 108c24-14 46-28 68-40"/><path d="M138 58c-22-14-30-38-24-60 22 10 32 34 24 60zM138 58c-8-20-16-40-24-60"/><path d="M152 46c18-22 42-28 64-20-14 22-38 28-64 20zM152 46c22-6 44-12 64-20"/><circle cx="84" cy="168" r="9"/><circle cx="98" cy="176" r="8"/><circle cx="88" cy="184" r="8"/><path d="M82 164c3-2 6-2 8 1M96 172c2-2 5-1 6 1M86 180c2-2 5-2 6 1"/><circle cx="122" cy="84" r="8"/><circle cx="134" cy="92" r="7"/><circle cx="124" cy="98" r="7"/></svg>',
+    "branch": '<svg viewBox="0 0 220 260" width="200" height="236" style="max-width:100%;height:auto;opacity:.55;color:#8a6a52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 250C60 200 90 150 110 100S150 30 200 10"/><path d="M60 196c-30-6-50-26-52-52 26 0 48 20 52 52zM60 196C40 176 26 160 8 144"/><path d="M66 186c10-30 34-48 62-50-4 28-28 46-62 50zM66 186c22-18 40-34 62-50"/><path d="M96 132c-30-10-46-34-44-60 26 6 44 30 44 60zM96 132C82 112 68 92 52 72"/><path d="M108 108c14-28 40-42 68-40-8 28-34 42-68 40zM108 108c24-14 46-28 68-40"/><path d="M138 58c-22-14-30-38-24-60 22 10 32 34 24 60zM138 58c-8-20-16-40-24-60"/><path d="M152 46c18-22 42-28 64-20-14 22-38 28-64 20zM152 46c22-6 44-12 64-20"/><circle cx="84" cy="168" r="9"/><circle cx="98" cy="176" r="8"/><circle cx="88" cy="184" r="8"/><path d="M82 164c3-2 6-2 8 1M96 172c2-2 5-1 6 1M86 180c2-2 5-2 6 1"/><circle cx="122" cy="84" r="8"/><circle cx="134" cy="92" r="7"/><circle cx="124" cy="98" r="7"/></svg>',
     "arrow": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
     "arrow-left": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
     "arrow-up": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
@@ -97,7 +97,7 @@ def head(title, description):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Manrope:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=202610261658">
 </head>"""
 
 
@@ -218,7 +218,7 @@ FOOTER = """
 <div class="toast" role="status" aria-live="polite">{{icon:check-circle}}<span data-toast-msg></span></div>
 
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v=202610261658" defer></script>
 </body>
 </html>
 """.replace("{logo}", LOGO.format(cls="brand__mark"))
@@ -245,7 +245,7 @@ def build():
         )
         body = text[meta_match.end():]
         extra = "".join(
-            f'<script src="assets/js/{name.strip()}.js" defer></script>\n'
+            f'<script src="assets/js/{name.strip()}.js?v=202610261658" defer></script>\n'
             for name in meta.get("scripts", "").split(",") if name.strip()
         )
         page = (
