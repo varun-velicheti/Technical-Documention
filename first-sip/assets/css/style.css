@@ -630,7 +630,7 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
 .fade-swap.is-swapping { opacity: 0; transform: translateY(14px); }
 @media (max-width: 960px) { .loc-layout { grid-template-columns: 1fr; } .loc-detail { position: static; } .loc-list { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
 @media (max-width: 560px) { .loc-detail__body { grid-template-columns: 1fr; } }
-.india-map { position: relative; width: 100%; max-width: 460px; margin-inline: auto; }
+.india-map { position: relative; width: 100%; max-width: 540px; margin-inline: auto; }
 .india-map svg { width: 100%; height: auto; }
 .pin { cursor: pointer; }
 .pin circle.halo { animation: halo 2.4s var(--ease) infinite; transform-box: fill-box; transform-origin: center; }

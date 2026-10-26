@@ -647,7 +647,7 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
 .fade-swap.is-swapping { opacity: 0; transform: translateY(14px); }
 @media (max-width: 960px) { .loc-layout { grid-template-columns: 1fr; } .loc-detail { position: static; } .loc-list { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
 @media (max-width: 560px) { .loc-detail__body { grid-template-columns: 1fr; } }
-.india-map { position: relative; width: 100%; max-width: 460px; margin-inline: auto; }
+.india-map { position: relative; width: 100%; max-width: 540px; margin-inline: auto; }
 .india-map svg { width: 100%; height: auto; }
 .pin { cursor: pointer; }
 .pin circle.halo { animation: halo 2.4s var(--ease) infinite; transform-box: fill-box; transform-origin: center; }
@@ -1477,7 +1477,7 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
       const list = PRODUCTS.filter((p) => cat === "all" || p.cat === cat);
       shopGrid.innerHTML = list.map((p) => `
         <article class="product">
-          <div class="product__img" data-cursor="view">
+          <div class="product__img">
             ${p.tag ? `<span class="badge">${p.tag}</span>` : ""}
             <div class="media"><img src="${img(p.img, 700)}" alt="${p.name}" loading="lazy"></div>
             <div class="product__quick">
@@ -1556,11 +1556,11 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
 
   /* ---------- Locations ---------- */
   const LOCS = [
-    { id: "bandra", city: "Mumbai", name: "Bandra Flagship", addr: "Carter Road, Bandra West, Mumbai 400050", hours: [7, 23], img: "photo-1554118811-1e0d58224f24", seats: 64, feat: ["Roastery bar", "Sea-facing terrace", "Brew classes"], x: 57, y: 287, map: "Carter Road Bandra Mumbai" },
-    { id: "bkc", city: "Mumbai", name: "BKC Business Lounge", addr: "G Block, Bandra Kurla Complex, Mumbai 400051", hours: [7, 21], img: "photo-1453614512568-c4024d13c247", seats: 48, feat: ["Meeting pods", "Express pickup", "Wi-Fi 6"], x: 66, y: 281, map: "Bandra Kurla Complex Mumbai" },
-    { id: "indiranagar", city: "Bengaluru", name: "Indiranagar House", addr: "12th Main, HAL 2nd Stage, Indiranagar, Bengaluru 560038", hours: [7, 23], img: "photo-1501339847302-ac426a4a7cbb", seats: 72, feat: ["Garden courtyard", "Slow-bar", "Pet friendly"], x: 119, y: 382, map: "12th Main Indiranagar Bengaluru" },
-    { id: "khan", city: "New Delhi", name: "Khan Market Atelier", addr: "Middle Lane, Khan Market, New Delhi 110003", hours: [8, 23], img: "photo-1521017432531-fbd92d768814", seats: 40, feat: ["Patisserie counter", "Private salon", "Retail wall"], x: 114, y: 134, map: "Khan Market New Delhi" },
-    { id: "jubilee", city: "Hyderabad", name: "Jubilee Hills Studio", addr: "Road No. 36, Jubilee Hills, Hyderabad 500033", hours: [7, 22], img: "photo-1442975631115-c4f7b05b8a2c", seats: 56, feat: ["Cold brew tap", "Rooftop", "Late-night menu"], x: 130, y: 312, map: "Road No 36 Jubilee Hills Hyderabad", soon: true },
+    { id: "bandra", city: "Mumbai", name: "Bandra Flagship", addr: "Carter Road, Bandra West, Mumbai 400050", hours: [7, 23], img: "photo-1554118811-1e0d58224f24", seats: 64, feat: ["Roastery bar", "Sea-facing terrace", "Brew classes"], x: 92, y: 427, map: "Carter Road Bandra Mumbai" },
+    { id: "bkc", city: "Mumbai", name: "BKC Business Lounge", addr: "G Block, Bandra Kurla Complex, Mumbai 400051", hours: [7, 21], img: "photo-1453614512568-c4024d13c247", seats: 48, feat: ["Meeting pods", "Express pickup", "Wi-Fi 6"], x: 101, y: 434, map: "Bandra Kurla Complex Mumbai" },
+    { id: "indiranagar", city: "Bengaluru", name: "Indiranagar House", addr: "12th Main, HAL 2nd Stage, Indiranagar, Bengaluru 560038", hours: [7, 23], img: "photo-1501339847302-ac426a4a7cbb", seats: 72, feat: ["Garden courtyard", "Slow-bar", "Pet friendly"], x: 196, y: 563, map: "12th Main Indiranagar Bengaluru" },
+    { id: "khan", city: "New Delhi", name: "Khan Market Atelier", addr: "Middle Lane, Khan Market, New Delhi 110003", hours: [8, 23], img: "photo-1521017432531-fbd92d768814", seats: 40, feat: ["Patisserie counter", "Private salon", "Retail wall"], x: 188, y: 211, map: "Khan Market New Delhi" },
+    { id: "jubilee", city: "Hyderabad", name: "Jubilee Hills Studio", addr: "Road No. 36, Jubilee Hills, Hyderabad 500033", hours: [7, 22], img: "photo-1442975631115-c4f7b05b8a2c", seats: 56, feat: ["Cold brew tap", "Rooftop", "Late-night menu"], x: 212, y: 466, map: "Road No 36 Jubilee Hills Hyderabad", soon: true },
   ];
   const locList = $("[data-loc-list]");
   if (locList) {
@@ -1585,12 +1585,12 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
     const show = (id) => {
       const l = LOCS.find((x) => x.id === id);
       $$(".loc-btn").forEach((b) => b.classList.toggle("is-active", b.dataset.loc === id));
-      $$(".pin").forEach((p) => p.querySelector(".dot").setAttribute("r", p.dataset.pin === id ? 7 : 5));
+      $$(".pin").forEach((p) => p.querySelector(".dot").setAttribute("r", p.dataset.pin === id ? 10 : 7));
       detail.classList.add("is-swapping");
       setTimeout(() => {
         const today = now().day;
         detail.innerHTML = `
-          <div class="media" data-cursor="view"><img src="${img(l.img, 1400)}" alt="Inside ${l.name}"></div>
+          <div class="media"><img src="${img(l.img, 1400)}" alt="Inside ${l.name}"></div>
           <div class="loc-detail__body">
             <div class="stack" style="gap:16px">
               <span class="eyebrow">${l.city}</span>
@@ -1615,8 +1615,8 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
     const pins = $("[data-pins]");
     if (pins) {
       pins.innerHTML = LOCS.map((l) => `<g class="pin" data-pin="${l.id}" tabindex="0" role="button" aria-label="${l.name}">
-        <circle class="halo" cx="${l.x}" cy="${l.y}" r="8" fill="${l.soon ? "#e4c58f" : "#c9a36a"}" opacity=".6"/>
-        <circle class="dot" cx="${l.x}" cy="${l.y}" r="5" fill="${l.soon ? "#e4c58f" : "#c9a36a"}" stroke="#1a110d" stroke-width="2"/></g>`).join("");
+        <circle class="halo" cx="${l.x}" cy="${l.y}" r="12" fill="${l.soon ? "#d9b77e" : "#1f5f45"}" opacity=".45"/>
+        <circle class="dot" cx="${l.x}" cy="${l.y}" r="7" fill="${l.soon ? "#d9b77e" : "#1f5f45"}" stroke="#fbf7f0" stroke-width="2.5"/></g>`).join("");
       pins.addEventListener("click", (e) => { const p = e.target.closest("[data-pin]"); p && show(p.dataset.pin); });
       pins.addEventListener("keydown", (e) => { const p = e.target.closest("[data-pin]"); if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); show(p.dataset.pin); } });
     }

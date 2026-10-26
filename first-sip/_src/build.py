@@ -232,6 +232,7 @@ def expand(html):
         lambda m: f"https://images.unsplash.com/{m.group(1)}?auto=format&amp;fit=crop&amp;w={m.group(2)}&amp;q=80",
         html,
     )
+    html = html.replace("{{indiamap}}", (ROOT / "_src" / "india-map.svg").read_text())
     return html.replace("{{logo}}", LOGO.format(cls="logo-inline"))
 
 
