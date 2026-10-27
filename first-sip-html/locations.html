@@ -10,7 +10,8 @@
 <meta property="og:description" content="Find a First Sip café in Mumbai, Bengaluru, New Delhi and Hyderabad. Opening hours, addresses and directions.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj4KICA8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI4IiBmaWxsPSIjMUExMTBEIi8+CiAgPHBhdGggZD0iTTYwIDMyYy02LTUtMTMtOS0xMC0xNSAyLjUtNC41IDguNS0zLjUgMTAgMS41IDEuNS01IDcuNS02IDEwLTEuNSAzIDYtNCAxMC0xMCAxNXoiIGZpbGw9IiNFNEM1OEYiLz4KICA8cGF0aCBkPSJNMjggNDZoNjB2MTVjMCAxNy0xMiAyOS0zMCAyOVMyOCA3OCAyOCA2MXoiIGZpbGw9IiNDOUEzNkEiLz4KICA8cGF0aCBkPSJNODggNTJjMTIgMCAxMyAxOSAwIDIwIiBmaWxsPSJub25lIiBzdHJva2U9IiNDOUEzNkEiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTQzIDYycTQuNS01LjUgOSAwTTY0IDYycTQuNS01LjUgOSAwTTUyIDcxcTYgNiAxMiAwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxQTExMEQiIHN0cm9rZS13aWR0aD0iMy40IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==" type="image/svg+xml">
-<script>try{if(/fs-visited/.test(window.name)||sessionStorage.getItem("fs-seen"))document.documentElement.classList.add("fs-returning")}catch(e){}</script>
+<script>try{var d=document.documentElement;if(/fs-visited/.test(window.name)||sessionStorage.getItem("fs-seen"))d.classList.add("fs-returning");if(window.CSSViewTransitionRule&&location.protocol!=="file:")d.classList.add("vt");var q=function(e){var v=e.viewTransition;if(v){v.ready.catch(function(){});v.finished.catch(function(){});v.updateCallbackDone&&v.updateCallbackDone.catch(function(){})}};addEventListener("pagereveal",q);addEventListener("pageswap",q)}catch(e){}</script>
+<script type="speculationrules">{"prefetch":[{"where":{"href_matches":"*.html"},"eagerness":"moderate"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
@@ -184,12 +185,24 @@ ul { margin: 0; padding: 0; list-style: none; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.14); } 60% { transform: scale(.96); } }
 @keyframes rise { to { transform: translateY(0); } }
 
-/* Page change: a quick soft fade to the page colour, then the next page fades in. */
-.curtain { position: fixed; inset: 0; z-index: 999; pointer-events: none; background: var(--ivory); opacity: 0; transition: opacity .3s ease; }
-.curtain.is-active { opacity: 1; }
+/* Page changes.
+   Modern browsers: native cross-document transition. The old page stays on screen
+   until the new one is ready, then they crossfade with a small lift; the header holds still.
+   Others (and local files): a fast fade of the page content only. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out .26s cubic-bezier(.4, 0, .2, 1) both; }
+::view-transition-new(root) { animation: vt-in .5s cubic-bezier(.22, 1, .36, 1) both; }
+.header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation: none; }
+@keyframes vt-out { to { opacity: 0; transform: translateY(-10px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(14px); } }
+
+.curtain { display: none; }
+html.is-leaving main, html.is-leaving .footer { opacity: 0; transform: translateY(-8px); transition: opacity .18s ease, transform .18s ease; }
 .fs-returning .preloader { display: none; }
-.fs-returning body { animation: page-in .45s ease both; }
-@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+.fs-returning:not(.vt) main { animation: page-in .45s cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes page-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
 
 /* ---------- Cursor ---------- */
 .cursor, .cursor-dot { opacity: 0; }
@@ -1081,7 +1094,7 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
   const curtain = $(".curtain");
   document.addEventListener("click", (e) => {
     const a = e.target.closest("a");
-    if (!a || !curtain || reduced) return;
+    if (!a || reduced) return;
     const href = a.getAttribute("href") || "";
     if (a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey || href.startsWith("#") ||
         /^(mailto|tel|https?):/.test(href) || !/\.html(#.*)?$/.test(href)) return;
@@ -1092,11 +1105,22 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
       if (t) { e.preventDefault(); scrollToY(t.getBoundingClientRect().top + window.scrollY - 80); }
       return;
     }
+    if (document.documentElement.classList.contains("vt")) return;   // native transition takes over
     e.preventDefault();
-    curtain.classList.add("is-active");
-    setTimeout(() => (window.location.href = href), 320);
+    document.documentElement.classList.add("is-leaving");
+    setTimeout(() => (window.location.href = href), 170);
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted && curtain) curtain.classList.remove("is-active"); });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) document.documentElement.classList.remove("is-leaving"); });
+  // Warm up the next page as soon as the pointer rests on a link (browsers without speculation rules).
+  const prefetched = new Set();
+  document.addEventListener("pointerover", (e) => {
+    const a = e.target.closest && e.target.closest('a[href$=".html"], a[href*=".html#"]');
+    if (!a || location.protocol === "file:" || HTMLScriptElement.supports?.("speculationrules")) return;
+    const url = a.href.split("#")[0];
+    if (prefetched.has(url)) return;
+    prefetched.add(url);
+    const l = document.createElement("link"); l.rel = "prefetch"; l.href = url; document.head.appendChild(l);
+  });
 
   /* ---------- Header ---------- */
   const header = $(".header");

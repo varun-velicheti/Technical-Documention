@@ -81,7 +81,7 @@
   const curtain = $(".curtain");
   document.addEventListener("click", (e) => {
     const a = e.target.closest("a");
-    if (!a || !curtain || reduced) return;
+    if (!a || reduced) return;
     const href = a.getAttribute("href") || "";
     if (a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey || href.startsWith("#") ||
         /^(mailto|tel|https?):/.test(href) || !/\.html(#.*)?$/.test(href)) return;
@@ -92,11 +92,22 @@
       if (t) { e.preventDefault(); scrollToY(t.getBoundingClientRect().top + window.scrollY - 80); }
       return;
     }
+    if (document.documentElement.classList.contains("vt")) return;   // native transition takes over
     e.preventDefault();
-    curtain.classList.add("is-active");
-    setTimeout(() => (window.location.href = href), 320);
+    document.documentElement.classList.add("is-leaving");
+    setTimeout(() => (window.location.href = href), 170);
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted && curtain) curtain.classList.remove("is-active"); });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) document.documentElement.classList.remove("is-leaving"); });
+  // Warm up the next page as soon as the pointer rests on a link (browsers without speculation rules).
+  const prefetched = new Set();
+  document.addEventListener("pointerover", (e) => {
+    const a = e.target.closest && e.target.closest('a[href$=".html"], a[href*=".html#"]');
+    if (!a || location.protocol === "file:" || HTMLScriptElement.supports?.("speculationrules")) return;
+    const url = a.href.split("#")[0];
+    if (prefetched.has(url)) return;
+    prefetched.add(url);
+    const l = document.createElement("link"); l.rel = "prefetch"; l.href = url; document.head.appendChild(l);
+  });
 
   /* ---------- Header ---------- */
   const header = $(".header");
