@@ -10,6 +10,7 @@
 <meta property="og:description" content="How First Sip began on a coffee estate in Coorg, the farmers we partner with, and the values behind every cup.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj4KICA8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI4IiBmaWxsPSIjMUExMTBEIi8+CiAgPHBhdGggZD0iTTYwIDMyYy02LTUtMTMtOS0xMC0xNSAyLjUtNC41IDguNS0zLjUgMTAgMS41IDEuNS01IDcuNS02IDEwLTEuNSAzIDYtNCAxMC0xMCAxNXoiIGZpbGw9IiNFNEM1OEYiLz4KICA8cGF0aCBkPSJNMjggNDZoNjB2MTVjMCAxNy0xMiAyOS0zMCAyOVMyOCA3OCAyOCA2MXoiIGZpbGw9IiNDOUEzNkEiLz4KICA8cGF0aCBkPSJNODggNTJjMTIgMCAxMyAxOSAwIDIwIiBmaWxsPSJub25lIiBzdHJva2U9IiNDOUEzNkEiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTQzIDYycTQuNS01LjUgOSAwTTY0IDYycTQuNS01LjUgOSAwTTUyIDcxcTYgNiAxMiAwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxQTExMEQiIHN0cm9rZS13aWR0aD0iMy40IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==" type="image/svg+xml">
+<script>try{if(/fs-visited/.test(window.name)||sessionStorage.getItem("fs-seen"))document.documentElement.classList.add("fs-returning")}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
@@ -183,8 +184,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.14); } 60% { transform: scale(.96); } }
 @keyframes rise { to { transform: translateY(0); } }
 
-.curtain { position: fixed; inset: 0; z-index: 999; pointer-events: none; background: var(--espresso); transform: scaleY(0); transform-origin: bottom; transition: transform .7s var(--ease-in-out); }
-.curtain.is-active { transform: scaleY(1); }
+/* Page change: a quick soft fade to the page colour, then the next page fades in. */
+.curtain { position: fixed; inset: 0; z-index: 999; pointer-events: none; background: var(--ivory); opacity: 0; transition: opacity .3s ease; }
+.curtain.is-active { opacity: 1; }
+.fs-returning .preloader { display: none; }
+.fs-returning body { animation: page-in .45s ease both; }
+@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* ---------- Cursor ---------- */
 .cursor, .cursor-dot { opacity: 0; }
@@ -1097,16 +1102,20 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
     if (preloader) preloader.classList.add("is-done");
     onReady.forEach((fn) => fn());
   };
-  if (preloader) {
-    const seen = store.sget("fs-seen");
+  // The cup loader plays once per visit. window.name survives page changes in the
+  // same tab, even when the site is opened from local files.
+  const returning = document.documentElement.classList.contains("fs-returning");
+  const markVisited = () => { try { if (!/fs-visited/.test(window.name)) window.name = (window.name + " fs-visited").trim(); } catch (e) { /* ignore */ } store.sset("fs-seen", "1"); };
+  if (preloader && returning) { preloader.remove(); markVisited(); finishLoad(); }
+  else if (preloader) {
     const counter = $("[data-count]", preloader);
-    const duration = reduced ? 0 : seen ? 450 : 1600;
+    const duration = reduced ? 0 : 1600;
     const t0 = performance.now();
     const tick = (t) => {
       const p = duration ? clamp((t - t0) / duration, 0, 1) : 1;
       if (counter) counter.textContent = Math.round((1 - Math.pow(1 - p, 3)) * 100);
       if (p < 1) requestAnimationFrame(tick);
-      else { store.sset("fs-seen", "1"); setTimeout(finishLoad, seen ? 50 : 250); }
+      else { markVisited(); setTimeout(finishLoad, 250); }
     };
     requestAnimationFrame(tick);
   } else finishLoad();
@@ -1127,9 +1136,8 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
       return;
     }
     e.preventDefault();
-    curtain.style.transformOrigin = "bottom";
     curtain.classList.add("is-active");
-    setTimeout(() => (window.location.href = href), 650);
+    setTimeout(() => (window.location.href = href), 320);
   });
   window.addEventListener("pageshow", (e) => { if (e.persisted && curtain) curtain.classList.remove("is-active"); });
 
