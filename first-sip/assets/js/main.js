@@ -59,16 +59,20 @@
     if (preloader) preloader.classList.add("is-done");
     onReady.forEach((fn) => fn());
   };
-  if (preloader) {
-    const seen = store.sget("fs-seen");
+  // The cup loader plays once per visit. window.name survives page changes in the
+  // same tab, even when the site is opened from local files.
+  const returning = document.documentElement.classList.contains("fs-returning");
+  const markVisited = () => { try { if (!/fs-visited/.test(window.name)) window.name = (window.name + " fs-visited").trim(); } catch (e) { /* ignore */ } store.sset("fs-seen", "1"); };
+  if (preloader && returning) { preloader.remove(); markVisited(); finishLoad(); }
+  else if (preloader) {
     const counter = $("[data-count]", preloader);
-    const duration = reduced ? 0 : seen ? 450 : 1600;
+    const duration = reduced ? 0 : 1600;
     const t0 = performance.now();
     const tick = (t) => {
       const p = duration ? clamp((t - t0) / duration, 0, 1) : 1;
       if (counter) counter.textContent = Math.round((1 - Math.pow(1 - p, 3)) * 100);
       if (p < 1) requestAnimationFrame(tick);
-      else { store.sset("fs-seen", "1"); setTimeout(finishLoad, seen ? 50 : 250); }
+      else { markVisited(); setTimeout(finishLoad, 250); }
     };
     requestAnimationFrame(tick);
   } else finishLoad();
@@ -89,9 +93,8 @@
       return;
     }
     e.preventDefault();
-    curtain.style.transformOrigin = "bottom";
     curtain.classList.add("is-active");
-    setTimeout(() => (window.location.href = href), 650);
+    setTimeout(() => (window.location.href = href), 320);
   });
   window.addEventListener("pageshow", (e) => { if (e.persisted && curtain) curtain.classList.remove("is-active"); });
 

@@ -166,8 +166,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.14); } 60% { transform: scale(.96); } }
 @keyframes rise { to { transform: translateY(0); } }
 
-.curtain { position: fixed; inset: 0; z-index: 999; pointer-events: none; background: var(--espresso); transform: scaleY(0); transform-origin: bottom; transition: transform .7s var(--ease-in-out); }
-.curtain.is-active { transform: scaleY(1); }
+/* Page change: a quick soft fade to the page colour, then the next page fades in. */
+.curtain { position: fixed; inset: 0; z-index: 999; pointer-events: none; background: var(--ivory); opacity: 0; transition: opacity .3s ease; }
+.curtain.is-active { opacity: 1; }
+.fs-returning .preloader { display: none; }
+.fs-returning body { animation: page-in .45s ease both; }
+@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* ---------- Cursor ---------- */
 .cursor, .cursor-dot { opacity: 0; }

@@ -93,6 +93,7 @@ def head(title, description):
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<script>try{{if(/fs-visited/.test(window.name)||sessionStorage.getItem("fs-seen"))document.documentElement.classList.add("fs-returning")}}catch(e){{}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
