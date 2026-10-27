@@ -74,19 +74,25 @@
   const N = 66;
   const hopperL = (y) => 252 - (228 - y) / 178 * 58;
   const hopperR = (y) => 348 + (228 - y) / 178 * 58;
-  const SLOTS = [];
+  const SLOTS = [], ROWS = [];
   for (let row = 0, i = 0; i < N; row++) {
     const y = 214 - row * 15;
     const l = hopperL(y) + 12, r = hopperR(y) - 12;
     const count = Math.max(1, Math.floor((r - l) / 19));
+    ROWS.push(Math.min(count, N - i));
     for (let k = 0; k < count && i < N; k++, i++) {
-      SLOTS.push({ x: l + (k + .5) * (r - l) / count + (rnd(i) - .5) * 6, y: y + (rnd(i + 50) - .5) * 5, a: rnd(i + 90) * TAU, v: i % 3, sx: (rnd(i + 20) - .5) * 160 });
+      SLOTS.push({ x: l + (k + .5) * (r - l) / count + (rnd(i) - .5) * 6, y: y + (rnd(i + 50) - .5) * 5, a: rnd(i + 90) * TAU, v: i % 3, sx: (rnd(i + 20) - .5) * 160, spin: (rnd(i + 70) - .5) * 9, bounce: 6 + rnd(i + 33) * 10 });
     }
   }
 
+  // How many rows of beans have been ground away (fractional), for c beans eaten.
+  const rowsEaten = (c) => { let r = 0; while (r < ROWS.length && c >= ROWS[r]) { c -= ROWS[r]; r++; } return r + (r < ROWS.length ? c / ROWS[r] : 0); };
+  const hopperW = (y) => hopperR(y) - hopperL(y);
+
   /* ---------- drawing helpers ---------- */
-  const bean = (x, y, a, v, sc = 1) => {
-    ctx.save(); ctx.translate(x, y); ctx.rotate(a);
+  const bean = (x, y, a, v, sc = 1, alpha = 1) => {
+    if (alpha <= 0 || sc <= 0) return;
+    ctx.save(); ctx.globalAlpha *= alpha; ctx.translate(x, y); ctx.rotate(a);
     ctx.drawImage(BEANS[v], -10 * sc, -14 * sc, 20 * sc, 28 * sc);
     ctx.restore();
   };
@@ -152,24 +158,39 @@
     const back = ctx.createLinearGradient(0, 52, 0, 228);
     back.addColorStop(0, "rgba(255,255,255,.18)"); back.addColorStop(1, "rgba(120,85,55,.12)");
     ctx.fillStyle = back; ctx.fill();
-    const visible = Math.floor(N * (1 - s2));
+    const eaten = s2 * (N + 6);                 // beans already pulled into the burrs
+    const drop = Math.min(15 * rowsEaten(Math.min(eaten, N)), 150);
+    const SETTLE = .05;
     for (let i = 0; i < N; i++) {
       const sl = SLOTS[i], land = .06 + .82 * i / N;
-      if (s1 < land || i >= visible) continue;
-      // beans nearest the throat sink first while grinding
-      const sink = grinding ? Math.sin(t * 9 + i) * .6 : 0;
-      bean(sl.x, sl.y + sink, sl.a, sl.v);
+      if (s1 < land) continue;
+      // a short bounce and wobble right after landing gives the beans weight
+      const k = clamp((s1 - land) / SETTLE);
+      const hop = k < 1 ? Math.abs(Math.sin(k * Math.PI * 1.6)) * sl.bounce * Math.pow(1 - k, 1.6) : 0;
+      const wob = k < 1 ? Math.sin(k * Math.PI * 3) * (1 - k) * .35 * Math.sign(sl.spin || 1) : 0;
+      // while grinding the pile slides down and narrows into the throat
+      let x = sl.x, y = sl.y - hop;
+      if (s2 > 0) {
+        const ny = Math.min(sl.y + drop, 220);
+        x = 300 + (sl.x - 300) * clamp(hopperW(ny) / hopperW(sl.y), .2, 1);
+        y = ny - hop;
+      }
+      const e = clamp((eaten - i) / 4);             // 0 = in the pile, 1 = gone through the burrs
+      if (e >= 1) continue;
+      const sink = s2 > .01 && s2 < .99 && !reduced ? Math.sin(t * 9 + i) * .6 : 0;
+      bean(lerp(x, 300, e * e), lerp(y + sink, 236, e * e), sl.a + wob + e * sl.spin * .3, sl.v, 1 - .55 * e, 1 - e * e);
     }
     ctx.restore();
 
-    // falling beans (not clipped, they drop in from above)
+    // falling beans: gravity, varied spin and a faint motion trail
     for (let i = 0; i < N; i++) {
-      const sl = SLOTS[i], land = .06 + .82 * i / N, dur = .14;
+      const sl = SLOTS[i], land = .06 + .82 * i / N, dur = .12 + rnd(i + 5) * .05;
       if (s1 <= land - dur || s1 >= land) continue;
       const q = (s1 - (land - dur)) / dur;
-      const y = lerp(-140, sl.y, q * q);
-      const x = lerp(sl.x + sl.sx, sl.x, eOut(q));
-      bean(x, y, sl.a + (1 - q) * 5, sl.v);
+      const at = (qq) => [lerp(sl.x + sl.sx, sl.x, eOut(qq)), lerp(-140, sl.y, qq * qq), sl.a + (1 - qq) * sl.spin];
+      if (!reduced) [[.06, .12], [.03, .22]].forEach(([d, a]) => { const [tx, ty, ta] = at(Math.max(0, q - d)); bean(tx, ty, ta, sl.v, 1, a * q); });
+      const [x, y, a] = at(q);
+      bean(x, y, a, sl.v);
     }
 
     // hopper glass
@@ -352,6 +373,12 @@
       g.addColorStop(0, "rgba(214,160,104,.95)"); g.addColorStop(1, "rgba(120,70,35,0)");
       ctx.fillStyle = g; ctx.fillRect(-200, surf + wob, 400, 8);
       ctx.fillStyle = "rgba(255,236,210,.6)"; ctx.fillRect(-200, surf + wob, 400, 1.2);
+      // fine bubbles collecting at the surface while it fills
+      for (let k = 0; k < 14; k++) {
+        const bx = -70 + rnd(k + 300) * 140, r = .8 + rnd(k + 310) * 1.8;
+        ctx.beginPath(); ctx.arc(bx + (reduced ? 0 : Math.sin(t * 1.5 + k) * 1.5), surf + 2.5 + rnd(k + 320) * 2.5, r, 0, TAU);
+        ctx.fillStyle = "rgba(230,185,135,.55)"; ctx.fill();
+      }
       ctx.restore();
     }
     // glass body
@@ -450,18 +477,20 @@
     ctx.restore();
   };
 
-  const drawSteam = (amt, t, x, y) => {
+  const drawSteam = (amt, t, x, y, sc = 1) => {
     if (amt <= 0) return;
     ctx.save(); ctx.lineCap = "round";
     for (let k = 0; k < 3; k++) {
       const ph = reduced ? 0 : t * .9 + k * 2.1;
-      const bx = x + (k - 1) * 30;
+      const bx = x + (k - 1) * 30 * sc, h = 210 * sc;
       ctx.beginPath(); ctx.moveTo(bx, y);
-      ctx.bezierCurveTo(bx + Math.sin(ph) * 26, y - 70, bx - Math.sin(ph + 1.3) * 30, y - 130, bx + Math.sin(ph + 2.2) * 22, y - 210);
-      const g = ctx.createLinearGradient(0, y, 0, y - 210);
-      g.addColorStop(0, `rgba(255,255,255,0)`); g.addColorStop(.25, `rgba(255,255,255,${.55 * amt})`); g.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.strokeStyle = g; ctx.lineWidth = 14; ctx.globalAlpha = .55; ctx.stroke();
-      ctx.lineWidth = 4; ctx.globalAlpha = .8; ctx.stroke();
+      ctx.bezierCurveTo(bx + Math.sin(ph) * 26 * sc, y - h * .33, bx - Math.sin(ph + 1.3) * 30 * sc, y - h * .62, bx + Math.sin(ph + 2.2) * 22 * sc, y - h);
+      const g = ctx.createLinearGradient(0, y, 0, y - h);
+      g.addColorStop(0, "rgba(160,130,105,0)"); g.addColorStop(.3, `rgba(160,130,105,${.32 * amt})`); g.addColorStop(1, "rgba(160,130,105,0)");
+      ctx.strokeStyle = g; ctx.lineWidth = 16 * sc; ctx.globalAlpha = .5; ctx.stroke();
+      const core = ctx.createLinearGradient(0, y, 0, y - h);
+      core.addColorStop(0, "rgba(255,255,255,0)"); core.addColorStop(.3, `rgba(255,255,255,${.9 * amt})`); core.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.strokeStyle = core; ctx.lineWidth = 5 * sc; ctx.globalAlpha = .75; ctx.stroke();
     }
     ctx.restore();
   };
@@ -502,7 +531,12 @@
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
 
     const camY = 600 * eIO(seg(s4, 0, .35));
-    ctx.setTransform(DPR * S, 0, 0, DPR * S, DPR * S * OX, DPR * S * (OY - camY));
+    // finale: ease the camera in on the finished cup
+    const fin = eIO(seg(s4, .86, 1));
+    const Z = 1 + .22 * fin;
+    const fx = 372, fy = 1330 - 20 * fin;               // focus point in the world
+    const sx = (fx + OX) * S, sy = (fy - camY + OY) * S;
+    ctx.setTransform(DPR * S * Z, 0, 0, DPR * S * Z, DPR * (sx - fx * S * Z), DPR * (sy - 30 * fin * S - fy * S * Z));
 
     // big soft light disc behind the scene
     g = ctx.createRadialGradient(300, 420 + camY, 20, 300, 420 + camY, 420);
@@ -537,6 +571,7 @@
 
     const dripperDY = -320 * lift, dripperA = 1 - seg(s4, .05, .3);
     drawDripper(s2, s3, t, dripperDY, dripperA, top);
+    drawSteam(.8 * Math.sin(Math.PI * seg(s3, .15, .95)) * (1 - lift), t * .8, 300, top - 18 + dripperDY, .55);
     const drip = seg(s3, .2, .3) * (1 - seg(s4, 0, .08));
     if (drip > 0) {
       const level = 650 + 96 + 110 - brewFill * 196;
@@ -545,7 +580,13 @@
 
     // cup (sits low in the world, revealed as the camera pans)
     const L = eOut(pour);
-    const heart = eOut(seg(s4, .9, 1));
+    if (L > .5) { // warm light gathering around the finished cup
+      const a = .32 * seg(L, .5, 1) * (.75 + .25 * fin);
+      g = ctx.createRadialGradient(CUP.x, CUP.y + 30, 10, CUP.x, CUP.y + 30, 300);
+      g.addColorStop(0, `rgba(255,196,120,${a})`); g.addColorStop(1, "rgba(255,196,120,0)");
+      ctx.fillStyle = g; ctx.fillRect(CUP.x - 320, CUP.y - 290, 640, 640);
+    }
+    const heart = eOut(seg(s4, .84, .97));
     drawCupBack(L, heart, t);
 
     ctx.save(); ctx.globalAlpha = 1 - back;
@@ -567,7 +608,7 @@
       ctx.restore();
     }
     drawCupFront();
-    drawSteam(seg(L, .45, 1), t, CUP.x, CUP.y - 6);
+    drawSteam(seg(L, .45, 1) * (1 - .25 * fin), t, CUP.x, CUP.y - 6, .9);
 
     // film grain + vignette (screen space)
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -584,18 +625,20 @@
     let sum = 0, active = -1;
     steps.forEach((st, i) => {
       const r = st.getBoundingClientRect();
-      sum += clamp((vh * .62 - r.top) / r.height);
+      const span = i === steps.length - 1 ? r.height * .5 : r.height;
+      sum += clamp((vh * .62 - r.top) / span);
       if (r.top < vh * .62) active = i;
     });
     steps.forEach((st, i) => st.classList.toggle("is-active", i === active || (active === -1 && i === 0 && false)));
     return clamp(sum / steps.length);
   };
 
-  let p = 0, visible = false, raf = 0;
-  const start = performance.now();
+  let p = 0, visible = false, raf = 0, last = performance.now();
+  const start = last;
   const loop = (now) => {
     const goal = target();
-    p = reduced ? goal : p + (goal - p) * .14;
+    const dt = Math.min(.1, (now - last) / 1000); last = now;
+    p = reduced ? goal : p + (goal - p) * (1 - Math.exp(-dt * 9));
     if (Math.abs(goal - p) < .0005) p = goal;
     render(p, (now - start) / 1000);
     hud(p);
@@ -603,7 +646,7 @@
   };
   new IntersectionObserver((ents) => {
     visible = ents[0].isIntersecting;
-    if (visible && !raf) raf = requestAnimationFrame(loop);
+    if (visible && !raf) { last = performance.now(); raf = requestAnimationFrame(loop); }
   }, { rootMargin: "200px 0px" }).observe(section);
   window.addEventListener("resize", () => { resize(); render(p, (performance.now() - start) / 1000); });
   resize();
