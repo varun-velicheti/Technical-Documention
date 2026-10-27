@@ -53,8 +53,11 @@
   /* ---------- Preloader ---------- */
   const preloader = $(".preloader");
   const onReady = [];
-  const ready = (fn) => onReady.push(fn);
+  let loaded = false;
+  // Run now if the page has already finished loading (returning visits skip the loader).
+  const ready = (fn) => (loaded ? fn() : onReady.push(fn));
   const finishLoad = () => {
+    loaded = true;
     document.documentElement.classList.add("is-loaded");
     if (preloader) preloader.classList.add("is-done");
     onReady.forEach((fn) => fn());

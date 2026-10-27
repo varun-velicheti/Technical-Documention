@@ -229,7 +229,7 @@
     roundRect(262, 296, 76, 26, 6);
     g = ctx.createLinearGradient(262, 296, 338, 322); g.addColorStop(0, "#e6c78f"); g.addColorStop(.5, "#b88d52"); g.addColorStop(1, "#d9b77e");
     ctx.fillStyle = g; ctx.fill();
-    ctx.fillStyle = "#2a1a10"; ctx.font = "600 10px 'DM Mono', monospace"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillStyle = "#2a1a10"; ctx.font = "800 10px Figtree, 'Segoe UI', sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("FIRST SIP", 300, 309.5);
     // grind dial
     ctx.save(); ctx.translate(246, 384);
@@ -472,7 +472,7 @@
     ctx.beginPath(); ctx.ellipse(x, y, rx + 1.5, ry + 1.5, 0, 0, TAU); ctx.strokeStyle = "#c9a066"; ctx.lineWidth = 1.6; ctx.stroke();
     // printed logo on the cup
     ctx.save(); ctx.globalAlpha = .9;
-    ctx.fillStyle = "#b88d52"; ctx.font = "italic 400 15px Fraunces, Georgia, serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillStyle = "#b88d52"; ctx.font = "800 14px Figtree, 'Segoe UI', sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("First Sip", x - 8, y + 58);
     ctx.restore();
   };
