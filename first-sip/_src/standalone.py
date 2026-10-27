@@ -13,6 +13,10 @@ for p in sorted(root.glob("*.html")):
     h = h.replace('<link rel="stylesheet" href="assets/css/style.css">', "<style>\n" + css + "\n</style>")
     h = re.sub(r'<script src="assets/js/([a-z]+)\.js" defer></script>', lambda m: js(m.group(1)), h)
     h = h.replace('href="assets/img/favicon.svg"', f'href="{fav}"').replace("assets/img/logo.svg", logo)
+    for img in sorted((root / "assets/img").glob("*.jpg")):
+        rel = f"assets/img/{img.name}"
+        if rel in h:
+            h = h.replace(rel, "data:image/jpeg;base64," + base64.b64encode(img.read_bytes()).decode())
     assert "assets/" not in h, p
     (out / p.name).write_text(h)
     print("standalone", p.name, len(h) // 1024, "KB")
