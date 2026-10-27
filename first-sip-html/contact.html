@@ -318,6 +318,7 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
 .brew__intro { min-height: 70vh; display: grid; align-content: center; gap: 22px; }
 .brew__step { min-height: 92vh; display: grid; align-content: center; gap: 18px; opacity: .22; transform: translateX(-10px); transition: opacity .6s var(--ease), transform .8s var(--ease); }
 .brew__step.is-active { opacity: 1; transform: none; }
+.brew__step:last-child { min-height: 150vh; align-content: start; padding-top: 30vh; }
 .brew__num { display: flex; align-items: center; gap: 14px; font-family: var(--f-mono); font-size: var(--fs-xs); letter-spacing: .2em; color: var(--accent-ink); text-transform: uppercase; }
 .brew__num b { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--espresso); color: var(--gold-soft); font-weight: 500; letter-spacing: 0; font-size: var(--fs-sm); }
 .brew__step h3 { font-size: clamp(2rem, 1.3rem + 2.4vw, 3.4rem); }
@@ -337,7 +338,7 @@ html.has-mouse .cursor, html.has-mouse .cursor-dot { opacity: 1; }
 .brew__meta b { text-transform: none; display: block; font-family: var(--f-display); font-size: 1.7rem; letter-spacing: 0; color: var(--espresso); font-weight: 400; font-variant-numeric: tabular-nums; }
 @media (max-width: 900px) {
   .brew__grid { grid-template-columns: 1fr; gap: 0; }
-  .brew__stage { order: -1; position: sticky; top: 0; z-index: 2; height: 56vh; height: 56svh; padding-top: 64px; background: var(--bg-alt); }
+  .brew__stage { order: -1; position: sticky; top: 0; z-index: 2; height: 56vh; height: 56svh; padding-top: 64px; background: var(--bg-alt); margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
   .brew__sticky { position: relative; top: 0; height: 100%; border-radius: var(--radius-lg); }
   .brew__steps { padding-block: 2vh 20vh; }
   .brew__intro { min-height: auto; padding-block: 30px 10px; }
