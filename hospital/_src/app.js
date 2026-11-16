@@ -52,47 +52,20 @@ const DOCS = [
 const initials = n => n.replace(/^(Dr\.|Ms\.)\s*/, "").split(" ").map(w => w[0]).join("").slice(0, 2);
 const docAv = d => `background:linear-gradient(145deg,${d.color})`;
 
-/* ---------------- CENTRES + MARQUEE ---------------- */
-$("#centreGrid").innerHTML = DEPTS.slice(0, 8).map((d, i) => `
-  <a href="#doctors" class="centre rv ${"d" + (i % 4)}" data-dept="${d.id}">
-    <span class="ci">${icon(d.icon)}</span><span class="arrow">${icon("arrow")}</span>
-    <h3>${d.name}</h3><p>${d.desc}</p></a>`).join("");
-$$("#centreGrid .centre").forEach(c => c.addEventListener("click", () => { docFilter = c.dataset.dept; renderChips(); renderDocs(); }));
-const mq = ["Robotic surgery", "Level-1 trauma centre", "Kidney transplant", "Level-III NICU", "Hybrid cath lab", "3T MRI", "Stroke-ready unit", "Bone marrow transplant", "Sleep lab", "Bariatric surgery"];
-$("#marq").innerHTML = [...mq, ...mq].map(t => `<span>${t}</span>`).join("");
-
-/* ---------------- DOCTORS ---------------- */
-let docFilter = "all", docQuery = "";
-function renderChips() {
-  const ch = [{ id: "all", name: "All" }, ...DEPTS];
-  $("#docChips").innerHTML = ch.map(c => `<button class="chip ${docFilter === c.id ? "on" : ""}" data-f="${c.id}">${c.name}</button>`).join("");
+const QS = new URLSearchParams(location.search);
+/* ---------------- SEGMENTED CONTROLS ---------------- */
+const segHandlers = {};
+function placeThumbs() { $$(".seg").forEach(seg => { const on = $("button.on", seg), th = $(".thumb", seg); if (on && th && on.offsetWidth) { th.style.left = on.offsetLeft + "px"; th.style.width = on.offsetWidth + "px"; } }); }
+$$(".seg").forEach(seg => seg.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; $$("button", seg).forEach(x => x.classList.toggle("on", x === b)); placeThumbs(); segHandlers[seg.dataset.seg]?.(b.dataset.v); }));
+addEventListener("resize", placeThumbs);
+/* ---------------- TWEEN ---------------- */
+function tween(el, to, fmt = v => Math.round(v).toLocaleString("en-IN"), dur = 900) {
+  const from = el._v ?? 0; el._v = to; const t0 = performance.now();
+  cancelAnimationFrame(el._raf);
+  const step = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4); el.textContent = fmt(from + (to - from) * e); if (p < 1) el._raf = requestAnimationFrame(step); };
+  el._raf = requestAnimationFrame(step);
 }
-function nextAvail(d) {
-  const now = new Date();
-  for (let i = 0; i < 14; i++) { const dt = new Date(now); dt.setDate(now.getDate() + i); if (d.days.includes(dt.getDay())) { const s = slotsFor(d, dt).find(x => !x.booked && !x.past); if (s) return (i === 0 ? "Today" : i === 1 ? "Tomorrow" : dt.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })) + ", " + s.label; } }
-  return "Fully booked";
-}
-function renderDocs() {
-  const q = docQuery.toLowerCase().trim();
-  const list = DOCS.filter(d => (docFilter === "all" || d.dept === docFilter) && (!q || (d.name + " " + D(d.dept).name + " " + D(d.dept).short + " " + d.tags + " " + d.title).toLowerCase().includes(q)));
-  $("#docGrid").innerHTML = list.length ? list.map((d, i) => `
-    <article class="doc" style="animation-delay:${i * 50}ms">
-      <div class="doc-ph" style="${docAv(d)}">
-        <svg class="sil"><use href="#i-sil"/></svg><span class="init">${initials(d.name)}</span>
-        <span class="avail"><i></i>${esc(nextAvail(d))}</span><span class="rating">★ ${d.rating}</span>
-      </div>
-      <div class="doc-body">
-        <h3>${d.name}</h3><div class="sp">${D(d.dept).name}</div>
-        <div class="meta"><span>${d.title}</span><span>${d.deg} · ${d.exp} yrs</span><span>Speaks ${d.langs}</span></div>
-        <div class="row"><span class="fee">Fee <b>${inr(d.fee)}</b></span><button class="btn btn-primary btn-sm" data-bookdoc="${d.id}">Book</button></div>
-      </div></article>`).join("") : `<div class="empty">No doctors match “${esc(docQuery)}”. Try a speciality like “heart” or “skin”.</div>`;
-}
-$("#docChips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return; docFilter = b.dataset.f; renderChips(); renderDocs(); });
-$("#docSearch").addEventListener("input", e => { docQuery = e.target.value; renderDocs(); });
-$("#docGrid").addEventListener("click", e => { const b = e.target.closest("[data-bookdoc]"); if (!b) return; const d = DOCS.find(x => x.id === b.dataset.bookdoc); B.dept = d.dept; B.doc = d.id; B.date = null; B.time = null; goStep(2); $("#book").scrollIntoView({ behavior: "smooth" }); });
-
-/* ---------------- BOOKING ---------------- */
-const STEPS = ["Department", "Doctor", "Date & time", "Details", "Confirm"];
+/* ---------------- SHARED BOOKING HELPERS ---------------- */
 const B = { step: 0, dept: null, doc: null, date: null, time: null, mode: "In-person", pay: "Pay at hospital", pat: {} };
 const dkey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 function slotsFor(doc, date) {
@@ -107,6 +80,60 @@ function slotsFor(doc, date) {
   } });
   return out;
 }
+const fmtDate = d => d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+function qrSvg(seed) {
+  const n = 25, r = rng(hash(seed)); let cells = "";
+  const finder = (x, y) => `<rect x="${x}" y="${y}" width="7" height="7" fill="#0a2533"/><rect x="${x + 1}" y="${y + 1}" width="5" height="5" fill="#fff"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" fill="#0a2533"/>`;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const inF = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9); if (!inF && r() > .52) cells += `M${x} ${y}h1v1h-1z`; }
+  return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><path d="${cells}" fill="#0a2533"/>${finder(0, 0)}${finder(n - 7, 0)}${finder(0, n - 7)}</svg>`;
+}
+if ($("#centreGrid")) {
+/* ---------------- CENTRES + MARQUEE ---------------- */
+$("#centreGrid").innerHTML = DEPTS.slice(0, 8).map((d, i) => `
+  <a href="doctors.html?dept=${d.id}" class="centre rv ${"d" + (i % 4)}" data-dept="${d.id}">
+    <span class="ci">${icon(d.icon)}</span><span class="arrow">${icon("arrow")}</span>
+    <h3>${d.name}</h3><p>${d.desc}</p></a>`).join("");
+const mq = ["Robotic surgery", "Level-1 trauma centre", "Kidney transplant", "Level-III NICU", "Hybrid cath lab", "3T MRI", "Stroke-ready unit", "Bone marrow transplant", "Sleep lab", "Bariatric surgery"];
+$("#marq").innerHTML = [...mq, ...mq].map(t => `<span>${t}</span>`).join("");
+}
+if ($("#docGrid")) {
+/* ---------------- DOCTORS ---------------- */
+let docFilter = "all", docQuery = "", docShow = 8;
+function renderChips() {
+  const ch = [{ id: "all", name: "All" }, ...DEPTS];
+  $("#docChips").innerHTML = ch.map(c => `<button class="chip ${docFilter === c.id ? "on" : ""}" data-f="${c.id}">${c.name}</button>`).join("");
+}
+function nextAvail(d) {
+  const now = new Date();
+  for (let i = 0; i < 14; i++) { const dt = new Date(now); dt.setDate(now.getDate() + i); if (d.days.includes(dt.getDay())) { const s = slotsFor(d, dt).find(x => !x.booked && !x.past); if (s) return (i === 0 ? "Today" : i === 1 ? "Tomorrow" : dt.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })) + ", " + s.label; } }
+  return "Fully booked";
+}
+function renderDocs() {
+  const q = docQuery.toLowerCase().trim();
+  const list = DOCS.filter(d => (docFilter === "all" || d.dept === docFilter) && (!q || (d.name + " " + D(d.dept).name + " " + D(d.dept).short + " " + d.tags + " " + d.title).toLowerCase().includes(q)));
+  const total = list.length; const shown = list.slice(0, docShow);
+  $("#docGrid").innerHTML = list.length ? shown.map((d, i) => `
+    <article class="doc" style="animation-delay:${i * 50}ms">
+      <div class="doc-ph" style="${docAv(d)}">
+        <svg class="sil"><use href="#i-sil"/></svg><span class="init">${initials(d.name)}</span>
+        <span class="avail"><i></i>${esc(nextAvail(d))}</span><span class="rating">★ ${d.rating}</span>
+      </div>
+      <div class="doc-body">
+        <h3>${d.name}</h3><div class="sp">${D(d.dept).name}</div>
+        <div class="meta"><span>${d.title}</span><span>${d.deg} · ${d.exp} yrs</span><span>Speaks ${d.langs}</span></div>
+        <div class="row"><span class="fee">Fee <b>${inr(d.fee)}</b></span><button class="btn btn-primary btn-sm" data-bookdoc="${d.id}">Book</button></div>
+      </div></article>`).join("") + (total > shown.length ? `<div style="grid-column:1/-1;text-align:center;margin-top:10px"><button class="btn btn-ghost" data-more>Show all ${total} doctors</button></div>` : "") : `<div class="empty">No doctors match “${esc(docQuery)}”. Try a speciality like “heart” or “skin”.</div>`;
+}
+$("#docChips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return; docFilter = b.dataset.f; renderChips(); renderDocs(); });
+$("#docSearch").addEventListener("input", e => { docQuery = e.target.value; renderDocs(); });
+$("#docGrid").addEventListener("click", e => { if (e.target.closest("[data-more]")) { docShow = 99; renderDocs(); return; } const b = e.target.closest("[data-bookdoc]"); if (b) location.href = "book.html?doc=" + b.dataset.bookdoc; });
+if (QS.get("dept") && D(QS.get("dept"))) docFilter = QS.get("dept");
+if (QS.get("q")) { docQuery = QS.get("q"); $("#docSearch").value = docQuery; }
+renderChips(); renderDocs();
+}
+if ($("#steps")) {
+/* ---------------- BOOKING ---------------- */
+const STEPS = ["Department", "Doctor", "Date & time", "Details", "Confirm"];
 function renderSteps() {
   $("#steps").innerHTML = STEPS.map((s, i) => `<div class="step-pill ${i < B.step ? "done" : i === B.step ? "cur" : ""}" data-go="${i}"><div class="track"><i></i></div><span>${i + 1}. ${s}</span></div>`).join("");
 }
@@ -145,7 +172,6 @@ function renderSlots() {
     return `<div class="slot-group"><h4><svg style="width:15px;height:15px"><use href="#i-${ic}"/></svg>${n} · ${free} open</h4><div class="slots">${g.map(x => `<button type="button" class="slot ${B.time === x.label ? "sel" : ""}" data-t="${x.label}" ${x.booked || x.past ? "disabled" : ""}>${x.label}</button>`).join("")}</div></div>`; }).join("");
 }
 $("#slotArea").addEventListener("click", e => { const b = e.target.closest(".slot"); if (!b) return; B.time = b.dataset.t; $$("#slotArea .slot").forEach(x => x.classList.toggle("sel", x === b)); updSummary(); updNav(); });
-const fmtDate = d => d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
 function setSum(id, v, ph) { const el = $(id); el.textContent = v || ph; el.classList.toggle("empty-v", !v); }
 function fee() { const d = DOCS.find(x => x.id === B.doc); if (!d) return 0; let f = d.fee; if (B.mode === "Video") f *= .8; if ((B.pat.visit || "").startsWith("Follow")) f = 0; if (B.pay.startsWith("Paid online")) f *= .95; return f; }
 function updSummary() {
@@ -192,12 +218,6 @@ $("#nextBtn").addEventListener("click", () => {
   if (B.step === 4) { if (!$("#consent").checked) { toast("Please accept the terms to confirm"); $("#consent").focus(); return; } confirmBooking(); return; }
   goStep(B.step + 1);
 });
-function qrSvg(seed) {
-  const n = 25, r = rng(hash(seed)); let cells = "";
-  const finder = (x, y) => `<rect x="${x}" y="${y}" width="7" height="7" fill="#0a2533"/><rect x="${x + 1}" y="${y + 1}" width="5" height="5" fill="#fff"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" fill="#0a2533"/>`;
-  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const inF = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9); if (!inF && r() > .52) cells += `M${x} ${y}h1v1h-1z`; }
-  return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><path d="${cells}" fill="#0a2533"/>${finder(0, 0)}${finder(n - 7, 0)}${finder(0, n - 7)}</svg>`;
-}
 let lastAppt = null;
 function confirmBooking() {
   const doc = DOCS.find(x => x.id === B.doc);
@@ -230,26 +250,11 @@ function renderMyAppts() {
     return `<div class="appt"><div class="ad"><small>${d.toLocaleDateString("en-IN", { month: "short" })}</small><b>${d.getDate()}</b></div><div class="ai"><b>${doc ? doc.name : ""}</b><span>${a.time} · Token ${a.token} · ${esc(a.pat.name)}</span></div><button class="link" data-cancel="${a.id}">Cancel</button></div>`; }).join("") : `<p style="font-size:14px;color:var(--muted);padding:14px 0">No upcoming appointments yet.</p>`);
 }
 $("#myAppts").addEventListener("click", e => { const b = e.target.closest("[data-cancel]"); if (!b) return; store.set("aur-appts", store.get("aur-appts", []).filter(a => a.id !== b.dataset.cancel)); renderMyAppts(); toast("Appointment cancelled"); });
-
-/* ---------------- SEGMENTED CONTROLS ---------------- */
-const segHandlers = {
-  mode: v => { B.mode = v; updSummary(); },
-  sex: v => { S.sex = v; calc(); },
-  pref: v => { S.pref = v; calc(); },
-  pkg: v => { pkgN = +v; renderPkgs(); }
-};
-function placeThumbs() { $$(".seg").forEach(seg => { const on = $("button.on", seg), th = $(".thumb", seg); if (on && th && on.offsetWidth) { th.style.left = on.offsetLeft + "px"; th.style.width = on.offsetWidth + "px"; } }); }
-$$(".seg").forEach(seg => seg.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; $$("button", seg).forEach(x => x.classList.toggle("on", x === b)); placeThumbs(); segHandlers[seg.dataset.seg]?.(b.dataset.v); }));
-addEventListener("resize", placeThumbs);
-
-/* ---------------- TWEEN ---------------- */
-function tween(el, to, fmt = v => Math.round(v).toLocaleString("en-IN"), dur = 900) {
-  const from = el._v ?? 0; el._v = to; const t0 = performance.now();
-  cancelAnimationFrame(el._raf);
-  const step = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4); el.textContent = fmt(from + (to - from) * e); if (p < 1) el._raf = requestAnimationFrame(step); };
-  el._raf = requestAnimationFrame(step);
+segHandlers.mode = v => { B.mode = v; updSummary(); };
+renderMyAppts();
+{ const qd = DOCS.find(d => d.id === QS.get("doc")); if (qd) { B.dept = qd.dept; B.doc = qd.id; goStep(2); } else if (QS.get("dept") && D(QS.get("dept"))) { B.dept = QS.get("dept"); goStep(1); } else goStep(0); }
 }
-
+if ($("#condGrid")) {
 /* ---------------- DIET ---------------- */
 const M = (t, title, veg, nv) => ({ t, title, veg, nv: nv || veg });
 const COND = {
@@ -389,8 +394,12 @@ function calc(changed) {
   $$("#meals .kc").forEach(k => k.textContent = "~" + Math.round(kcal * +k.dataset.f / 10) * 10 + " kcal");
   $("#planKcal").textContent = `${S.pref === "veg" ? "Vegetarian" : "Non-vegetarian"} · about ${kcal.toLocaleString("en-IN")} kcal`;
 }
-$("#dietBook").addEventListener("click", () => { B.dept = "diet"; B.doc = "d16"; B.date = null; B.time = null; setTimeout(() => goStep(2), 50); });
-
+segHandlers.sex = v => { S.sex = v; calc(); };
+segHandlers.pref = v => { S.pref = v; calc(); };
+const db = $("#dietBook"); if (db) db.href = "book.html?doc=d16";
+calc(true);
+}
+if ($("#pkgGrid")) {
 /* ---------------- PACKAGES ---------------- */
 let pkgN = 1;
 const PKGS = [
@@ -405,7 +414,10 @@ function renderPkgs() {
     <ul>${p.items.map(x => `<li>${x}</li>`).join("")}</ul><button class="btn ${p.feat ? "btn-gold" : "btn-ghost"}" data-pkg="${p.n}">Book this check</button></div>`).join("");
 }
 $("#pkgGrid").addEventListener("click", e => { const b = e.target.closest("[data-pkg]"); if (b) toast(`${b.dataset.pkg} check reserved (demo). Our team will call to fix a date.`); });
-
+segHandlers.pkg = v => { pkgN = +v; renderPkgs(); };
+renderPkgs();
+}
+if ($("#tTrack")) {
 /* ---------------- TESTIMONIALS / LIBRARY / FAQ ---------------- */
 const TESTI = [
   ["After my father’s heart attack, the team had him in the cath lab within an hour. The doctors explained every step to us in Kannada. We felt held.", "Shalini M.", "Daughter of a cardiac patient"],
@@ -420,7 +432,8 @@ function tGo(i) { tI = (i + TESTI.length) % TESTI.length; $("#tTrack").style.tra
 $("#tDots").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { tGo(+b.dataset.i); resetT(); } });
 $("#tPrev").onclick = () => { tGo(tI - 1); resetT(); }; $("#tNext").onclick = () => { tGo(tI + 1); resetT(); };
 let tT; const resetT = () => { clearInterval(tT); tT = setInterval(() => tGo(tI + 1), 6500); }; tGo(0); resetT();
-
+}
+if ($("#libGrid")) {
 const LIB = [
   ["Heart", "Seven warning signs of a heart attack women often miss", "Jaw pain, fatigue and nausea are just as common as chest pain. Here’s what to watch for.", "6 min", ["#0a2533", "#14a093"]],
   ["Nutrition", "The Indian plate, rebuilt for diabetes", "You don’t need to give up rice. Portion, pairing and timing matter more than banning foods.", "8 min", ["#5c4520", "#d9b874"]],
@@ -428,6 +441,8 @@ const LIB = [
 ];
 $("#libGrid").innerHTML = LIB.map(([c, t, p, r, g], i) => `<a href="#" class="panel post rv d${i}" data-toast="Articles are placeholders in this educational demo."><div class="cover"><svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="lg${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${g[0]}"/><stop offset="1" stop-color="${g[1]}"/></linearGradient></defs><rect width="320" height="180" fill="url(#lg${i})"/><circle cx="${240 - i * 40}" cy="${50 + i * 20}" r="70" fill="#fff" opacity=".08"/><circle cx="${80 + i * 50}" cy="150" r="50" fill="#fff" opacity=".06"/><path d="M0 110h70l10-16 12 16h20l8 6 12-52 14 86 12-40h40l12-12 12 12h98" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/></svg></div><div class="pb"><span class="cat">${c}</span><h3>${t}</h3><p>${p}</p><div class="read">${r} read · Reviewed by Aurelia doctors</div></div></a>`).join("");
 
+}
+if ($("#faqList")) {
 const FAQ = [
   ["How do I book an OP appointment?", "Use the booking tool above: choose a department, doctor, date and time, then enter patient details. You get a token number and OP number instantly. You can also call the help desk."],
   ["What should I bring to my first visit?", "A photo ID, previous prescriptions and reports, your list of current medicines and your insurance card if you have one. Please arrive 15 minutes before your slot."],
@@ -439,6 +454,7 @@ const FAQ = [
 ];
 $("#faqList").innerHTML = FAQ.map(([q, a], i) => `<div class="acc rv ${i === 0 ? "open" : ""}"><button aria-expanded="${i === 0}">${q}<span class="pm"></span></button><div class="ans"><div><p>${a}</p></div></div></div>`).join("");
 $("#faqList").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const a = b.parentElement, open = !a.classList.contains("open"); $$("#faqList .acc").forEach(x => { x.classList.remove("open"); $("button", x).setAttribute("aria-expanded", "false"); }); if (open) { a.classList.add("open"); b.setAttribute("aria-expanded", "true"); } });
+}
 
 /* ---------------- CHAT ---------------- */
 const BOT = [
@@ -457,8 +473,8 @@ function bub(t, me) { const b = document.createElement("div"); b.className = "bu
 function botReply(q) {
   const ty = document.createElement("div"); ty.className = "bub bot typing"; ty.innerHTML = "<span></span><span></span><span></span>"; $("#chatBody").appendChild(ty); $("#chatBody").scrollTop = 1e6;
   setTimeout(() => { ty.remove(); const m = BOT.find(([r]) => r.test(q)); bub(m ? m[1] : "I can help with appointments, timings, insurance, reports, diet and emergencies. For anything else, our help desk is on +91 00000 00000 (demo).");
-    if (/book|appoint|op\b|opd|slot/i.test(q)) setTimeout(() => { $("#chatbox").classList.remove("open"); $("#book").scrollIntoView({ behavior: "smooth" }); }, 1200);
-    if (/diet|food|nutrition|calorie/i.test(q)) setTimeout(() => { $("#chatbox").classList.remove("open"); $("#diet").scrollIntoView({ behavior: "smooth" }); }, 1200);
+    if (/book|appoint|op\b|opd|slot/i.test(q)) setTimeout(() => { location.href = "book.html"; }, 1200);
+    if (/diet|food|nutrition|calorie/i.test(q)) setTimeout(() => { location.href = "diet.html"; }, 1200);
   }, 700 + Math.random() * 500);
 }
 $("#chatQ").innerHTML = QUICK.map(q => `<button type="button">${q}</button>`).join("");
@@ -496,8 +512,8 @@ $("#rpLogin").addEventListener("click", () => {
   r.innerHTML = `<p class="sub" style="margin-top:-6px">Signed in as ${esc($("#rUhid").value.trim().toUpperCase())} (sample data)</p>` + reps.map(([n, d, s]) => `<div class="appt"><div class="ad"><small>${d.split(" ")[1]}</small><b>${d.split(" ")[0]}</b></div><div class="ai"><b>${n}</b><span>${s}</span></div><button class="link" style="color:var(--teal)" data-toast="Sample report: PDFs aren’t generated in this demo.">View</button></div>`).join("");
 });
 function simpleForm(form, fields, msg) { $(form).addEventListener("submit", e => { e.preventDefault(); let ok = true; fields.forEach(([s, fn]) => { const v = fn($(s).value.trim()); $(s).closest(".field")?.classList.toggle("err", !v); if (!v) ok = false; }); if (ok) { $(form).reset(); toast(msg); } }); }
-simpleForm("#contactForm", [["#cName", v => v.length > 1], ["#cPhone", v => /^[6-9]\d{9}$/.test(v)]], "Thanks! Our care team will call you back within 30 minutes (demo).");
-$("#cPhone").addEventListener("input", e => e.target.value = e.target.value.replace(/\D/g, ""));
+if ($("#contactForm")) simpleForm("#contactForm", [["#cName", v => v.length > 1], ["#cPhone", v => /^[6-9]\d{9}$/.test(v)]], "Thanks! Our care team will call you back within 30 minutes (demo).");
+if ($("#contactForm")) $("#cPhone").addEventListener("input", e => e.target.value = e.target.value.replace(/\D/g, ""));
 $("#newsForm").addEventListener("submit", e => { e.preventDefault(); e.target.reset(); toast("Subscribed. Welcome to Aurelia Health Notes (demo)."); });
 
 /* ---------------- CHROME: nav, theme, reveal, counters, live ---------------- */
@@ -517,17 +533,13 @@ const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting
 const observeAll = () => $$(".rv:not(.in)").forEach(el => io.observe(el)); observeAll();
 const cio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const el = e.target, to = +el.dataset.count, dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || ""; tween(el, to, v => v.toFixed(dec) + suf, 1800); cio.unobserve(el); }), { threshold: .5 });
 $$("[data-count]").forEach(el => cio.observe(el));
-const secs = $$("main section[id]"), links = $$(".nav-links a");
-const sio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-45% 0px -50% 0px" });
-secs.forEach(s => sio.observe(s));
 function clock() { $("#clock").textContent = new Date().toLocaleString("en-IN", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" }) + " IST"; }
 clock(); setInterval(clock, 30000);
 const LIVE = { lsEr: [6, 2, 18, " min", 20], lsBeds: [142, 120, 170, "", 220], lsIcu: [18, 10, 26, "", 60], lsDocs: [214, 200, 230, "", 260], lsBlood: [36, 28, 44, " units", 80], ambLive: [23, 18, 30, "", 40] };
-setInterval(() => { Object.entries(LIVE).forEach(([id, v]) => { if (Math.random() < .55) return; v[0] = Math.max(v[1], Math.min(v[2], v[0] + Math.round((Math.random() - .5) * 4))); const el = $("#" + id); el.textContent = v[0] + v[3]; el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 600); const bar = el.parentElement.querySelector(".bar i"); if (bar) bar.style.width = (v[0] / v[4] * 100) + "%"; }); const b = $("#bpm"); b.textContent = 68 + Math.round(Math.random() * 8); }, 3000);
+setInterval(() => { Object.entries(LIVE).forEach(([id, v]) => { if (Math.random() < .55) return; v[0] = Math.max(v[1], Math.min(v[2], v[0] + Math.round((Math.random() - .5) * 4))); const el = $("#" + id); if (!el) return; el.textContent = v[0] + v[3]; el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 600); const bar = el.parentElement.querySelector(".bar i"); if (bar) bar.style.width = (v[0] / v[4] * 100) + "%"; }); const b = $("#bpm"); if (b) b.textContent = 68 + Math.round(Math.random() * 8); }, 3000);
 $("#yr").textContent = new Date().getFullYear();
 
 /* ---------------- INIT ---------------- */
-renderChips(); renderDocs(); renderMyAppts(); renderPkgs(); goStep(0); calc(true);
-window.AUR = { DOCS, DEPTS, D, B, goStep, toast, store, tween, icon, inr, esc, hash, rng, slotsFor, fmtDate, qrSvg, docAv, initials, segHandlers, placeThumbs, observeAll, LIVE };
+window.AUR = { DOCS, DEPTS, D, B, toast, store, tween, icon, inr, esc, hash, rng, slotsFor, fmtDate, qrSvg, docAv, initials, segHandlers, placeThumbs, observeAll };
 requestAnimationFrame(placeThumbs); document.fonts?.ready.then(placeThumbs);
 })();

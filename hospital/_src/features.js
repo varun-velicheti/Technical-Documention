@@ -21,6 +21,7 @@ const BODY = smooth(OUTLINE);
 /* =====================================================================
    1. JOURNEY THROUGH THE BODY
    ===================================================================== */
+if ($("#journey")) {
 const CH = [
   { o: "heart", cam: [160, 208, 5], num: "01", h: "It starts with a <em>heartbeat.</em>", p: "Your heart beats about 100,000 times a day. Our cardiac team makes sure every one counts: a 24×7 cath lab, a hybrid operating room and a heart-failure clinic that follows you home.", stat: ["58 min", "average door-to-balloon time"], dept: "card", ring: [160, 211] },
   { o: null, cam: [150, 315, 1], num: "02", h: "The whole of you, <em>in one place.</em>", p: "Forty-two specialities work as one team and share a single digital record, so nothing about you gets lost between doctors, floors or visits.", stat: ["600+", "specialists, one record"] },
@@ -34,10 +35,9 @@ const CH = [
 const N = CH.length;
 const sec = $("#journey"); sec.style.setProperty("--n", N);
 $("#storyCh").innerHTML = CH.map((c, i) => `<div class="sch" data-i="${i}"><div class="num">${c.num} <span>/ 0${N}</span></div><h3>${c.h}</h3><p>${c.p}</p><div class="stat"><b>${c.stat[0]}</b>${c.stat[1]}</div>${c.final
-  ? `<div class="acts"><a href="#book" class="btn btn-gold">Book an OP visit</a><a href="#bodymap" class="btn btn-ghost">Where does it hurt?</a></div>`
-  : c.dept ? `<div class="acts"><a href="#doctors" class="btn btn-ghost btn-sm" data-jdept="${c.dept}">Meet the ${A.D(c.dept).name} team →</a></div>` : ""}</div>`).join("");
+  ? `<div class="acts"><a href="book.html" class="btn btn-gold">Book an OP visit</a><a href="symptoms.html" class="btn btn-ghost">Where does it hurt?</a></div>`
+  : c.dept ? `<div class="acts"><a href="doctors.html?dept=${c.dept}" class="btn btn-ghost btn-sm">Meet the ${A.D(c.dept).name} team →</a></div>` : ""}</div>`).join("");
 $("#storyRail").innerHTML = CH.map((_, i) => `<button aria-label="Chapter ${i + 1}" data-j="${i}"><i></i></button>`).join("");
-$("#storyCh").addEventListener("click", e => { const a = e.target.closest("[data-jdept]"); if (a) setTimeout(() => $(`#docChips [data-f="${a.dataset.jdept}"]`)?.click(), 50); });
 $("#storyRail").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const total = sec.offsetHeight - innerHeight; scrollTo({ top: sec.offsetTop + (+b.dataset.j / (N - 1)) * total + 2, behavior: "smooth" }); });
 
 $("#storySvg").innerHTML = `
@@ -137,9 +137,11 @@ function frame() {
 new IntersectionObserver(es => es.forEach(e => { running = e.isIntersecting; if (running) requestAnimationFrame(frame); }), { rootMargin: "200px 0px" }).observe(sec);
 computeTarget(); Object.assign(cur, target); frame();
 
+}
 /* =====================================================================
    2. BODY MAP SYMPTOM GUIDE
    ===================================================================== */
+if ($("#bmSvg")) {
 const R = true;
 const REG = {
   head: { name: "Head", sym: [["Headache that keeps coming back", "neuro"], ["Migraine with flashing lights", "neuro"], ["Dizziness or spinning", "neuro"], ["Sudden weakness, face droop or slurred speech", "neuro", R], ["Fever with headache", "gen"], ["Memory problems", "neuro"]] },
@@ -215,15 +217,17 @@ $("#bmGeneral").innerHTML = `<button type="button">Whole-body symptoms (fever, t
 $("#bmGeneral button").addEventListener("click", () => pickRegion("whole"));
 $("#bmPanel").addEventListener("click", e => {
   const s = e.target.closest(".sym"); if (s) { const i = +s.dataset.s; BM.picked.has(i) ? BM.picked.delete(i) : BM.picked.add(i); renderPanel(); return; }
-  const b = e.target.closest("[data-bmbook]"); if (b) { const d = A.DOCS.find(x => x.id === b.dataset.bmbook); Object.assign(A.B, { dept: d.dept, doc: d.id, date: null, time: null }); A.goStep(2); $("#book").scrollIntoView({ behavior: "smooth" }); }
+  const b = e.target.closest("[data-bmbook]"); if (b) { const d = A.DOCS.find(x => x.id === b.dataset.bmbook); location.href = "book.html?doc=" + d.id; }
 });
 $("#bmChild").addEventListener("change", () => BM.region && renderPanel());
 A.segHandlers.side = v => { BM.side = v; if (BM.region && !SPOTS[v].some(([k]) => k === BM.region) && BM.region !== "whole") { BM.region = null; BM.picked.clear(); renderPanel(); } bmSvg.classList.add("flip"); setTimeout(() => { drawBody(); bmSvg.classList.remove("flip"); }, 10); };
 drawBody(); renderPanel();
 
+}
 /* =====================================================================
    3. YOUR VISIT TIMELINE
    ===================================================================== */
+if ($("#road")) {
 const appts = A.store.get("aur-appts", []); const ap = appts[0];
 const apDoc = ap && A.DOCS.find(d => d.id === ap.doc) || A.DOCS[0];
 const myTok = ap ? ap.token : 9;
@@ -246,7 +250,7 @@ const STOPS = [
 ];
 $("#visitPersonal").innerHTML = ap
   ? `<div class="visit-personal"><svg><use href="#i-cal"/></svg><span>Your visit: <b>${A.fmtDate(new Date(ap.date))}, ${ap.time}</b> with <b>${apDoc.name}</b>, token ${ap.token}. Here’s how your day will go.</span></div>`
-  : `<div class="visit-personal"><svg><use href="#i-cal"/></svg><span>No appointment yet? <a href="#book" style="color:var(--teal);font-weight:600">Book one in 60 seconds</a> and this walkthrough becomes personal.</span></div>`;
+  : `<div class="visit-personal"><svg><use href="#i-cal"/></svg><span>No appointment yet? <a href="book.html" style="color:var(--teal);font-weight:600">Book one in 60 seconds</a> and this walkthrough becomes personal.</span></div>`;
 const road = $("#road");
 road.innerHTML = `<defs><linearGradient id="roadGrad" x1="0" x2="1"><stop offset="0" stop-color="var(--teal)"/><stop offset="1" stop-color="var(--gold)"/></linearGradient></defs>
   <path id="roadPath" class="base" d="M40 125 C140 125 150 45 250 45 S360 145 450 145 S560 45 650 45 S760 145 850 145 S960 45 1060 45 S1140 105 1165 105"/>
@@ -290,6 +294,7 @@ liveT = setInterval(() => {
 }, 2600);
 showStop(0); trav.setAttribute("transform", (() => { const pt = rp.getPointAtLength(nodeLen[0]); return `translate(${pt.x} ${pt.y})`; })());
 
+}
 A.observeAll && A.observeAll();
 requestAnimationFrame(A.placeThumbs);
 })();

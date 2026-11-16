@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diet Planner | Aurelia Hospital</title>
+<meta name="description" content="Aurelia Hospital & Research: a fictional premium hospital website built for education.">
+<meta name="theme-color" content="#0a2533">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a2533'/%3E%3Cpath d='M32 16v32M16 32h32' stroke='%23d9b874' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="page-diet">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3A2.5 2.5 0 0 0 7 5.5v.2A3 3 0 0 0 4.5 9a3 3 0 0 0 .6 4.6A3 3 0 0 0 8 18a2.5 2.5 0 0 0 4 1.5V4.5A2.5 2.5 0 0 0 9.5 3z"/><path d="M14.5 3A2.5 2.5 0 0 1 17 5.5v.2A3 3 0 0 1 19.5 9a3 3 0 0 1-.6 4.6A3 3 0 0 1 16 18a2.5 2.5 0 0 1-4 1.5"/></symbol>
+    <symbol id="i-bone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.7-.6 2.6-.4a2.5 2.5 0 1 0-3.2-3.2c.2.9.3 1.9-.4 2.6l-6.6 6.6c-.7.7-1.7.6-2.6.4a2.5 2.5 0 1 0 3.2 3.2c-.2-.9-.3-1.9.4-2.6z"/></symbol>
+    <symbol id="i-ribbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c2.3 0 4 1.9 4 4.3 0 3-2.7 6.2-4 7.7-1.3-1.5-4-4.7-4-7.7 0-2.4 1.7-4.3 4-4.3z"/><path d="M10 12.4 6 21.5l3-1 1.5 2.5L12 18M14 12.4l4 9.1-3-1-1.5 2.5L12 18"/></symbol>
+    <symbol id="i-baby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9.5 15a3.5 3.5 0 0 0 5 0M12 3c0 2 1 3 3 3"/></symbol>
+    <symbol id="i-kidney" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 3C5 3 3 6.5 3 11s2 10 6 10c2.5 0 3-2 3-4 0-1.5-1.5-2-1.5-4S12 10 12 8.5C12 5 11 3 8.5 3z"/><path d="M15.5 3C19 3 21 6.5 21 11s-2 10-6 10"/><path d="M12 13h3"/></symbol>
+    <symbol id="i-lungs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M12 12l-3-2M12 12l3-2"/><path d="M8.5 7C6 7 3 11 3 16c0 2.5 1 4 3 4 2.5 0 3.5-1.5 3.5-4V9"/><path d="M15.5 7C18 7 21 11 21 16c0 2.5-1 4-3 4-2.5 0-3.5-1.5-3.5-4V9"/></symbol>
+    <symbol id="i-stomach" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v4c0 2-2 3-2 6 0 5 4 9 9 9 3 0 5-2 5-5 0-4-4-5-7-5-1.5 0-2-1-2-2V2"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-female" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M12 15v7M9 19h6"/></symbol>
+    <symbol id="i-tooth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 4.5 2 7S6 21 8 21c1.5 0 1.5-5 4-5s2.5 5 4 5c2 0 2.5-4 3-6.5s2-4 2-7C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></symbol>
+    <symbol id="i-skin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7S5 10 5 14.5a7 7 0 0 0 14 0C19 10 12 2.7 12 2.7z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><path d="M8 14h2M14 14h2M8 17h2"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-amb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V7a1 1 0 0 1 1-1h11v11"/><path d="M14 10h4l4 4v3h-2"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/><path d="M9 17h6M8 9v4M6 11h4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2.5"/><path d="m16 10 6-3.5v11L16 14"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a5 5 0 0 0-7-7l-10 10a5 5 0 0 0 7 7z"/><path d="m8.5 8.5 7 7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-4-.9L3 20.5l1.5-4.5a8.4 8.4 0 0 1-.9-4A8.5 8.5 0 0 1 12 3.5a8.4 8.4 0 0 1 9 8z"/><path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2M12 20.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1.5 12h2M20.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></symbol>
+    <symbol id="i-hosp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-5h6v5M12 8v5M9.5 10.5h5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+    <symbol id="i-sil" viewBox="0 0 100 100" fill="#fff"><circle cx="50" cy="34" r="20"/><path d="M10 100c0-24 18-40 40-40s40 16 40 40z"/></symbol>
+  </defs>
+</svg>
+
+<div class="edu-note">Educational demo — Aurelia Hospital is fictional. Nothing here is real medical advice, and no bookings are actually made.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left">
+      <span><span class="pulse-dot"></span>24×7 Emergency <a href="contact.html#emergency">1800-000-0000</a></span>
+      <span class="hide-sm">Ambulance <a href="#" data-open="ambModal">Request now</a></span>
+      <span class="hide-sm">OPD: Mon–Sat, 8 AM – 8 PM</span>
+    </div>
+    <div class="hide-sm" id="clock" aria-live="off"></div>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo" aria-label="Aurelia Hospital home">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#d9b874" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9.5" stroke-width="1.2" opacity=".6"/></svg></span>
+      <span class="logo-text"><b>Aurelia</b><small>Hospital &amp; Research</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="specialities.html">Specialities</a>
+      <a href="doctors.html">Doctors</a>
+      <a href="symptoms.html">Symptoms</a>
+      <a href="diet.html" class="active">Diet planner</a>
+      <a href="checkups.html">Checkups</a>
+      <a href="patients.html">Patients</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg><use href="#i-moon"/></svg></button>
+      <a href="book.html" class="btn btn-primary btn-sm">Book appointment</a>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="icon-btn close" id="menuClose" aria-label="Close menu">✕</button>
+  <a href="index.html">Home</a><a href="book.html">Book OP</a><a href="specialities.html">Specialities</a><a href="doctors.html">Doctors</a><a href="symptoms.html">Symptoms</a><a href="diet.html" class="active">Diet planner</a><a href="checkups.html">Checkups</a><a href="patients.html">Patients</a><a href="contact.html">Contact</a>
+</div>
+
+<main>
+<section class="page-hero">
+  <svg class="ph-ecg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70h260l14-20 14 20h40l12 10 16-70 18 120 16-60h60l14-14 14 14h260l14-20 14 20h40l12 10 16-70 18 120 16-60h60l14-14 14 14h300"/></svg>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><b>Diet Planner</b></nav>
+    <span class="eyebrow">Clinical nutrition</span>
+    <h1>A diet planner built <em>around your condition.</em></h1>
+    <p class="lead">Pick a condition and adjust your details. Calories, macros, daily limits and an Indian meal plan update as you go, using guidance our dietitians commonly follow.</p>
+    
+  </div>
+</section>
+<section id="diet" class="diet">
+  <div class="wrap">
+    <div class="cond-grid rv" id="condGrid"></div>
+    <div class="diet-shell">
+      <div class="panel diet-in rv">
+        <h4>Your details</h4>
+        <div class="field" style="margin-top:16px"><label>Sex</label><div class="seg" data-seg="sex"><span class="thumb"></span><button type="button" class="on" data-v="f">Female</button><button type="button" data-v="m">Male</button></div></div>
+        <div class="rng"><div class="top"><span>Age</span><output id="oAge">35<small>yrs</small></output></div><input type="range" id="dAge" min="18" max="85" value="35"></div>
+        <div class="rng"><div class="top"><span>Height</span><output id="oHt">165<small>cm</small></output></div><input type="range" id="dHt" min="130" max="205" value="165"></div>
+        <div class="rng"><div class="top"><span>Weight</span><output id="oWt">72<small>kg</small></output></div><input type="range" id="dWt" min="35" max="160" value="72"></div>
+        <div class="field"><label for="dAct">Activity level</label>
+          <select id="dAct"><option value="1.2">Sedentary (desk job, little exercise)</option><option value="1.375" selected>Lightly active (walks 1–3 days/week)</option><option value="1.55">Moderately active (exercise 3–5 days)</option><option value="1.725">Very active (hard exercise 6–7 days)</option></select></div>
+        <div class="field"><label>Food preference</label><div class="seg" data-seg="pref"><span class="thumb"></span><button type="button" class="on" data-v="veg">Vegetarian</button><button type="button" data-v="nv">Non-veg</button></div></div>
+        <div class="disclaimer" style="margin-top:24px"><svg style="width:18px;height:18px;flex:none"><use href="#i-info"/></svg><span>For learning only. Estimates use the Mifflin-St Jeor equation and general clinical guidance. Always follow your own doctor or dietitian’s advice.</span></div>
+        <a href="book.html" class="btn btn-gold" style="width:100%;margin-top:18px" id="dietBook">Book a dietitian consult</a>
+      </div>
+
+      <div class="res" id="dietRes">
+        <div class="res-top">
+          <div class="panel res-card cal-hero">
+            <span class="lbl">Daily calorie target</span>
+            <div class="big"><span id="rCal">0</span> <small>kcal/day</small></div>
+            <p id="rCalNote">Based on your details</p>
+            <div class="breakdown"><div>BMR<b id="rBmr">0</b></div><div>Maintenance<b id="rTdee">0</b></div><div>Adjustment<b id="rAdj">0</b></div></div>
+            <svg class="flame" viewBox="0 0 24 24" fill="#fff"><path d="M12 2s5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 1-3.5S9 11 10.5 11C10 7 12 2 12 2z"/></svg>
+          </div>
+          <div class="panel res-card">
+            <span class="lbl">Body mass index</span>
+            <svg class="gauge" viewBox="0 0 220 130">
+              <defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset=".3" stop-color="#1f9d6b"/><stop offset=".6" stop-color="#e0a63a"/><stop offset="1" stop-color="#d9534f"/></linearGradient></defs>
+              <path d="M20 110a90 90 0 0 1 180 0" fill="none" stroke="url(#gg)" stroke-width="16" stroke-linecap="round"/>
+              <g class="needle" id="needle"><path d="M110 110 L106 106 L110 34 L114 106 Z" fill="currentColor"/><circle cx="110" cy="110" r="9" fill="currentColor"/><circle cx="110" cy="110" r="3.5" fill="var(--paper)"/></g>
+            </svg>
+            <div class="gauge-val"><b id="rBmi">0</b><span id="rBmiCat">Normal</span></div>
+          </div>
+          <div class="panel res-card">
+            <span class="lbl">Water intake</span>
+            <div class="water" id="water"></div>
+            <div class="water-val"><b id="rWater">0</b> <span>litres</span><small id="rWaterNote">about 8 glasses</small></div>
+          </div>
+        </div>
+
+        <div class="res-mid">
+          <div class="panel res-card">
+            <h4>Macronutrient split</h4>
+            <div class="donut-wrap">
+              <div class="donut"><svg viewBox="0 0 180 180" width="180" height="180"><circle cx="90" cy="90" r="70" stroke="var(--line)"/><circle id="dC" cx="90" cy="90" r="70" stroke="#e0a63a"/><circle id="dP" cx="90" cy="90" r="70" stroke="#0f7a72"/><circle id="dF" cx="90" cy="90" r="70" stroke="#b07bd6"/></svg><div class="center"><div><b id="rCondName">—</b><small>plan</small></div></div></div>
+              <div class="macros">
+                <div class="macro"><i style="background:#e0a63a"></i><div>Carbohydrates<small id="mCp">0%</small></div><b id="mC">0 g</b></div>
+                <div class="macro"><i style="background:#0f7a72"></i><div>Protein<small id="mPp">0%</small></div><b id="mP">0 g</b></div>
+                <div class="macro"><i style="background:#b07bd6"></i><div>Fat<small id="mFp">0%</small></div><b id="mF">0 g</b></div>
+                <div class="macro"><i style="background:#1f9d6b"></i><div>Fibre<small>minimum</small></div><b id="mFi">0 g</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel res-card">
+            <h4>Daily limits</h4>
+            <div class="limits" id="limits"></div>
+          </div>
+        </div>
+
+        <div class="res-mid">
+          <div class="panel res-card">
+            <h4>Your plate model</h4>
+            <svg class="plate" viewBox="0 0 200 200" id="plate"></svg>
+            <div class="plate-legend" id="plateLegend"></div>
+          </div>
+          <div class="panel res-card">
+            <h4>Key guidance</h4>
+            <ul class="tips" id="tips"></ul>
+          </div>
+        </div>
+
+        <div class="foods">
+          <div class="panel res-card"><h4>Eat more of</h4><div class="food-list good" id="eat"></div></div>
+          <div class="panel res-card"><h4>Limit or avoid</h4><div class="food-list bad" id="avoid"></div></div>
+        </div>
+
+        <div class="panel res-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h4>Sample day meal plan</h4><span style="font-size:13px;color:var(--muted)" id="planKcal"></span></div>
+          <div class="timeline" id="meals" style="margin-top:18px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-wrap">
+  <div class="wrap">
+    <div class="cta-band rv">
+      <div><span class="eyebrow">Need help choosing?</span><h2>Start with the right doctor, <em>first time.</em></h2></div>
+      <div class="hero-actions" style="margin:0"><a href="book.html" class="btn btn-gold">Book an OP visit</a><a href="symptoms.html" class="btn btn-ghost">Try the symptom guide</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="big">Healing is a team sport. <em>You’re the captain.</em></p>
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#d9b874" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg></span><span class="logo-text"><b>Aurelia</b><small style="color:#7d979d">Hospital &amp; Research</small></span></div>
+        <p style="font-size:14px;margin-top:18px;max-width:320px">Get monthly health tips from our doctors and dietitians.</p>
+        <form class="news" id="newsForm"><input type="email" placeholder="Your email" aria-label="Email" required><button class="btn btn-gold btn-sm">Subscribe</button></form>
+      </div>
+      <div><h5>Care</h5><a href="specialities.html">Specialities</a><a href="doctors.html">Find a doctor</a><a href="book.html">Book appointment</a><a href="checkups.html">Health checks</a><a href="contact.html#emergency">Emergency</a></div>
+      <div><h5>Patients</h5><a href="#" data-open="reportModal">Online reports</a><a href="symptoms.html">Symptom guide</a><a href="book.html#visit">Your visit</a><a href="diet.html">Diet planner</a><a href="patients.html">Insurance</a><a href="patients.html">International</a><a href="patients.html#faq">FAQ</a></div>
+      <div><h5>Hospital</h5><a href="index.html">About us</a><a href="index.html">Research</a><a href="index.html">Careers</a><a href="index.html">Nursing college</a><a href="contact.html">Contact</a></div>
+    </div>
+    <div class="foot-bottom"><span>© <span id="yr"></span> Aurelia Hospital. A fictional hospital built for educational purposes.</span><span>Privacy · Terms · Patient rights</span></div>
+  </div>
+</footer>
+
+<div class="fab-stack">
+  <button class="to-top" id="toTop" aria-label="Back to top"><svg><use href="#i-up"/></svg></button>
+  <button class="fab chat" id="chatBtn" aria-label="Open care assistant"><svg><use href="#i-chat"/></svg></button>
+  <button class="fab sos" data-open="ambModal" aria-label="Emergency"><svg><use href="#i-amb"/></svg></button>
+</div>
+
+<div class="panel chatbox" id="chatbox" role="dialog" aria-label="Care assistant">
+  <div class="chat-h"><span class="av">A</span><div><b>Aria · Care assistant</b><small>● Online · replies instantly</small></div><button id="chatClose" aria-label="Close">×</button></div>
+  <div class="chat-b" id="chatBody"></div>
+  <div class="chat-q" id="chatQ"></div>
+  <form class="chat-f" id="chatForm"><input id="chatIn" placeholder="Ask about timings, booking, insurance…" autocomplete="off"><button aria-label="Send"><svg><use href="#i-send"/></svg></button></form>
+</div>
+
+<div class="modal" id="ambModal">
+  <div class="panel box">
+    <button class="x" data-close>×</button>
+    <div id="ambForm">
+      <h3>Request an ambulance</h3><p class="sub">In a real emergency, always call your local emergency number first. This is a demo.</p>
+      <div class="form-grid">
+        <div class="field full"><label for="aLoc">Pickup location</label><input id="aLoc" placeholder="Area / landmark"><span class="msg">Enter a location</span></div>
+        <div class="field"><label for="aPhone">Mobile</label><input id="aPhone" inputmode="numeric" maxlength="10" placeholder="10-digit"><span class="msg">Valid mobile needed</span></div>
+        <div class="field"><label for="aType">Emergency type</label><select id="aType"><option>Chest pain</option><option>Breathing difficulty</option><option>Accident / injury</option><option>Stroke symptoms</option><option>Pregnancy</option><option>Other</option></select></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:22px;background:#c9302c" id="ambGo">Dispatch ambulance</button>
+    </div>
+    <div id="ambTrack" style="display:none">
+      <h3>Ambulance dispatched</h3><p class="sub" id="ambInfo">Vehicle KA-01-AU-2231 · Paramedic on board</p>
+      <div class="eta"><small style="color:var(--muted)">Estimated arrival</small><b id="ambEta">12:00</b></div>
+      <div class="amb-track"><i id="ambBar" style="width:0"></i><span id="ambIcon" style="left:0">🚑</span></div>
+      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:16px">Stay on the line. Our ER team has been alerted.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="reportModal">
+  <div class="panel box">
+    <button class="x" data-close>×</button>
+    <h3>Patient portal</h3><p class="sub">Sign in with your UHID and the OTP sent to your registered mobile. This is a demo: any UHID works, and the OTP is 1234.</p>
+    <div id="rpStep1" class="form-grid">
+      <div class="field full"><label for="rUhid">UHID</label><input id="rUhid" placeholder="e.g. AUR-102938"><span class="msg">Enter your UHID</span></div>
+      <div class="field full"><button class="btn btn-primary" id="rpOtp">Send OTP</button></div>
+    </div>
+    <div id="rpStep2" class="form-grid" style="display:none">
+      <div class="field full"><label for="rOtp">OTP</label><input id="rOtp" inputmode="numeric" maxlength="4" placeholder="4-digit OTP"><span class="msg">Incorrect OTP (hint: 1234)</span></div>
+      <div class="field full"><button class="btn btn-primary" id="rpLogin">Verify &amp; sign in</button></div>
+    </div>
+    <div id="rpStep3" style="display:none"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

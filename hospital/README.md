@@ -1,6 +1,18 @@
 # Aurelia Hospital — premium hospital website (educational demo)
 
-A single-page, fully interactive website for a **fictional** hospital. Open `index.html` in any browser; it is one self-contained file (internet is only needed for the fonts).
+A multi-page, fully interactive website for a **fictional** hospital. Open `index.html` in any browser (internet is only needed for the fonts).
+
+| Page | What's on it |
+|---|---|
+| `index.html` | Hero with beating heart, live status, journey-through-the-body scroll story, quick links, patient stories, emergency |
+| `specialities.html` | Centres of excellence and technology |
+| `doctors.html` | Doctor finder (supports `?dept=` and `?q=`) |
+| `symptoms.html` | Body-map symptom guide |
+| `book.html` | OP booking wizard (supports `?doc=` and `?dept=`) and the visit walkthrough |
+| `diet.html` | Condition-based diet planner |
+| `checkups.html` | Health-check packages |
+| `patients.html` | Patient services, health library, FAQ |
+| `contact.html` | Contact form, visiting info, emergency and ambulance |
 
 ## Features
 - **Journey through the body**: a pinned scroll story that starts on a beating-heart close-up, zooms out to a holographic body, then flies the camera to the brain, lungs, gut, kidneys and knees, with a chapter and specialist team for each.
@@ -15,6 +27,6 @@ A single-page, fully interactive website for a **fictional** hospital. Open `ind
 - Care-assistant chatbot, dark mode, sticky glass nav, scroll reveals, fully responsive, reduced-motion support
 
 ## Edit
-Source lives in `_src/` (`style.css`, `features.css`, `body.html`, `app.js`, `features.js`). After editing, run `python3 _src/build.py` to regenerate `index.html`.
+Source lives in `_src/`: content sections in `body.html` (split into pages by `build.py`), styles in `style.css`, `features.css` and `pages.css`, and scripts in `app.js` and `features.js`. After editing, run `python3 _src/build.py` to regenerate the pages and `assets/site.css` and `assets/site.js`.
 
 All names, numbers, doctors and addresses are fictional. Diet output is educational, not medical advice.
