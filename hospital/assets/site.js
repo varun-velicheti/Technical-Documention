@@ -832,12 +832,13 @@ function showStop(i, user) {
 $("#visitDetail").addEventListener("click", e => { const g = e.target.closest("[data-vgo]"); if (g) { showStop(vi + +g.dataset.vgo, true); return; } if (e.target.closest("#vPlay")) { auto = !auto; showStop(auto ? vi : vi, false); } });
 $("#roadNodes").addEventListener("click", e => { const n = e.target.closest(".node"); if (n) showStop(+n.dataset.i, true); });
 $("#roadNodes").addEventListener("keydown", e => { const n = e.target.closest(".node"); if (n && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showStop(+n.dataset.i, true); } });
-new IntersectionObserver(es => es.forEach(e => { const was = inView; inView = e.isIntersecting; if (inView && !was) { A.tween($("#visitTotal"), STOPS.reduce((a, s) => a + s.m, 0), v => Math.round(v), 1400); showStop(vi < 0 ? 0 : vi); } if (!inView) clearTimeout(autoT); }), { threshold: .35 }).observe($("#visit .visit-shell"));
+new IntersectionObserver(es => es.forEach(e => { const was = inView; inView = e.isIntersecting; if (inView && !was) { showStop(vi < 0 ? 0 : vi); } if (!inView) clearTimeout(autoT); }), { threshold: .35 }).observe($("#visit .visit-shell"));
 liveT = setInterval(() => {
   parking = Math.max(30, Math.min(60, parking + Math.round((Math.random() - .5) * 4)));
   const pk = $('[data-live="parking"]'); if (pk) pk.textContent = parking;
   const sv = $('[data-live="serving"]'); if (sv && serving < myTok) { serving++; sv.textContent = String(serving).padStart(2, "0"); sv.classList.remove("flip"); void sv.offsetWidth; sv.classList.add("flip"); const w = $('[data-live="wait"]'); if (w) w.textContent = Math.max(0, (myTok - serving) * 4); if (serving === myTok) A.toast(`Token ${myTok}: it’s your turn (demo)`); }
 }, 2600);
+setTimeout(() => A.tween($("#visitTotal"), STOPS.reduce((a, s) => a + s.m, 0), v => Math.round(v), 1400), 400);
 showStop(0); trav.setAttribute("transform", (() => { const pt = rp.getPointAtLength(nodeLen[0]); return `translate(${pt.x} ${pt.y})`; })());
 
 }

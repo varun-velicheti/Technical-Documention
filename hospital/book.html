@@ -77,6 +77,7 @@
       <a href="symptoms.html">Symptoms</a>
       <a href="diet.html">Diet planner</a>
       <a href="checkups.html">Checkups</a>
+      <a href="visit.html">Your visit</a>
       <a href="patients.html">Patients</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -90,7 +91,7 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <button class="icon-btn close" id="menuClose" aria-label="Close menu">✕</button>
-  <a href="index.html">Home</a><a href="book.html" class="active">Book OP</a><a href="specialities.html">Specialities</a><a href="doctors.html">Doctors</a><a href="symptoms.html">Symptoms</a><a href="diet.html">Diet planner</a><a href="checkups.html">Checkups</a><a href="patients.html">Patients</a><a href="contact.html">Contact</a>
+  <a href="index.html">Home</a><a href="book.html" class="active">Book OP</a><a href="specialities.html">Specialities</a><a href="doctors.html">Doctors</a><a href="symptoms.html">Symptoms</a><a href="diet.html">Diet planner</a><a href="checkups.html">Checkups</a><a href="visit.html">Your visit</a><a href="patients.html">Patients</a><a href="contact.html">Contact</a>
 </div>
 
 <main>
@@ -158,6 +159,7 @@
           <div class="ticket-actions">
             <button class="btn btn-primary btn-sm" id="icsBtn"><svg><use href="#i-cal"/></svg>Add to calendar</button>
             <button class="btn btn-ghost btn-sm" onclick="window.print()">Print slip</button>
+            <a href="visit.html" class="btn btn-gold btn-sm">See your visit, step by step</a>
             <button class="btn btn-ghost btn-sm" id="againBtn">Book another</button>
           </div>
         </div>
@@ -185,21 +187,6 @@
   </div>
 </section>
 
-
-<section id="visit">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="eyebrow rv">Your visit, step by step</span><h2 class="rv d1">No surprises. <em>Here’s exactly what happens.</em></h2></div>
-      <div class="visit-total rv d2">Typical visit <b id="visitTotal">0</b> minutes</div>
-    </div>
-    <div class="panel visit-shell rv">
-      <div id="visitPersonal"></div>
-      <div class="road-wrap" id="roadWrap"><svg class="road" id="road" viewBox="0 0 1200 210" aria-label="Visit steps"></svg></div>
-      <div class="visit-detail" id="visitDetail"></div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <footer>
@@ -212,7 +199,7 @@
         <form class="news" id="newsForm"><input type="email" placeholder="Your email" aria-label="Email" required><button class="btn btn-gold btn-sm">Subscribe</button></form>
       </div>
       <div><h5>Care</h5><a href="specialities.html">Specialities</a><a href="doctors.html">Find a doctor</a><a href="book.html">Book appointment</a><a href="checkups.html">Health checks</a><a href="contact.html#emergency">Emergency</a></div>
-      <div><h5>Patients</h5><a href="#" data-open="reportModal">Online reports</a><a href="symptoms.html">Symptom guide</a><a href="book.html#visit">Your visit</a><a href="diet.html">Diet planner</a><a href="patients.html">Insurance</a><a href="patients.html">International</a><a href="patients.html#faq">FAQ</a></div>
+      <div><h5>Patients</h5><a href="#" data-open="reportModal">Online reports</a><a href="symptoms.html">Symptom guide</a><a href="visit.html">Your visit</a><a href="diet.html">Diet planner</a><a href="patients.html">Insurance</a><a href="patients.html">International</a><a href="patients.html#faq">FAQ</a></div>
       <div><h5>Hospital</h5><a href="index.html">About us</a><a href="index.html">Research</a><a href="index.html">Careers</a><a href="index.html">Nursing college</a><a href="contact.html">Contact</a></div>
     </div>
     <div class="foot-bottom"><span>© <span id="yr"></span> Aurelia Hospital. A fictional hospital built for educational purposes.</span><span>Privacy · Terms · Patient rights</span></div>

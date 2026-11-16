@@ -24,13 +24,13 @@ parts = re.split(r"<!-- ([A-Z ]+) -->\n", main)
 CH = {parts[i]: parts[i + 1] for i in range(1, len(parts), 2)}
 
 LINKS = {"#home": "index.html", "#journey": "index.html#journey", "#centres": "specialities.html", "#bodymap": "symptoms.html",
-         "#doctors": "doctors.html", "#book": "book.html", "#visit": "book.html#visit", "#diet": "diet.html", "#packages": "checkups.html",
+         "#doctors": "doctors.html", "#book": "book.html", "#visit": "visit.html", "#diet": "diet.html", "#packages": "checkups.html",
          "#services": "patients.html", "#faq": "patients.html#faq", "#emergency": "contact.html#emergency", "#contact": "contact.html"}
 def relink(html):
     return re.sub(r'href="(#[a-z]+)"', lambda m: f'href="{LINKS.get(m.group(1), m.group(1))}"', html)
 
 NAV = [("specialities.html", "Specialities"), ("doctors.html", "Doctors"), ("symptoms.html", "Symptoms"), ("diet.html", "Diet planner"),
-       ("checkups.html", "Checkups"), ("patients.html", "Patients"), ("contact.html", "Contact")]
+       ("checkups.html", "Checkups"), ("visit.html", "Your visit"), ("patients.html", "Patients"), ("contact.html", "Contact")]
 MOBILE = [("index.html", "Home"), ("book.html", "Book OP")] + NAV
 
 def strip_head(chunk):
@@ -42,7 +42,7 @@ def strip_head(chunk):
     eyebrow = re.search(r'<span class="eyebrow[^"]*">(.*?)</span>', head).group(1)
     title = re.search(r'<h2[^>]*>(.*?)</h2>', head, re.S).group(1)
     lead = re.search(r'<p class="lead[^"]*">(.*?)</p>', head, re.S)
-    extra = re.search(r'(<div class="seg[^"]*".*?</div>)\s*$', head, re.S)
+    extra = re.search(r'(<div class="(?:seg|visit-total)[^"]*".*?</div>)\s*$', head, re.S)
     return chunk.replace(m.group(0), "\n", 1), eyebrow, title, lead.group(1) if lead else "", extra.group(1).replace(" rv d2", "") if extra else ""
 
 EXPLORE = """<section id="explore">
@@ -54,14 +54,14 @@ EXPLORE = """<section id="explore">
     <div class="centres">
 """ + "\n".join(f"""      <a href="{h}" class="centre rv d{i % 4}"><span class="ci"><svg><use href="#i-{ic}"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>{t}</h3><p>{p}</p></a>"""
     for i, (h, ic, t, p) in enumerate([
-        ("book.html", "cal", "Book an OP visit", "Live slots, instant token number and a walkthrough of your visit."),
+        ("book.html", "cal", "Book an OP visit", "Live slots, an instant token number and a reminder for your calendar."),
         ("symptoms.html", "search", "Symptom guide", "Tap where it hurts and we’ll suggest the right speciality and doctor."),
         ("doctors.html", "heart", "Find a doctor", "Search 600+ specialists by name, speciality or condition."),
         ("diet.html", "pill", "Diet planner", "Calories, macros and an Indian meal plan for 8 common conditions."),
         ("checkups.html", "shield", "Health checkups", "Preventive packages with same-day reports and a doctor consult."),
         ("specialities.html", "hosp", "Specialities", "42 centres of excellence and the technology behind them."),
         ("patients.html", "file", "Patient services", "Reports, video consults, pharmacy delivery, insurance and FAQs."),
-        ("contact.html", "phone", "Contact & emergency", "24×7 help desk, ambulance requests and directions.")])) + """
+        ("visit.html", "clock", "Your visit, step by step", "From parking to heading home: exactly what happens, with live wait times.")])) + """
     </div>
   </div>
 </section>
@@ -83,7 +83,8 @@ PAGES = [
     ("specialities.html", "Specialities", ["CENTRES", "TECH"], True, True),
     ("doctors.html", "Find a Doctor", ["DOCTORS"], True, True),
     ("symptoms.html", "Symptom Guide", ["BODY MAP"], True, True),
-    ("book.html", "Book an OP Visit", ["BOOKING", "VISIT"], True, False),
+    ("book.html", "Book an OP Visit", ["BOOKING"], True, False),
+    ("visit.html", "Your Visit", ["VISIT"], True, True),
     ("diet.html", "Diet Planner", ["DIET"], True, True),
     ("checkups.html", "Health Checkups", ["PACKAGES"], True, True),
     ("patients.html", "Patient Services", ["SERVICES", "LIBRARY", "FAQ"], True, True),

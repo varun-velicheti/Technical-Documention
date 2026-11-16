@@ -919,3 +919,5 @@ main{animation:pageIn .6s cubic-bezier(.2,.8,.2,1) both}
 #explore .centre{min-height:220px}
 footer{margin-top:0}
 @media (max-width:700px){.page-hero{padding:46px 0 56px}.cta-band{padding:34px 24px}.page-hero + section{padding-top:44px}}
+.ph-extra .visit-total{justify-content:flex-start;color:#a9c1c6}
+.ph-extra .visit-total b{color:#fff}
