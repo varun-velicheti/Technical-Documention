@@ -71,7 +71,7 @@
     </div>
     <div class="kpi-row" data-stagger>
       <div class="kpi"><b data-counter="25" data-prefix="₹" data-suffix=" L">0</b><span>Starting investment for a kiosk</span></div>
-      <div class="kpi"><b data-counter="14" data-suffix=" mo">0</b><span>Typical payback in our model</span></div>
+      <div class="kpi"><b data-counter="29" data-suffix=" mo">0</b><span>Typical café payback in our model</span></div>
       <div class="kpi"><b data-counter="60" data-suffix=" hrs">0</b><span>Barista and manager training</span></div>
       <div class="kpi"><b data-counter="20">0</b><span>Cities open for new partners</span></div>
     </div>
@@ -157,45 +157,139 @@
 <section class="section section--alt" id="calculator">
   <div class="container">
     <div class="section-head section-head--split" style="max-width:none">
-      <div class="stack"><span class="eyebrow">Unit economics</span><h2 class="display">Run the numbers <em>on a café.</em></h2></div>
+      <div class="stack"><span class="eyebrow">Franchise planner</span><h2 class="display">Run the numbers <em>on your café.</em></h2></div>
       <div style="display:grid;gap:14px;justify-items:start">
-        <p class="lead">Move the sliders. See revenue and payback.</p>
-        <span class="note-pill">Illustrative model</span>
+        <p class="lead">Pick a format and city. Fine-tune every number. Results update live.</p>
+        <span class="note-pill">Illustrative model · pre-tax</span>
       </div>
     </div>
-    <div class="calc" data-calc data-reveal>
-      <div class="calc__inputs">
-        <div class="slider">
-          <div class="slider__top"><label for="c-cups">Cups sold per day</label><output for="c-cups" data-out="cups">380</output></div>
-          <input id="c-cups" type="range" min="100" max="800" step="10" value="380" data-in="cups">
-          <div class="slider__range"><span>100</span><span>800</span></div>
+
+    <div class="pc" data-planner>
+      <div class="pc__bar">
+        <div class="pc__seg" role="group" aria-label="Café format" data-group="format">
+          <button type="button" data-val="kiosk">Kiosk</button><button type="button" data-val="cafe" class="is-active">Café</button><button type="button" data-val="flagship">Flagship</button>
         </div>
-        <div class="slider">
-          <div class="slider__top"><label for="c-bill">Average bill (₹)</label><output for="c-bill" data-out="bill">₹260</output></div>
-          <input id="c-bill" type="range" min="150" max="500" step="10" value="260" data-in="bill">
-          <div class="slider__range"><span>₹150</span><span>₹500</span></div>
+        <div class="pc__seg" role="group" aria-label="City tier" data-group="tier">
+          <button type="button" data-val="metro" class="is-active">Metro</button><button type="button" data-val="t1">Tier 1</button><button type="button" data-val="t2">Tier 2</button>
         </div>
-        <div class="slider">
-          <div class="slider__top"><label for="c-inv">Setup investment (₹ lakh)</label><output for="c-inv" data-out="inv">₹60 L</output></div>
-          <input id="c-inv" type="range" min="20" max="160" step="5" value="60" data-in="inv">
-          <div class="slider__range"><span>₹20 L</span><span>₹1.6 Cr</span></div>
+        <div class="pc__seg pc__seg--scenario" role="group" aria-label="Scenario" data-group="scenario">
+          <button type="button" data-val="low">Conservative</button><button type="button" data-val="base" class="is-active">Base</button><button type="button" data-val="high">Optimistic</button>
         </div>
-        <div class="slider">
-          <div class="slider__top"><label for="c-margin">Operating margin (%)</label><output for="c-margin" data-out="margin">21%</output></div>
-          <input id="c-margin" type="range" min="5" max="40" step="1" value="21" data-in="margin">
-          <div class="slider__range"><span>5%</span><span>40%</span></div>
-        </div>
-        <p class="calc__note">Assumes 1.4 cups per bill, 30 days a month. Rent and royalty sit in the margin.</p>
+        <button type="button" class="pc__reset" data-reset>Reset</button>
       </div>
-      <div class="calc__out" aria-live="polite">
-        <div class="calc__row"><span>Monthly revenue</span><b data-r="rev">₹21.2 L</b></div>
-        <div class="calc__row"><span>Monthly operating profit</span><b data-r="profit">₹4.4 L</b></div>
-        <div class="calc__row calc__row--big"><span>Payback period</span><b data-r="payback">14 months</b></div>
-        <div class="calc__chart">
-          <span class="muted">Cumulative cash, months 1–36</span>
-          <svg data-r="chart" viewBox="0 0 360 120" preserveAspectRatio="none" role="img" aria-label="Cumulative cash by month"></svg>
-          <div class="calc__axis"><span>Month 1</span><span data-r="breakeven"></span><span>Month 36</span></div>
+
+      <div class="pc__grid">
+        <div class="pc__inputs">
+          <details class="pc__group" open>
+            <summary><span>Sales</span><small data-sum="sales"></small></summary>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-cups">Cups sold per day</label><output for="pc-cups" data-out="cups"></output></div>
+            <input id="pc-cups" type="range" min="100" max="900" step="10" value="300" data-in="cups">
+            <div class="slider__range"><span>100</span><span>900</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-bill">Average bill (₹)</label><output for="pc-bill" data-out="bill"></output></div>
+            <input id="pc-bill" type="range" min="150" max="500" step="10" value="260" data-in="bill">
+            <div class="slider__range"><span>₹150</span><span>₹500</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-delivery">Delivery share (%)</label><output for="pc-delivery" data-out="delivery"></output></div>
+            <input id="pc-delivery" type="range" min="0" max="50" step="5" value="20" data-in="delivery">
+            <div class="slider__range"><span>0%</span><span>50%</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-growth">Annual sales growth (%)</label><output for="pc-growth" data-out="growth"></output></div>
+            <input id="pc-growth" type="range" min="0" max="20" step="1" value="6" data-in="growth">
+            <div class="slider__range"><span>0%</span><span>20%</span></div>
+          </div>
+          </details>
+          <details class="pc__group" open>
+            <summary><span>Monthly costs</span><small data-sum="costs"></small></summary>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-cogs">Coffee, milk &amp; food (% of sales)</label><output for="pc-cogs" data-out="cogs"></output></div>
+            <input id="pc-cogs" type="range" min="22" max="42" step="1" value="33" data-in="cogs">
+            <div class="slider__range"><span>22%</span><span>42%</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-rent">Rent (₹ thousand / month)</label><output for="pc-rent" data-out="rent"></output></div>
+            <input id="pc-rent" type="range" min="50" max="600" step="10" value="250" data-in="rent">
+            <div class="slider__range"><span>₹50K</span><span>₹6L</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-team">Team size</label><output for="pc-team" data-out="team"></output></div>
+            <input id="pc-team" type="range" min="3" max="30" step="1" value="12" data-in="team">
+            <div class="slider__range"><span>3</span><span>30</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-salary">Average salary (₹ thousand)</label><output for="pc-salary" data-out="salary"></output></div>
+            <input id="pc-salary" type="range" min="12" max="45" step="1" value="24" data-in="salary">
+            <div class="slider__range"><span>₹12K</span><span>₹45K</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-utilities">Utilities &amp; other (₹ thousand)</label><output for="pc-utilities" data-out="utilities"></output></div>
+            <input id="pc-utilities" type="range" min="20" max="250" step="5" value="120" data-in="utilities">
+            <div class="slider__range"><span>₹20K</span><span>₹2.5L</span></div>
+          </div>
+          </details>
+          <details class="pc__group" open>
+            <summary><span>Investment</span><small data-sum="invest"></small></summary>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-setup">Fit-out &amp; equipment (₹ lakh)</label><output for="pc-setup" data-out="setup"></output></div>
+            <input id="pc-setup" type="range" min="15" max="180" step="1" value="60" data-in="setup">
+            <div class="slider__range"><span>₹15L</span><span>₹1.8Cr</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-fee">Franchise fee (₹ lakh)</label><output for="pc-fee" data-out="fee"></output></div>
+            <input id="pc-fee" type="range" min="2" max="20" step="1" value="8" data-in="fee">
+            <div class="slider__range"><span>₹2L</span><span>₹20L</span></div>
+          </div>
+          <div class="slider">
+            <div class="slider__top"><label for="pc-wc">Working capital (₹ lakh)</label><output for="pc-wc" data-out="wc"></output></div>
+            <input id="pc-wc" type="range" min="1" max="15" step="1" value="5" data-in="wc">
+            <div class="slider__range"><span>₹1L</span><span>₹15L</span></div>
+          </div>
+          </details>
+          <p class="calc__note">Royalty 6% and marketing fund 2% of sales, delivery apps take 22% of delivery sales, about 1.4 cups per bill, and sales ramp up over the first 6 months.</p>
         </div>
+
+        <div class="pc__out" aria-live="polite">
+          <div class="pc__hero">
+            <div class="pc__hero-main"><span>Payback period</span><b data-r="payback">–</b><small data-r="paybackNote"></small></div>
+            <div class="pc__kpis">
+              <div><span>Annual return (IRR)</span><b data-r="irr">–</b></div>
+              <div><span>5-year ROI</span><b data-r="roi">–</b></div>
+              <div><span>Monthly profit (EBITDA)</span><b data-r="ebitda">–</b><small data-r="margin"></small></div>
+              <div><span>Break-even</span><b data-r="be">–</b><small>cups per day</small></div>
+            </div>
+          </div>
+          <div class="pc__card">
+            <div class="row-between"><h3>Cumulative cash, 5 years</h3><span class="pc__legend"><i class="neg"></i>Investing <i class="pos"></i>Profit</span></div>
+            <div class="pc__chart" data-chart><svg viewBox="0 0 600 220" preserveAspectRatio="none" role="img" aria-label="Cumulative cash over 60 months"></svg><div class="pc__tip" data-tip hidden></div></div>
+            <div class="pc__axis" data-axis></div>
+          </div>
+          <div class="pc__card">
+            <div class="row-between"><h3>Where every ₹100 of sales goes</h3><span class="muted" style="font-size:var(--fs-sm)" data-r="mature">Year 2 average</span></div>
+            <div class="pc__stack" data-stack></div>
+            <ul class="pc__keys" data-keys></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc__lower">
+        <div class="pc__card">
+          <h3>Scenarios side by side</h3>
+          <div class="pc__scen" data-scen></div>
+        </div>
+        <div class="pc__card">
+          <h3>What moves your payback</h3>
+          <p class="muted" style="font-size:var(--fs-sm);margin-top:4px">Change in payback if each input is 15% better or worse.</p>
+          <div class="pc__tornado" data-tornado></div>
+        </div>
+      </div>
+
+      <div class="pc__card pc__table-wrap">
+        <h3>Five-year profit &amp; loss</h3>
+        <div class="pc__table-scroll"><table class="pc__table" data-table></table></div>
       </div>
     </div>
   </div>
@@ -373,5 +467,6 @@
 
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/calc.js" defer></script>
 </body>
 </html>
