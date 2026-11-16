@@ -320,8 +320,7 @@ if ($(".hero3d") && $(".tiles")) {
   function render() {
     ticking = false;
     const P = reduce ? 1 : progress();
-    if (P > .01 && performance.now() - t0 < 2400) h3.classList.add("popnow");
-    if (P > .01) h3.classList.add("go");
+    h3.classList.toggle("popped", P > .004 || scrollY > 6);
     objs.forEach((o, i) => {
       const k = +o.dataset.t, tk = clamp((P - k * .07) / .58), e = ease(tk), g = geo[i], tile = tiles[k];
       o.style.transform = tk > 0 ? `translate(${(g.dx * e).toFixed(1)}px, ${(g.dy * e).toFixed(1)}px) scale(${(1 + (g.s - 1) * e).toFixed(4)})` : "";
