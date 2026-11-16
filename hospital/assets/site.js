@@ -852,39 +852,81 @@ $$(".tile").forEach(el => {
 });
 /* hero objects pop, then fly into the service tiles on scroll */
 if ($(".hero3d") && $(".tiles")) {
-  const h3 = $(".hero3d"), objs = $$(".hero3d .o3[data-t]"), tiles = $$(".tiles .tile");
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches; let t0 = Infinity;
-  new IntersectionObserver((es, ob) => es.forEach(e => { if (e.isIntersecting) { h3.classList.add("go"); t0 = performance.now(); ob.disconnect(); } }), { threshold: .35 }).observe(h3);
-  objs.forEach(o => { const ti = $(".ti", tiles[+o.dataset.t]); const svg = $("svg", o).cloneNode(true); svg.classList.add("ti3d"); $("svg", ti)?.remove(); ti.prepend(svg); });
-  let geo = [], ticking = false;
+  const h3 = $(".hero3d"), hero = $(".hero"), pin = $(".hero-pin"), stick = $(".hero-stick"), text = $(".hero-grid > div:first-child");
+  const sh = $(".hero3d .sh-cycle"), glow = $(".tray-glow"), cue = $(".scroll-cue"), tilesBox = $(".stick-tiles");
+  const objs = $$(".hero3d .o3[data-t]"), cyc = objs.map(o => $(".o3-cycle", o)), tiles = $$(".tiles .tile");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mq = matchMedia("(min-width: 961px) and (min-height: 620px)");
+  objs.forEach(o => { const ti = $(".ti", tiles[+o.dataset.t]); if ($(".ti3d", ti)) return; const svg = $("svg", o).cloneNode(true); svg.classList.add("ti3d"); $("svg", ti)?.remove(); ti.prepend(svg); });
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const back = t => { const c = 1.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+  let rel = [], G = {}, ticking = false, pinned = false;
   function measure() {
+    pinned = mq.matches && !reduce;
+    document.body.classList.toggle("pinmode", pinned);
+    hero.style.transform = ""; text.style.opacity = ""; text.style.transform = "";
     objs.forEach(o => o.style.transform = ""); tiles.forEach(t => t.style.transform = "none");
-    geo = objs.map(o => { const r = o.getBoundingClientRect(), t = $(".ti", tiles[+o.dataset.t]).getBoundingClientRect();
-      return { dx: t.left + t.width / 2 - (r.left + r.width / 2), dy: t.top + t.height / 2 - (r.top + r.height / 2), s: t.width * .82 / r.width }; });
+    const sr = h3.getBoundingClientRect(), hr = hero.getBoundingClientRect();
+    rel = objs.map(o => { const r = o.getBoundingClientRect(); return { x: (r.left + r.width / 2 - sr.left) / sr.width, y: (r.top + r.height / 2 - sr.top) / sr.height, w: r.width / sr.width }; });
+    const stickH = stick.getBoundingClientRect().height, tb = tilesBox.getBoundingClientRect().height;
+    G = { ox: sr.left - hr.left + sr.width / 2, oy: sr.top - hr.top, sceneW: sr.width, sceneH: sr.height,
+          k: Math.min(1, Math.max(.55, (stickH - tb - 40) / sr.height)), tilesH: tb };
+    hero.style.transformOrigin = `${G.ox}px ${G.oy}px`;
     tiles.forEach(t => t.style.transform = "");
+    render();
   }
-  function progress() { const top = tiles[0].parentElement.getBoundingClientRect().top + scrollY; return clamp(scrollY / Math.max(420, top - innerHeight * .55)); }
+  function phases() {
+    if (reduce) return [1, 1];
+    if (pinned) { const budget = pin.offsetHeight - stick.offsetHeight; const p = clamp((parseFloat(getComputedStyle(stick).top) - pin.getBoundingClientRect().top) / budget); return [clamp(p / .3), clamp((p - .44) / .56)]; }
+    const sr = h3.getBoundingClientRect(), tt = tiles[0].getBoundingClientRect().top + scrollY;
+    const b0 = Math.max(0, scrollY + sr.top - innerHeight * .4), b1 = b0 + 240, f0 = b1 + 120, f1 = Math.max(f0 + 320, tt - innerHeight * .5);
+    return [clamp((scrollY - b0) / (b1 - b0)), clamp((scrollY - f0) / (f1 - f0))];
+  }
   function render() {
     ticking = false;
-    const P = reduce ? 1 : progress();
-    h3.classList.toggle("popped", P > .004 || scrollY > 6);
+    const [B, F] = phases();
+    /* phase 1: shield swells, bursts into the tray, objects spring out */
+    const sw = clamp(B / .3), sb = clamp((B - .28) / .2);
+    sh.style.transform = `translateY(${(sb * 45).toFixed(1)}%) scale(${((1 + .16 * sw) * (1 - .8 * sb)).toFixed(3)})`;
+    sh.style.opacity = (1 - sb).toFixed(3);
+    glow.style.opacity = Math.sin(Math.PI * clamp((B - .3) / .55)).toFixed(3);
+    if (cue) cue.style.opacity = clamp(1 - B * 5).toFixed(3);
     objs.forEach((o, i) => {
-      const k = +o.dataset.t, tk = clamp((P - k * .07) / .58), e = ease(tk), g = geo[i], tile = tiles[k];
-      o.style.transform = tk > 0 ? `translate(${(g.dx * e).toFixed(1)}px, ${(g.dy * e).toFixed(1)}px) scale(${(1 + (g.s - 1) * e).toFixed(4)})` : "";
-      o.style.opacity = tk >= .995 ? 0 : 1;
-      const te = ease(clamp((tk - .2) / .8));
-      tile.style.setProperty("--tf", `translateY(${((1 - te) * 70).toFixed(1)}px) rotateX(${((1 - te) * 38).toFixed(1)}deg) rotateY(${((1 - te) * -12).toFixed(1)}deg) scale(${(.9 + .1 * te).toFixed(3)})`);
-      tile.style.opacity = te.toFixed(3);
-      tile.classList.toggle("landed", tk >= .995);
+      const k = +o.dataset.t, r = rel[i];
+      const ek = clamp((B - .4 - k * .06) / .3), eb = back(ek);
+      const dx = (.5 - r.x) * G.sceneW, dy = (.72 - r.y) * G.sceneH;
+      cyc[i].style.transform = ek >= 1 ? "" : `translate(${(dx * (1 - ease(ek))).toFixed(1)}px, ${(dy * (1 - ease(ek))).toFixed(1)}px) scale(${(.15 + .85 * eb).toFixed(3)})`;
+      cyc[i].style.opacity = clamp(ek * 3).toFixed(3);
+    });
+    /* phase 2: scene moves up, tiles rise, objects fly into their tiles */
+    const he = pinned ? ease(clamp(F / .55)) : 0;
+    hero.style.transform = he ? `translateY(${(-(G.oy - 12) * he).toFixed(1)}px) scale(${(1 - (1 - G.k) * he).toFixed(4)})` : "";
+    text.style.opacity = pinned ? clamp(1 - he * 1.5).toFixed(3) : "";
+    text.style.transform = pinned && he ? `translateY(${(-50 * he).toFixed(1)}px)` : "";
+    const sr = h3.getBoundingClientRect(), scale = pinned ? 1 - (1 - G.k) * he : 1;
+    objs.forEach((o, i) => {
+      const k = +o.dataset.t, tile = tiles[k], r = rel[i];
+      const tk = ease(clamp((F - .12 - k * .06) / .45));
+      const lift = pinned ? G.tilesH + 120 : 70;
+      tile.style.setProperty("--tf", `translateY(${((1 - tk) * lift).toFixed(1)}px) rotateX(${((1 - tk) * 38).toFixed(1)}deg) rotateY(${((1 - tk) * -12).toFixed(1)}deg) scale(${(.9 + .1 * tk).toFixed(3)})`);
+      tile.style.opacity = clamp(tk * 1.6).toFixed(3);
+      const fk = ease(clamp((F - .28 - k * .06) / .4));
+      if (fk > 0) {
+        const t = $(".ti", tile).getBoundingClientRect();
+        const nx = sr.left + r.x * sr.width, ny = sr.top + r.y * sr.height, nw = r.w * sr.width;
+        const dx = (t.left + t.width / 2 - nx) / scale, dy = (t.top + t.height / 2 - ny) / scale, s = t.width * .82 / nw;
+        o.style.transform = `translate(${(dx * fk).toFixed(1)}px, ${(dy * fk).toFixed(1)}px) scale(${(1 + (s - 1) * fk).toFixed(4)})`;
+      } else o.style.transform = "";
+      o.style.opacity = fk >= .995 ? 0 : 1;
+      tile.classList.toggle("landed", fk >= .995);
     });
   }
   const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
-  measure(); render();
+  measure();
   addEventListener("scroll", req, { passive: true });
-  addEventListener("resize", () => { measure(); render(); });
-  addEventListener("load", () => { measure(); render(); });
-  document.fonts?.ready.then(() => { measure(); render(); });
+  addEventListener("resize", measure);
+  addEventListener("load", measure);
+  document.fonts?.ready.then(measure);
 }
 A.observeAll && A.observeAll();
 requestAnimationFrame(A.placeThumbs);

@@ -240,3 +240,24 @@ footer .big em,.cta-band h2 em,.dark-band h2 em{color:#8fe3d9}
 .hero3d.popped .o3-cycle{animation:iconBurst .9s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(.3s + var(--d,0s) * 2)}
 .hero3d .tray-glow{opacity:0;animation:none}
 .hero3d.popped .tray-glow{animation:trayPop 1.2s ease-out .2s both}
+
+/* ===== scroll-driven hero sequence (burst, hold, fly) ===== */
+.hero3d .sh-cycle,.hero3d.popped .sh-cycle,.hero3d .o3-cycle,.hero3d.popped .o3-cycle,.hero3d .tray-glow,.hero3d.popped .tray-glow{animation:none!important}
+.hero3d .o3-cycle{opacity:0}
+.hero3d .tray-glow{opacity:0}
+.shield svg{animation:shieldIn .9s cubic-bezier(.2,1.3,.4,1) both}
+.hero-stick{position:relative}
+.scroll-cue{display:none}
+.pinmode .hero-pin{height:calc(100vh - 78px + 1100px)}
+.pinmode .hero-stick{position:sticky;top:78px;height:calc(100vh - 78px);overflow:hidden}
+.pinmode .hero{padding:24px 0 0;will-change:transform}
+.pinmode .hero3d{width:min(100%, calc((100vh - 200px) / 1.02));margin-left:auto}
+.pinmode .hero-grid > div:first-child{will-change:opacity,transform}
+.pinmode .stick-tiles{position:absolute;left:0;right:0;bottom:6px;z-index:2}
+.pinmode .hero{z-index:6}
+.pinmode .scroll-cue{display:flex;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:7;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.85);border:1px solid #fff;box-shadow:var(--shadow);font-size:13px;font-weight:500;color:var(--ink2);pointer-events:none}
+.pinmode .scroll-cue i{width:16px;height:24px;border:1.5px solid var(--teal);border-radius:9px;position:relative}
+.pinmode .scroll-cue i::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:6px;border-radius:2px;background:var(--teal);transform:translateX(-50%);animation:wheel 1.6s infinite}
+:root[data-theme="dark"] .pinmode .scroll-cue{background:rgba(14,38,41,.9);border-color:rgba(255,255,255,.1)}
+.pinmode .tiles-ecg{height:48px}
+.quick .live-strip{margin-top:34px}
