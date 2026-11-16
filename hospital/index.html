@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aurelia Hospital & Research</title>
+<meta name="description" content="Aurelia Hospital & Research: a fictional premium hospital website built for education.">
+<meta name="theme-color" content="#0a2533">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a2533'/%3E%3Cpath d='M32 16v32M16 32h32' stroke='%23d9b874' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="page-index">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3A2.5 2.5 0 0 0 7 5.5v.2A3 3 0 0 0 4.5 9a3 3 0 0 0 .6 4.6A3 3 0 0 0 8 18a2.5 2.5 0 0 0 4 1.5V4.5A2.5 2.5 0 0 0 9.5 3z"/><path d="M14.5 3A2.5 2.5 0 0 1 17 5.5v.2A3 3 0 0 1 19.5 9a3 3 0 0 1-.6 4.6A3 3 0 0 1 16 18a2.5 2.5 0 0 1-4 1.5"/></symbol>
+    <symbol id="i-bone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.7-.6 2.6-.4a2.5 2.5 0 1 0-3.2-3.2c.2.9.3 1.9-.4 2.6l-6.6 6.6c-.7.7-1.7.6-2.6.4a2.5 2.5 0 1 0 3.2 3.2c-.2-.9-.3-1.9.4-2.6z"/></symbol>
+    <symbol id="i-ribbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c2.3 0 4 1.9 4 4.3 0 3-2.7 6.2-4 7.7-1.3-1.5-4-4.7-4-7.7 0-2.4 1.7-4.3 4-4.3z"/><path d="M10 12.4 6 21.5l3-1 1.5 2.5L12 18M14 12.4l4 9.1-3-1-1.5 2.5L12 18"/></symbol>
+    <symbol id="i-baby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9.5 15a3.5 3.5 0 0 0 5 0M12 3c0 2 1 3 3 3"/></symbol>
+    <symbol id="i-kidney" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 3C5 3 3 6.5 3 11s2 10 6 10c2.5 0 3-2 3-4 0-1.5-1.5-2-1.5-4S12 10 12 8.5C12 5 11 3 8.5 3z"/><path d="M15.5 3C19 3 21 6.5 21 11s-2 10-6 10"/><path d="M12 13h3"/></symbol>
+    <symbol id="i-lungs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M12 12l-3-2M12 12l3-2"/><path d="M8.5 7C6 7 3 11 3 16c0 2.5 1 4 3 4 2.5 0 3.5-1.5 3.5-4V9"/><path d="M15.5 7C18 7 21 11 21 16c0 2.5-1 4-3 4-2.5 0-3.5-1.5-3.5-4V9"/></symbol>
+    <symbol id="i-stomach" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v4c0 2-2 3-2 6 0 5 4 9 9 9 3 0 5-2 5-5 0-4-4-5-7-5-1.5 0-2-1-2-2V2"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-female" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M12 15v7M9 19h6"/></symbol>
+    <symbol id="i-tooth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 4.5 2 7S6 21 8 21c1.5 0 1.5-5 4-5s2.5 5 4 5c2 0 2.5-4 3-6.5s2-4 2-7C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></symbol>
+    <symbol id="i-skin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7S5 10 5 14.5a7 7 0 0 0 14 0C19 10 12 2.7 12 2.7z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><path d="M8 14h2M14 14h2M8 17h2"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-amb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V7a1 1 0 0 1 1-1h11v11"/><path d="M14 10h4l4 4v3h-2"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/><path d="M9 17h6M8 9v4M6 11h4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2.5"/><path d="m16 10 6-3.5v11L16 14"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a5 5 0 0 0-7-7l-10 10a5 5 0 0 0 7 7z"/><path d="m8.5 8.5 7 7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-4-.9L3 20.5l1.5-4.5a8.4 8.4 0 0 1-.9-4A8.5 8.5 0 0 1 12 3.5a8.4 8.4 0 0 1 9 8z"/><path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2M12 20.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1.5 12h2M20.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></symbol>
+    <symbol id="i-hosp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-5h6v5M12 8v5M9.5 10.5h5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+    <symbol id="i-sil" viewBox="0 0 100 100" fill="#fff"><circle cx="50" cy="34" r="20"/><path d="M10 100c0-24 18-40 40-40s40 16 40 40z"/></symbol>
+  </defs>
+</svg>
+
+<div class="edu-note">Educational demo — Aurelia Hospital is fictional. Nothing here is real medical advice, and no bookings are actually made.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left">
+      <span><span class="pulse-dot"></span>24×7 Emergency <a href="contact.html#emergency">1800-000-0000</a></span>
+      <span class="hide-sm">Ambulance <a href="#" data-open="ambModal">Request now</a></span>
+      <span class="hide-sm">OPD: Mon–Sat, 8 AM – 8 PM</span>
+    </div>
+    <div class="hide-sm" id="clock" aria-live="off"></div>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo" aria-label="Aurelia Hospital home">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7fd8cf" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9.5" stroke-width="1.2" opacity=".6"/></svg></span>
+      <span class="logo-text"><b>Aurelia</b><small>Hospital &amp; Research</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="specialities.html">Specialities</a>
+      <a href="doctors.html">Doctors</a>
+      <a href="symptoms.html">Symptoms</a>
+      <a href="diet.html">Diet planner</a>
+      <a href="checkups.html">Checkups</a>
+      <a href="visit.html">Your visit</a>
+      <a href="patients.html">Patients</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg><use href="#i-moon"/></svg></button>
+      <a href="book.html" class="btn btn-primary btn-sm">Book appointment</a>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="icon-btn close" id="menuClose" aria-label="Close menu">✕</button>
+  <a href="index.html" class="active">Home</a><a href="book.html">Book OP</a><a href="specialities.html">Specialities</a><a href="doctors.html">Doctors</a><a href="symptoms.html">Symptoms</a><a href="diet.html">Diet planner</a><a href="checkups.html">Checkups</a><a href="visit.html">Your visit</a><a href="patients.html">Patients</a><a href="contact.html">Contact</a>
+</div>
+
+<main>
+<div class="hero-pin">
+<div class="hero-stick">
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow rv">Quaternary care · Est. 1998</span>
+      <h1 class="rv d1">Medicine at its <em>most human.</em></h1>
+      <p class="lead rv d2">Aurelia brings 600 specialists, 42 centres of excellence and a 1,200-bed campus together around one idea: every patient deserves to be treated like the only one.</p>
+      <div class="hero-actions rv d3">
+        <a href="book.html" class="btn btn-primary"><svg><use href="#i-cal"/></svg>Book an OP visit</a>
+        <a href="diet.html" class="btn btn-ghost">Try the diet planner <svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="hero-trust rv d3">
+        <div><b data-count="25">0</b><span>years of care</span></div>
+        <div><b data-count="600" data-suffix="+">0</b><span>specialists</span></div>
+        <div><b data-count="2.4" data-dec="1" data-suffix="M">0</b><span>patients a year</span></div>
+        <div><b data-count="98.6" data-dec="1" data-suffix="%">0</b><span>would recommend us</span></div>
+      </div>
+    </div>
+    <div class="hero3d" aria-hidden="true">
+      <div class="h3-bg">
+      <span class="b3 b3a"></span><span class="b3 b3b"></span><span class="b3 b3c"></span><span class="b3 b3d"></span><span class="b3 b3e"></span>
+      <svg class="tray" viewBox="0 0 320 120"><defs>
+        <linearGradient id="trRim" x1="0" x2="1"><stop offset="0" stop-color="#8ad8d0"/><stop offset=".5" stop-color="#3aa9a2"/><stop offset="1" stop-color="#7fd2ca"/></linearGradient>
+        <radialGradient id="trTop" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#d4f1ee" stop-opacity=".75"/></radialGradient>
+        <radialGradient id="trGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#5ff0dc" stop-opacity=".8"/><stop offset="1" stop-color="#5ff0dc" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="160" cy="92" rx="150" ry="22" fill="#2b9c96" opacity=".18"/>
+        <ellipse cx="160" cy="66" rx="146" ry="38" fill="url(#trRim)"/>
+        <ellipse cx="160" cy="54" rx="146" ry="38" fill="url(#trTop)" stroke="#fff" stroke-width="2"/>
+        <ellipse cx="160" cy="54" rx="108" ry="24" fill="none" stroke="#9fe0d8" stroke-width="1.5" opacity=".7"/>
+        <ellipse class="tray-glow" cx="160" cy="52" rx="120" ry="30" fill="url(#trGlow)"/>
+      </svg>
+      </div>
+      <div class="o3 shield" style="--x:50;--y:40;--w:40%"><div class="sh-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 200 220"><defs>
+          <linearGradient id="shRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9fbf8"/><stop offset=".55" stop-color="#9adcd4"/><stop offset="1" stop-color="#4fb3ab"/></linearGradient>
+          <linearGradient id="shFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ebe5"/><stop offset=".6" stop-color="#5fc0b8"/><stop offset="1" stop-color="#2f9c95"/></linearGradient>
+          <radialGradient id="shHeart" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#eef7f7"/><stop offset="1" stop-color="#bcd8d8"/></radialGradient></defs>
+          <path d="M100 6 L182 38 C182 124 152 178 100 214 C48 178 18 124 18 38 Z" fill="url(#shRim)"/>
+          <path d="M100 22 L166 48 C166 120 140 164 100 194 C60 164 34 120 34 48 Z" fill="url(#shFace)"/>
+          <path d="M100 22 L166 48 C160 50 150 52 138 50 L100 34 L48 54 C42 92 50 124 66 148 C48 124 34 92 34 48 Z" fill="#fff" opacity=".35"/>
+          <path d="M100 156 C58 128 50 104 62 86 C74 68 94 72 100 88 C106 72 126 68 138 86 C150 104 142 128 100 156 Z" fill="url(#shHeart)"/>
+          <ellipse cx="80" cy="92" rx="11" ry="7" fill="#fff" opacity=".9" transform="rotate(-30 80 92)"/>
+        </svg></div></div></div>
+      <div class="o3" data-t="4" style="--x:31;--y:33;--w:23%;--d:0s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 120 130"><defs><radialGradient id="stC" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#c9d6da"/><stop offset="1" stop-color="#7d9097"/></radialGradient></defs>
+          <path d="M28 12 C24 52 36 74 60 74 C84 74 96 52 92 12" stroke="#34444d" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M60 74 C60 100 74 108 90 104" stroke="#34444d" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <circle cx="28" cy="10" r="6" fill="#c7d3d6"/><circle cx="92" cy="10" r="6" fill="#c7d3d6"/>
+          <circle cx="98" cy="104" r="15" fill="url(#stC)"/><circle cx="98" cy="104" r="8" fill="#e6eef0" stroke="#9aaeb4" stroke-width="2"/>
+        </svg></div></div></div>
+      <div class="o3" data-t="5" style="--x:50;--y:17;--w:17%;--d:.04s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 100 100"><defs><linearGradient id="plG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9fe3db"/><stop offset=".55" stop-color="#3fb0a8"/><stop offset="1" stop-color="#23847f"/></linearGradient></defs>
+          <rect x="34" y="6" width="32" height="88" rx="10" fill="url(#plG)"/><rect x="6" y="34" width="88" height="32" rx="10" fill="url(#plG)"/>
+          <rect x="38" y="10" width="10" height="34" rx="5" fill="#fff" opacity=".45"/><rect x="10" y="38" width="30" height="8" rx="4" fill="#fff" opacity=".4"/>
+        </svg></div></div></div>
+      <div class="o3" data-t="0" style="--x:70;--y:16;--w:19%;--d:.08s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 120 110"><rect x="8" y="14" width="104" height="90" rx="16" fill="#fff"/><path d="M8 30a16 16 0 0 1 16-16h72a16 16 0 0 1 16 16v10H8z" fill="#f6c4cb"/>
+          <rect x="32" y="4" width="8" height="20" rx="4" fill="#2b6d72"/><rect x="80" y="4" width="8" height="20" rx="4" fill="#2b6d72"/>
+          <g fill="#ffd3d9"><rect x="22" y="52" width="16" height="12" rx="3"/><rect x="44" y="52" width="16" height="12" rx="3"/><rect x="66" y="52" width="16" height="12" rx="3" fill="#ff9fb0"/><rect x="88" y="52" width="12" height="12" rx="3"/></g>
+          <g fill="#e3eef0"><rect x="22" y="70" width="16" height="12" rx="3"/><rect x="44" y="70" width="16" height="12" rx="3"/><rect x="66" y="70" width="16" height="12" rx="3"/><rect x="88" y="70" width="12" height="12" rx="3"/><rect x="22" y="88" width="16" height="8" rx="3"/><rect x="44" y="88" width="16" height="8" rx="3"/></g>
+        </svg></div></div></div>
+      <div class="o3" data-t="2" style="--x:82;--y:40;--w:15%;--d:.12s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 80 140"><g stroke-linecap="round" fill="none">
+          <path d="M18 6 C70 30 70 44 18 70 C-34 96 70 110 62 134" stroke="#2b9c96" stroke-width="7"/>
+          <path d="M62 6 C10 30 10 44 62 70 C114 96 10 110 18 134" stroke="#8fe0d6" stroke-width="7"/>
+          <path d="M26 18 H54 M30 34 H50 M30 58 H50 M26 82 H54 M30 100 H50 M30 120 H50" stroke="#cdeeea" stroke-width="4"/></g>
+        </svg></div></div></div>
+      <div class="o3" data-t="3" style="--x:76;--y:62;--w:17%;--d:.16s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 140 70"><g transform="rotate(-32 70 35)"><rect x="14" y="18" width="112" height="36" rx="18" fill="#2b9c96"/><path d="M32 18h38v36H32a18 18 0 0 1 0-36z" fill="#fff"/>
+          <rect x="24" y="24" width="60" height="7" rx="3.5" fill="#fff" opacity=".7"/></g></svg></div></div></div>
+      <div class="o3" data-t="1" style="--x:24;--y:56;--w:14%;--d:.2s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 100 100"><defs><radialGradient id="phG" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#8fe6dc"/><stop offset=".55" stop-color="#36aaa2"/><stop offset="1" stop-color="#1c7a75"/></radialGradient></defs><path d="M50 6a44 44 0 1 1-30 76L8 92l6-16A44 44 0 0 1 50 6z" fill="url(#phG)"/><ellipse cx="34" cy="26" rx="14" ry="8" fill="#fff" opacity=".45" transform="rotate(-30 34 26)"/><path d="M38 30c3-3 7-3 9 0l5 7c2 3 1 6-1 8l-3 3c3 6 8 11 14 14l3-3c2-2 5-3 8-1l7 5c3 2 3 6 0 9l-4 4c-5 5-24-2-34-12S29 39 34 34z" fill="#fff"/></svg>
+      </div></div></div>
+      <div class="hv-card c2"><small>Heart rate</small><b><span id="bpm">72</span> bpm</b><div class="vitals"><small>SpO₂ <i>98%</i></small><small>BP <i>118/76</i></small></div></div>
+      <div class="hv-card c3"><span class="av" style="background:url(assets/img/doc-d1.jpg) center 22%/cover;color:transparent">EM</span><div class="grow"><b>Dr. Elena Marquez</b><small>Cardiology · next slot 11:30 AM</small></div><span class="live">● Available</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="stick-tiles">
+  <div class="wrap">
+    <div class="tiles">
+      <a href="book.html" class="tile"><span class="ti"><svg><use href="#i-cal"/></svg><i>✓</i></span><b>Book<br>Appointment</b><small>Pick a doctor &amp; slot in 60 s</small></a>
+      <a href="book.html" class="tile"><span class="ti"><svg><use href="#i-video"/></svg><i>✓</i></span><b>Online<br>Consultation</b><small>See a specialist from home</small></a>
+      <a href="#" class="tile" data-open="reportModal"><span class="ti"><svg><use href="#i-file"/></svg><i>✓</i></span><b>Lab<br>Reports</b><small>Results on your phone</small></a>
+      <a href="patients.html" class="tile"><span class="ti"><svg><use href="#i-pill"/></svg><i>✓</i></span><b>Pharmacy<br>Delivery</b><small>Medicines in 4 hours</small></a>
+      <a href="symptoms.html" class="tile"><span class="ti"><svg><use href="#i-search"/></svg><i>✓</i></span><b>Symptom<br>Guide</b><small>Not sure who to see?</small></a>
+      <a href="contact.html#emergency" class="tile tile-er"><span class="ti"><svg><use href="#i-amb"/></svg><i>!</i></span><b>24×7<br>Emergency</b><small>Trauma bay always ready</small></a>
+    </div>
+    <svg class="tiles-ecg" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50h300l14-18 14 18h40l12 10 16-56 18 90 16-46h60l14-12 14 12h300l14-18 14 18h40l12 10 16-56 18 90 16-46h60l14-12 14 12h200"/></svg>
+  </div>
+</div>
+<div class="scroll-cue" aria-hidden="true"><i></i>Scroll to explore</div>
+</div>
+</div>
+<div class="quick">
+  <div class="wrap">
+    <div class="live-strip rv" id="liveStrip">
+      <div class="ls"><small><span class="pulse-dot" style="background:#1f9d6b"></span>ER wait time</small><b id="lsEr">6 min</b><div class="bar"><i style="width:20%"></i></div></div>
+      <div class="ls"><small>General beds free</small><b id="lsBeds">142</b><div class="bar"><i style="width:62%"></i></div></div>
+      <div class="ls"><small>ICU beds free</small><b id="lsIcu">18</b><div class="bar"><i style="width:30%"></i></div></div>
+      <div class="ls"><small>Doctors on duty</small><b id="lsDocs">214</b><div class="bar"><i style="width:80%"></i></div></div>
+      <div class="ls"><small>Blood bank (O−)</small><b id="lsBlood">36 units</b><div class="bar"><i style="width:45%"></i></div></div>
+    </div>
+  </div>
+</div>
+
+
+<section class="story" id="journey">
+  <div class="story-sticky">
+    <div class="wrap story-grid">
+      <div class="story-text">
+        <div class="story-big" id="storyBig" aria-hidden="true">01</div>
+        <span class="eyebrow">A journey through you</span>
+        <div class="story-chapters" id="storyCh"></div>
+        <div class="story-rail" id="storyRail"></div>
+      </div>
+      <div class="story-stage" id="storyStage"><span class="orbit o1"></span><span class="orbit o2"></span><svg id="storySvg" viewBox="0 0 300 620" aria-hidden="true"></svg></div>
+    </div>
+    <div class="story-hint" id="storyHint"><i></i>Scroll to travel</div>
+  </div>
+</section>
+
+
+<section id="human">
+  <div class="wrap human-grid">
+    <div class="human-photos">
+      <figure class="hp hp1 rv"><img src="assets/img/care-vaccine.jpg" alt="A doctor gently giving an elderly woman a vaccination" loading="lazy"></figure>
+      <figure class="hp hp2 rv d1"><img src="assets/img/care-bedside.jpg" alt="A doctor talking with a patient at her bedside" loading="lazy"></figure>
+      <figure class="hp hp3 rv d2"><img src="assets/img/care-hands.jpg" alt="Two people holding hands in comfort" loading="lazy"></figure>
+      <div class="hp-quote glass rv d3"><b>“They remembered my name, my fears and my grandson’s cricket match.”</b><span>Dorothy, 71 · cardiac rehab</span></div>
+    </div>
+    <div class="human-text">
+      <span class="eyebrow rv">Care with a human face</span>
+      <h2 class="rv d1">Technology helps us heal. <em>People help you feel better.</em></h2>
+      <p class="lead rv d2">Every patient at Aurelia has a named care coordinator, nurses who stay with the same ward, and doctors who make time to sit down and explain. It’s the part of medicine no machine can do.</p>
+      <div class="human-stats rv d3">
+        <div><b data-count="1" data-suffix=":4">0</b><span>nurse-to-patient ratio on wards</span></div>
+        <div><b data-count="92" data-suffix="%">0</b><span>patients who know their care team by name</span></div>
+        <div><b data-count="14">0</b><span>languages spoken by our staff</span></div>
+      </div>
+      <div class="hero-actions rv d3"><a href="doctors.html" class="btn btn-primary">Meet our doctors</a><a href="book.html" class="btn btn-ghost">Book a visit</a></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="explore">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Start here</span><h2 class="rv d1">Everything you need, <em>one tap away.</em></h2></div>
+      <p class="lead rv d2">Book a visit, find the right specialist, plan your diet or prepare for your day at the hospital.</p>
+    </div>
+    <div class="centres">
+      <a href="book.html" class="centre rv d0"><span class="ci"><svg><use href="#i-cal"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Book an OP visit</h3><p>Live slots, an instant token number and a reminder for your calendar.</p></a>
+      <a href="symptoms.html" class="centre rv d1"><span class="ci"><svg><use href="#i-search"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Symptom guide</h3><p>Tap where it hurts and we’ll suggest the right speciality and doctor.</p></a>
+      <a href="doctors.html" class="centre rv d2"><span class="ci"><svg><use href="#i-heart"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Find a doctor</h3><p>Search 600+ specialists by name, speciality or condition.</p></a>
+      <a href="diet.html" class="centre rv d3"><span class="ci"><svg><use href="#i-pill"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Diet planner</h3><p>Calories, macros and an Indian meal plan for 8 common conditions.</p></a>
+      <a href="checkups.html" class="centre rv d0"><span class="ci"><svg><use href="#i-shield"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Health checkups</h3><p>Preventive packages with same-day reports and a doctor consult.</p></a>
+      <a href="specialities.html" class="centre rv d1"><span class="ci"><svg><use href="#i-hosp"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Specialities</h3><p>42 centres of excellence and the technology behind them.</p></a>
+      <a href="patients.html" class="centre rv d2"><span class="ci"><svg><use href="#i-file"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Patient services</h3><p>Reports, video consults, pharmacy delivery, insurance and FAQs.</p></a>
+      <a href="visit.html" class="centre rv d3"><span class="ci"><svg><use href="#i-clock"/></svg></span><span class="arrow"><svg><use href="#i-arrow"/></svg></span><h3>Your visit, step by step</h3><p>From parking to heading home: exactly what happens, with live wait times.</p></a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <span class="eyebrow rv">Patient stories</span>
+    <h2 class="rv d1" style="margin:14px 0 40px">Words from <em>our families.</em></h2>
+    <div class="testi rv" style="overflow:hidden">
+      <div class="t-track" id="tTrack"></div>
+    </div>
+    <div class="t-ctrl"><div class="t-dots" id="tDots"></div><button class="icon-btn" id="tPrev" aria-label="Previous" style="transform:scaleX(-1)"><svg><use href="#i-arrow"/></svg></button><button class="icon-btn" id="tNext" aria-label="Next"><svg><use href="#i-arrow"/></svg></button></div>
+  </div>
+</section>
+
+
+<section id="emergency" style="padding-top:20px">
+  <div class="wrap">
+    <div class="er rv">
+      <div class="er-l">
+        <span class="eyebrow">Emergency &amp; trauma</span>
+        <h2 style="margin-top:14px">Every second counts. <em>So do we.</em></h2>
+        <p>Level-1 trauma centre with a dedicated stroke and heart-attack response team. A 40-vehicle ambulance fleet with GPS tracking and paramedics trained in advanced life support.</p>
+        <div class="er-num"><span class="ring"><svg><use href="#i-phone"/></svg></span>1800-000-0000</div>
+        <div class="hero-actions"><button class="btn btn-white" data-open="ambModal"><svg><use href="#i-amb"/></svg>Request ambulance</button></div>
+      </div>
+      <div class="er-r">
+        <div class="er-stat"><span>Door-to-doctor time</span><b>&lt; 4 min</b></div>
+        <div class="er-stat"><span>Door-to-balloon (heart attack)</span><b>58 min</b></div>
+        <div class="er-stat"><span>Stroke code activation</span><b>&lt; 10 min</b></div>
+        <div class="er-stat"><span>Ambulances on the road now</span><b id="ambLive">23</b></div>
+        <div class="er-stat" style="border:0"><span>Average city response</span><b>14 min</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="big">Healing is a team sport. <em>You’re the captain.</em></p>
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7fd8cf" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg></span><span class="logo-text"><b>Aurelia</b><small style="color:#7d979d">Hospital &amp; Research</small></span></div>
+        <p style="font-size:14px;margin-top:18px;max-width:320px">Get monthly health tips from our doctors and dietitians.</p>
+        <form class="news" id="newsForm"><input type="email" placeholder="Your email" aria-label="Email" required><button class="btn btn-gold btn-sm">Subscribe</button></form>
+      </div>
+      <div><h5>Care</h5><a href="specialities.html">Specialities</a><a href="doctors.html">Find a doctor</a><a href="book.html">Book appointment</a><a href="checkups.html">Health checks</a><a href="contact.html#emergency">Emergency</a></div>
+      <div><h5>Patients</h5><a href="#" data-open="reportModal">Online reports</a><a href="symptoms.html">Symptom guide</a><a href="visit.html">Your visit</a><a href="diet.html">Diet planner</a><a href="patients.html">Insurance</a><a href="patients.html">International</a><a href="patients.html#faq">FAQ</a></div>
+      <div><h5>Hospital</h5><a href="index.html">About us</a><a href="index.html">Research</a><a href="index.html">Careers</a><a href="index.html">Nursing college</a><a href="contact.html">Contact</a></div>
+    </div>
+    <div class="foot-bottom"><span>© <span id="yr"></span> Aurelia Hospital. A fictional hospital built for educational purposes. Photos from Unsplash.</span><span>Privacy · Terms · Patient rights</span></div>
+  </div>
+</footer>
+
+<div class="fab-stack">
+  <button class="to-top" id="toTop" aria-label="Back to top"><svg><use href="#i-up"/></svg></button>
+  <button class="fab chat" id="chatBtn" aria-label="Open care assistant"><svg><use href="#i-chat"/></svg></button>
+  <button class="fab sos" data-open="ambModal" aria-label="Emergency"><svg><use href="#i-amb"/></svg></button>
+</div>
+
+<div class="panel chatbox" id="chatbox" role="dialog" aria-label="Care assistant">
+  <div class="chat-h"><span class="av">A</span><div><b>Aria · Care assistant</b><small>● Online · replies instantly</small></div><button id="chatClose" aria-label="Close">×</button></div>
+  <div class="chat-b" id="chatBody"></div>
+  <div class="chat-q" id="chatQ"></div>
+  <form class="chat-f" id="chatForm"><input id="chatIn" placeholder="Ask about timings, booking, insurance…" autocomplete="off"><button aria-label="Send"><svg><use href="#i-send"/></svg></button></form>
+</div>
+
+<div class="modal" id="ambModal">
+  <div class="panel box">
+    <button class="x" data-close>×</button>
+    <div id="ambForm">
+      <h3>Request an ambulance</h3><p class="sub">In a real emergency, always call your local emergency number first. This is a demo.</p>
+      <div class="form-grid">
+        <div class="field full"><label for="aLoc">Pickup location</label><input id="aLoc" placeholder="Area / landmark"><span class="msg">Enter a location</span></div>
+        <div class="field"><label for="aPhone">Mobile</label><input id="aPhone" inputmode="numeric" maxlength="10" placeholder="10-digit"><span class="msg">Valid mobile needed</span></div>
+        <div class="field"><label for="aType">Emergency type</label><select id="aType"><option>Chest pain</option><option>Breathing difficulty</option><option>Accident / injury</option><option>Stroke symptoms</option><option>Pregnancy</option><option>Other</option></select></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:22px;background:#c9302c" id="ambGo">Dispatch ambulance</button>
+    </div>
+    <div id="ambTrack" style="display:none">
+      <h3>Ambulance dispatched</h3><p class="sub" id="ambInfo">Vehicle KA-01-AU-2231 · Paramedic on board</p>
+      <div class="eta"><small style="color:var(--muted)">Estimated arrival</small><b id="ambEta">12:00</b></div>
+      <div class="amb-track"><i id="ambBar" style="width:0"></i><span id="ambIcon" style="left:0">🚑</span></div>
+      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:16px">Stay on the line. Our ER team has been alerted.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="reportModal">
+  <div class="panel box">
+    <button class="x" data-close>×</button>
+    <h3>Patient portal</h3><p class="sub">Sign in with your UHID and the OTP sent to your registered mobile. This is a demo: any UHID works, and the OTP is 1234.</p>
+    <div id="rpStep1" class="form-grid">
+      <div class="field full"><label for="rUhid">UHID</label><input id="rUhid" placeholder="e.g. AUR-102938"><span class="msg">Enter your UHID</span></div>
+      <div class="field full"><button class="btn btn-primary" id="rpOtp">Send OTP</button></div>
+    </div>
+    <div id="rpStep2" class="form-grid" style="display:none">
+      <div class="field full"><label for="rOtp">OTP</label><input id="rOtp" inputmode="numeric" maxlength="4" placeholder="4-digit OTP"><span class="msg">Incorrect OTP (hint: 1234)</span></div>
+      <div class="field full"><button class="btn btn-primary" id="rpLogin">Verify &amp; sign in</button></div>
+    </div>
+    <div id="rpStep3" style="display:none"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
