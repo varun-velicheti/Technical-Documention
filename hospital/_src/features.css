@@ -200,3 +200,40 @@
 .road-wrap{overflow-x:auto;scrollbar-width:none;margin:0 -8px;padding:0 8px}
 .road-wrap::-webkit-scrollbar{display:none}
 @media (max-width:600px){.road{min-width:860px}.road .node text{display:block;font-size:15px}}
+
+/* ============ PHOTOGRAPHIC JOURNEY ============ */
+.story{background:#041016}
+.story-sticky::before{z-index:1;opacity:.55}
+.story-grid{z-index:3}
+.jstage{position:absolute;inset:0;overflow:hidden;background:#041016;z-index:0}
+.jl{position:absolute;inset:0;opacity:0;visibility:hidden;will-change:opacity}
+.jl img{width:100%;height:100%;object-fit:cover;object-position:var(--pos);transform-origin:var(--pos);will-change:transform;display:block}
+.jshade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,16,22,.94) 0%,rgba(4,16,22,.82) 30%,rgba(4,16,22,.25) 62%,rgba(4,16,22,.2) 100%),linear-gradient(0deg,rgba(4,16,22,.7),transparent 30%),radial-gradient(120% 90% at 70% 50%,transparent 50%,rgba(4,16,22,.6))}
+.jhud{position:absolute;top:16%;bottom:14%;left:56%;right:5%;pointer-events:none}
+.jhud i{position:absolute;width:34px;height:34px;border-color:rgba(95,240,220,.75);border-style:solid;border-width:0}
+.jhud .c1{top:0;left:0;border-top-width:2px;border-left-width:2px}
+.jhud .c2{top:0;right:0;border-top-width:2px;border-right-width:2px}
+.jhud .c3{bottom:0;left:0;border-bottom-width:2px;border-left-width:2px}
+.jhud .c4{bottom:0;right:0;border-bottom-width:2px;border-right-width:2px}
+.jscan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(95,240,220,.7),transparent);box-shadow:0 0 14px rgba(95,240,220,.6);animation:jscan 5s ease-in-out infinite}
+@keyframes jscan{0%,100%{top:2%}50%{top:96%}}
+.jtag{position:absolute;right:0;bottom:-38px;display:flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#d7e7ea;white-space:nowrap}
+.jtag b{font-weight:600}
+.jtag small{color:#7d979d;font-size:11.5px}
+.jtag.swap{animation:jswap .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes jswap{from{opacity:0;transform:translateY(8px)}}
+.sch h3,.sch p{text-shadow:0 2px 24px rgba(0,0,0,.5)}
+@media (max-width:900px){
+  .jshade{background:linear-gradient(180deg,rgba(4,16,22,.35) 0%,rgba(4,16,22,.1) 30%,rgba(4,16,22,.85) 62%,rgba(4,16,22,.97) 100%)}
+  .jhud{top:12%;bottom:auto;height:36%;left:8%;right:8%}
+  .jtag{bottom:-30px;font-size:11px;right:auto;left:0}
+}
+.jhud{right:8%}
+@media (max-width:900px){
+  .jtag{display:none}
+  .sch .stat{display:none}
+  .sch p{font-size:14.5px;line-height:1.55}
+  .story-chapters{min-height:300px}
+  .story-text{bottom:28px;padding:22px 18px 16px}
+  .jhud{height:34%}
+}
