@@ -1,0 +1,539 @@
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/><path d="M3.5 12h4l2-3 3 6 2-3h6"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3A2.5 2.5 0 0 0 7 5.5v.2A3 3 0 0 0 4.5 9a3 3 0 0 0 .6 4.6A3 3 0 0 0 8 18a2.5 2.5 0 0 0 4 1.5V4.5A2.5 2.5 0 0 0 9.5 3z"/><path d="M14.5 3A2.5 2.5 0 0 1 17 5.5v.2A3 3 0 0 1 19.5 9a3 3 0 0 1-.6 4.6A3 3 0 0 1 16 18a2.5 2.5 0 0 1-4 1.5"/></symbol>
+    <symbol id="i-bone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.7-.6 2.6-.4a2.5 2.5 0 1 0-3.2-3.2c.2.9.3 1.9-.4 2.6l-6.6 6.6c-.7.7-1.7.6-2.6.4a2.5 2.5 0 1 0 3.2 3.2c-.2-.9-.3-1.9.4-2.6z"/></symbol>
+    <symbol id="i-ribbon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c2.3 0 4 1.9 4 4.3 0 3-2.7 6.2-4 7.7-1.3-1.5-4-4.7-4-7.7 0-2.4 1.7-4.3 4-4.3z"/><path d="M10 12.4 6 21.5l3-1 1.5 2.5L12 18M14 12.4l4 9.1-3-1-1.5 2.5L12 18"/></symbol>
+    <symbol id="i-baby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9.5 15a3.5 3.5 0 0 0 5 0M12 3c0 2 1 3 3 3"/></symbol>
+    <symbol id="i-kidney" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 3C5 3 3 6.5 3 11s2 10 6 10c2.5 0 3-2 3-4 0-1.5-1.5-2-1.5-4S12 10 12 8.5C12 5 11 3 8.5 3z"/><path d="M15.5 3C19 3 21 6.5 21 11s-2 10-6 10"/><path d="M12 13h3"/></symbol>
+    <symbol id="i-lungs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M12 12l-3-2M12 12l3-2"/><path d="M8.5 7C6 7 3 11 3 16c0 2.5 1 4 3 4 2.5 0 3.5-1.5 3.5-4V9"/><path d="M15.5 7C18 7 21 11 21 16c0 2.5-1 4-3 4-2.5 0-3.5-1.5-3.5-4V9"/></symbol>
+    <symbol id="i-stomach" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v4c0 2-2 3-2 6 0 5 4 9 9 9 3 0 5-2 5-5 0-4-4-5-7-5-1.5 0-2-1-2-2V2"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-female" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M12 15v7M9 19h6"/></symbol>
+    <symbol id="i-tooth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 4.5 2 7S6 21 8 21c1.5 0 1.5-5 4-5s2.5 5 4 5c2 0 2.5-4 3-6.5s2-4 2-7C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></symbol>
+    <symbol id="i-skin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7S5 10 5 14.5a7 7 0 0 0 14 0C19 10 12 2.7 12 2.7z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><path d="M8 14h2M14 14h2M8 17h2"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-amb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V7a1 1 0 0 1 1-1h11v11"/><path d="M14 10h4l4 4v3h-2"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/><path d="M9 17h6M8 9v4M6 11h4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2.5"/><path d="m16 10 6-3.5v11L16 14"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a5 5 0 0 0-7-7l-10 10a5 5 0 0 0 7 7z"/><path d="m8.5 8.5 7 7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-4-.9L3 20.5l1.5-4.5a8.4 8.4 0 0 1-.9-4A8.5 8.5 0 0 1 12 3.5a8.4 8.4 0 0 1 9 8z"/><path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2M12 20.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1.5 12h2M20.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></symbol>
+    <symbol id="i-hosp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-5h6v5M12 8v5M9.5 10.5h5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+    <symbol id="i-sil" viewBox="0 0 100 100" fill="#fff"><circle cx="50" cy="34" r="20"/><path d="M10 100c0-24 18-40 40-40s40 16 40 40z"/></symbol>
+  </defs>
+</svg>
+
+<div class="edu-note">Educational demo — Aurelia Hospital is fictional. Nothing here is real medical advice, and no bookings are actually made.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left">
+      <span><span class="pulse-dot"></span>24×7 Emergency <a href="#emergency">1800-000-0000</a></span>
+      <span class="hide-sm">Ambulance <a href="#" data-open="ambModal">Request now</a></span>
+      <span class="hide-sm">OPD: Mon–Sat, 8 AM – 8 PM</span>
+    </div>
+    <div class="hide-sm" id="clock" aria-live="off"></div>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#home" class="logo" aria-label="Aurelia Hospital home">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#d9b874" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9.5" stroke-width="1.2" opacity=".6"/></svg></span>
+      <span class="logo-text"><b>Aurelia</b><small>Hospital &amp; Research</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#centres">Specialities</a>
+      <a href="#doctors">Doctors</a>
+      <a href="#book">Book OP</a>
+      <a href="#diet">Diet Planner</a>
+      <a href="#packages">Health Checks</a>
+      <a href="#services">Patients</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg><use href="#i-moon"/></svg></button>
+      <a href="#book" class="btn btn-primary btn-sm">Book appointment</a>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="icon-btn close" id="menuClose" aria-label="Close menu">✕</button>
+  <a href="#centres">Specialities</a><a href="#doctors">Doctors</a><a href="#book">Book OP</a><a href="#diet">Diet Planner</a><a href="#packages">Health Checks</a><a href="#services">Patients</a><a href="#emergency">Emergency</a><a href="#contact">Contact</a>
+</div>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow rv">Quaternary care · Est. 1998</span>
+      <h1 class="rv d1">Medicine at its <em>most human.</em></h1>
+      <p class="lead rv d2">Aurelia brings 600 specialists, 42 centres of excellence and a 1,200-bed campus together around one idea: every patient deserves to be treated like the only one.</p>
+      <div class="hero-actions rv d3">
+        <a href="#book" class="btn btn-primary"><svg><use href="#i-cal"/></svg>Book an OP visit</a>
+        <a href="#diet" class="btn btn-ghost">Try the diet planner <svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="hero-trust rv d3">
+        <div><b data-count="25">0</b><span>years of care</span></div>
+        <div><b data-count="600" data-suffix="+">0</b><span>specialists</span></div>
+        <div><b data-count="2.4" data-dec="1" data-suffix="M">0</b><span>patients a year</span></div>
+        <div><b data-count="98.6" data-dec="1" data-suffix="%">0</b><span>would recommend us</span></div>
+      </div>
+    </div>
+    <div class="hero-visual rv d2" aria-hidden="true">
+      <div class="orb o1"></div><div class="orb o2"></div>
+      <svg class="hv-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z" opacity=".9"/></svg>
+      <svg class="ecg" viewBox="0 0 600 140" preserveAspectRatio="none"><path d="M0 70h90l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h70l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h80"/></svg>
+      <div class="hv-card glass c2"><small>Heart rate</small><b><span id="bpm">72</span> bpm</b><div class="vitals"><small>SpO₂ <i>98%</i></small><small>BP <i>118/76</i></small></div></div>
+      <div class="hv-card glass c1"><small>Avg. OPD wait today</small><b>11 min</b><small>Down 38% this year</small></div>
+      <div class="hv-card glass c3"><span class="av">AR</span><div class="grow"><b style="font-size:16px">Dr. Ananya Rao</b><small>Cardiology · next slot 11:30 AM</small></div><span class="live">● Available</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="quick">
+  <div class="wrap">
+    <div class="quick-grid rv">
+      <a href="#book" class="quick-item"><span class="qi"><svg><use href="#i-cal"/></svg></span><div><b>Book OP appointment</b><span>Choose a doctor &amp; slot in 60 seconds</span></div></a>
+      <a href="#doctors" class="quick-item"><span class="qi"><svg><use href="#i-search"/></svg></span><div><b>Find a doctor</b><span>600+ specialists across 42 fields</span></div></a>
+      <a href="#" class="quick-item" data-open="reportModal"><span class="qi"><svg><use href="#i-file"/></svg></span><div><b>Download reports</b><span>Lab &amp; imaging results online</span></div></a>
+      <a href="#emergency" class="quick-item emergency"><span class="qi"><svg><use href="#i-amb"/></svg></span><div><b>Emergency</b><span>Trauma bay ready · 24×7</span></div></a>
+    </div>
+    <div class="live-strip rv" id="liveStrip">
+      <div class="ls"><small><span class="pulse-dot" style="background:#1f9d6b"></span>ER wait time</small><b id="lsEr">6 min</b><div class="bar"><i style="width:20%"></i></div></div>
+      <div class="ls"><small>General beds free</small><b id="lsBeds">142</b><div class="bar"><i style="width:62%"></i></div></div>
+      <div class="ls"><small>ICU beds free</small><b id="lsIcu">18</b><div class="bar"><i style="width:30%"></i></div></div>
+      <div class="ls"><small>Doctors on duty</small><b id="lsDocs">214</b><div class="bar"><i style="width:80%"></i></div></div>
+      <div class="ls"><small>Blood bank (O−)</small><b id="lsBlood">36 units</b><div class="bar"><i style="width:45%"></i></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CENTRES -->
+<section id="centres">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Centres of excellence</span><h2 class="rv d1">Deep expertise, <em>under one roof.</em></h2></div>
+      <p class="lead rv d2">Each centre runs as its own institute, with dedicated surgeons, nurses, rehab teams and research faculty working around the patient.</p>
+    </div>
+    <div class="centres" id="centreGrid"></div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="mtrack" id="marq"></div></div>
+
+<!-- TECH -->
+<section>
+  <div class="wrap">
+    <div class="dark-band rv">
+      <div class="sec-head" style="margin-bottom:0">
+        <div><span class="eyebrow">Technology</span><h2 style="margin-top:14px">Tomorrow’s medicine, <em>in use today.</em></h2></div>
+        <p class="lead">An investment of ₹480 crore over five years in precision diagnostics, robotic surgery and AI-assisted care pathways.</p>
+      </div>
+      <div class="tech-grid">
+        <div class="tech"><span class="num">01</span><h3>Robotic surgery suite</h3><p>Four robotic theatres for urology, gynaecology, oncology and joint replacement: smaller incisions, faster recovery.</p></div>
+        <div class="tech"><span class="num">02</span><h3>3 Tesla MRI &amp; PET-CT</h3><p>High-resolution imaging with same-day reporting, plus low-dose protocols for children.</p></div>
+        <div class="tech"><span class="num">03</span><h3>Hybrid cath lab</h3><p>Combines open surgery and catheter procedures in one room, so complex heart cases need no transfer.</p></div>
+        <div class="tech"><span class="num">04</span><h3>Tele-ICU command centre</h3><p>Intensivists watch every critical bed around the clock, with early-warning scores refreshed every minute.</p></div>
+        <div class="tech"><span class="num">05</span><h3>Genomics lab</h3><p>Tumour profiling and hereditary risk panels help choose the right therapy the first time.</p></div>
+        <div class="tech"><span class="num">06</span><h3>Paperless records</h3><p>One digital health record follows you across the OPD, wards, pharmacy and your phone.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section id="doctors" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Find a doctor</span><h2 class="rv d1">Meet the people <em>behind the care.</em></h2></div>
+      <p class="lead rv d2">Search by name, speciality or condition, then book a slot straight from the doctor’s card.</p>
+    </div>
+    <div class="filters rv">
+      <label class="search"><svg><use href="#i-search"/></svg><input id="docSearch" type="search" placeholder="Search doctor, speciality or condition, e.g. “knee”, “diabetes”"></label>
+    </div>
+    <div class="chips rv" id="docChips" style="margin-bottom:26px"></div>
+    <div class="doc-grid" id="docGrid"></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="book" style="background:var(--paper2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Outpatient booking</span><h2 class="rv d1">Book your OP visit <em>in five steps.</em></h2></div>
+      <p class="lead rv d2">Live slot availability, instant token and OP number, and a reminder you can add to your calendar. No phone queue.</p>
+    </div>
+    <div class="book-shell">
+      <div class="panel book-main rv">
+        <div class="steps" id="steps"></div>
+
+        <div class="bstep" data-step="0">
+          <h3>Choose a department</h3><p class="sub">Not sure? Pick General Medicine and the physician will refer you onward.</p>
+          <div class="dept-grid" id="deptGrid"></div>
+        </div>
+
+        <div class="bstep" data-step="1">
+          <h3>Select your doctor</h3><p class="sub" id="docSub">Doctors available in this department.</p>
+          <div class="docpick" id="docPick"></div>
+        </div>
+
+        <div class="bstep" data-step="2">
+          <h3>Pick a date &amp; time</h3><p class="sub" id="slotSub">Slots shown in Indian Standard Time.</p>
+          <div class="dates" id="dates"></div>
+          <div id="slotArea"></div>
+          <div class="legend"><span><i></i>Available</span><span><i style="background:var(--teal);border-color:var(--teal)"></i>Selected</span><span><i style="background:repeating-linear-gradient(45deg,transparent 0 3px,var(--line2) 3px 4px)"></i>Booked</span></div>
+        </div>
+
+        <div class="bstep" data-step="3">
+          <h3>Patient details</h3><p class="sub">We’ll send the confirmation and reminders to this mobile number.</p>
+          <form id="patForm" class="form-grid" novalidate>
+            <div class="field full"><label>Consultation type</label><div class="seg" data-seg="mode"><span class="thumb"></span><button type="button" class="on" data-v="In-person">In-person visit</button><button type="button" data-v="Video">Video consult</button></div></div>
+            <div class="field"><label for="pName">Full name</label><input id="pName" autocomplete="name" placeholder="As on your ID"><span class="msg">Please enter the patient’s name</span></div>
+            <div class="field"><label for="pPhone">Mobile number</label><input id="pPhone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile"><span class="msg">Enter a valid 10-digit mobile number</span></div>
+            <div class="field"><label for="pAge">Age</label><input id="pAge" type="number" min="0" max="120" placeholder="Years"><span class="msg">Enter an age between 0 and 120</span></div>
+            <div class="field"><label for="pGender">Gender</label><select id="pGender"><option value="">Select</option><option>Female</option><option>Male</option><option>Other</option></select><span class="msg">Please select</span></div>
+            <div class="field"><label for="pVisit">Visit type</label><select id="pVisit"><option>New consultation</option><option>Follow-up (within 7 days)</option><option>Second opinion</option></select></div>
+            <div class="field"><label for="pUhid">UHID (if registered)</label><input id="pUhid" placeholder="Optional, e.g. AUR-102938"></div>
+            <div class="field full"><label for="pReason">Reason for visit</label><textarea id="pReason" placeholder="Briefly describe your symptoms (optional)"></textarea></div>
+          </form>
+        </div>
+
+        <div class="bstep" data-step="4">
+          <h3>Review &amp; confirm</h3><p class="sub">Check everything before you confirm.</p>
+          <div class="review" id="review"></div>
+          <div class="pay-opts" id="payOpts">
+            <button type="button" class="opt sel" data-pay="Pay at hospital"><svg><use href="#i-hosp"/></svg><div><b>Pay at the hospital</b><small>At the OPD front desk before your consultation</small></div></button>
+            <button type="button" class="opt" data-pay="Paid online (demo)"><svg><use href="#i-card"/></svg><div><b>Pay online now</b><small>UPI, card or net-banking, with 5% off (demo only)</small></div></button>
+            <button type="button" class="opt" data-pay="Insurance / corporate"><svg><use href="#i-shield"/></svg><div><b>Insurance / corporate</b><small>Bring your policy card; the desk verifies cover</small></div></button>
+          </div>
+          <label class="consent"><input type="checkbox" id="consent"> I agree to the hospital’s terms and consent to receive SMS reminders about this appointment.</label>
+        </div>
+
+        <div class="bstep" data-step="5">
+          <div class="success-head"><svg class="check-anim" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M20 33l8 8 16-17"/></svg><div><h3 style="margin:0">You’re booked!</h3><p class="sub" style="margin:0">Please arrive 15 minutes early with a photo ID.</p></div></div>
+          <div id="ticket"></div>
+          <div class="ticket-actions">
+            <button class="btn btn-primary btn-sm" id="icsBtn"><svg><use href="#i-cal"/></svg>Add to calendar</button>
+            <button class="btn btn-ghost btn-sm" onclick="window.print()">Print slip</button>
+            <button class="btn btn-ghost btn-sm" id="againBtn">Book another</button>
+          </div>
+        </div>
+
+        <div class="book-nav" id="bookNav">
+          <button class="btn btn-ghost" id="backBtn">Back</button>
+          <button class="btn btn-primary" id="nextBtn">Continue <svg><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+
+      <aside>
+        <div class="panel summary rv d1">
+          <h4>Appointment summary</h4>
+          <div class="sum-row"><span>Department</span><b id="sDept" class="empty-v">Not selected</b></div>
+          <div class="sum-row"><span>Doctor</span><b id="sDoc" class="empty-v">Not selected</b></div>
+          <div class="sum-row"><span>Date</span><b id="sDate" class="empty-v">Not selected</b></div>
+          <div class="sum-row"><span>Time</span><b id="sTime" class="empty-v">Not selected</b></div>
+          <div class="sum-row"><span>Patient</span><b id="sPat" class="empty-v">Not entered</b></div>
+          <div class="sum-total"><span>Consultation fee</span><b id="sFee">₹0</b></div>
+          <p class="sum-note"><svg style="width:16px;height:16px;flex:none;margin-top:2px"><use href="#i-info"/></svg>Free cancellation up to 2 hours before. Follow-ups within 7 days are free.</p>
+        </div>
+        <div class="panel my-appts rv d2" id="myAppts"></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- DIET -->
+<section id="diet" class="diet">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Clinical nutrition</span><h2 class="rv d1">A diet planner built <em>around your condition.</em></h2></div>
+      <p class="lead rv d2">Pick a condition and adjust your details. Calories, macros, daily limits and an Indian meal plan update as you go, using guidance our dietitians commonly follow.</p>
+    </div>
+    <div class="cond-grid rv" id="condGrid"></div>
+    <div class="diet-shell">
+      <div class="panel diet-in rv">
+        <h4>Your details</h4>
+        <div class="field" style="margin-top:16px"><label>Sex</label><div class="seg" data-seg="sex"><span class="thumb"></span><button type="button" class="on" data-v="f">Female</button><button type="button" data-v="m">Male</button></div></div>
+        <div class="rng"><div class="top"><span>Age</span><output id="oAge">35<small>yrs</small></output></div><input type="range" id="dAge" min="18" max="85" value="35"></div>
+        <div class="rng"><div class="top"><span>Height</span><output id="oHt">165<small>cm</small></output></div><input type="range" id="dHt" min="130" max="205" value="165"></div>
+        <div class="rng"><div class="top"><span>Weight</span><output id="oWt">72<small>kg</small></output></div><input type="range" id="dWt" min="35" max="160" value="72"></div>
+        <div class="field"><label for="dAct">Activity level</label>
+          <select id="dAct"><option value="1.2">Sedentary (desk job, little exercise)</option><option value="1.375" selected>Lightly active (walks 1–3 days/week)</option><option value="1.55">Moderately active (exercise 3–5 days)</option><option value="1.725">Very active (hard exercise 6–7 days)</option></select></div>
+        <div class="field"><label>Food preference</label><div class="seg" data-seg="pref"><span class="thumb"></span><button type="button" class="on" data-v="veg">Vegetarian</button><button type="button" data-v="nv">Non-veg</button></div></div>
+        <div class="disclaimer" style="margin-top:24px"><svg style="width:18px;height:18px;flex:none"><use href="#i-info"/></svg><span>For learning only. Estimates use the Mifflin-St Jeor equation and general clinical guidance. Always follow your own doctor or dietitian’s advice.</span></div>
+        <a href="#book" class="btn btn-gold" style="width:100%;margin-top:18px" id="dietBook">Book a dietitian consult</a>
+      </div>
+
+      <div class="res" id="dietRes">
+        <div class="res-top">
+          <div class="panel res-card cal-hero">
+            <span class="lbl">Daily calorie target</span>
+            <div class="big"><span id="rCal">0</span> <small>kcal/day</small></div>
+            <p id="rCalNote">Based on your details</p>
+            <div class="breakdown"><div>BMR<b id="rBmr">0</b></div><div>Maintenance<b id="rTdee">0</b></div><div>Adjustment<b id="rAdj">0</b></div></div>
+            <svg class="flame" viewBox="0 0 24 24" fill="#fff"><path d="M12 2s5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 1-3.5S9 11 10.5 11C10 7 12 2 12 2z"/></svg>
+          </div>
+          <div class="panel res-card">
+            <span class="lbl">Body mass index</span>
+            <svg class="gauge" viewBox="0 0 220 130">
+              <defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset=".3" stop-color="#1f9d6b"/><stop offset=".6" stop-color="#e0a63a"/><stop offset="1" stop-color="#d9534f"/></linearGradient></defs>
+              <path d="M20 110a90 90 0 0 1 180 0" fill="none" stroke="url(#gg)" stroke-width="16" stroke-linecap="round"/>
+              <g class="needle" id="needle"><path d="M110 110 L106 106 L110 34 L114 106 Z" fill="currentColor"/><circle cx="110" cy="110" r="9" fill="currentColor"/><circle cx="110" cy="110" r="3.5" fill="var(--paper)"/></g>
+            </svg>
+            <div class="gauge-val"><b id="rBmi">0</b><span id="rBmiCat">Normal</span></div>
+          </div>
+          <div class="panel res-card">
+            <span class="lbl">Water intake</span>
+            <div class="water" id="water"></div>
+            <div class="water-val"><b id="rWater">0</b> <span>litres</span><small id="rWaterNote">about 8 glasses</small></div>
+          </div>
+        </div>
+
+        <div class="res-mid">
+          <div class="panel res-card">
+            <h4>Macronutrient split</h4>
+            <div class="donut-wrap">
+              <div class="donut"><svg viewBox="0 0 180 180" width="180" height="180"><circle cx="90" cy="90" r="70" stroke="var(--line)"/><circle id="dC" cx="90" cy="90" r="70" stroke="#e0a63a"/><circle id="dP" cx="90" cy="90" r="70" stroke="#0f7a72"/><circle id="dF" cx="90" cy="90" r="70" stroke="#b07bd6"/></svg><div class="center"><div><b id="rCondName">—</b><small>plan</small></div></div></div>
+              <div class="macros">
+                <div class="macro"><i style="background:#e0a63a"></i><div>Carbohydrates<small id="mCp">0%</small></div><b id="mC">0 g</b></div>
+                <div class="macro"><i style="background:#0f7a72"></i><div>Protein<small id="mPp">0%</small></div><b id="mP">0 g</b></div>
+                <div class="macro"><i style="background:#b07bd6"></i><div>Fat<small id="mFp">0%</small></div><b id="mF">0 g</b></div>
+                <div class="macro"><i style="background:#1f9d6b"></i><div>Fibre<small>minimum</small></div><b id="mFi">0 g</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel res-card">
+            <h4>Daily limits</h4>
+            <div class="limits" id="limits"></div>
+          </div>
+        </div>
+
+        <div class="res-mid">
+          <div class="panel res-card">
+            <h4>Your plate model</h4>
+            <svg class="plate" viewBox="0 0 200 200" id="plate"></svg>
+            <div class="plate-legend" id="plateLegend"></div>
+          </div>
+          <div class="panel res-card">
+            <h4>Key guidance</h4>
+            <ul class="tips" id="tips"></ul>
+          </div>
+        </div>
+
+        <div class="foods">
+          <div class="panel res-card"><h4>Eat more of</h4><div class="food-list good" id="eat"></div></div>
+          <div class="panel res-card"><h4>Limit or avoid</h4><div class="food-list bad" id="avoid"></div></div>
+        </div>
+
+        <div class="panel res-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h4>Sample day meal plan</h4><span style="font-size:13px;color:var(--muted)" id="planKcal"></span></div>
+          <div class="timeline" id="meals" style="margin-top:18px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Preventive health checks</span><h2 class="rv d1">Catch it early. <em>Stay ahead.</em></h2></div>
+      <div class="seg pkg-toggle rv d2" data-seg="pkg" style="width:260px"><span class="thumb"></span><button type="button" class="on" data-v="1">Individual</button><button type="button" data-v="2">Couple</button></div>
+    </div>
+    <div class="pkg-grid" id="pkgGrid"></div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section id="emergency" style="padding-top:20px">
+  <div class="wrap">
+    <div class="er rv">
+      <div class="er-l">
+        <span class="eyebrow">Emergency &amp; trauma</span>
+        <h2 style="margin-top:14px">Every second counts. <em>So do we.</em></h2>
+        <p>Level-1 trauma centre with a dedicated stroke and heart-attack response team. A 40-vehicle ambulance fleet with GPS tracking and paramedics trained in advanced life support.</p>
+        <div class="er-num"><span class="ring"><svg><use href="#i-phone"/></svg></span>1800-000-0000</div>
+        <div class="hero-actions"><button class="btn btn-white" data-open="ambModal"><svg><use href="#i-amb"/></svg>Request ambulance</button></div>
+      </div>
+      <div class="er-r">
+        <div class="er-stat"><span>Door-to-doctor time</span><b>&lt; 4 min</b></div>
+        <div class="er-stat"><span>Door-to-balloon (heart attack)</span><b>58 min</b></div>
+        <div class="er-stat"><span>Stroke code activation</span><b>&lt; 10 min</b></div>
+        <div class="er-stat"><span>Ambulances on the road now</span><b id="ambLive">23</b></div>
+        <div class="er-stat" style="border:0"><span>Average city response</span><b>14 min</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Patient services</span><h2 class="rv d1">Care that <em>comes to you.</em></h2></div>
+      <p class="lead rv d2">From reports on your phone to medicines at your door, we take the admin out of getting better.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="panel svc rv"><span class="ci"><svg><use href="#i-file"/></svg></span><h3>Online reports</h3><p>Lab, radiology and discharge summaries in your patient portal as soon as they’re signed off.</p><a href="#" class="more" data-open="reportModal">Access reports <svg><use href="#i-arrow"/></svg></a></div>
+      <div class="panel svc rv d1"><span class="ci"><svg><use href="#i-video"/></svg></span><h3>Video consultation</h3><p>See your specialist from home, with e-prescriptions sent straight to your phone.</p><a href="#book" class="more">Book a video visit <svg><use href="#i-arrow"/></svg></a></div>
+      <div class="panel svc rv d2"><span class="ci"><svg><use href="#i-pill"/></svg></span><h3>Pharmacy delivery</h3><p>Prescriptions delivered within four hours across the city, with refill reminders.</p><a href="#" class="more" data-toast="Pharmacy ordering is a demo in this educational site.">Order medicines <svg><use href="#i-arrow"/></svg></a></div>
+      <div class="panel svc rv"><span class="ci"><svg><use href="#i-shield"/></svg></span><h3>Insurance &amp; cashless</h3><p>Tie-ups with 50+ insurers and TPAs. Pre-authorisation help desk open 24×7.</p><a href="#faq" class="more">See how it works <svg><use href="#i-arrow"/></svg></a></div>
+      <div class="panel svc rv d1"><span class="ci"><svg><use href="#i-globe"/></svg></span><h3>International patients</h3><p>Visa letters, airport pickup, interpreters in 14 languages and a dedicated care manager.</p><a href="#contact" class="more">Plan your visit <svg><use href="#i-arrow"/></svg></a></div>
+      <div class="panel svc rv d2"><span class="ci"><svg><use href="#i-hosp"/></svg></span><h3>Home care</h3><p>Nursing, physiotherapy, sample collection and post-surgery care in the comfort of home.</p><a href="#" class="more" data-toast="Home care requests are a demo in this educational site.">Request home care <svg><use href="#i-arrow"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding-top:20px">
+  <div class="wrap">
+    <span class="eyebrow rv">Patient stories</span>
+    <h2 class="rv d1" style="margin:14px 0 40px">Words from <em>our families.</em></h2>
+    <div class="testi rv" style="overflow:hidden">
+      <div class="t-track" id="tTrack"></div>
+    </div>
+    <div class="t-ctrl"><div class="t-dots" id="tDots"></div><button class="icon-btn" id="tPrev" aria-label="Previous" style="transform:scaleX(-1)"><svg><use href="#i-arrow"/></svg></button><button class="icon-btn" id="tNext" aria-label="Next"><svg><use href="#i-arrow"/></svg></button></div>
+  </div>
+</section>
+
+<!-- LIBRARY -->
+<section style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Health library</span><h2 class="rv d1">Reliable answers, <em>written by our doctors.</em></h2></div>
+    </div>
+    <div class="lib-grid" id="libGrid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding-top:40px">
+  <div class="wrap faq-grid">
+    <div><span class="eyebrow rv">FAQ</span><h2 class="rv d1" style="margin-top:14px">Questions, <em>answered.</em></h2><p class="lead rv d2" style="margin-top:18px">Can’t find what you need? Our care assistant is in the bottom corner, or call the help desk any time.</p></div>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-top:40px">
+  <div class="wrap contact-grid">
+    <div class="map rv">
+      <svg viewBox="0 0 600 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="600" height="440" fill="#0b2a38"/>
+        <g stroke="#12384a" stroke-width="18" fill="none"><path d="M-20 120 Q200 90 320 200 T640 260"/><path d="M80 -20 L240 460"/><path d="M-20 340 Q260 300 640 380"/><path d="M420 -20 Q380 200 470 460"/></g>
+        <g stroke="#1a4a5e" stroke-width="5" fill="none"><path d="M-20 200 H640"/><path d="M160 -20 V460"/><path d="M-20 60 L640 140"/><path d="M520 -20 L560 460"/><path d="M-20 420 L640 300"/></g>
+        <path d="M0 260 C120 250 180 300 260 330 S420 400 600 360 V440 H0Z" fill="#0f3a4c" opacity=".7"/>
+        <g fill="#153f52"><rect x="190" y="130" width="60" height="40" rx="6"/><rect x="360" y="230" width="80" height="50" rx="6"/><rect x="60" y="250" width="70" height="44" rx="6"/><rect x="460" y="70" width="70" height="44" rx="6"/></g>
+        <circle cx="312" cy="200" r="70" fill="#d9b874" opacity=".07"/><circle cx="312" cy="200" r="38" fill="#d9b874" opacity=".1"/>
+      </svg>
+      <div class="pin"><div class="pp"><svg><use href="#i-hosp"/></svg></div></div>
+      <div class="addr glass"><b>Aurelia Hospital &amp; Research</b><span>1 Wellness Avenue, Lakeview District, Bengaluru 560000 (fictional address)</span></div>
+    </div>
+    <div>
+      <span class="eyebrow rv">Visit us</span>
+      <h2 class="rv d1" style="margin-top:14px">We’re here, <em>always.</em></h2>
+      <div class="info-list rv d2">
+        <div class="info"><span class="ci"><svg><use href="#i-phone"/></svg></span><div><b>Help desk &amp; appointments</b><span>+91 00000 00000 · 7 AM to 10 PM</span></div></div>
+        <div class="info"><span class="ci"><svg><use href="#i-amb"/></svg></span><div><b>Emergency &amp; ambulance</b><span>1800-000-0000 · 24×7</span></div></div>
+        <div class="info"><span class="ci"><svg><use href="#i-clock"/></svg></span><div><b>Visiting hours</b><span>Wards 4–7 PM · ICU 11 AM–12 PM and 5–6 PM (one visitor)</span></div></div>
+        <div class="info"><span class="ci"><svg><use href="#i-mail"/></svg></span><div><b>Email</b><span>care@aurelia.example</span></div></div>
+      </div>
+      <form class="form-grid" id="contactForm" style="margin-top:28px" novalidate>
+        <div class="field"><label for="cName">Name</label><input id="cName" placeholder="Your name"><span class="msg">Please enter your name</span></div>
+        <div class="field"><label for="cPhone">Mobile</label><input id="cPhone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile"><span class="msg">Enter a valid mobile</span></div>
+        <div class="field full"><label for="cMsg">How can we help?</label><textarea id="cMsg" placeholder="Your question"></textarea></div>
+        <div class="field full"><button class="btn btn-primary" type="submit">Request a call back</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="big">Healing is a team sport. <em>You’re the captain.</em></p>
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#d9b874" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg></span><span class="logo-text"><b>Aurelia</b><small style="color:#7d979d">Hospital &amp; Research</small></span></div>
+        <p style="font-size:14px;margin-top:18px;max-width:320px">Get monthly health tips from our doctors and dietitians.</p>
+        <form class="news" id="newsForm"><input type="email" placeholder="Your email" aria-label="Email" required><button class="btn btn-gold btn-sm">Subscribe</button></form>
+      </div>
+      <div><h5>Care</h5><a href="#centres">Specialities</a><a href="#doctors">Find a doctor</a><a href="#book">Book appointment</a><a href="#packages">Health checks</a><a href="#emergency">Emergency</a></div>
+      <div><h5>Patients</h5><a href="#" data-open="reportModal">Online reports</a><a href="#diet">Diet planner</a><a href="#services">Insurance</a><a href="#services">International</a><a href="#faq">FAQ</a></div>
+      <div><h5>Hospital</h5><a href="#home">About us</a><a href="#home">Research</a><a href="#home">Careers</a><a href="#home">Nursing college</a><a href="#contact">Contact</a></div>
+    </div>
+    <div class="foot-bottom"><span>© <span id="yr"></span> Aurelia Hospital. A fictional hospital built for educational purposes.</span><span>Privacy · Terms · Patient rights</span></div>
+  </div>
+</footer>
+
+<div class="fab-stack">
+  <button class="to-top" id="toTop" aria-label="Back to top"><svg><use href="#i-up"/></svg></button>
+  <button class="fab chat" id="chatBtn" aria-label="Open care assistant"><svg><use href="#i-chat"/></svg></button>
+  <button class="fab sos" data-open="ambModal" aria-label="Emergency"><svg><use href="#i-amb"/></svg></button>
+</div>
+
+<div class="panel chatbox" id="chatbox" role="dialog" aria-label="Care assistant">
+  <div class="chat-h"><span class="av">A</span><div><b>Aria · Care assistant</b><small>● Online · replies instantly</small></div><button id="chatClose" aria-label="Close">×</button></div>
+  <div class="chat-b" id="chatBody"></div>
+  <div class="chat-q" id="chatQ"></div>
+  <form class="chat-f" id="chatForm"><input id="chatIn" placeholder="Ask about timings, booking, insurance…" autocomplete="off"><button aria-label="Send"><svg><use href="#i-send"/></svg></button></form>
+</div>
+
+<div class="modal" id="ambModal">
+  <div class="panel box">
+    <button class="x" data-close>×</button>
+    <div id="ambForm">
+      <h3>Request an ambulance</h3><p class="sub">In a real emergency, always call your local emergency number first. This is a demo.</p>
+      <div class="form-grid">
+        <div class="field full"><label for="aLoc">Pickup location</label><input id="aLoc" placeholder="Area / landmark"><span class="msg">Enter a location</span></div>
+        <div class="field"><label for="aPhone">Mobile</label><input id="aPhone" inputmode="numeric" maxlength="10" placeholder="10-digit"><span class="msg">Valid mobile needed</span></div>
+        <div class="field"><label for="aType">Emergency type</label><select id="aType"><option>Chest pain</option><option>Breathing difficulty</option><option>Accident / injury</option><option>Stroke symptoms</option><option>Pregnancy</option><option>Other</option></select></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:22px;background:#c9302c" id="ambGo">Dispatch ambulance</button>
+    </div>
+    <div id="ambTrack" style="display:none">
+      <h3>Ambulance dispatched</h3><p class="sub" id="ambInfo">Vehicle KA-01-AU-2231 · Paramedic on board</p>
+      <div class="eta"><small style="color:var(--muted)">Estimated arrival</small><b id="ambEta">12:00</b></div>
+      <div class="amb-track"><i id="ambBar" style="width:0"></i><span id="ambIcon" style="left:0">🚑</span></div>
+      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:16px">Stay on the line. Our ER team has been alerted.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="reportModal">
+  <div class="panel box">
+    <button class="x" data-close>×</button>
+    <h3>Patient portal</h3><p class="sub">Sign in with your UHID and the OTP sent to your registered mobile. This is a demo: any UHID works, and the OTP is 1234.</p>
+    <div id="rpStep1" class="form-grid">
+      <div class="field full"><label for="rUhid">UHID</label><input id="rUhid" placeholder="e.g. AUR-102938"><span class="msg">Enter your UHID</span></div>
+      <div class="field full"><button class="btn btn-primary" id="rpOtp">Send OTP</button></div>
+    </div>
+    <div id="rpStep2" class="form-grid" style="display:none">
+      <div class="field full"><label for="rOtp">OTP</label><input id="rOtp" inputmode="numeric" maxlength="4" placeholder="4-digit OTP"><span class="msg">Incorrect OTP (hint: 1234)</span></div>
+      <div class="field full"><button class="btn btn-primary" id="rpLogin">Verify &amp; sign in</button></div>
+    </div>
+    <div id="rpStep3" style="display:none"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
