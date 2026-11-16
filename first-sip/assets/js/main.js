@@ -620,45 +620,6 @@
     io.observe(donut);
   }
 
-  /* ---------- Franchise calculator ---------- */
-  const calc = $("[data-calc]");
-  if (calc) {
-    const CUPS_PER_BILL = 1.4, DAYS = 30, MONTHS = 36;
-    const lakh = (n) => (n >= 100 ? `₹${(n / 100).toFixed(2).replace(/0$/, "")} Cr` : `₹${n.toFixed(1)} L`);
-    const inputs = Object.fromEntries($$("[data-in]", calc).map((i) => [i.dataset.in, i]));
-    const out = (k) => $(`[data-out='${k}']`, calc), res = (k) => $(`[data-r='${k}']`, calc);
-    const chart = res("chart");
-    const bars = Array.from({ length: MONTHS }, (_, i) => {
-      const r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      r.setAttribute("x", i * 10 + 1.5); r.setAttribute("width", 7); r.setAttribute("rx", 3.5);
-      chart.appendChild(r); return r;
-    });
-    const update = () => {
-      const cups = +inputs.cups.value, bill = +inputs.bill.value, inv = +inputs.inv.value, margin = +inputs.margin.value;
-      Object.values(inputs).forEach((i) => i.style.setProperty("--pct", `${((i.value - i.min) / (i.max - i.min)) * 100}%`));
-      out("cups").textContent = cups;
-      out("bill").textContent = `₹${bill}`;
-      out("inv").textContent = inv >= 100 ? `₹${(inv / 100).toFixed(2).replace(/0$/, "")} Cr` : `₹${inv} L`;
-      out("margin").textContent = `${margin}%`;
-      const rev = (cups / CUPS_PER_BILL) * bill * DAYS / 1e5;          // ₹ lakh per month
-      const profit = rev * margin / 100;
-      const payback = profit > 0 ? Math.ceil(inv / profit) : Infinity;
-      res("rev").textContent = lakh(rev);
-      res("profit").textContent = lakh(profit);
-      res("payback").textContent = payback === Infinity ? "Not reached" : payback > 99 ? "99+ months" : `${payback} month${payback === 1 ? "" : "s"}`;
-      res("breakeven").textContent = payback <= MONTHS ? `Break-even · month ${payback}` : "No break-even within 3 years";
-      const vals = bars.map((_, m) => -inv + profit * (m + 1));
-      const max = Math.max(inv, ...vals.map(Math.abs)) || 1;
-      bars.forEach((r, m) => {
-        const v = vals[m], h = Math.max(2, Math.abs(v) / max * 116);
-        r.setAttribute("y", 120 - h); r.setAttribute("height", h);
-        r.setAttribute("fill", v < 0 ? "#dcc3a3" : "#1f5f45");
-      });
-    };
-    Object.values(inputs).forEach((i) => i.addEventListener("input", update));
-    update();
-  }
-
   /* ---------- Forms ---------- */
   const validators = {
     required: (v) => v.trim() !== "" || "Please fill this in.",
