@@ -114,10 +114,24 @@ section{padding:110px 0;position:relative}
 .orb.o1{width:280px;height:280px;background:#14a093;top:-60px;right:-40px}
 .orb.o2{width:220px;height:220px;background:#d9b874;bottom:-60px;left:-40px;animation-delay:-5s;opacity:.35}
 @keyframes float{50%{transform:translate(30px,40px) scale(1.1)}}
-.ecg{position:absolute;left:0;right:0;top:34%;height:140px}
+.ecg{position:absolute;left:0;right:0;top:43%;height:130px}
 .ecg path{fill:none;stroke:#5ff0dc;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(95,240,220,.8));stroke-dasharray:1400;stroke-dashoffset:1400;animation:ecg 3.2s linear infinite}
 @keyframes ecg{to{stroke-dashoffset:0}}
-.hv-heart{position:absolute;left:50%;top:14%;transform:translateX(-50%);width:120px;color:#ff8a8a;animation:beat 1.1s ease-in-out infinite}
+.real-heart{position:absolute;left:50%;top:5%;width:min(210px,40%);transform:translateX(-50%);filter:drop-shadow(0 18px 30px rgba(0,0,0,.45))}
+.real-heart svg{width:100%;height:auto;overflow:visible}
+.real-heart .ventricles,.real-heart .atria,.real-heart .vessels{transform-box:fill-box}
+.real-heart .ventricles{transform-origin:50% 25%;animation:ventricle .86s cubic-bezier(.4,0,.2,1) infinite}
+.real-heart .atria{transform-origin:50% 80%;animation:atria .86s ease-in-out infinite}
+.real-heart .vessels{transform-origin:50% 100%;animation:vessel .86s ease-in-out infinite}
+.real-heart .flow{animation:flow 1s linear infinite}
+.real-heart .flow-v{animation-duration:1.4s}
+.real-heart .cor{stroke-dasharray:6 10;animation:flow 1.6s linear infinite}
+.heart-glow{position:absolute;left:50%;top:58%;width:120%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,90,80,.45),rgba(255,90,80,0) 65%);animation:glow .86s ease-out infinite;z-index:-1}
+@keyframes ventricle{0%,8%{transform:scale(1)}14%{transform:scale(1.03,1.02)}26%{transform:scale(.9,.93) rotate(-2deg)}38%{transform:scale(1.01)}50%,100%{transform:scale(1)}}
+@keyframes atria{0%{transform:scale(1)}7%{transform:scale(.88)}16%{transform:scale(1.03)}26%,100%{transform:scale(1)}}
+@keyframes vessel{0%,18%{transform:scale(1)}30%{transform:scale(1.04,1.02)}48%,100%{transform:scale(1)}}
+@keyframes flow{to{stroke-dashoffset:-44}}
+@keyframes glow{0%,12%{opacity:.25;transform:translate(-50%,-50%) scale(.8)}28%{opacity:.9;transform:translate(-50%,-50%) scale(1.05)}70%,100%{opacity:.2;transform:translate(-50%,-50%) scale(1.15)}}
 @keyframes beat{0%,100%{transform:translateX(-50%) scale(1)}15%{transform:translateX(-50%) scale(1.12)}30%{transform:translateX(-50%) scale(.98)}45%{transform:translateX(-50%) scale(1.06)}}
 .glass{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:18px;color:#fff}
 .hv-card{position:absolute;padding:16px 18px;font-size:13px;animation:bob 6s ease-in-out infinite}
@@ -640,6 +654,36 @@ footer .big em{color:var(--gold2)}
 .donut{width:160px;height:160px}.donut svg{width:160px;height:160px}
 .donut .center b{font-size:21px}
 .glass-cup{width:18px;height:30px}
+/* typography scale fix */
+body{font-size:16.5px}
+.hero h1{font-size:clamp(40px,5.4vw,76px);margin:18px 0 22px}
+h2{font-size:clamp(30px,3.6vw,46px)}
+.lead,.hero .lead{font-size:17px}
+.eyebrow{font-size:12.5px}
+.hero-trust b{font-size:30px}.hero-trust span{font-size:14px}
+.nav-links a{font-size:15px}
+.quick-item span,.doc-body .meta,.centre p,.svc p,.post p,.tech p,.pkg ul,.sum-row,.appt .ai span,.info span,.tips li,.meal .mt span,.food-list span,.limit .lt,.macro,.foot-grid a{font-size:14.5px}
+.doc-body .sp,.sum-note,.legend,.disclaimer,.read,.meal time,.meal .kc,.macro small,.plate-legend,.ls small,.pkg .muted,.opt small,.review small,.ticket .tgrid small,.hv-card small{font-size:13.5px}
+.centre h3,.svc h3,.tech h3,.post h3{font-size:22px}
+.bstep h3{font-size:28px}.pkg h3{font-size:24px}.pkg .price{font-size:40px}
+.cal-hero .big{font-size:60px}
+.ls b{font-size:28px}
+.cond b{font-size:13.5px}
+.t-card blockquote{font-size:clamp(20px,2.3vw,28px)}
+footer .big{font-size:clamp(32px,4.2vw,54px)}
+.mobile-menu a{font-size:28px}
+.acc button{font-size:17px}
+@media (max-width:620px){body{font-size:16px}.hero h1{font-size:40px}h2{font-size:30px}.cal-hero .big{font-size:50px}.lead,.hero .lead{font-size:16px}}
+.real-heart{width:min(250px,44%);top:3%}
+@media (max-width:620px){
+  .hero-visual{aspect-ratio:4/5;max-height:none}
+  .real-heart{width:58%;top:6%}
+  .ecg{top:50%}
+  .hv-card.c1{display:none}
+  .hv-card.c2{top:14px;right:14px;bottom:auto;padding:10px 12px;animation:none}
+  .hv-card.c2 b{font-size:18px}
+  .hv-card.c2 .vitals{display:none}
+}
 
 </style>
 </head>
@@ -746,7 +790,43 @@ footer .big em{color:var(--gold2)}
     </div>
     <div class="hero-visual rv d2" aria-hidden="true">
       <div class="orb o1"></div><div class="orb o2"></div>
-      <svg class="hv-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z" opacity=".9"/></svg>
+      <div class="real-heart">
+        <div class="heart-glow"></div>
+        <svg viewBox="0 0 220 240" aria-hidden="true">
+          <defs>
+            <radialGradient id="hMyo" cx="38%" cy="38%" r="70%"><stop offset="0" stop-color="#ff9a8a"/><stop offset=".35" stop-color="#e2574c"/><stop offset=".75" stop-color="#a51f2b"/><stop offset="1" stop-color="#5e0b18"/></radialGradient>
+            <radialGradient id="hAtr" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f27a6c"/><stop offset=".6" stop-color="#b52a33"/><stop offset="1" stop-color="#6d1020"/></radialGradient>
+            <linearGradient id="hAo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f06a5c"/><stop offset=".5" stop-color="#c7303a"/><stop offset="1" stop-color="#7d1422"/></linearGradient>
+            <linearGradient id="hVe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7f9cf0"/><stop offset=".5" stop-color="#4766c9"/><stop offset="1" stop-color="#25357f"/></linearGradient>
+            <radialGradient id="hShine" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+          </defs>
+          <!-- great vessels (behind) -->
+          <g class="vessels">
+            <path d="M74 92 C72 70 70 46 70 18" stroke="url(#hVe)" stroke-width="20" fill="none" stroke-linecap="round"/>
+            <path d="M112 30 L106 6 M126 25 L126 2 M140 28 L148 6" stroke="url(#hAo)" stroke-width="9" fill="none" stroke-linecap="round"/>
+            <path d="M104 104 C100 70 100 44 118 32 C138 20 162 32 160 62 C159 76 156 86 152 96" stroke="url(#hAo)" stroke-width="26" fill="none" stroke-linecap="round"/>
+            <path class="flow" d="M104 104 C100 70 100 44 118 32 C138 20 162 32 160 62 C159 76 156 86 152 96" stroke="#ffd0c8" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 18" opacity=".7"/>
+            <path d="M120 108 C122 86 132 74 150 70 C164 67 178 72 190 66" stroke="url(#hVe)" stroke-width="20" fill="none" stroke-linecap="round"/>
+            <path class="flow flow-v" d="M120 108 C122 86 132 74 150 70 C164 67 178 72 190 66" stroke="#d6e0ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 16" opacity=".7"/>
+            <path class="flow flow-v" d="M70 18 C70 46 72 70 74 92" stroke="#d6e0ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 16" opacity=".6"/>
+          </g>
+          <!-- atria -->
+          <g class="atria">
+            <path d="M80 104 C54 104 40 82 48 64 C56 48 80 50 90 66 C96 78 94 96 80 104 Z" fill="url(#hAtr)"/>
+            <path d="M156 104 C170 92 186 96 186 110 C186 122 172 126 162 120 Z" fill="url(#hAtr)"/>
+          </g>
+          <!-- ventricles -->
+          <g class="ventricles">
+            <path d="M70 100 C44 112 40 150 60 182 C80 214 126 236 170 226 C182 204 194 166 190 134 C186 108 166 94 140 92 C116 90 92 90 70 100 Z" fill="url(#hMyo)"/>
+            <path d="M116 96 C110 130 122 176 168 224" stroke="#7a1020" stroke-width="3" fill="none" opacity=".55"/>
+            <path d="M116 96 C110 130 122 176 168 224" stroke="#ffb3a6" stroke-width="1.6" fill="none" opacity=".75" class="cor"/>
+            <path d="M84 104 C64 124 62 160 84 192" stroke="#ffb3a6" stroke-width="1.4" fill="none" opacity=".6" class="cor"/>
+            <path d="M118 130 C134 134 150 132 166 122 M122 160 C138 162 152 158 170 150 M96 140 C104 148 108 160 106 176" stroke="#ffc3b8" stroke-width="1.1" fill="none" opacity=".5"/>
+            <path d="M88 112 C100 104 116 104 128 110" stroke="#ffe0a8" stroke-width="5" fill="none" opacity=".35" stroke-linecap="round"/>
+            <ellipse cx="94" cy="138" rx="26" ry="34" fill="url(#hShine)" transform="rotate(-25 94 138)"/>
+          </g>
+        </svg>
+      </div>
       <svg class="ecg" viewBox="0 0 600 140" preserveAspectRatio="none"><path d="M0 70h90l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h70l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h80"/></svg>
       <div class="hv-card glass c2"><small>Heart rate</small><b><span id="bpm">72</span> bpm</b><div class="vitals"><small>SpO₂ <i>98%</i></small><small>BP <i>118/76</i></small></div></div>
       <div class="hv-card glass c1"><small>Avg. OPD wait today</small><b>11 min</b><small>Down 38% this year</small></div>

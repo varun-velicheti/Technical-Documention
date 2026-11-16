@@ -100,7 +100,43 @@
     </div>
     <div class="hero-visual rv d2" aria-hidden="true">
       <div class="orb o1"></div><div class="orb o2"></div>
-      <svg class="hv-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z" opacity=".9"/></svg>
+      <div class="real-heart">
+        <div class="heart-glow"></div>
+        <svg viewBox="0 0 220 240" aria-hidden="true">
+          <defs>
+            <radialGradient id="hMyo" cx="38%" cy="38%" r="70%"><stop offset="0" stop-color="#ff9a8a"/><stop offset=".35" stop-color="#e2574c"/><stop offset=".75" stop-color="#a51f2b"/><stop offset="1" stop-color="#5e0b18"/></radialGradient>
+            <radialGradient id="hAtr" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f27a6c"/><stop offset=".6" stop-color="#b52a33"/><stop offset="1" stop-color="#6d1020"/></radialGradient>
+            <linearGradient id="hAo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f06a5c"/><stop offset=".5" stop-color="#c7303a"/><stop offset="1" stop-color="#7d1422"/></linearGradient>
+            <linearGradient id="hVe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7f9cf0"/><stop offset=".5" stop-color="#4766c9"/><stop offset="1" stop-color="#25357f"/></linearGradient>
+            <radialGradient id="hShine" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+          </defs>
+          <!-- great vessels (behind) -->
+          <g class="vessels">
+            <path d="M74 92 C72 70 70 46 70 18" stroke="url(#hVe)" stroke-width="20" fill="none" stroke-linecap="round"/>
+            <path d="M112 30 L106 6 M126 25 L126 2 M140 28 L148 6" stroke="url(#hAo)" stroke-width="9" fill="none" stroke-linecap="round"/>
+            <path d="M104 104 C100 70 100 44 118 32 C138 20 162 32 160 62 C159 76 156 86 152 96" stroke="url(#hAo)" stroke-width="26" fill="none" stroke-linecap="round"/>
+            <path class="flow" d="M104 104 C100 70 100 44 118 32 C138 20 162 32 160 62 C159 76 156 86 152 96" stroke="#ffd0c8" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 18" opacity=".7"/>
+            <path d="M120 108 C122 86 132 74 150 70 C164 67 178 72 190 66" stroke="url(#hVe)" stroke-width="20" fill="none" stroke-linecap="round"/>
+            <path class="flow flow-v" d="M120 108 C122 86 132 74 150 70 C164 67 178 72 190 66" stroke="#d6e0ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 16" opacity=".7"/>
+            <path class="flow flow-v" d="M70 18 C70 46 72 70 74 92" stroke="#d6e0ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 16" opacity=".6"/>
+          </g>
+          <!-- atria -->
+          <g class="atria">
+            <path d="M80 104 C54 104 40 82 48 64 C56 48 80 50 90 66 C96 78 94 96 80 104 Z" fill="url(#hAtr)"/>
+            <path d="M156 104 C170 92 186 96 186 110 C186 122 172 126 162 120 Z" fill="url(#hAtr)"/>
+          </g>
+          <!-- ventricles -->
+          <g class="ventricles">
+            <path d="M70 100 C44 112 40 150 60 182 C80 214 126 236 170 226 C182 204 194 166 190 134 C186 108 166 94 140 92 C116 90 92 90 70 100 Z" fill="url(#hMyo)"/>
+            <path d="M116 96 C110 130 122 176 168 224" stroke="#7a1020" stroke-width="3" fill="none" opacity=".55"/>
+            <path d="M116 96 C110 130 122 176 168 224" stroke="#ffb3a6" stroke-width="1.6" fill="none" opacity=".75" class="cor"/>
+            <path d="M84 104 C64 124 62 160 84 192" stroke="#ffb3a6" stroke-width="1.4" fill="none" opacity=".6" class="cor"/>
+            <path d="M118 130 C134 134 150 132 166 122 M122 160 C138 162 152 158 170 150 M96 140 C104 148 108 160 106 176" stroke="#ffc3b8" stroke-width="1.1" fill="none" opacity=".5"/>
+            <path d="M88 112 C100 104 116 104 128 110" stroke="#ffe0a8" stroke-width="5" fill="none" opacity=".35" stroke-linecap="round"/>
+            <ellipse cx="94" cy="138" rx="26" ry="34" fill="url(#hShine)" transform="rotate(-25 94 138)"/>
+          </g>
+        </svg>
+      </div>
       <svg class="ecg" viewBox="0 0 600 140" preserveAspectRatio="none"><path d="M0 70h90l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h70l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h80"/></svg>
       <div class="hv-card glass c2"><small>Heart rate</small><b><span id="bpm">72</span> bpm</b><div class="vitals"><small>SpO₂ <i>98%</i></small><small>BP <i>118/76</i></small></div></div>
       <div class="hv-card glass c1"><small>Avg. OPD wait today</small><b>11 min</b><small>Down 38% this year</small></div>
