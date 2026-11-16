@@ -232,6 +232,43 @@ $$(".tile").forEach(el => {
   el.addEventListener("mousemove", e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.setProperty("--ry", (x * 14).toFixed(2) + "deg"); el.style.setProperty("--rx", (-y * 14).toFixed(2) + "deg"); });
   el.addEventListener("mouseleave", () => { el.style.setProperty("--ry", "0deg"); el.style.setProperty("--rx", "0deg"); });
 });
+/* hero objects pop, then fly into the service tiles on scroll */
+if ($(".hero3d") && $(".tiles")) {
+  const h3 = $(".hero3d"), objs = $$(".hero3d .o3[data-t]"), tiles = $$(".tiles .tile");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches; let t0 = Infinity;
+  new IntersectionObserver((es, ob) => es.forEach(e => { if (e.isIntersecting) { h3.classList.add("go"); t0 = performance.now(); ob.disconnect(); } }), { threshold: .35 }).observe(h3);
+  objs.forEach(o => { const ti = $(".ti", tiles[+o.dataset.t]); const svg = $("svg", o).cloneNode(true); svg.classList.add("ti3d"); $("svg", ti)?.remove(); ti.prepend(svg); });
+  let geo = [], ticking = false;
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  function measure() {
+    objs.forEach(o => o.style.transform = ""); tiles.forEach(t => t.style.transform = "none");
+    geo = objs.map(o => { const r = o.getBoundingClientRect(), t = $(".ti", tiles[+o.dataset.t]).getBoundingClientRect();
+      return { dx: t.left + t.width / 2 - (r.left + r.width / 2), dy: t.top + t.height / 2 - (r.top + r.height / 2), s: t.width * .82 / r.width }; });
+    tiles.forEach(t => t.style.transform = "");
+  }
+  function progress() { const top = tiles[0].parentElement.getBoundingClientRect().top + scrollY; return clamp(scrollY / Math.max(420, top - innerHeight * .55)); }
+  function render() {
+    ticking = false;
+    const P = reduce ? 1 : progress();
+    if (P > .01 && performance.now() - t0 < 2400) h3.classList.add("popnow");
+    if (P > .01) h3.classList.add("go");
+    objs.forEach((o, i) => {
+      const k = +o.dataset.t, tk = clamp((P - k * .07) / .58), e = ease(tk), g = geo[i], tile = tiles[k];
+      o.style.transform = tk > 0 ? `translate(${(g.dx * e).toFixed(1)}px, ${(g.dy * e).toFixed(1)}px) scale(${(1 + (g.s - 1) * e).toFixed(4)})` : "";
+      o.style.opacity = tk >= .995 ? 0 : 1;
+      const te = ease(clamp((tk - .2) / .8));
+      tile.style.setProperty("--tf", `translateY(${((1 - te) * 70).toFixed(1)}px) rotateX(${((1 - te) * 38).toFixed(1)}deg) rotateY(${((1 - te) * -12).toFixed(1)}deg) scale(${(.9 + .1 * te).toFixed(3)})`);
+      tile.style.opacity = te.toFixed(3);
+      tile.classList.toggle("landed", tk >= .995);
+    });
+  }
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
+  measure(); render();
+  addEventListener("scroll", req, { passive: true });
+  addEventListener("resize", () => { measure(); render(); });
+  addEventListener("load", () => { measure(); render(); });
+  document.fonts?.ready.then(() => { measure(); render(); });
+}
 A.observeAll && A.observeAll();
 requestAnimationFrame(A.placeThumbs);
 })();

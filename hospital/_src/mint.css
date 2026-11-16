@@ -158,3 +158,33 @@ footer .big em,.cta-band h2 em,.dark-band h2 em{color:#8fe3d9}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero3d .hv-card,:root:not([data-theme="light"]) .ph-doc,:root:not([data-theme="light"]) .tile,:root:not([data-theme="light"]) .ls,:root:not([data-theme="light"]) .btn-ghost{background:rgba(14,38,41,.88);border-color:rgba(255,255,255,.1);color:var(--ink)}
   :root:not([data-theme="light"]) .tile .ti{background:linear-gradient(150deg,#1d4a4d,#123638)}}
 :root[data-theme="dark"] .tile .ti{background:linear-gradient(150deg,#1d4a4d,#123638)}
+
+/* ===== hero pop (once) + fly-into-tiles ===== */
+.hero{position:relative;z-index:6}
+.hero3d{overflow:visible;background:none;border:0;box-shadow:none}
+.h3-bg{position:absolute;inset:0;border-radius:40px;overflow:hidden;background:radial-gradient(70% 60% at 55% 38%,#ffffff 0%,#e3f7f4 45%,#c3ebe6 100%);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow-lg),inset 0 0 80px rgba(255,255,255,.6)}
+:root[data-theme="dark"] .h3-bg{background:radial-gradient(70% 60% at 55% 38%,#1c4a4d 0%,#123638 55%,#0b2426 100%);border-color:rgba(255,255,255,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .h3-bg{background:radial-gradient(70% 60% at 55% 38%,#1c4a4d 0%,#123638 55%,#0b2426 100%);border-color:rgba(255,255,255,.08)}}
+:root[data-theme="dark"] .hero3d,:root:not([data-theme="light"]) .hero3d{background:none}
+.hero3d .o3{z-index:4;will-change:transform}
+.sh-cycle{animation:shieldPop 1.7s cubic-bezier(.45,0,.2,1) both}
+@keyframes shieldPop{0%{opacity:0;transform:translateY(30%) scale(.4)}14%,66%{opacity:1;transform:none}78%{opacity:1;transform:scale(1.18,1.1)}100%{opacity:0;transform:translateY(40%) scale(.2)}}
+.o3-cycle{opacity:0;animation:iconBurst 1s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(1.3s + var(--d,0s) * 2)}
+@keyframes iconBurst{from{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.15)}to{opacity:1;transform:none}}
+.tray-glow{animation:trayPop 1.3s ease-out 1.15s both}
+@keyframes trayPop{0%{opacity:0}25%{opacity:1}100%{opacity:.12}}
+.hero3d.popnow .sh-cycle{animation:shieldGone .35s ease-in both}
+@keyframes shieldGone{to{opacity:0;transform:translateY(40%) scale(.2)}}
+.hero3d.popnow .o3-cycle{animation-delay:calc(var(--d,0s) * 2)}
+/* tiles are driven by scroll */
+.tile{opacity:0;transform:var(--tf,none) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:box-shadow .4s}
+.tile .ti3d{width:86%;height:86%;opacity:0;transition:opacity .2s;filter:drop-shadow(0 6px 8px rgba(25,110,105,.3))}
+.tile.landed .ti3d{opacity:1}
+.tile .ti{background:linear-gradient(150deg,#ffffff,#e4f6f3);width:58px;height:58px}
+.tile .ti i{transform:scale(0);transition:transform .45s cubic-bezier(.3,1.8,.5,1) .05s}
+.tile.landed .ti i{transform:scale(1)}
+.tile-er .ti{background:linear-gradient(150deg,#fff,#ffe9e7)}
+@media (prefers-reduced-motion:reduce){.tile{opacity:1}}
+.tile .ti svg.ti3d{width:88%;height:88%}
+.tile .ti{width:64px;height:64px;border-radius:18px}
+.hero3d:not(.go) .sh-cycle,.hero3d:not(.go) .o3-cycle,.hero3d:not(.go) .tray-glow{animation-play-state:paused}
