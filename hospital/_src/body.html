@@ -59,12 +59,12 @@
     </a>
     <nav class="nav-links" aria-label="Main">
       <a href="#centres">Specialities</a>
+      <a href="#bodymap">Symptoms</a>
       <a href="#doctors">Doctors</a>
       <a href="#book">Book OP</a>
-      <a href="#diet">Diet Planner</a>
-      <a href="#packages">Health Checks</a>
-      <a href="#services">Patients</a>
-      <a href="#contact">Contact</a>
+      <a href="#diet">Diet planner</a>
+      <a href="#packages">Checkups</a>
+      <a href="#visit">Your visit</a>
     </nav>
     <div class="nav-cta">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg><use href="#i-moon"/></svg></button>
@@ -76,7 +76,7 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <button class="icon-btn close" id="menuClose" aria-label="Close menu">✕</button>
-  <a href="#centres">Specialities</a><a href="#doctors">Doctors</a><a href="#book">Book OP</a><a href="#diet">Diet Planner</a><a href="#packages">Health Checks</a><a href="#services">Patients</a><a href="#emergency">Emergency</a><a href="#contact">Contact</a>
+  <a href="#journey">Journey</a><a href="#centres">Specialities</a><a href="#bodymap">Symptom guide</a><a href="#doctors">Doctors</a><a href="#book">Book OP</a><a href="#visit">Your visit</a><a href="#diet">Diet Planner</a><a href="#packages">Health Checks</a><a href="#services">Patients</a><a href="#emergency">Emergency</a><a href="#contact">Contact</a>
 </div>
 
 <main>
@@ -149,7 +149,7 @@
   <div class="wrap">
     <div class="quick-grid rv">
       <a href="#book" class="quick-item"><span class="qi"><svg><use href="#i-cal"/></svg></span><div><b>Book OP appointment</b><span>Choose a doctor &amp; slot in 60 seconds</span></div></a>
-      <a href="#doctors" class="quick-item"><span class="qi"><svg><use href="#i-search"/></svg></span><div><b>Find a doctor</b><span>600+ specialists across 42 fields</span></div></a>
+      <a href="#bodymap" class="quick-item"><span class="qi"><svg><use href="#i-search"/></svg></span><div><b>Not sure who to see?</b><span>Tap where it hurts on our body map</span></div></a>
       <a href="#" class="quick-item" data-open="reportModal"><span class="qi"><svg><use href="#i-file"/></svg></span><div><b>Download reports</b><span>Lab &amp; imaging results online</span></div></a>
       <a href="#emergency" class="quick-item emergency"><span class="qi"><svg><use href="#i-amb"/></svg></span><div><b>Emergency</b><span>Trauma bay ready · 24×7</span></div></a>
     </div>
@@ -162,6 +162,21 @@
     </div>
   </div>
 </div>
+
+<!-- JOURNEY -->
+<section class="story" id="journey">
+  <div class="story-sticky">
+    <div class="wrap story-grid">
+      <div class="story-text">
+        <span class="eyebrow">A journey through you</span>
+        <div class="story-chapters" id="storyCh"></div>
+        <div class="story-rail" id="storyRail"></div>
+      </div>
+      <div class="story-stage" id="storyStage"><svg id="storySvg" viewBox="0 0 300 620" aria-hidden="true"></svg></div>
+    </div>
+    <div class="story-hint" id="storyHint"><i></i>Scroll to travel</div>
+  </div>
+</section>
 
 <!-- CENTRES -->
 <section id="centres">
@@ -192,6 +207,27 @@
         <div class="tech"><span class="num">05</span><h3>Genomics lab</h3><p>Tumour profiling and hereditary risk panels help choose the right therapy the first time.</p></div>
         <div class="tech"><span class="num">06</span><h3>Paperless records</h3><p>One digital health record follows you across the OPD, wards, pharmacy and your phone.</p></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- BODY MAP -->
+<section id="bodymap">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Symptom guide</span><h2 class="rv d1">Not sure who to see? <em>Show us where it hurts.</em></h2></div>
+      <p class="lead rv d2">Tap a spot on the body and pick what you’re feeling. We’ll point you to the right speciality and doctor, and warn you if it sounds urgent.</p>
+    </div>
+    <div class="bm-shell">
+      <div class="panel bm-stage rv">
+        <div class="bm-top">
+          <div class="seg" data-seg="side"><span class="thumb"></span><button type="button" class="on" data-v="front">Front</button><button type="button" data-v="back">Back</button></div>
+          <label class="switch"><input type="checkbox" id="bmChild"> Patient is a child</label>
+        </div>
+        <svg class="bm-svg" id="bmSvg" viewBox="0 0 300 620" role="group" aria-label="Body map. Choose a body area."></svg>
+        <div class="bm-general" id="bmGeneral"></div>
+      </div>
+      <div class="panel bm-panel rv d1" id="bmPanel"></div>
     </div>
   </div>
 </section>
@@ -293,6 +329,21 @@
         </div>
         <div class="panel my-appts rv d2" id="myAppts"></div>
       </aside>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Your visit, step by step</span><h2 class="rv d1">No surprises. <em>Here’s exactly what happens.</em></h2></div>
+      <div class="visit-total rv d2">Typical visit <b id="visitTotal">0</b> minutes</div>
+    </div>
+    <div class="panel visit-shell rv">
+      <div id="visitPersonal"></div>
+      <div class="road-wrap" id="roadWrap"><svg class="road" id="road" viewBox="0 0 1200 210" aria-label="Visit steps"></svg></div>
+      <div class="visit-detail" id="visitDetail"></div>
     </div>
   </div>
 </section>
@@ -515,7 +566,7 @@
         <form class="news" id="newsForm"><input type="email" placeholder="Your email" aria-label="Email" required><button class="btn btn-gold btn-sm">Subscribe</button></form>
       </div>
       <div><h5>Care</h5><a href="#centres">Specialities</a><a href="#doctors">Find a doctor</a><a href="#book">Book appointment</a><a href="#packages">Health checks</a><a href="#emergency">Emergency</a></div>
-      <div><h5>Patients</h5><a href="#" data-open="reportModal">Online reports</a><a href="#diet">Diet planner</a><a href="#services">Insurance</a><a href="#services">International</a><a href="#faq">FAQ</a></div>
+      <div><h5>Patients</h5><a href="#" data-open="reportModal">Online reports</a><a href="#bodymap">Symptom guide</a><a href="#visit">Your visit</a><a href="#diet">Diet planner</a><a href="#services">Insurance</a><a href="#services">International</a><a href="#faq">FAQ</a></div>
       <div><h5>Hospital</h5><a href="#home">About us</a><a href="#home">Research</a><a href="#home">Careers</a><a href="#home">Nursing college</a><a href="#contact">Contact</a></div>
     </div>
     <div class="foot-bottom"><span>© <span id="yr"></span> Aurelia Hospital. A fictional hospital built for educational purposes.</span><span>Privacy · Terms · Patient rights</span></div>

@@ -2,7 +2,8 @@
 """Inline style.css, body.html and app.js into ../index.html (single self-contained file)."""
 from pathlib import Path
 here = Path(__file__).parent
-css, body, js = ((here / "style.css").read_text(), (here / "body.html").read_text(), (here / "app.js").read_text())
+read = lambda *names: "\n".join((here / n).read_text() for n in names)
+css, body, js = read("style.css", "features.css"), read("body.html"), read("app.js", "features.js")
 fav = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a2533'/%3E%3Cpath d='M32 16v32M16 32h32' stroke='%23d9b874' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E"
 html = f"""<!doctype html>
 <html lang="en">

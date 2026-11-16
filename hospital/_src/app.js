@@ -528,5 +528,6 @@ $("#yr").textContent = new Date().getFullYear();
 
 /* ---------------- INIT ---------------- */
 renderChips(); renderDocs(); renderMyAppts(); renderPkgs(); goStep(0); calc(true);
+window.AUR = { DOCS, DEPTS, D, B, goStep, toast, store, tween, icon, inr, esc, hash, rng, slotsFor, fmtDate, qrSvg, docAv, initials, segHandlers, placeThumbs, observeAll, LIVE };
 requestAnimationFrame(placeThumbs); document.fonts?.ready.then(placeThumbs);
 })();
