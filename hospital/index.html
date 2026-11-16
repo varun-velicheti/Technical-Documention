@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a2533">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a2533'/%3E%3Cpath d='M32 16v32M16 32h32' stroke='%23d9b874' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="page-index">
@@ -68,7 +68,7 @@
 <header class="nav" id="nav">
   <div class="wrap">
     <a href="index.html" class="logo" aria-label="Aurelia Hospital home">
-      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#d9b874" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9.5" stroke-width="1.2" opacity=".6"/></svg></span>
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7fd8cf" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/><circle cx="12" cy="12" r="9.5" stroke-width="1.2" opacity=".6"/></svg></span>
       <span class="logo-text"><b>Aurelia</b><small>Hospital &amp; Research</small></span>
     </a>
     <nav class="nav-links" aria-label="Main">
@@ -112,61 +112,76 @@
         <div><b data-count="98.6" data-dec="1" data-suffix="%">0</b><span>would recommend us</span></div>
       </div>
     </div>
-    <div class="hero-visual rv d2" aria-hidden="true">
-      <div class="orb o1"></div><div class="orb o2"></div>
-      <div class="real-heart">
-        <div class="heart-glow"></div>
-        <svg viewBox="0 0 220 240" aria-hidden="true">
-          <defs>
-            <radialGradient id="hMyo" cx="38%" cy="38%" r="70%"><stop offset="0" stop-color="#ff9a8a"/><stop offset=".35" stop-color="#e2574c"/><stop offset=".75" stop-color="#a51f2b"/><stop offset="1" stop-color="#5e0b18"/></radialGradient>
-            <radialGradient id="hAtr" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f27a6c"/><stop offset=".6" stop-color="#b52a33"/><stop offset="1" stop-color="#6d1020"/></radialGradient>
-            <linearGradient id="hAo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f06a5c"/><stop offset=".5" stop-color="#c7303a"/><stop offset="1" stop-color="#7d1422"/></linearGradient>
-            <linearGradient id="hVe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7f9cf0"/><stop offset=".5" stop-color="#4766c9"/><stop offset="1" stop-color="#25357f"/></linearGradient>
-            <radialGradient id="hShine" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-          </defs>
-          <!-- great vessels (behind) -->
-          <g class="vessels">
-            <path d="M74 92 C72 70 70 46 70 18" stroke="url(#hVe)" stroke-width="20" fill="none" stroke-linecap="round"/>
-            <path d="M112 30 L106 6 M126 25 L126 2 M140 28 L148 6" stroke="url(#hAo)" stroke-width="9" fill="none" stroke-linecap="round"/>
-            <path d="M104 104 C100 70 100 44 118 32 C138 20 162 32 160 62 C159 76 156 86 152 96" stroke="url(#hAo)" stroke-width="26" fill="none" stroke-linecap="round"/>
-            <path class="flow" d="M104 104 C100 70 100 44 118 32 C138 20 162 32 160 62 C159 76 156 86 152 96" stroke="#ffd0c8" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 18" opacity=".7"/>
-            <path d="M120 108 C122 86 132 74 150 70 C164 67 178 72 190 66" stroke="url(#hVe)" stroke-width="20" fill="none" stroke-linecap="round"/>
-            <path class="flow flow-v" d="M120 108 C122 86 132 74 150 70 C164 67 178 72 190 66" stroke="#d6e0ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 16" opacity=".7"/>
-            <path class="flow flow-v" d="M70 18 C70 46 72 70 74 92" stroke="#d6e0ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="4 16" opacity=".6"/>
-          </g>
-          <!-- atria -->
-          <g class="atria">
-            <path d="M80 104 C54 104 40 82 48 64 C56 48 80 50 90 66 C96 78 94 96 80 104 Z" fill="url(#hAtr)"/>
-            <path d="M156 104 C170 92 186 96 186 110 C186 122 172 126 162 120 Z" fill="url(#hAtr)"/>
-          </g>
-          <!-- ventricles -->
-          <g class="ventricles">
-            <path d="M70 100 C44 112 40 150 60 182 C80 214 126 236 170 226 C182 204 194 166 190 134 C186 108 166 94 140 92 C116 90 92 90 70 100 Z" fill="url(#hMyo)"/>
-            <path d="M116 96 C110 130 122 176 168 224" stroke="#7a1020" stroke-width="3" fill="none" opacity=".55"/>
-            <path d="M116 96 C110 130 122 176 168 224" stroke="#ffb3a6" stroke-width="1.6" fill="none" opacity=".75" class="cor"/>
-            <path d="M84 104 C64 124 62 160 84 192" stroke="#ffb3a6" stroke-width="1.4" fill="none" opacity=".6" class="cor"/>
-            <path d="M118 130 C134 134 150 132 166 122 M122 160 C138 162 152 158 170 150 M96 140 C104 148 108 160 106 176" stroke="#ffc3b8" stroke-width="1.1" fill="none" opacity=".5"/>
-            <path d="M88 112 C100 104 116 104 128 110" stroke="#ffe0a8" stroke-width="5" fill="none" opacity=".35" stroke-linecap="round"/>
-            <ellipse cx="94" cy="138" rx="26" ry="34" fill="url(#hShine)" transform="rotate(-25 94 138)"/>
-          </g>
-        </svg>
-      </div>
-      <svg class="ecg" viewBox="0 0 600 140" preserveAspectRatio="none"><path d="M0 70h90l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h70l12-18 12 18h30l10 8 14-66 16 110 14-52h40l14-14 14 14h80"/></svg>
-      <div class="hv-card glass c2"><small>Heart rate</small><b><span id="bpm">72</span> bpm</b><div class="vitals"><small>SpO₂ <i>98%</i></small><small>BP <i>118/76</i></small></div></div>
-      <div class="hv-card glass c1"><small>Avg. OPD wait today</small><b>11 min</b><small>Down 38% this year</small></div>
-      <div class="hv-card glass c3"><span class="av" style="background:url(assets/img/doc-d1.jpg) center 22%/cover;color:transparent">EM</span><div class="grow"><b style="font-size:16px">Dr. Elena Marquez</b><small>Cardiology · next slot 11:30 AM</small></div><span class="live">● Available</span></div>
+    <div class="hero3d rv d2" aria-hidden="true">
+      <span class="b3 b3a"></span><span class="b3 b3b"></span><span class="b3 b3c"></span><span class="b3 b3d"></span><span class="b3 b3e"></span>
+      <svg class="tray" viewBox="0 0 320 120"><defs>
+        <linearGradient id="trRim" x1="0" x2="1"><stop offset="0" stop-color="#8ad8d0"/><stop offset=".5" stop-color="#3aa9a2"/><stop offset="1" stop-color="#7fd2ca"/></linearGradient>
+        <radialGradient id="trTop" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#d4f1ee" stop-opacity=".75"/></radialGradient>
+        <radialGradient id="trGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#5ff0dc" stop-opacity=".8"/><stop offset="1" stop-color="#5ff0dc" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="160" cy="92" rx="150" ry="22" fill="#2b9c96" opacity=".18"/>
+        <ellipse cx="160" cy="66" rx="146" ry="38" fill="url(#trRim)"/>
+        <ellipse cx="160" cy="54" rx="146" ry="38" fill="url(#trTop)" stroke="#fff" stroke-width="2"/>
+        <ellipse cx="160" cy="54" rx="108" ry="24" fill="none" stroke="#9fe0d8" stroke-width="1.5" opacity=".7"/>
+        <ellipse class="tray-glow" cx="160" cy="52" rx="120" ry="30" fill="url(#trGlow)"/>
+      </svg>
+      <div class="o3 shield" style="--x:50;--y:40;--w:40%"><div class="sh-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 200 220"><defs>
+          <linearGradient id="shRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9fbf8"/><stop offset=".55" stop-color="#9adcd4"/><stop offset="1" stop-color="#4fb3ab"/></linearGradient>
+          <linearGradient id="shFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9ebe5"/><stop offset=".6" stop-color="#5fc0b8"/><stop offset="1" stop-color="#2f9c95"/></linearGradient>
+          <radialGradient id="shHeart" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#eef7f7"/><stop offset="1" stop-color="#bcd8d8"/></radialGradient></defs>
+          <path d="M100 6 L182 38 C182 124 152 178 100 214 C48 178 18 124 18 38 Z" fill="url(#shRim)"/>
+          <path d="M100 22 L166 48 C166 120 140 164 100 194 C60 164 34 120 34 48 Z" fill="url(#shFace)"/>
+          <path d="M100 22 L166 48 C160 50 150 52 138 50 L100 34 L48 54 C42 92 50 124 66 148 C48 124 34 92 34 48 Z" fill="#fff" opacity=".35"/>
+          <path d="M100 156 C58 128 50 104 62 86 C74 68 94 72 100 88 C106 72 126 68 138 86 C150 104 142 128 100 156 Z" fill="url(#shHeart)"/>
+          <ellipse cx="80" cy="92" rx="11" ry="7" fill="#fff" opacity=".9" transform="rotate(-30 80 92)"/>
+        </svg></div></div></div>
+      <div class="o3" style="--x:31;--y:33;--w:23%;--d:0s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 120 130"><defs><radialGradient id="stC" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#c9d6da"/><stop offset="1" stop-color="#7d9097"/></radialGradient></defs>
+          <path d="M28 12 C24 52 36 74 60 74 C84 74 96 52 92 12" stroke="#34444d" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M60 74 C60 100 74 108 90 104" stroke="#34444d" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <circle cx="28" cy="10" r="6" fill="#c7d3d6"/><circle cx="92" cy="10" r="6" fill="#c7d3d6"/>
+          <circle cx="98" cy="104" r="15" fill="url(#stC)"/><circle cx="98" cy="104" r="8" fill="#e6eef0" stroke="#9aaeb4" stroke-width="2"/>
+        </svg></div></div></div>
+      <div class="o3" style="--x:50;--y:17;--w:17%;--d:.12s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 100 100"><defs><linearGradient id="plG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9fe3db"/><stop offset=".55" stop-color="#3fb0a8"/><stop offset="1" stop-color="#23847f"/></linearGradient></defs>
+          <rect x="34" y="6" width="32" height="88" rx="10" fill="url(#plG)"/><rect x="6" y="34" width="88" height="32" rx="10" fill="url(#plG)"/>
+          <rect x="38" y="10" width="10" height="34" rx="5" fill="#fff" opacity=".45"/><rect x="10" y="38" width="30" height="8" rx="4" fill="#fff" opacity=".4"/>
+        </svg></div></div></div>
+      <div class="o3" style="--x:70;--y:16;--w:19%;--d:.24s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 120 110"><rect x="8" y="14" width="104" height="90" rx="16" fill="#fff"/><path d="M8 30a16 16 0 0 1 16-16h72a16 16 0 0 1 16 16v10H8z" fill="#f6c4cb"/>
+          <rect x="32" y="4" width="8" height="20" rx="4" fill="#2b6d72"/><rect x="80" y="4" width="8" height="20" rx="4" fill="#2b6d72"/>
+          <g fill="#ffd3d9"><rect x="22" y="52" width="16" height="12" rx="3"/><rect x="44" y="52" width="16" height="12" rx="3"/><rect x="66" y="52" width="16" height="12" rx="3" fill="#ff9fb0"/><rect x="88" y="52" width="12" height="12" rx="3"/></g>
+          <g fill="#e3eef0"><rect x="22" y="70" width="16" height="12" rx="3"/><rect x="44" y="70" width="16" height="12" rx="3"/><rect x="66" y="70" width="16" height="12" rx="3"/><rect x="88" y="70" width="12" height="12" rx="3"/><rect x="22" y="88" width="16" height="8" rx="3"/><rect x="44" y="88" width="16" height="8" rx="3"/></g>
+        </svg></div></div></div>
+      <div class="o3" style="--x:82;--y:40;--w:15%;--d:.36s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 80 140"><g stroke-linecap="round" fill="none">
+          <path d="M18 6 C70 30 70 44 18 70 C-34 96 70 110 62 134" stroke="#2b9c96" stroke-width="7"/>
+          <path d="M62 6 C10 30 10 44 62 70 C114 96 10 110 18 134" stroke="#8fe0d6" stroke-width="7"/>
+          <path d="M26 18 H54 M30 34 H50 M30 58 H50 M26 82 H54 M30 100 H50 M30 120 H50" stroke="#cdeeea" stroke-width="4"/></g>
+        </svg></div></div></div>
+      <div class="o3" style="--x:76;--y:62;--w:17%;--d:.48s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 140 70"><g transform="rotate(-32 70 35)"><rect x="14" y="18" width="112" height="36" rx="18" fill="#2b9c96"/><path d="M32 18h38v36H32a18 18 0 0 1 0-36z" fill="#fff"/>
+          <rect x="24" y="24" width="60" height="7" rx="3.5" fill="#fff" opacity=".7"/></g></svg></div></div></div>
+      <div class="o3" style="--x:24;--y:56;--w:12%;--d:.6s"><div class="o3-cycle"><div class="o3-bob">
+        <svg viewBox="0 0 100 80"><ellipse cx="50" cy="44" rx="40" ry="26" fill="#f4a7b4"/><ellipse cx="50" cy="38" rx="40" ry="26" fill="#ffc2cc"/><path d="M14 38 H86" stroke="#f4a7b4" stroke-width="3"/><ellipse cx="38" cy="28" rx="12" ry="5" fill="#fff" opacity=".7"/></svg>
+      </div></div></div>
+      <div class="hv-card c2"><small>Heart rate</small><b><span id="bpm">72</span> bpm</b><div class="vitals"><small>SpO₂ <i>98%</i></small><small>BP <i>118/76</i></small></div></div>
+      <div class="hv-card c3"><span class="av" style="background:url(assets/img/doc-d1.jpg) center 22%/cover;color:transparent">EM</span><div class="grow"><b>Dr. Elena Marquez</b><small>Cardiology · next slot 11:30 AM</small></div><span class="live">● Available</span></div>
     </div>
   </div>
 </section>
 
 <div class="quick">
   <div class="wrap">
-    <div class="quick-grid rv">
-      <a href="book.html" class="quick-item"><span class="qi"><svg><use href="#i-cal"/></svg></span><div><b>Book OP appointment</b><span>Choose a doctor &amp; slot in 60 seconds</span></div></a>
-      <a href="symptoms.html" class="quick-item"><span class="qi"><svg><use href="#i-search"/></svg></span><div><b>Not sure who to see?</b><span>Tap where it hurts on our body map</span></div></a>
-      <a href="#" class="quick-item" data-open="reportModal"><span class="qi"><svg><use href="#i-file"/></svg></span><div><b>Download reports</b><span>Lab &amp; imaging results online</span></div></a>
-      <a href="contact.html#emergency" class="quick-item emergency"><span class="qi"><svg><use href="#i-amb"/></svg></span><div><b>Emergency</b><span>Trauma bay ready · 24×7</span></div></a>
+    <div class="tiles">
+      <a href="book.html" class="tile rv"><span class="ti"><svg><use href="#i-cal"/></svg><i>✓</i></span><b>Book<br>Appointment</b><small>Pick a doctor &amp; slot in 60 s</small></a>
+      <a href="book.html" class="tile rv d1"><span class="ti"><svg><use href="#i-video"/></svg><i>✓</i></span><b>Online<br>Consultation</b><small>See a specialist from home</small></a>
+      <a href="#" class="tile rv d2" data-open="reportModal"><span class="ti"><svg><use href="#i-file"/></svg><i>✓</i></span><b>Lab<br>Reports</b><small>Results on your phone</small></a>
+      <a href="patients.html" class="tile rv d3"><span class="ti"><svg><use href="#i-pill"/></svg><i>✓</i></span><b>Pharmacy<br>Delivery</b><small>Medicines in 4 hours</small></a>
+      <a href="symptoms.html" class="tile rv d1"><span class="ti"><svg><use href="#i-search"/></svg><i>✓</i></span><b>Symptom<br>Guide</b><small>Not sure who to see?</small></a>
+      <a href="contact.html#emergency" class="tile tile-er rv d2"><span class="ti"><svg><use href="#i-amb"/></svg><i>!</i></span><b>24×7<br>Emergency</b><small>Trauma bay always ready</small></a>
     </div>
+    <svg class="tiles-ecg" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50h300l14-18 14 18h40l12 10 16-56 18 90 16-46h60l14-12 14 12h300l14-18 14 18h40l12 10 16-56 18 90 16-46h60l14-12 14 12h200"/></svg>
     <div class="live-strip rv" id="liveStrip">
       <div class="ls"><small><span class="pulse-dot" style="background:#1f9d6b"></span>ER wait time</small><b id="lsEr">6 min</b><div class="bar"><i style="width:20%"></i></div></div>
       <div class="ls"><small>General beds free</small><b id="lsBeds">142</b><div class="bar"><i style="width:62%"></i></div></div>
@@ -275,7 +290,7 @@
     <p class="big">Healing is a team sport. <em>You’re the captain.</em></p>
     <div class="foot-grid">
       <div>
-        <div class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#d9b874" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg></span><span class="logo-text"><b>Aurelia</b><small style="color:#7d979d">Hospital &amp; Research</small></span></div>
+        <div class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7fd8cf" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg></span><span class="logo-text"><b>Aurelia</b><small style="color:#7d979d">Hospital &amp; Research</small></span></div>
         <p style="font-size:14px;margin-top:18px;max-width:320px">Get monthly health tips from our doctors and dietitians.</p>
         <form class="news" id="newsForm"><input type="email" placeholder="Your email" aria-label="Email" required><button class="btn btn-gold btn-sm">Subscribe</button></form>
       </div>

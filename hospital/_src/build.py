@@ -12,7 +12,7 @@ out = here.parent
 read = lambda *names: "\n".join((here / n).read_text() for n in names)
 
 (out / "assets").mkdir(exist_ok=True)
-(out / "assets" / "site.css").write_text(read("style.css", "features.css", "pages.css"))
+(out / "assets" / "site.css").write_text(read("style.css", "features.css", "pages.css", "mint.css"))
 (out / "assets" / "site.js").write_text(read("app.js", "features.js"))
 
 body = read("body.html")
@@ -92,6 +92,19 @@ PAGES = [
 ]
 HERO_IMG = {"specialities.html": "surgery", "doctors.html": "care-clinic", "symptoms.html": "care-bp", "book.html": "reception", "visit.html": "lobby",
             "diet.html": "food2", "checkups.html": "care-doctor-patient", "patients.html": "care-bedside", "contact.html": "ambulance"}
+
+def hero_visual(file):
+    if file == "book.html":
+        return ('<div class="ph-doc"><img src="assets/img/doc-d5.jpg" alt="Dr. Rahul Kapoor">'
+                '<b>Book Now</b><span>Dr. Rahul Kapoor · Orthopaedics · ★ 4.9</span>'
+                '<a href="#book" class="btn btn-primary btn-sm">Available Today</a>'
+                '<span class="float-plus" aria-hidden="true">+</span>'
+                '<span class="float-call" aria-hidden="true"><svg><use href="#i-phone"/></svg></span></div>')
+    if file in HERO_IMG:
+        return (f'<figure class="ph-card"><img src="assets/img/{HERO_IMG[file]}.jpg" alt=""></figure>'
+                '<span class="ph-bub a" aria-hidden="true"></span><span class="ph-bub b" aria-hidden="true"></span>')
+    return ""
+
 CONTACT_HERO = ("Get in touch", "Talk to a human, <em>any time.</em>", "Reach our help desk, request an ambulance or plan your visit. Someone is always here.", "")
 
 ACT = ' class="active"'
@@ -115,7 +128,7 @@ for file, label, chunks, strip, cta in PAGES:
         eb, title, lead, extra = hero
         content = f"""<section class="page-hero">
   <svg class="ph-ecg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70h260l14-20 14 20h40l12 10 16-70 18 120 16-60h60l14-14 14 14h260l14-20 14 20h40l12 10 16-70 18 120 16-60h60l14-14 14 14h300"/></svg>
-  {f'<div class="ph-photo" style="background-image:url(assets/img/{HERO_IMG[file]}.jpg)"></div>' if file in HERO_IMG else ''}
+  {hero_visual(file)}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><b>{label}</b></nav>
     <span class="eyebrow">{eb}</span>
@@ -143,7 +156,7 @@ for file, label, chunks, strip, cta in PAGES:
 <meta name="theme-color" content="#0a2533">
 <link rel="icon" href="{fav}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="page-{file[:-5]}">

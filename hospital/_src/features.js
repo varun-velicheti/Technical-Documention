@@ -128,7 +128,7 @@ function renderPanel() {
     const conf = child ? 90 : Math.min(96, Math.round(58 + 38 * (tally[dept] || 1) / picked.length + Math.min(picked.length, 3) * 2));
     const C = 2 * Math.PI * 26, docs = A.DOCS.filter(d => d.dept === dept).slice(0, 2);
     html += `<div class="bm-sec"><div class="match"><span class="mi"><svg><use href="#i-${A.D(dept).icon}"/></svg></span><div><small>Recommended speciality</small><b>${A.D(dept).name}</b><p>${WHY[dept]}</p></div>
-      <div class="conf"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" stroke="rgba(255,255,255,.12)"/><circle cx="32" cy="32" r="26" stroke="#d9b874" stroke-linecap="round" stroke-dasharray="0 ${C}" data-c="${conf / 100 * C} ${C}" style="transition:stroke-dasharray 1s cubic-bezier(.6,0,.2,1)"/></svg><span>${conf}% match</span></div></div>
+      <div class="conf"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" stroke="rgba(255,255,255,.12)"/><circle cx="32" cy="32" r="26" stroke="#7fd8cf" stroke-linecap="round" stroke-dasharray="0 ${C}" data-c="${conf / 100 * C} ${C}" style="transition:stroke-dasharray 1s cubic-bezier(.6,0,.2,1)"/></svg><span>${conf}% match</span></div></div>
       <div class="bm-docs">${docs.map((d, i) => `<div class="bm-doc" style="animation-delay:${i * 90}ms"><span class="av" style="${A.docAv(d)}">${A.initials(d.name)}</span><div class="t"><b>${d.name}</b><span>${nextSlot(d)} · ${A.inr(d.fee)}</span></div><button class="btn btn-primary btn-sm" data-bmbook="${d.id}">Book</button></div>`).join("")}</div></div>`;
   }
   html += `<p class="bm-note"><svg style="width:16px;height:16px;flex:none;margin-top:2px"><use href="#i-info"/></svg>A guide to the right department, not a diagnosis. If you’re unsure, a General Medicine visit is always a good start.</p>`;
@@ -227,6 +227,11 @@ setTimeout(() => A.tween($("#visitTotal"), STOPS.reduce((a, s) => a + s.m, 0), v
 showStop(0); trav.setAttribute("transform", (() => { const pt = rp.getPointAtLength(nodeLen[0]); return `translate(${pt.x} ${pt.y})`; })());
 
 }
+/* tile hover tilt */
+$$(".tile").forEach(el => {
+  el.addEventListener("mousemove", e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.setProperty("--ry", (x * 14).toFixed(2) + "deg"); el.style.setProperty("--rx", (-y * 14).toFixed(2) + "deg"); });
+  el.addEventListener("mouseleave", () => { el.style.setProperty("--ry", "0deg"); el.style.setProperty("--rx", "0deg"); });
+});
 A.observeAll && A.observeAll();
 requestAnimationFrame(A.placeThumbs);
 })();

@@ -31,7 +31,7 @@ main{animation:pageIn .6s cubic-bezier(.2,.8,.2,1) both}
 
 .cta-wrap{padding:30px 0 40px}
 .cta-band{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;padding:48px 52px;border-radius:var(--r-lg);background:linear-gradient(130deg,var(--navy2),var(--navy));color:#fff;position:relative;overflow:hidden}
-.cta-band::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:#d9b874;filter:blur(90px);opacity:.18;right:-60px;bottom:-140px}
+.cta-band::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:#7fd8cf;filter:blur(90px);opacity:.18;right:-60px;bottom:-140px}
 .cta-band .eyebrow{color:var(--gold2)}
 .cta-band h2{font-size:clamp(28px,3.2vw,40px);margin-top:12px;color:#fff}
 .cta-band h2 em{color:var(--gold2)}

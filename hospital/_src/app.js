@@ -30,7 +30,7 @@ const DEPTS = [
   { id: "diet", name: "Clinical Nutrition", icon: "skin", short: "Dietitians", desc: "Therapeutic diet plans for diabetes, kidney, heart, liver and weight management." }
 ];
 const D = id => DEPTS.find(d => d.id === id);
-const COLORS = ["#0f7a72,#0a2533", "#b8914a,#5c4520", "#3d5a80,#1b263b", "#8e5572,#3b1f2b", "#2a9d8f,#164e48", "#c06c52,#5e2a1c", "#577590,#22333b", "#6d597a,#2d2238"];
+const COLORS = ["#0f7a72,#0a2533", "#2b9c96,#1d6b6f", "#3d5a80,#1b263b", "#8e5572,#3b1f2b", "#2a9d8f,#164e48", "#c06c52,#5e2a1c", "#577590,#22333b", "#6d597a,#2d2238"];
 const DOCS = [
   { id: "d1", name: "Dr. Elena Marquez", dept: "card", title: "Senior Consultant, Interventional Cardiology", exp: 22, deg: "MD, FACC (Cardiology)", langs: "English, Spanish", fee: 1200, rating: 4.9, days: [1, 2, 3, 4, 5, 6], sess: [[9, 13], [16, 18]], tags: "heart attack chest pain angioplasty bp" },
   { id: "d2", name: "Dr. Omar Haddad", dept: "card", title: "Director, Cardiac Surgery", exp: 28, deg: "MD, FRCS (Cardiothoracic)", langs: "English, Arabic, French", fee: 1500, rating: 4.8, days: [1, 3, 5], sess: [[10, 14]], tags: "bypass valve surgery heart" },
@@ -438,7 +438,7 @@ let tT; const resetT = () => { clearInterval(tT); tT = setInterval(() => tGo(tI 
 if ($("#libGrid")) {
 const LIB = [
   ["Heart", "Seven warning signs of a heart attack women often miss", "Jaw pain, fatigue and nausea are just as common as chest pain. Here’s what to watch for.", "6 min", ["#0a2533", "#14a093"], "heart-model"],
-  ["Nutrition", "The Indian plate, rebuilt for diabetes", "You don’t need to give up rice. Portion, pairing and timing matter more than banning foods.", "8 min", ["#5c4520", "#d9b874"], "food2"],
+  ["Nutrition", "The Indian plate, rebuilt for diabetes", "You don’t need to give up rice. Portion, pairing and timing matter more than banning foods.", "8 min", ["#1d6b6f", "#7fd8cf"], "food2"],
   ["Kidney", "Why your creatinine number isn’t the whole story", "eGFR, urine protein and blood pressure together show how your kidneys are really doing.", "5 min", ["#3b1f2b", "#c06c52"], "lab"]
 ];
 $("#libGrid").innerHTML = LIB.map(([c, t, p, r, g, im], i) => `<a href="#" class="panel post rv d${i}" data-toast="Articles are placeholders in this educational demo."><div class="cover"><img src="assets/img/${im}.jpg" alt="" loading="lazy"></div><div class="pb"><span class="cat">${c}</span><h3>${t}</h3><p>${p}</p><div class="read">${r} read · Reviewed by Aurelia doctors</div></div></a>`).join("");
