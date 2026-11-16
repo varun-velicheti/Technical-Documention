@@ -50,19 +50,19 @@ h2{font-size:clamp(28px,3.3vw,42px);line-height:1.15}
 .b3d{width:22cqw;height:22cqw;right:-6%;bottom:6%;animation-delay:-2s;opacity:.7}.b3e{width:5cqw;height:5cqw;left:44%;top:6%;animation-delay:-8s}
 @keyframes b3float{50%{transform:translate(10px,-16px)}}
 .tray{position:absolute;left:12%;width:76%;top:62%;filter:drop-shadow(0 18px 24px rgba(30,120,115,.25))}
-.tray-glow{opacity:0;animation:trayGlow 10s ease-in-out infinite}
+.tray-glow{opacity:0;animation:trayGlow 3s ease-in-out infinite}
 @keyframes trayGlow{0%,36%,58%,86%,100%{opacity:0}44%,92%{opacity:.9}}
 .o3{position:absolute;left:calc(var(--x) * 1%);top:calc(var(--y) * 1%);width:var(--w);translate:-50% -50%;filter:drop-shadow(0 16px 18px rgba(25,110,105,.28))}
 .o3 svg{width:100%;height:auto;display:block;overflow:visible}
 .o3-bob{animation:o3bob 4.5s ease-in-out infinite;animation-delay:calc(var(--d,0s) * -4)}
 @keyframes o3bob{50%{transform:translateY(-6%) rotate(3deg)}}
-.o3-cycle{--dx:calc((50 - var(--x)) * 1cqw);--dy:calc((70 - var(--y)) * 1cqw);opacity:0;animation:iconCycle 10s cubic-bezier(.45,0,.2,1) infinite;animation-delay:var(--d,0s)}
+.o3-cycle{--dx:calc((50 - var(--x)) * 1cqw);--dy:calc((70 - var(--y)) * 1cqw);opacity:0;animation:iconCycle 3s cubic-bezier(.45,0,.2,1) infinite;animation-delay:var(--d,0s)}
 @keyframes iconCycle{
   0%,44%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.15)}
   54%{opacity:1;transform:translate(0,0) scale(1.08)}
   58%,86%{opacity:1;transform:translate(0,0) scale(1)}
   95%,100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.15)}}
-.sh-cycle{animation:shieldCycle 10s cubic-bezier(.45,0,.2,1) infinite;transform-origin:50% 100%}
+.sh-cycle{animation:shieldCycle 3s cubic-bezier(.45,0,.2,1) infinite;transform-origin:50% 100%}
 @keyframes shieldCycle{
   0%{opacity:0;transform:translateY(30%) scale(.4)}
   7%,38%{opacity:1;transform:none}
