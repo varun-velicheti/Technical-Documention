@@ -1289,3 +1289,15 @@ footer .big em,.cta-band h2 em,.dark-band h2 em{color:#8fe3d9}
 @keyframes burstFlash{0%{opacity:0;transform:scale(.3)}30%{opacity:1}100%{opacity:0;transform:scale(4)}}
 .hero3d .sh-cycle,.hero3d .o3-cycle{transform-origin:50% 50%}
 .hero{overflow:visible!important}
+
+/* ===== anatomical flesh-and-vessels figure ===== */
+.story-stage svg{filter:drop-shadow(0 30px 40px rgba(120,70,50,.18))}
+.story-stage .organ{opacity:.55;filter:saturate(.8)}
+.story-stage .organ.lit{opacity:1;filter:saturate(1.1) drop-shadow(0 0 4px rgba(255,255,255,.8)) drop-shadow(0 3px 6px rgba(0,0,0,.25))}
+.story-stage.all .organ{opacity:1;filter:none}
+.story-stage .vessels{opacity:.85}
+.story-stage .vessels path{stroke-opacity:.9}
+.story-stage .ribs{transition:opacity .6s}
+.story-stage .ribs{opacity:.75}
+.story-stage:not(.all) .ribs{opacity:.32}
+.story-stage:not(.all) .vessels.central{opacity:.55}

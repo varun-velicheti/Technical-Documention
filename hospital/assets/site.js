@@ -588,71 +588,135 @@ $("#storyCh").innerHTML = CH.map((c, i) => `<div class="sch" data-i="${i}"><div 
 $("#storyRail").innerHTML = CH.map((_, i) => `<button aria-label="Chapter ${i + 1}" data-j="${i}"><i></i></button>`).join("");
 $("#storyRail").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const total = sec.offsetHeight - innerHeight; scrollTo({ top: sec.offsetTop + (+b.dataset.j / (N - 1)) * total + 2, behavior: "smooth" }); });
 
+const RIBS = Array.from({ length: 7 }, (_, i) => { const y = 140 + i * 12.5, w = 40 - Math.max(0, i - 4) * 4, d = 18 + i * 2.5;
+  return `<path d="M146 ${y} C134 ${y - 6} ${150 - w} ${y - 2} ${150 - w - 3} ${y + d * .55} C${150 - w - 3} ${y + d} ${150 - w + 6} ${y + d + 4} ${150 - w + 14} ${y + d + 2}"/>`
+       + `<path d="M154 ${y} C166 ${y - 6} ${150 + w} ${y - 2} ${150 + w + 3} ${y + d * .55} C${150 + w + 3} ${y + d} ${150 + w - 6} ${y + d + 4} ${150 + w - 14} ${y + d + 2}"/>`; }).join("");
+const SI = (() => { const sp = 8.2, x0 = 136, x1 = 166, n = 5, seg = 6; let d = `M${x0} 298`; for (let r = 0; r < n; r++) { const y = 298 + r * sp, dir = r % 2 ? -1 : 1, from = dir > 0 ? x0 : x1, step = (x1 - x0) / seg; for (let k = 0; k < seg; k++) { const xa = from + dir * step * (k + .5), xb = from + dir * step * (k + 1); d += ` Q${xa.toFixed(1)} ${(y + (k % 2 ? 1.3 : -1.3)).toFixed(1)} ${xb.toFixed(1)} ${y}`; } if (r < n - 1) d += ` A${sp / 2} ${sp / 2} 0 0 ${dir > 0 ? 1 : 0} ${dir > 0 ? x1 : x0} ${y + sp}`; } return d; })();
 $("#storySvg").innerHTML = `
 <defs>
-  <linearGradient id="sbFill" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".98"/><stop offset=".5" stop-color="#e3f6f3" stop-opacity=".92"/><stop offset="1" stop-color="#c4ebe5" stop-opacity=".9"/></linearGradient><radialGradient id="sbSheen" cx="38%" cy="22%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><radialGradient id="sbFloor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#1f7f7a" stop-opacity=".28"/><stop offset="1" stop-color="#1f7f7a" stop-opacity="0"/></radialGradient>
-  <linearGradient id="sbScan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a9b95" stop-opacity="0"/><stop offset=".85" stop-color="#2a9b95" stop-opacity=".10"/><stop offset="1" stop-color="#2a9b95" stop-opacity=".35"/></linearGradient>
-  <radialGradient id="sgMyo" cx="35%" cy="35%" r="75%"><stop offset="0" stop-color="#ff9a8a"/><stop offset=".45" stop-color="#e2574c"/><stop offset="1" stop-color="#7a1020"/></radialGradient>
+  <linearGradient id="skinG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9a98f"/><stop offset=".3" stop-color="#f1d3bf"/><stop offset=".5" stop-color="#f6ddcb"/><stop offset=".7" stop-color="#f1d3bf"/><stop offset="1" stop-color="#d9a98f"/></linearGradient>
+  <radialGradient id="skinHi" cx="45%" cy="28%" r="55%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="sbFloor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#1f7f7a" stop-opacity=".28"/><stop offset="1" stop-color="#1f7f7a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="sbScan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a9b95" stop-opacity="0"/><stop offset=".85" stop-color="#2a9b95" stop-opacity=".08"/><stop offset="1" stop-color="#2a9b95" stop-opacity=".3"/></linearGradient>
+  <radialGradient id="sgMyo" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#f26a5a"/><stop offset=".5" stop-color="#c8312e"/><stop offset="1" stop-color="#6e0f17"/></radialGradient>
+  <radialGradient id="sgAtr" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#ef8a7c"/><stop offset="1" stop-color="#a8323a"/></radialGradient>
   <radialGradient id="sgBrain" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#ffd3dc"/><stop offset=".6" stop-color="#ee9aae"/><stop offset="1" stop-color="#b85c78"/></radialGradient>
-  <radialGradient id="sgLung" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#ffc4c4"/><stop offset=".6" stop-color="#e9868f"/><stop offset="1" stop-color="#a94a5a"/></radialGradient>
-  <radialGradient id="sgLiver" cx="35%" cy="35%" r="75%"><stop offset="0" stop-color="#d77a63"/><stop offset="1" stop-color="#7c2a22"/></radialGradient>
+  <radialGradient id="sgLung" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#e7c1bf"/><stop offset=".6" stop-color="#c39294"/><stop offset="1" stop-color="#8d6064"/></radialGradient>
+  <pattern id="lungTex" width="3.2" height="3.2" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".45" fill="#7b4c50" opacity=".28"/><circle cx="2.6" cy="2.4" r=".3" fill="#fff" opacity=".25"/></pattern>
+  <radialGradient id="sgLiver" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#ec7f62"/><stop offset=".55" stop-color="#c94f37"/><stop offset="1" stop-color="#8a2b1e"/></radialGradient>
+  <radialGradient id="sgStom" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="#f9c7bb"/><stop offset="1" stop-color="#d98b80"/></radialGradient>
   <radialGradient id="sgKid" cx="35%" cy="35%" r="75%"><stop offset="0" stop-color="#e0786b"/><stop offset="1" stop-color="#7e2027"/></radialGradient>
+  <radialGradient id="sgGall" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#c3d35a"/><stop offset="1" stop-color="#5f7316"/></radialGradient>
   <clipPath id="sbClip"><path d="${BODY}"/></clipPath>
 </defs>
 <g id="cam">
-  <ellipse cx="150" cy="612" rx="62" ry="9" fill="url(#sbFloor)"/><path d="${BODY}" fill="url(#sbFill)" stroke="#2a9b95" stroke-opacity=".45" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="${BODY}" fill="url(#sbSheen)" opacity=".85"/><path d="${BODY}" fill="none" stroke="#ffffff" stroke-opacity=".9" stroke-width="3.2" vector-effect="non-scaling-stroke" transform="translate(-1.2 -1.4)" clip-path="url(#sbClip)"/>
-  <g stroke="#2a9b95" stroke-opacity=".16" fill="none" stroke-linecap="round">
-    <path d="M150 108 V352" stroke-dasharray="3 4" stroke-width="3"/>
-    <path d="M150 132 C128 132 114 142 110 158 M150 132 C172 132 186 142 190 158 M150 146 C130 146 116 156 113 172 M150 146 C170 146 184 156 187 172 M150 160 C132 160 120 170 117 186 M150 160 C168 160 180 170 183 186" stroke-width="1.6"/>
-    <path d="M112 336 C120 350 136 356 150 356 C164 356 180 350 188 336" stroke-width="2"/>
+  <ellipse cx="150" cy="612" rx="62" ry="9" fill="url(#sbFloor)"/>
+  <path d="${BODY}" fill="url(#skinG)" opacity=".62"/>
+  <path d="${BODY}" fill="url(#skinHi)"/>
+  <path d="${BODY}" fill="none" stroke="#b07f68" stroke-opacity=".55" stroke-width="1.3" vector-effect="non-scaling-stroke"/>
+  <g clip-path="url(#sbClip)" fill="none" stroke="#9c6b55" stroke-opacity=".18" stroke-width="1.2" stroke-linecap="round">
+    <path d="M118 140 C124 160 140 166 149 160 M182 140 C176 160 160 166 151 160"/>
+    <path d="M150 236 V338 M134 250 H166 M136 270 H164 M138 290 H162"/>
+    <path d="M104 126 C96 140 94 156 98 170 M196 126 C204 140 206 156 202 170"/>
+    <path d="M118 400 C116 430 118 450 122 462 M182 400 C184 430 182 450 178 462"/>
   </g>
-  <g clip-path="url(#sbClip)"><rect class="scan" x="0" y="0" width="300" height="70" fill="url(#sbScan)"/></g>
+
+  <g class="vessels" fill="none" stroke-linecap="round" clip-path="url(#sbClip)">
+    <g stroke="#3d64c9" stroke-width="2.6">
+      <path d="M146 168 C130 136 114 134 100 137 C92 175 86 225 80 262 C76 292 72 322 64 354"/>
+      <path d="M154 168 C170 136 186 134 200 137 C208 175 214 225 220 262 C224 292 228 322 236 354"/>
+      <path d="M146 330 C136 348 128 362 125 382 L122 460 L120 590 M154 330 C164 348 172 362 175 382 L178 460 L180 590"/>
+    </g>
+    <g stroke="#3d64c9" stroke-width="1.1" opacity=".75"><path d="M90 200 L82 222 M86 250 L94 280 M210 200 L218 222 M214 250 L206 280 M122 420 L114 440 M178 420 L186 440"/></g>
+    <g stroke="#d8323f" stroke-width="2.3">
+      <path d="M152 178 C136 132 118 130 105 134 C97 172 91 222 85 260 C81 290 77 320 69 352"/>
+      <path d="M160 178 C168 132 184 130 195 134 C203 172 209 222 215 260 C219 290 223 320 231 352"/>
+      <path d="M152 330 C141 346 134 360 131 382 L128 460 L126 590 M152 330 C161 346 168 360 170 382 L173 460 L175 590"/>
+    </g>
+    <g stroke="#d8323f" stroke-width="1" opacity=".75"><path d="M95 190 L104 214 M88 240 L80 266 M205 190 L196 214 M212 240 L220 266 M129 410 L137 432 M172 410 L164 432"/></g>
+  </g>
 
   <g class="organ" id="o-brain">
     <path d="M127 52 C125 35 139 27 152 29 C167 27 177 38 175 52 C177 63 166 71 150 69 C135 71 125 63 127 52Z" fill="url(#sgBrain)"/>
     <path d="M135 42 C139 37 145 44 150 39 C155 35 161 42 166 39 M133 52 C139 47 144 56 150 51 C156 47 161 56 168 52 M137 61 C143 58 148 63 154 60 C158 58 162 61 165 60 M150 30 V68" stroke="#a74a66" stroke-width="1.2" fill="none" opacity=".7"/>
     <g fill="#fff"><circle class="o-spark" cx="140" cy="45" r="1.4"/><circle class="o-spark" cx="160" cy="56" r="1.4" style="animation-delay:.6s"/><circle class="o-spark" cx="152" cy="40" r="1.2" style="animation-delay:1.1s"/></g>
-    <path d="M150 69 V106" stroke="#f2b8c6" stroke-width="2.4" opacity=".6"/>
   </g>
+
   <g class="organ" id="o-lungs">
-    <path d="M150 110 V146 M150 146 L140 158 M150 146 L160 158" stroke="#f3d7d3" stroke-width="3.2" fill="none" stroke-linecap="round"/>
     <g class="o-breathe">
-      <path d="M144 150 C126 148 112 170 110 202 C109 225 120 237 136 231 C142 220 145 190 144 150Z" fill="url(#sgLung)"/>
-      <path d="M156 150 C174 148 190 170 192 202 C193 225 182 237 166 231 C160 220 157 190 156 150Z" fill="url(#sgLung)"/>
-      <path d="M140 160 C132 176 128 196 128 216 M136 186 L122 196 M160 160 C168 176 172 196 172 216 M164 186 L178 196" stroke="#a94a5a" stroke-width="1" fill="none" opacity=".7"/>
+      <path d="M143 142 C124 140 108 164 106 200 C105 226 114 242 130 240 C138 236 142 214 142 196 C138 186 140 166 143 142Z" fill="url(#sgLung)"/>
+      <path d="M157 142 C176 140 192 164 194 200 C195 226 186 242 170 240 C162 236 160 222 162 206 C160 196 160 170 157 142Z" fill="url(#sgLung)"/>
+      <path d="M143 142 C124 140 108 164 106 200 C105 226 114 242 130 240 C138 236 142 214 142 196 C138 186 140 166 143 142Z M157 142 C176 140 192 164 194 200 C195 226 186 242 170 240 C162 236 160 222 162 206 C160 196 160 170 157 142Z" fill="url(#lungTex)"/>
+      <path d="M140 170 C128 182 118 196 112 214 M160 168 C172 180 182 194 188 210" stroke="#7b4c50" stroke-width=".9" fill="none" opacity=".45"/>
     </g>
+    <path d="M150 104 V146 M150 146 C146 152 140 156 134 162 M150 146 C154 152 160 156 166 162" stroke="#efe2d6" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+    <path d="M150 106 V146" stroke="#c9b8a8" stroke-width="3.4" stroke-dasharray="1 2" fill="none"/>
   </g>
+
+  <g class="neck">
+    <path d="M144 86 C144 80 156 80 156 86 L157 98 C154 102 146 102 143 98Z" fill="#cfe0da" stroke="#8fa9a0" stroke-width=".6"/>
+    <path d="M145 89 H155 M146 93 H154" stroke="#8fa9a0" stroke-width=".6"/>
+    <path d="M150 104 C145 100 140 102 140 108 C140 113 145 114 148 111 L150 109 L152 111 C155 114 160 113 160 108 C160 102 155 100 150 104Z" fill="#f2a8a3" stroke="#c97a76" stroke-width=".5"/>
+  </g>
+  <g class="vessels central" fill="none" stroke-linecap="round">
+    <path d="M141 178 C139 150 140 120 141 96 M159 178 C161 150 160 120 159 96" stroke="#d8323f" stroke-width="2.4"/>
+    <path d="M136 172 C134 150 134 120 135 96 M164 172 C166 150 166 120 165 96" stroke="#3d64c9" stroke-width="2.6"/>
+    <path d="M147 194 V166 M146 168 H154" stroke="#3d64c9" stroke-width="4"/>
+    <path d="M147 236 C146 270 146 300 146 330" stroke="#3d64c9" stroke-width="4"/>
+    <path d="M156 196 C154 182 158 174 165 175 C171 177 171 186 168 194 C164 220 153 250 152 330" stroke="#d8323f" stroke-width="4.2"/>
+  </g>
+
+  <g class="ribs" fill="none" stroke="#f1dfb4" stroke-width="2.6" stroke-linecap="round">
+    <path d="M150 126 C136 121 120 121 102 127 M150 126 C164 121 180 121 198 127" stroke-width="4"/>
+    <path d="M150 132 V200" stroke-width="6"/>
+    ${RIBS}
+  </g>
+
   <g class="organ" id="o-heart">
-    <path d="M154 190 C152 179 158 172 166 175 C171 179 169 186 167 191" stroke="#c7303a" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <path d="M147 192 L146 177" stroke="#4766c9" stroke-width="4" stroke-linecap="round"/>
-    <path d="M158 194 C162 186 170 184 178 186" stroke="#4766c9" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+    <path d="M158 194 C163 184 172 182 182 184" stroke="#4f72cf" stroke-width="3.6" fill="none" stroke-linecap="round"/>
     <g class="o-beat">
-      <path d="M146 189 C136 193 134 211 144 223 C152 233 164 239 172 237 C176 227 180 213 176 201 C172 191 160 187 146 189Z" fill="url(#sgMyo)"/>
-      <path d="M156 192 C153 206 158 222 170 235" stroke="#ffb3a6" stroke-width=".9" fill="none" opacity=".8"/>
-      <ellipse cx="150" cy="204" rx="5" ry="7" fill="#fff" opacity=".22" transform="rotate(-25 150 204)"/>
+      <path d="M143 194 C138 186 146 180 152 185 C155 190 152 196 148 198Z" fill="url(#sgAtr)"/>
+      <path d="M147 192 C136 198 136 216 146 228 C154 238 166 243 175 239 C181 228 183 212 177 200 C171 190 158 186 147 192Z" fill="url(#sgMyo)"/>
+      <g fill="none" stroke-linecap="round">
+        <path d="M156 194 C152 206 156 222 168 238 M156 206 L148 214 M158 218 L150 226 M162 226 L170 222" stroke="#ffb09f" stroke-width=".8" opacity=".9"/>
+        <path d="M165 194 C170 206 174 218 174 232 M170 206 L176 212 M172 220 L178 222" stroke="#4f72cf" stroke-width=".7" opacity=".8"/>
+      </g>
+      <ellipse cx="152" cy="206" rx="5" ry="8" fill="#fff" opacity=".2" transform="rotate(-25 152 206)"/>
     </g>
   </g>
-  <g class="organ" id="o-gut">
-    <path d="M113 243 C129 231 158 233 166 241 C160 257 140 263 120 259 C111 255 109 249 113 243Z" fill="url(#sgLiver)"/>
-    <path d="M166 240 C184 236 194 252 188 268 C182 280 164 278 160 268 C166 260 168 252 166 240Z" fill="#e58a7a"/>
-    <path d="M126 284 C140 276 160 276 174 284 C178 294 166 298 150 296 C134 294 122 300 126 308 C132 318 166 318 174 310 C176 320 164 328 150 328 C138 328 128 322 126 316" stroke="#f2a08f" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path class="o-flow" d="M126 284 C140 276 160 276 174 284 C178 294 166 298 150 296 C134 294 122 300 126 308 C132 318 166 318 174 310" stroke="#fff" stroke-width="1.2" fill="none" opacity=".6"/>
-  </g>
+
   <g class="organ" id="o-kidney">
-    <ellipse cx="129" cy="296" rx="9" ry="15" fill="url(#sgKid)" transform="rotate(-12 129 296)"/>
-    <ellipse cx="171" cy="296" rx="9" ry="15" fill="url(#sgKid)" transform="rotate(12 171 296)"/>
-    <path d="M133 307 C138 322 144 332 147 340 M167 307 C162 322 156 332 153 340" stroke="#f0c56a" stroke-width="1.6" fill="none"/>
-    <path class="o-flow" d="M133 307 C138 322 144 332 147 340 M167 307 C162 322 156 332 153 340" stroke="#fff" stroke-width="1" fill="none"/>
+    <ellipse cx="128" cy="292" rx="8.5" ry="14" fill="url(#sgKid)" transform="rotate(-12 128 292)"/>
+    <ellipse cx="172" cy="292" rx="8.5" ry="14" fill="url(#sgKid)" transform="rotate(12 172 292)"/>
+    <path d="M132 302 C138 318 144 330 147 340 M168 302 C162 318 156 330 153 340" stroke="#f0c56a" stroke-width="1.6" fill="none"/>
+    <path class="o-flow" d="M132 302 C138 318 144 330 147 340 M168 302 C162 318 156 330 153 340" stroke="#fff" stroke-width="1" fill="none"/>
     <ellipse cx="150" cy="344" rx="8" ry="6" fill="#e9a35f" opacity=".9"/>
   </g>
+
+  <g class="organ" id="o-gut">
+    <path d="M140 268 C150 264 164 266 172 270 C170 274 156 276 142 274Z" fill="#f2c46a"/>
+    <path d="M160 242 C178 234 196 246 192 266 C188 282 170 284 160 277 C153 271 156 262 164 260 C172 258 172 250 160 242Z" fill="url(#sgStom)"/>
+    <path d="M110 240 C120 228 150 228 166 236 C171 240 169 246 163 250 C150 262 126 272 116 266 C109 258 107 248 110 240Z" fill="url(#sgLiver)"/>
+    <path d="M140 232 C144 242 142 254 146 262" stroke="#f3d7b4" stroke-width="1.6" fill="none" opacity=".8"/>
+    <ellipse cx="128" cy="266" rx="5.5" ry="4.5" fill="url(#sgGall)"/>
+    <path d="M126 340 V294 C126 284 132 280 142 280 H160 C170 280 176 284 176 294 V340" fill="none" stroke="#dc8873" stroke-width="7" stroke-linecap="round"/>
+    <path d="M126 340 V294 C126 284 132 280 142 280 H160 C170 280 176 284 176 294 V340" fill="none" stroke="#efa38f" stroke-width="9.5" stroke-linecap="round" stroke-dasharray="0.1 6.6"/>
+    <path d="M126 340 V294 C126 284 132 280 142 280 H160 C170 280 176 284 176 294 V340" fill="none" stroke="#ffd6c9" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 6.6" transform="translate(-1 -1.5)" opacity=".8"/>
+    <path d="${SI}" fill="none" stroke="#b9604e" stroke-width="5.6" stroke-linejoin="round"/>
+    <path d="${SI}" fill="none" stroke="#f0a593" stroke-width="4" stroke-linejoin="round"/>
+    <path class="o-flow" d="${SI}" stroke="#ffe2d8" stroke-width=".8" fill="none" opacity=".8"/>
+  </g>
+
   <g class="organ" id="o-knee">
-    <g stroke="#f1e6cf" stroke-width="5.5" stroke-linecap="round" fill="none">
+    <g stroke="#f1e2bf" stroke-width="5.5" stroke-linecap="round" fill="none">
+      <path d="M118 348 C128 358 140 360 150 356 C160 360 172 358 182 348" stroke-width="5"/>
       <path d="M129 368 L126 462 M171 368 L174 462"/><path d="M125 480 L124 588 M175 480 L176 588"/>
     </g>
     <g fill="#f8eedb"><ellipse cx="126" cy="466" rx="8" ry="5"/><ellipse cx="174" cy="466" rx="8" ry="5"/><ellipse cx="125" cy="477" rx="7.5" ry="4"/><ellipse cx="175" cy="477" rx="7.5" ry="4"/></g>
     <circle cx="126" cy="470" r="4" fill="#ffd27a"/><circle cx="174" cy="470" r="4" fill="#ffd27a"/>
     <circle cx="126" cy="471" r="11" fill="none" stroke="#2a9b95" stroke-width=".8" stroke-dasharray="2 2"/><circle cx="174" cy="471" r="11" fill="none" stroke="#2a9b95" stroke-width=".8" stroke-dasharray="2 2"/>
   </g>
+  <g clip-path="url(#sbClip)"><rect class="scan" x="0" y="0" width="300" height="70" fill="url(#sbScan)"/></g>
   <circle id="storyRing" class="ring-c" cx="160" cy="211" r="10" stroke-width=".6" opacity="0"/>
 </g>`;
 const cam = $("#cam"), ring = $("#storyRing"), stage = $("#storyStage");
