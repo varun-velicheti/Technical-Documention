@@ -850,71 +850,38 @@ $$(".tile").forEach(el => {
   el.addEventListener("mousemove", e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.setProperty("--ry", (x * 14).toFixed(2) + "deg"); el.style.setProperty("--rx", (-y * 14).toFixed(2) + "deg"); });
   el.addEventListener("mouseleave", () => { el.style.setProperty("--ry", "0deg"); el.style.setProperty("--rx", "0deg"); });
 });
-/* hero objects pop, then fly into the service tiles on scroll */
+/* hero: first scroll bursts objects out of the heart; further scroll flies them into the cards */
 if ($(".hero3d") && $(".tiles")) {
-  const h3 = $(".hero3d"), hero = $(".hero"), pin = $(".hero-pin"), stick = $(".hero-stick"), text = $(".hero-grid > div:first-child");
-  const sh = $(".hero3d .sh-cycle"), glow = $(".tray-glow"), cue = $(".scroll-cue"), tilesBox = $(".stick-tiles");
-  const objs = $$(".hero3d .o3[data-t]"), cyc = objs.map(o => $(".o3-cycle", o)), tiles = $$(".tiles .tile");
+  const h3 = $(".hero3d"), objs = $$(".hero3d .o3[data-t]"), tiles = $$(".tiles .tile");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const mq = matchMedia("(min-width: 961px) and (min-height: 620px)");
   objs.forEach(o => { const ti = $(".ti", tiles[+o.dataset.t]); if ($(".ti3d", ti)) return; const svg = $("svg", o).cloneNode(true); svg.classList.add("ti3d"); $("svg", ti)?.remove(); ti.prepend(svg); });
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  const back = t => { const c = 1.9; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
-  let rel = [], G = {}, ticking = false, pinned = false;
+  let rel = [], ticking = false;
   function measure() {
-    pinned = mq.matches && !reduce;
-    document.body.classList.toggle("pinmode", pinned);
-    hero.style.transform = ""; text.style.opacity = ""; text.style.transform = "";
-    objs.forEach(o => o.style.transform = ""); tiles.forEach(t => t.style.transform = "none");
-    const sr = h3.getBoundingClientRect(), hr = hero.getBoundingClientRect();
+    objs.forEach(o => o.style.transform = "");
+    const sr = h3.getBoundingClientRect();
     rel = objs.map(o => { const r = o.getBoundingClientRect(); return { x: (r.left + r.width / 2 - sr.left) / sr.width, y: (r.top + r.height / 2 - sr.top) / sr.height, w: r.width / sr.width }; });
-    const stickH = stick.getBoundingClientRect().height, tb = tilesBox.getBoundingClientRect().height;
-    G = { ox: sr.left - hr.left + sr.width / 2, oy: sr.top - hr.top, sceneW: sr.width, sceneH: sr.height,
-          k: Math.min(1, Math.max(.55, (stickH - tb - 40) / sr.height)), tilesH: tb };
-    hero.style.transformOrigin = `${G.ox}px ${G.oy}px`;
-    tiles.forEach(t => t.style.transform = "");
     render();
-  }
-  function phases() {
-    if (reduce) return [1, 1];
-    if (pinned) { const budget = pin.offsetHeight - stick.offsetHeight; const p = clamp((parseFloat(getComputedStyle(stick).top) - pin.getBoundingClientRect().top) / budget); return [clamp(p / .3), clamp((p - .44) / .56)]; }
-    const sr = h3.getBoundingClientRect(), tt = tiles[0].getBoundingClientRect().top + scrollY;
-    const b0 = Math.max(0, scrollY + sr.top - innerHeight * .4), b1 = b0 + 240, f0 = b1 + 120, f1 = Math.max(f0 + 320, tt - innerHeight * .5);
-    return [clamp((scrollY - b0) / (b1 - b0)), clamp((scrollY - f0) / (f1 - f0))];
   }
   function render() {
     ticking = false;
-    const [B, F] = phases();
-    /* phase 1: shield swells, bursts into the tray, objects spring out */
-    const sw = clamp(B / .3), sb = clamp((B - .28) / .2);
-    sh.style.transform = `translateY(${(sb * 45).toFixed(1)}%) scale(${((1 + .16 * sw) * (1 - .8 * sb)).toFixed(3)})`;
-    sh.style.opacity = (1 - sb).toFixed(3);
-    glow.style.opacity = Math.sin(Math.PI * clamp((B - .3) / .55)).toFixed(3);
-    if (cue) cue.style.opacity = clamp(1 - B * 5).toFixed(3);
-    objs.forEach((o, i) => {
-      const k = +o.dataset.t, r = rel[i];
-      const ek = clamp((B - .4 - k * .06) / .3), eb = back(ek);
-      const dx = (.5 - r.x) * G.sceneW, dy = (.72 - r.y) * G.sceneH;
-      cyc[i].style.transform = ek >= 1 ? "" : `translate(${(dx * (1 - ease(ek))).toFixed(1)}px, ${(dy * (1 - ease(ek))).toFixed(1)}px) scale(${(.15 + .85 * eb).toFixed(3)})`;
-      cyc[i].style.opacity = clamp(ek * 3).toFixed(3);
-    });
-    /* phase 2: scene moves up, tiles rise, objects fly into their tiles */
-    const he = pinned ? ease(clamp(F / .55)) : 0;
-    hero.style.transform = he ? `translateY(${(-(G.oy - 12) * he).toFixed(1)}px) scale(${(1 - (1 - G.k) * he).toFixed(4)})` : "";
-    text.style.opacity = pinned ? clamp(1 - he * 1.5).toFixed(3) : "";
-    text.style.transform = pinned && he ? `translateY(${(-50 * he).toFixed(1)}px)` : "";
-    const sr = h3.getBoundingClientRect(), scale = pinned ? 1 - (1 - G.k) * he : 1;
+    const sr = h3.getBoundingClientRect(), sceneMid = sr.top + sr.height / 2 + scrollY;
+    const trigger = Math.max(8, sceneMid - innerHeight * .72);
+    const burst = reduce || scrollY > trigger;
+    h3.classList.toggle("burst", burst);
+    const tt = tiles[0].getBoundingClientRect().top + scrollY;
+    const f0 = trigger + 170, f1 = Math.max(f0 + 320, tt - innerHeight * .42);
+    const F = reduce ? 1 : clamp((scrollY - f0) / (f1 - f0));
     objs.forEach((o, i) => {
       const k = +o.dataset.t, tile = tiles[k], r = rel[i];
-      const tk = ease(clamp((F - .12 - k * .06) / .45));
-      const lift = pinned ? G.tilesH + 120 : 70;
-      tile.style.setProperty("--tf", `translateY(${((1 - tk) * lift).toFixed(1)}px) rotateX(${((1 - tk) * 38).toFixed(1)}deg) rotateY(${((1 - tk) * -12).toFixed(1)}deg) scale(${(.9 + .1 * tk).toFixed(3)})`);
+      const tk = ease(clamp((F - k * .05) / .5));
+      tile.style.setProperty("--tf", `translateY(${((1 - tk) * 70).toFixed(1)}px) rotateX(${((1 - tk) * 38).toFixed(1)}deg) rotateY(${((1 - tk) * -12).toFixed(1)}deg) scale(${(.9 + .1 * tk).toFixed(3)})`);
       tile.style.opacity = clamp(tk * 1.6).toFixed(3);
-      const fk = ease(clamp((F - .28 - k * .06) / .4));
+      const fk = ease(clamp((F - .2 - k * .06) / .45));
       if (fk > 0) {
         const t = $(".ti", tile).getBoundingClientRect();
         const nx = sr.left + r.x * sr.width, ny = sr.top + r.y * sr.height, nw = r.w * sr.width;
-        const dx = (t.left + t.width / 2 - nx) / scale, dy = (t.top + t.height / 2 - ny) / scale, s = t.width * .82 / nw;
+        const dx = t.left + t.width / 2 - nx, dy = t.top + t.height / 2 - ny, s = t.width * .82 / nw;
         o.style.transform = `translate(${(dx * fk).toFixed(1)}px, ${(dy * fk).toFixed(1)}px) scale(${(1 + (s - 1) * fk).toFixed(4)})`;
       } else o.style.transform = "";
       o.style.opacity = fk >= .995 ? 0 : 1;
