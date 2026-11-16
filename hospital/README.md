@@ -29,4 +29,6 @@ A multi-page, fully interactive website for a **fictional** hospital. Open `inde
 ## Edit
 Source lives in `_src/`: content sections in `body.html` (split into pages by `build.py`), styles in `style.css`, `features.css` and `pages.css`, and scripts in `app.js` and `features.js`. After editing, run `python3 _src/build.py` to regenerate the pages and `assets/site.css` and `assets/site.js`.
 
+Photos are from [Unsplash](https://unsplash.com) (free to use under the Unsplash License) and are stored in `assets/img/`. The people pictured are models, not the fictional staff named on the site.
+
 All names, numbers, doctors and addresses are fictional. Diet output is educational, not medical advice.

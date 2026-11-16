@@ -50,7 +50,8 @@ const DOCS = [
   { id: "d16", name: "Ms. Tanvi Hegde", dept: "diet", title: "Chief Clinical Dietitian", exp: 12, deg: "MSc (Clinical Nutrition), RD", langs: "English, Kannada, Hindi", fee: 700, rating: 4.9, days: [1, 2, 3, 4, 5, 6], sess: [[10, 13], [15, 18]], tags: "diet nutrition weight loss diabetes diet kidney diet" }
 ].map((d, i) => ({ ...d, color: COLORS[i % COLORS.length] }));
 const initials = n => n.replace(/^(Dr\.|Ms\.)\s*/, "").split(" ").map(w => w[0]).join("").slice(0, 2);
-const docAv = d => `background:linear-gradient(145deg,${d.color})`;
+DOCS.forEach(d => d.photo = `assets/img/doc-${d.id}.jpg`);
+const docAv = d => `background:url(${d.photo}) center 22%/cover,linear-gradient(145deg,${d.color});color:transparent`;
 
 const QS = new URLSearchParams(location.search);
 /* ---------------- SEGMENTED CONTROLS ---------------- */
@@ -89,9 +90,10 @@ function qrSvg(seed) {
 }
 if ($("#centreGrid")) {
 /* ---------------- CENTRES + MARQUEE ---------------- */
+const CIMG = { card: "heart-model", neuro: "brain-model", ortho: "xray", onco: "lab", paed: "baby", neph: "ward", gastro: "food", obgyn: "care-doctor-patient" };
 $("#centreGrid").innerHTML = DEPTS.slice(0, 8).map((d, i) => `
   <a href="doctors.html?dept=${d.id}" class="centre rv ${"d" + (i % 4)}" data-dept="${d.id}">
-    <span class="ci">${icon(d.icon)}</span><span class="arrow">${icon("arrow")}</span>
+    <span class="cimg" style="background-image:url(assets/img/${CIMG[d.id]}.jpg)"></span><span class="ci">${icon(d.icon)}</span><span class="arrow">${icon("arrow")}</span>
     <h3>${d.name}</h3><p>${d.desc}</p></a>`).join("");
 const mq = ["Robotic surgery", "Level-1 trauma centre", "Kidney transplant", "Level-III NICU", "Hybrid cath lab", "3T MRI", "Stroke-ready unit", "Bone marrow transplant", "Sleep lab", "Bariatric surgery"];
 $("#marq").innerHTML = [...mq, ...mq].map(t => `<span>${t}</span>`).join("");
@@ -114,8 +116,8 @@ function renderDocs() {
   const total = list.length; const shown = list.slice(0, docShow);
   $("#docGrid").innerHTML = list.length ? shown.map((d, i) => `
     <article class="doc" style="animation-delay:${i * 50}ms">
-      <div class="doc-ph" style="${docAv(d)}">
-        <svg class="sil"><use href="#i-sil"/></svg><span class="init">${initials(d.name)}</span>
+      <div class="doc-ph" style="background:linear-gradient(145deg,${d.color})">
+        <img src="${d.photo}" alt="Portrait of ${d.name}" loading="lazy">
         <span class="avail"><i></i>${esc(nextAvail(d))}</span><span class="rating">★ ${d.rating}</span>
       </div>
       <div class="doc-body">
@@ -420,13 +422,13 @@ renderPkgs();
 if ($("#tTrack")) {
 /* ---------------- TESTIMONIALS / LIBRARY / FAQ ---------------- */
 const TESTI = [
-  ["After my father’s heart attack, the team had him in the cath lab within an hour. The doctors explained every step to us in Kannada. We felt held.", "Shalini M.", "Daughter of a cardiac patient"],
-  ["I booked my knee consult online in under a minute, and the robotic surgery had me walking the next day. Physio continued at home.", "Rajiv T.", "Knee replacement, age 64"],
-  ["The NICU nurses treated our premature twins like their own. Six weeks later we took two healthy babies home.", "Aisha & Karan", "Parents"],
-  ["The dietitian’s plan brought my HbA1c from 8.9 to 6.4 in five months without fancy food, just smarter Indian meals.", "Venkatesh R.", "Diabetes programme"]
+  ["After my father’s heart attack, the team had him in the cath lab within an hour. The doctors explained every step to us in Kannada. We felt held.", "Shalini M.", "Daughter of a cardiac patient", "t-shalini"],
+  ["I booked my knee consult online in under a minute, and the robotic surgery had me walking the next day. Physio continued at home.", "Rajiv T.", "Knee replacement, age 64", "t-rajiv"],
+  ["The NICU nurses treated our premature twins like their own. Six weeks later we took two healthy babies home.", "Aisha & Karan", "Parents of twins", "t-aisha"],
+  ["The dietitian’s plan brought my HbA1c from 8.9 to 6.4 in five months without fancy food, just smarter Indian meals.", "Venkatesh R.", "Diabetes programme", "t-venkatesh"]
 ];
 let tI = 0;
-$("#tTrack").innerHTML = TESTI.map(([q, n, r]) => `<div class="t-slide"><div class="panel t-card"><span class="qm">“</span><div><div class="stars">★★★★★</div><blockquote>${q}</blockquote><cite><b>${n}</b>${r}</cite></div></div></div>`).join("");
+$("#tTrack").innerHTML = TESTI.map(([q, n, r, ph]) => `<div class="t-slide"><div class="panel t-card"><div class="t-photo"><img src="assets/img/${ph}.jpg" alt="${n}" loading="lazy"><span class="qm">“</span></div><div><div class="stars">★★★★★</div><blockquote>${q}</blockquote><cite><b>${n}</b>${r}</cite></div></div></div>`).join("");
 $("#tDots").innerHTML = TESTI.map((_, i) => `<button aria-label="Story ${i + 1}" data-i="${i}"></button>`).join("");
 function tGo(i) { tI = (i + TESTI.length) % TESTI.length; $("#tTrack").style.transform = `translateX(-${tI * 100}%)`; $$("#tDots button").forEach((b, j) => b.classList.toggle("on", j === tI)); }
 $("#tDots").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { tGo(+b.dataset.i); resetT(); } });
@@ -435,11 +437,11 @@ let tT; const resetT = () => { clearInterval(tT); tT = setInterval(() => tGo(tI 
 }
 if ($("#libGrid")) {
 const LIB = [
-  ["Heart", "Seven warning signs of a heart attack women often miss", "Jaw pain, fatigue and nausea are just as common as chest pain. Here’s what to watch for.", "6 min", ["#0a2533", "#14a093"]],
-  ["Nutrition", "The Indian plate, rebuilt for diabetes", "You don’t need to give up rice. Portion, pairing and timing matter more than banning foods.", "8 min", ["#5c4520", "#d9b874"]],
-  ["Kidney", "Why your creatinine number isn’t the whole story", "eGFR, urine protein and blood pressure together show how your kidneys are really doing.", "5 min", ["#3b1f2b", "#c06c52"]]
+  ["Heart", "Seven warning signs of a heart attack women often miss", "Jaw pain, fatigue and nausea are just as common as chest pain. Here’s what to watch for.", "6 min", ["#0a2533", "#14a093"], "heart-model"],
+  ["Nutrition", "The Indian plate, rebuilt for diabetes", "You don’t need to give up rice. Portion, pairing and timing matter more than banning foods.", "8 min", ["#5c4520", "#d9b874"], "food2"],
+  ["Kidney", "Why your creatinine number isn’t the whole story", "eGFR, urine protein and blood pressure together show how your kidneys are really doing.", "5 min", ["#3b1f2b", "#c06c52"], "lab"]
 ];
-$("#libGrid").innerHTML = LIB.map(([c, t, p, r, g], i) => `<a href="#" class="panel post rv d${i}" data-toast="Articles are placeholders in this educational demo."><div class="cover"><svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="lg${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${g[0]}"/><stop offset="1" stop-color="${g[1]}"/></linearGradient></defs><rect width="320" height="180" fill="url(#lg${i})"/><circle cx="${240 - i * 40}" cy="${50 + i * 20}" r="70" fill="#fff" opacity=".08"/><circle cx="${80 + i * 50}" cy="150" r="50" fill="#fff" opacity=".06"/><path d="M0 110h70l10-16 12 16h20l8 6 12-52 14 86 12-40h40l12-12 12 12h98" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/></svg></div><div class="pb"><span class="cat">${c}</span><h3>${t}</h3><p>${p}</p><div class="read">${r} read · Reviewed by Aurelia doctors</div></div></a>`).join("");
+$("#libGrid").innerHTML = LIB.map(([c, t, p, r, g, im], i) => `<a href="#" class="panel post rv d${i}" data-toast="Articles are placeholders in this educational demo."><div class="cover"><img src="assets/img/${im}.jpg" alt="" loading="lazy"></div><div class="pb"><span class="cat">${c}</span><h3>${t}</h3><p>${p}</p><div class="read">${r} read · Reviewed by Aurelia doctors</div></div></a>`).join("");
 
 }
 if ($("#faqList")) {

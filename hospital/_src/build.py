@@ -79,7 +79,7 @@ CTA = """<section class="cta-wrap">
 
 # page file, nav label for <title>, chunks, strip first head?, add CTA?
 PAGES = [
-    ("index.html", None, ["HERO", "JOURNEY", "@EXPLORE", "TESTIMONIALS", "EMERGENCY"], False, False),
+    ("index.html", None, ["HERO", "JOURNEY", "HUMAN", "@EXPLORE", "TESTIMONIALS", "EMERGENCY"], False, False),
     ("specialities.html", "Specialities", ["CENTRES", "TECH"], True, True),
     ("doctors.html", "Find a Doctor", ["DOCTORS"], True, True),
     ("symptoms.html", "Symptom Guide", ["BODY MAP"], True, True),
@@ -90,6 +90,8 @@ PAGES = [
     ("patients.html", "Patient Services", ["SERVICES", "LIBRARY", "FAQ"], True, True),
     ("contact.html", "Contact & Emergency", ["CONTACT", "EMERGENCY"], False, False),
 ]
+HERO_IMG = {"specialities.html": "surgery", "doctors.html": "care-clinic", "symptoms.html": "care-bp", "book.html": "reception", "visit.html": "lobby",
+            "diet.html": "food2", "checkups.html": "care-doctor-patient", "patients.html": "care-bedside", "contact.html": "ambulance"}
 CONTACT_HERO = ("Get in touch", "Talk to a human, <em>any time.</em>", "Reach our help desk, request an ambulance or plan your visit. Someone is always here.", "")
 
 ACT = ' class="active"'
@@ -113,6 +115,7 @@ for file, label, chunks, strip, cta in PAGES:
         eb, title, lead, extra = hero
         content = f"""<section class="page-hero">
   <svg class="ph-ecg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70h260l14-20 14 20h40l12 10 16-70 18 120 16-60h60l14-14 14 14h260l14-20 14 20h40l12 10 16-70 18 120 16-60h60l14-14 14 14h300"/></svg>
+  {f'<div class="ph-photo" style="background-image:url(assets/img/{HERO_IMG[file]}.jpg)"></div>' if file in HERO_IMG else ''}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><b>{label}</b></nav>
     <span class="eyebrow">{eb}</span>
