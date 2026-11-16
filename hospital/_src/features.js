@@ -23,51 +23,121 @@ const BODY = smooth(OUTLINE);
    ===================================================================== */
 if ($("#journey")) {
 const CH = [
-  { img: "heart", pos: "56% 36%", tag: "Cardiology · the human heart", num: "01", h: "It starts with a <em>heartbeat.</em>", p: "Your heart beats about 100,000 times a day. Our cardiac team makes sure every one counts: a 24×7 cath lab, a hybrid operating room and a heart-failure clinic that follows you home.", stat: ["58 min", "average door-to-balloon time"], dept: "card" },
-  { img: "brain", pos: "62% 42%", tag: "Neurosciences · brain & neuron", num: "02", h: "When minutes <em>mean neurons.</em>", p: "Our stroke code activates in under ten minutes. Neurologists, neurosurgeons and rehab therapists work side by side, from migraine care to minimally invasive spine surgery.", stat: ["< 10 min", "stroke code activation"], dept: "neuro" },
-  { img: "lungs", pos: "34% 48%", tag: "Pulmonology · the bronchial tree", num: "03", h: "Every breath, <em>supported.</em>", p: "Asthma, COPD and sleep apnoea are treated with personalised plans, interventional bronchoscopy and an overnight sleep lab, all on one floor.", stat: ["22,000", "breaths you take every day"], dept: "pulmo" },
-  { img: "skeleton", pos: "62% 34%", tag: "Orthopaedics · 206 bones", num: "04", h: "Built to move. <em>We keep it that way.</em>", p: "Your body has 206 bones and more than 300 joints. Robotic knee and hip replacement, sports medicine and spine care get you back on your feet, and most patients walk within 24 hours of surgery.", stat: ["24 h", "to first steps after robotic knee surgery"], dept: "ortho" },
-  { img: "cells", pos: "52% 50%", tag: "Oncology · cells under the microscope", num: "05", h: "Precision, <em>down to the cell.</em>", p: "Genomic tumour profiling shows which treatment is most likely to work before it starts. Every case is reviewed by a tumour board of surgeons, oncologists and radiologists.", stat: ["40+", "cancer types profiled in our genomics lab"], dept: "onco" },
-  { img: "mri", pos: "58% 50%", tag: "Imaging · 3 Tesla MRI", num: "06", h: "Seeing what others <em>might miss.</em>", p: "3 Tesla MRI, PET-CT and low-dose CT with same-day reporting, read by sub-specialist radiologists who talk directly to your doctor.", stat: ["Same day", "imaging reports"], link: ["specialities.html", "Explore our technology →"] },
-  { img: "surgery", pos: "56% 34%", tag: "Surgery · robotic & hybrid theatres", num: "07", h: "Skilled hands, <em>steady care.</em>", p: "Four robotic theatres and a hybrid operating room mean smaller incisions, less pain and shorter hospital stays, with the same surgeon from first consult to follow-up.", stat: ["18,000", "surgeries every year"], link: ["specialities.html", "See our centres of excellence →"] },
-  { img: "hands", pos: "56% 50%", tag: "Aurelia · care with a human face", num: "08", h: "Ready <em>when you are.</em>", p: "Whatever brings you in, start with the right doctor. Book an OP visit in a minute, or tell us where it hurts and we’ll guide you.", stat: ["11 min", "average OPD wait today"], final: true }
+  { o: "heart", cam: [160, 208, 5], num: "01", h: "It starts with a <em>heartbeat.</em>", p: "Your heart beats about 100,000 times a day. Our cardiac team makes sure every one counts: a 24×7 cath lab, a hybrid operating room and a heart-failure clinic that follows you home.", stat: ["58 min", "average door-to-balloon time"], dept: "card", ring: [160, 211] },
+  { o: null, cam: [150, 315, 1], num: "02", h: "The whole of you, <em>in one place.</em>", p: "Forty-two specialities work as one team and share a single digital record, so nothing about you gets lost between doctors, floors or visits.", stat: ["600+", "specialists, one record"] },
+  { o: "brain", cam: [150, 50, 3.8], num: "03", h: "When minutes <em>mean neurons.</em>", p: "Our stroke code activates in under ten minutes. Neurologists, neurosurgeons and rehab therapists work side by side, from migraine care to minimally invasive spine surgery.", stat: ["< 10 min", "stroke code activation"], dept: "neuro", ring: [150, 49] },
+  { o: "lungs", cam: [150, 190, 2.4], num: "04", h: "Every breath, <em>supported.</em>", p: "Asthma, COPD and sleep apnoea are treated with personalised plans, interventional bronchoscopy and an overnight sleep lab, all on one floor.", stat: ["22,000", "breaths you take every day"], dept: "pulmo", ring: [150, 190] },
+  { o: "gut", cam: [150, 272, 2.6], num: "05", h: "Gut feeling, <em>backed by science.</em>", p: "Advanced endoscopy, a dedicated liver clinic and a liver-transplant programme, with dietitians embedded in every team.", stat: ["9 m", "of digestive tract we look after"], dept: "gastro", ring: [150, 268] },
+  { o: "kidney", cam: [150, 298, 3], num: "06", h: "Quiet organs, <em>serious care.</em>", p: "Your kidneys filter about 180 litres of blood a day. Our 40-station dialysis centre and transplant unit keep that going when they can’t.", stat: ["180 L", "of blood filtered daily"], dept: "neph", ring: [150, 298] },
+  { o: "knee", cam: [150, 478, 2.6], num: "07", h: "Back on your feet, <em>faster.</em>", p: "Robotic knee and hip replacement means smaller cuts and more precise alignment. Most patients are walking within 24 hours.", stat: ["24 h", "to first steps after robotic knee surgery"], dept: "ortho" },
+  { o: "all", cam: [150, 315, 1], num: "08", h: "Ready <em>when you are.</em>", p: "Whatever brings you in, start with the right doctor. Book an OP visit in a minute, or tell us where it hurts and we’ll guide you.", stat: ["11 min", "average OPD wait today"], final: true }
 ];
 const N = CH.length;
 const sec = $("#journey"); sec.style.setProperty("--n", N);
 $("#storyCh").innerHTML = CH.map((c, i) => `<div class="sch" data-i="${i}"><div class="num">${c.num} <span>/ 0${N}</span></div><h3>${c.h}</h3><p>${c.p}</p><div class="stat"><b>${c.stat[0]}</b>${c.stat[1]}</div>${c.final
   ? `<div class="acts"><a href="book.html" class="btn btn-gold">Book an OP visit</a><a href="symptoms.html" class="btn btn-ghost">Where does it hurt?</a></div>`
-  : c.dept ? `<div class="acts"><a href="doctors.html?dept=${c.dept}" class="btn btn-ghost btn-sm">Meet the ${A.D(c.dept).name} team →</a></div>`
-  : `<div class="acts"><a href="${c.link[0]}" class="btn btn-ghost btn-sm">${c.link[1]}</a></div>`}</div>`).join("");
+  : c.dept ? `<div class="acts"><a href="doctors.html?dept=${c.dept}" class="btn btn-ghost btn-sm">Meet the ${A.D(c.dept).name} team →</a></div>` : ""}</div>`).join("");
 $("#storyRail").innerHTML = CH.map((_, i) => `<button aria-label="Chapter ${i + 1}" data-j="${i}"><i></i></button>`).join("");
 $("#storyRail").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const total = sec.offsetHeight - innerHeight; scrollTo({ top: sec.offsetTop + (+b.dataset.j / (N - 1)) * total + 2, behavior: "smooth" }); });
-const stage = $("#jStage");
-stage.innerHTML = CH.map((c, i) => `<div class="jl" style="--pos:${c.pos}"><img src="assets/img/j-${c.img}.jpg" alt="" ${i < 2 ? "" : 'loading="lazy"'} decoding="async"></div>`).join("")
-  + `<div class="jshade"></div><div class="jhud"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i><span class="jscan"></span><div class="jtag"><span class="pulse-dot" style="background:#5ff0dc"></span><b id="jTag"></b><small id="jNum"></small></div></div>`;
-const layers = $$(".jl", stage).map(el => ({ el, img: $("img", el) }));
-let curF = 0, active = -1, running = false;
-const targetF = () => { const total = sec.offsetHeight - innerHeight; return clamp(-sec.getBoundingClientRect().top / total) * (N - 1); };
-function render(f) {
-  const i = Math.min(N - 2, Math.floor(f)), raw = f - i; let t = clamp((raw - 0.34) / 0.32); t = t * t * (3 - 2 * t);
-  layers.forEach((L, j) => {
-    let o = 0, s = 1, b = 1;
-    if (j === i) { o = 1 - t; s = 1.04 + raw * 0.08 + t * 0.32; b = 1 + t * 0.25; }
-    else if (j === i + 1) { o = t; s = 1.2 - t * 0.16; }
-    L.el.style.opacity = o.toFixed(3); L.el.style.visibility = o > 0.002 ? "visible" : "hidden";
-    if (o > 0.002) { L.img.style.transform = `scale(${s.toFixed(4)})`; L.img.style.filter = b > 1.001 ? `brightness(${b.toFixed(3)})` : ""; }
-  });
-  $$("#storyRail i").forEach((el, j) => el.style.transform = `scaleX(${clamp(f - j + 1)})`);
-  $("#storyHint").style.opacity = f > 0.05 ? 0 : 1;
+
+$("#storySvg").innerHTML = `
+<defs>
+  <linearGradient id="sbFill" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".98"/><stop offset=".5" stop-color="#e3f6f3" stop-opacity=".92"/><stop offset="1" stop-color="#c4ebe5" stop-opacity=".9"/></linearGradient><radialGradient id="sbSheen" cx="38%" cy="22%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><radialGradient id="sbFloor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#1f7f7a" stop-opacity=".28"/><stop offset="1" stop-color="#1f7f7a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="sbScan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a9b95" stop-opacity="0"/><stop offset=".85" stop-color="#2a9b95" stop-opacity=".10"/><stop offset="1" stop-color="#2a9b95" stop-opacity=".35"/></linearGradient>
+  <radialGradient id="sgMyo" cx="35%" cy="35%" r="75%"><stop offset="0" stop-color="#ff9a8a"/><stop offset=".45" stop-color="#e2574c"/><stop offset="1" stop-color="#7a1020"/></radialGradient>
+  <radialGradient id="sgBrain" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#ffd3dc"/><stop offset=".6" stop-color="#ee9aae"/><stop offset="1" stop-color="#b85c78"/></radialGradient>
+  <radialGradient id="sgLung" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#ffc4c4"/><stop offset=".6" stop-color="#e9868f"/><stop offset="1" stop-color="#a94a5a"/></radialGradient>
+  <radialGradient id="sgLiver" cx="35%" cy="35%" r="75%"><stop offset="0" stop-color="#d77a63"/><stop offset="1" stop-color="#7c2a22"/></radialGradient>
+  <radialGradient id="sgKid" cx="35%" cy="35%" r="75%"><stop offset="0" stop-color="#e0786b"/><stop offset="1" stop-color="#7e2027"/></radialGradient>
+  <clipPath id="sbClip"><path d="${BODY}"/></clipPath>
+</defs>
+<g id="cam">
+  <ellipse cx="150" cy="612" rx="62" ry="9" fill="url(#sbFloor)"/><path d="${BODY}" fill="url(#sbFill)" stroke="#2a9b95" stroke-opacity=".45" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="${BODY}" fill="url(#sbSheen)" opacity=".85"/><path d="${BODY}" fill="none" stroke="#ffffff" stroke-opacity=".9" stroke-width="3.2" vector-effect="non-scaling-stroke" transform="translate(-1.2 -1.4)" clip-path="url(#sbClip)"/>
+  <g stroke="#2a9b95" stroke-opacity=".16" fill="none" stroke-linecap="round">
+    <path d="M150 108 V352" stroke-dasharray="3 4" stroke-width="3"/>
+    <path d="M150 132 C128 132 114 142 110 158 M150 132 C172 132 186 142 190 158 M150 146 C130 146 116 156 113 172 M150 146 C170 146 184 156 187 172 M150 160 C132 160 120 170 117 186 M150 160 C168 160 180 170 183 186" stroke-width="1.6"/>
+    <path d="M112 336 C120 350 136 356 150 356 C164 356 180 350 188 336" stroke-width="2"/>
+  </g>
+  <g clip-path="url(#sbClip)"><rect class="scan" x="0" y="0" width="300" height="70" fill="url(#sbScan)"/></g>
+
+  <g class="organ" id="o-brain">
+    <path d="M127 52 C125 35 139 27 152 29 C167 27 177 38 175 52 C177 63 166 71 150 69 C135 71 125 63 127 52Z" fill="url(#sgBrain)"/>
+    <path d="M135 42 C139 37 145 44 150 39 C155 35 161 42 166 39 M133 52 C139 47 144 56 150 51 C156 47 161 56 168 52 M137 61 C143 58 148 63 154 60 C158 58 162 61 165 60 M150 30 V68" stroke="#a74a66" stroke-width="1.2" fill="none" opacity=".7"/>
+    <g fill="#fff"><circle class="o-spark" cx="140" cy="45" r="1.4"/><circle class="o-spark" cx="160" cy="56" r="1.4" style="animation-delay:.6s"/><circle class="o-spark" cx="152" cy="40" r="1.2" style="animation-delay:1.1s"/></g>
+    <path d="M150 69 V106" stroke="#f2b8c6" stroke-width="2.4" opacity=".6"/>
+  </g>
+  <g class="organ" id="o-lungs">
+    <path d="M150 110 V146 M150 146 L140 158 M150 146 L160 158" stroke="#f3d7d3" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <g class="o-breathe">
+      <path d="M144 150 C126 148 112 170 110 202 C109 225 120 237 136 231 C142 220 145 190 144 150Z" fill="url(#sgLung)"/>
+      <path d="M156 150 C174 148 190 170 192 202 C193 225 182 237 166 231 C160 220 157 190 156 150Z" fill="url(#sgLung)"/>
+      <path d="M140 160 C132 176 128 196 128 216 M136 186 L122 196 M160 160 C168 176 172 196 172 216 M164 186 L178 196" stroke="#a94a5a" stroke-width="1" fill="none" opacity=".7"/>
+    </g>
+  </g>
+  <g class="organ" id="o-heart">
+    <path d="M154 190 C152 179 158 172 166 175 C171 179 169 186 167 191" stroke="#c7303a" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M147 192 L146 177" stroke="#4766c9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M158 194 C162 186 170 184 178 186" stroke="#4766c9" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+    <g class="o-beat">
+      <path d="M146 189 C136 193 134 211 144 223 C152 233 164 239 172 237 C176 227 180 213 176 201 C172 191 160 187 146 189Z" fill="url(#sgMyo)"/>
+      <path d="M156 192 C153 206 158 222 170 235" stroke="#ffb3a6" stroke-width=".9" fill="none" opacity=".8"/>
+      <ellipse cx="150" cy="204" rx="5" ry="7" fill="#fff" opacity=".22" transform="rotate(-25 150 204)"/>
+    </g>
+  </g>
+  <g class="organ" id="o-gut">
+    <path d="M113 243 C129 231 158 233 166 241 C160 257 140 263 120 259 C111 255 109 249 113 243Z" fill="url(#sgLiver)"/>
+    <path d="M166 240 C184 236 194 252 188 268 C182 280 164 278 160 268 C166 260 168 252 166 240Z" fill="#e58a7a"/>
+    <path d="M126 284 C140 276 160 276 174 284 C178 294 166 298 150 296 C134 294 122 300 126 308 C132 318 166 318 174 310 C176 320 164 328 150 328 C138 328 128 322 126 316" stroke="#f2a08f" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path class="o-flow" d="M126 284 C140 276 160 276 174 284 C178 294 166 298 150 296 C134 294 122 300 126 308 C132 318 166 318 174 310" stroke="#fff" stroke-width="1.2" fill="none" opacity=".6"/>
+  </g>
+  <g class="organ" id="o-kidney">
+    <ellipse cx="129" cy="296" rx="9" ry="15" fill="url(#sgKid)" transform="rotate(-12 129 296)"/>
+    <ellipse cx="171" cy="296" rx="9" ry="15" fill="url(#sgKid)" transform="rotate(12 171 296)"/>
+    <path d="M133 307 C138 322 144 332 147 340 M167 307 C162 322 156 332 153 340" stroke="#f0c56a" stroke-width="1.6" fill="none"/>
+    <path class="o-flow" d="M133 307 C138 322 144 332 147 340 M167 307 C162 322 156 332 153 340" stroke="#fff" stroke-width="1" fill="none"/>
+    <ellipse cx="150" cy="344" rx="8" ry="6" fill="#e9a35f" opacity=".9"/>
+  </g>
+  <g class="organ" id="o-knee">
+    <g stroke="#f1e6cf" stroke-width="5.5" stroke-linecap="round" fill="none">
+      <path d="M129 368 L126 462 M171 368 L174 462"/><path d="M125 480 L124 588 M175 480 L176 588"/>
+    </g>
+    <g fill="#f8eedb"><ellipse cx="126" cy="466" rx="8" ry="5"/><ellipse cx="174" cy="466" rx="8" ry="5"/><ellipse cx="125" cy="477" rx="7.5" ry="4"/><ellipse cx="175" cy="477" rx="7.5" ry="4"/></g>
+    <circle cx="126" cy="470" r="4" fill="#ffd27a"/><circle cx="174" cy="470" r="4" fill="#ffd27a"/>
+    <circle cx="126" cy="471" r="11" fill="none" stroke="#2a9b95" stroke-width=".8" stroke-dasharray="2 2"/><circle cx="174" cy="471" r="11" fill="none" stroke="#2a9b95" stroke-width=".8" stroke-dasharray="2 2"/>
+  </g>
+  <circle id="storyRing" class="ring-c" cx="160" cy="211" r="10" stroke-width=".6" opacity="0"/>
+</g>`;
+const cam = $("#cam"), ring = $("#storyRing"), stage = $("#storyStage");
+const cur = { cx: 160, cy: 208, s: 5 }; let target = { ...cur }, active = -1, running = false;
+function computeTarget() {
+  const total = sec.offsetHeight - innerHeight, p = clamp(-sec.getBoundingClientRect().top / total);
+  const f = p * (N - 1), i = Math.min(N - 2, Math.floor(f)); let t = clamp((f - i - 0.28) / 0.44); t = t * t * (3 - 2 * t);
+  const a = CH[i].cam, b = CH[i + 1].cam;
+  target = { cx: lerp(a[0], b[0], t), cy: lerp(a[1], b[1], t), s: Math.exp(lerp(Math.log(a[2]), Math.log(b[2]), t)) };
   const act = Math.round(f);
+  $$("#storyRail i").forEach((el, j) => el.style.transform = `scaleX(${clamp(f - j + 1)})`);
+  $("#storyHint").style.opacity = p > 0.02 ? 0 : 1;
   if (act !== active) {
     active = act;
     $$("#storyCh .sch").forEach((el, j) => { el.classList.toggle("on", j === act); el.classList.toggle("past", j < act); });
-    const tag = $("#jTag"); tag.parentElement.classList.remove("swap"); void tag.offsetWidth; tag.parentElement.classList.add("swap");
-    tag.textContent = CH[act].tag; $("#jNum").textContent = `${CH[act].num} / 0${N}`;
+    const big = $("#storyBig"); if (big) { big.textContent = CH[act].num; big.classList.remove("swap"); void big.offsetWidth; big.classList.add("swap"); }
+    const o = CH[act].o;
+    stage.classList.toggle("all", !o || o === "all");
+    $$(".organ", stage).forEach(g => g.classList.toggle("lit", g.id === "o-" + o));
+    if (CH[act].ring) { ring.setAttribute("cx", CH[act].ring[0]); ring.setAttribute("cy", CH[act].ring[1]); ring.setAttribute("opacity", 1); } else ring.setAttribute("opacity", 0);
   }
 }
-function frame() { if (!running) return; const tf = targetF(); curF += (tf - curF) * 0.12; if (Math.abs(tf - curF) < 0.0005) curF = tf; render(curF); requestAnimationFrame(frame); }
+function frame() {
+  if (!running) return;
+  computeTarget();
+  cur.cx = lerp(cur.cx, target.cx, .1); cur.cy = lerp(cur.cy, target.cy, .1); cur.s = Math.exp(lerp(Math.log(cur.s), Math.log(target.s), .1));
+  cam.setAttribute("transform", `translate(150 310) scale(${cur.s.toFixed(4)}) translate(${(-cur.cx).toFixed(2)} ${(-cur.cy).toFixed(2)})`);
+  ring.setAttribute("r", (26 / cur.s).toFixed(2)); ring.setAttribute("stroke-width", (1.6 / cur.s).toFixed(3));
+  requestAnimationFrame(frame);
+}
 new IntersectionObserver(es => es.forEach(e => { running = e.isIntersecting; if (running) requestAnimationFrame(frame); }), { rootMargin: "200px 0px" }).observe(sec);
-curF = targetF(); render(curF);
+computeTarget(); Object.assign(cur, target); frame();
+
 }
 /* =====================================================================
    2. BODY MAP SYMPTOM GUIDE
