@@ -63,7 +63,7 @@ p{margin:0}
 .main-photo.zoom img{transform:scale(2)}
 .badge{position:absolute;left:14px;top:14px;background:var(--paper);color:var(--ink);font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:7px 12px;border-radius:999px;box-shadow:0 4px 16px rgba(59,34,10,.12)}
 .zoom-hint{position:absolute;right:14px;bottom:14px;background:rgba(255,255,255,.85);color:var(--ink);font-size:12px;padding:6px 10px;border-radius:999px;pointer-events:none}
-.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .thumb{padding:0;border:2px solid transparent;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--sand);aspect-ratio:3/2}
 .thumb img{width:100%;height:100%;object-fit:cover}
 .thumb[aria-pressed="true"]{border-color:var(--amber)}
@@ -280,9 +280,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         </div>
         <div class="thumbs" role="group" aria-label="Product photos">
           <button class="thumb" type="button" aria-pressed="true" aria-label="Photo 1: on a stone slab" data-src="img/hero-stone.webp" data-alt="Tiger eye bead bracelet resting on a natural stone slab beside raw tiger eye"><img src="img/hero-stone.webp" alt=""></button>
-          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 2: bead close-up" data-src="img/bead-closeup.webp" data-alt="Close-up of polished tiger eye beads showing the golden band"><img src="img/bead-closeup.webp" alt=""></button>
-          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 3: on wood" data-src="img/wood-slice.webp" data-alt="Tiger eye bracelet on a wooden slice with linen and leaves"><img src="img/wood-slice.webp" alt=""></button>
-          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 4: in display box" data-src="img/box-display.webp" data-alt="Tiger eye bracelet displayed in a wooden presentation box"><img src="img/box-display.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 2: on his wrist" data-src="img/wrist-him.webp" data-alt="Tiger eye bracelet worn on a man's wrist resting on beige linen"><img src="img/wrist-him.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 3: on her wrist" data-src="img/wrist-her.webp" data-alt="Tiger eye bracelet on a woman's wrist as she holds a cup of chai"><img src="img/wrist-her.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 4: bead close-up" data-src="img/bead-closeup.webp" data-alt="Close-up of polished tiger eye beads showing the golden band"><img src="img/bead-closeup.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 5: gift box" data-src="img/gift-box.webp" data-alt="Tiger eye bracelet inside its open Tiger Eye gift box"><img src="img/gift-box.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 6: full view" data-src="img/white-bg.webp" data-alt="Tiger eye bracelet on a plain white background"><img src="img/white-bg.webp" alt=""></button>
         </div>
       </div>
 
@@ -537,7 +539,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
     <form id="orderForm" novalidate>
       <div style="display:flex;flex-direction:column;gap:16px">
-        <div class="summary"><img src="img/hero-stone.webp" alt=""><div class="rows" id="summary"></div></div>
+        <div class="summary"><img src="img/white-bg.webp" alt=""><div class="rows" id="summary"></div></div>
         <div class="field"><label for="oName">Full name</label><input type="text" id="oName" autocomplete="name" placeholder="As on the parcel" required></div>
         <div class="field"><label for="oPhone">Mobile number</label><input type="tel" id="oPhone" autocomplete="tel" inputmode="numeric" placeholder="10-digit number" required></div>
         <div class="field"><label for="oAddr">Delivery address</label><textarea id="oAddr" autocomplete="street-address" placeholder="House, street, area, landmark" required></textarea></div>
