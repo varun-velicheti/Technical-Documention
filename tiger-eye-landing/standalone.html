@@ -6,241 +6,248 @@
 <!-- Paste your Meta Pixel base code here (Events Manager > Data sources > Pixel > Install code) -->
 </head>
 <body>
-<title>Tigris Tiger Eye Bracelet</title>
+<title>Tiger Eye Bracelet</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Natural tiger eye bead bracelet, hand-strung and polished to a deep golden shimmer. Free shipping and cash on delivery across India.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap">
 <style>
-/* Layout: one dark gallery room. The bracelet sits lit in the hero like a vitrine,
-   then the page walks the stone from macro close-up to craft, fit, and order. */
+/* Layout: a sunlit studio table. Warm linen ground, the photos carry the colour,
+   deep tiger-brown type, amber reserved for prices, actions and the shimmer. */
 :root{
-  --ground:#110b06;      /* deep umber, the shadow inside the stone */
-  --ground-2:#1a110a;    /* raised surface */
-  --ground-3:#24180e;
-  --honey:#d6a24e;       /* the chatoyant band */
-  --honey-hi:#f2c879;
-  --honey-lo:#8a5a22;
-  --cream:#f1e8d8;       /* text */
-  --muted:#ab9a80;
-  --faint:#6f604c;
-  --line:rgba(214,162,78,.2);
-  --line-strong:rgba(214,162,78,.45);
-  --ok:#9cc59a;
-  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
-  --body:"Jost","Futura","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --ink:#3b220a;        /* deep tiger brown: text, dark bands */
+  --amber:#c88b3a;      /* the chatoyant band: accents, buttons */
+  --amber-hi:#e3a957;
+  --sand:#e6c89b;       /* icon discs, soft fills */
+  --linen:#f7efe2;      /* page ground */
+  --paper:#ffffff;      /* cards */
+  --body-ink:#5c4129;   /* running text */
+  --muted:#8a6f52;
+  --line:rgba(59,34,10,.13);
+  --line-strong:rgba(59,34,10,.28);
+  --ok:#4f7a4c;
+  --display:"Playfair Display","Didot",Georgia,serif;
+  --body:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
   --gutter-l:max(16px, env(safe-area-inset-left, 0px));
   --gutter-r:max(16px, env(safe-area-inset-right, 0px));
-  color-scheme:dark;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
-body{background:var(--ground);color:var(--cream);font-family:var(--body);font-size:16px;line-height:1.6;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ground)}
+body{background:var(--linen);color:var(--body-ink);font-family:var(--body);font-size:16px;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--linen)}
 a{color:inherit}
-img,canvas{max-width:100%}
-.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
-.label{font-family:var(--body);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--honey)}
-h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;line-height:1.05;letter-spacing:-.01em}
-h2{font-size:clamp(34px,5vw,58px)}
-h2 em,h1 em{font-style:italic;color:var(--honey-hi)}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.label{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--amber)}
+h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;color:var(--ink);text-wrap:balance;line-height:1.08}
+h2{font-size:clamp(32px,4.6vw,54px)}
+h1 em,h2 em{font-style:italic;color:var(--amber)}
 p{margin:0}
-.lede{color:var(--muted);font-size:18px;max-width:58ch}
-:focus-visible{outline:2px solid var(--honey-hi);outline-offset:3px}
+.lede{font-size:17.5px;max-width:58ch}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 
-/* announcement + nav */
-.announce{background:var(--honey);color:var(--ground);font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding-block:9px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(17,11,6,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.announce{background:var(--ink);color:var(--sand);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding-block:9px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(247,239,226,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
-.brand{font-family:var(--display);font-size:24px;letter-spacing:.32em;text-decoration:none;font-weight:500}
-.nav-links{display:flex;gap:28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+.brand svg{width:26px;height:26px;stroke:var(--amber);fill:none;stroke-width:1.2}
+.nav-links{display:flex;gap:30px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .nav-links a{text-decoration:none}
-.nav-links a:hover{color:var(--cream)}
-.nav-cta{font-size:12px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--line-strong);padding:9px 16px;border-radius:999px;text-decoration:none;color:var(--honey-hi);background:none;cursor:pointer;font-family:var(--body)}
-.nav-cta:hover{background:var(--honey);color:var(--ground)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:0;padding:11px 18px;border-radius:999px;color:var(--paper);background:var(--ink);cursor:pointer}
+.nav-cta:hover{background:var(--amber)}
 @media (max-width:820px){.nav-links{display:none}}
 
-/* hero */
-.hero{position:relative;overflow:hidden;padding-block:clamp(28px,5vw,64px) clamp(48px,7vw,96px)}
-.hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:120%;background:radial-gradient(60% 55% at 30% 45%,rgba(214,162,78,.16),transparent 70%);pointer-events:none}
-.hero-grid{position:relative;display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(24px,4vw,64px);align-items:start}
-.hero-media{position:sticky;top:calc(96px + env(safe-area-inset-top,0px))}
-@media (max-width:900px){.hero-media{position:static}}
-@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
-.stage{position:relative;aspect-ratio:1/1;width:100%;max-width:100%;border-radius:4px;background:radial-gradient(70% 60% at 50% 45%,var(--ground-3),var(--ground) 75%);border:1px solid var(--line)}
-.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
-.stage-note{position:absolute;left:18px;bottom:16px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:10px}
-.stage-note::before{content:"";width:28px;height:1px;background:var(--faint)}
-.stage-tag{position:absolute;right:16px;top:16px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--line-strong);color:var(--honey-hi);padding:6px 10px;border-radius:999px;background:rgba(17,11,6,.6)}
-.thumbs{display:flex;gap:10px;margin-top:12px}
-.thumb{flex:1;padding:10px 8px;border:1px solid var(--line);background:var(--ground-2);color:var(--muted);font-family:var(--body);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:3px}
-.thumb[aria-pressed="true"]{border-color:var(--honey);color:var(--cream)}
+.hero{padding-block:clamp(20px,4vw,52px) clamp(48px,7vw,96px)}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(24px,4vw,60px);align-items:start}
+@media (max-width:920px){.hero-grid{grid-template-columns:1fr}}
+.gallery{position:sticky;top:calc(92px + env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:12px;min-width:0}
+@media (max-width:920px){.gallery{position:static}}
+.main-photo{position:relative;aspect-ratio:3/2;width:100%;max-width:100%;overflow:hidden;border-radius:6px;background:var(--sand);cursor:zoom-in}
+.main-photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.main-photo.zoom img{transform:scale(2)}
+.badge{position:absolute;left:14px;top:14px;background:var(--paper);color:var(--ink);font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:7px 12px;border-radius:999px;box-shadow:0 4px 16px rgba(59,34,10,.12)}
+.zoom-hint{position:absolute;right:14px;bottom:14px;background:rgba(255,255,255,.85);color:var(--ink);font-size:12px;padding:6px 10px;border-radius:999px;pointer-events:none}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.thumb{padding:0;border:2px solid transparent;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--sand);aspect-ratio:3/2}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb[aria-pressed="true"]{border-color:var(--amber)}
 
-.buy{display:flex;flex-direction:column;gap:22px;min-width:0}
-.buy h1{font-size:clamp(42px,5.6vw,72px)}
-.stars-free{display:flex;gap:10px;flex-wrap:wrap}
-.chip{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:999px}
+.buy{display:flex;flex-direction:column;gap:20px;min-width:0}
+.rating-row{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--ink);background:var(--paper);border:1px solid var(--line);padding:6px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.chip svg{width:14px;height:14px;stroke:var(--amber);fill:none;stroke-width:2}
+.buy h1{font-size:clamp(40px,5.2vw,66px)}
 .price-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.price{font-family:var(--display);font-size:40px;color:var(--cream);font-variant-numeric:tabular-nums}
-.mrp{color:var(--faint);text-decoration:line-through;font-size:18px}
-.save{background:rgba(214,162,78,.14);color:var(--honey-hi);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:999px;font-weight:500}
-.tax{color:var(--faint);font-size:13px;width:100%}
+.price{font-family:var(--display);font-size:42px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.mrp{color:var(--muted);text-decoration:line-through;font-size:18px}
+.save{background:var(--ink);color:var(--sand);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;border-radius:999px}
+.tax{color:var(--muted);font-size:13px;width:100%}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding-block:18px;border-block:1px solid var(--line)}
+.benefit{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--ink);line-height:1.3}
+.disc{width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f3dfbd,var(--sand));display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(200,139,58,.35);flex:none}
+.disc svg{width:26px;height:26px;stroke:var(--ink);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 fieldset{border:0;margin:0;padding:0;min-width:0}
-legend{padding:0;margin-bottom:10px;display:flex;justify-content:space-between;width:100%;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
-legend button{background:none;border:0;color:var(--honey);font:inherit;letter-spacing:.12em;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
-.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.opts.two{grid-template-columns:repeat(2,1fr)}
+legend{padding:0;margin-bottom:10px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .opt{position:relative}
 .opt input{position:absolute;opacity:0;pointer-events:none}
-.opt label{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:58px;padding:10px 6px;border:1px solid var(--line);border-radius:3px;cursor:pointer;background:var(--ground-2);text-align:center;transition:border-color .2s,background .2s}
-.opt label b{font-weight:500;font-size:15px;letter-spacing:.06em}
-.opt label small{font-size:11.5px;color:var(--faint);letter-spacing:.04em}
-.opt input:checked + label{border-color:var(--honey);background:linear-gradient(180deg,rgba(214,162,78,.12),rgba(214,162,78,.03))}
-.opt input:checked + label small{color:var(--muted)}
-.opt input:focus-visible + label{outline:2px solid var(--honey-hi);outline-offset:2px}
-.opt .flag{position:absolute;top:-9px;right:8px;background:var(--honey);color:var(--ground);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border-radius:999px}
-.bundle label{flex-direction:row;justify-content:space-between;padding:14px 16px;text-align:left}
-.bundle label span{display:flex;flex-direction:column;gap:2px}
-.bundle label .bp{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:60px;border:0;border-radius:3px;cursor:pointer;font-family:var(--body);font-size:14px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;position:relative;overflow:hidden}
-.btn-gold{background:linear-gradient(100deg,var(--honey-lo),var(--honey) 35%,var(--honey-hi) 50%,var(--honey) 65%,var(--honey-lo));background-size:220% 100%;color:#1a0f05;animation:sheen 5s ease-in-out infinite}
-.btn-gold:hover{filter:brightness(1.08)}
+.opt label{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:68px;padding:14px 16px;border:1.5px solid var(--line-strong);border-radius:6px;cursor:pointer;background:var(--paper);transition:border-color .2s,box-shadow .2s}
+.opt label span{display:flex;flex-direction:column;line-height:1.3}
+.opt label b{font-weight:600;color:var(--ink);font-size:15px}
+.opt label small{font-size:12.5px;color:var(--muted)}
+.opt label .bp{font-family:var(--display);font-size:21px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.opt input:checked + label{border-color:var(--amber);box-shadow:0 0 0 3px rgba(200,139,58,.18)}
+.opt input:focus-visible + label{outline:2px solid var(--amber);outline-offset:2px}
+.opt .flag{position:absolute;top:-10px;right:10px;background:var(--amber);color:var(--paper);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px}
+.fit-line{display:flex;align-items:center;gap:10px;font-size:14px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.fit-line b{color:var(--ink);font-weight:600}
+.fit-line a{margin-left:auto;color:var(--amber);font-weight:500;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;border:0;border-radius:6px;cursor:pointer;font-family:var(--body);font-size:14.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none}
+.btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
+.btn-gold{background:linear-gradient(100deg,#b07428,var(--amber) 35%,var(--amber-hi) 50%,var(--amber) 65%,#b07428);background-size:220% 100%;color:var(--paper);box-shadow:0 10px 24px rgba(200,139,58,.32);animation:sheen 5s ease-in-out infinite}
+.btn-gold:hover{filter:brightness(1.05)}
 @keyframes sheen{0%,100%{background-position:100% 0}50%{background-position:0 0}}
-.btn-ghost{background:none;border:1px solid var(--line-strong);color:var(--cream)}
-.assure{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border-top:1px solid var(--line);padding-top:18px}
-.assure div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;font-size:12.5px;color:var(--muted);line-height:1.35}
-.assure svg{width:22px;height:22px;stroke:var(--honey);fill:none;stroke-width:1.3}
-.ship-note{font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:center}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(156,197,154,.15);flex:none}
+.btn-ghost{background:var(--paper);border:1.5px solid var(--line-strong);color:var(--ink)}
+.ship-note{font-size:14px;display:flex;gap:10px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(79,122,76,.15);flex:none}
+.assure{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.assure div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;font-size:12.5px;color:var(--muted);line-height:1.35;background:var(--paper);border-radius:6px;padding:12px 6px}
+.assure svg{width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:1.5}
 
-/* marquee */
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:18px;background:var(--ground-2)}
-.marquee-track{display:flex;gap:48px;width:max-content;animation:scroll 38s linear infinite;font-family:var(--display);font-style:italic;font-size:22px;color:var(--muted);white-space:nowrap}
-.marquee-track span::after{content:"✦";font-style:normal;color:var(--honey);margin-left:48px;font-size:14px;vertical-align:middle}
+.strip{background:var(--ink);color:var(--sand);overflow:hidden;padding-block:16px}
+.strip-track{display:flex;gap:44px;width:max-content;animation:scroll 40s linear infinite;font-family:var(--display);font-style:italic;font-size:21px;white-space:nowrap}
+.strip-track span::after{content:"✦";font-style:normal;color:var(--amber);margin-left:44px;font-size:13px;vertical-align:middle}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
-section{padding-block:clamp(64px,9vw,128px)}
-.sec-head{display:flex;flex-direction:column;gap:18px;margin-bottom:clamp(36px,5vw,64px)}
+section{padding-block:clamp(64px,9vw,120px)}
+.sec-head{display:flex;flex-direction:column;gap:16px;margin-bottom:clamp(32px,5vw,56px)}
+.center{text-align:center;align-items:center}
+.center .lede{margin-inline:auto}
+.white{background:var(--paper)}
 
-/* macro stone */
-.macro-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
-@media (max-width:860px){.macro-grid{grid-template-columns:1fr}}
-.macro{position:relative;aspect-ratio:1/1;max-width:520px;width:100%;margin:0 auto}
-.macro canvas{width:100%;height:100%;display:block}
-.macro-cap{position:absolute;inset:auto 0 -6px 0;text-align:center;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
-.specs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:32px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
+@media (max-width:860px){.two-col{grid-template-columns:1fr}}
+.macro-wrap{position:relative;max-width:460px;width:100%;margin:0 auto}
+.macro{aspect-ratio:1/1;width:100%;max-width:100%;border-radius:50%;background:url("img/hero-stone.webp") 47% 79%/330% auto no-repeat;box-shadow:0 30px 60px rgba(59,34,10,.22),inset 0 0 0 8px var(--paper)}
+.macro-tag{position:absolute;right:0;bottom:8%;background:var(--paper);color:var(--ink);padding:10px 14px;border-radius:8px;font-size:13px;box-shadow:0 8px 24px rgba(59,34,10,.14);line-height:1.35}
+.macro-tag b{display:block;font-family:var(--display);font-size:18px}
+.specs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin:30px 0 0}
 .specs div{padding:16px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
 .specs div:nth-child(odd){padding-right:16px}
-.specs dt{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
-.specs dd{margin:0;font-family:var(--display);font-size:21px}
-.specs dd small{font-family:var(--body);font-size:13px;color:var(--muted)}
+.specs dt{font-size:11.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.specs dd{margin:0;font-family:var(--display);font-size:21px;color:var(--ink)}
 
-/* meaning */
-.meaning{background:linear-gradient(180deg,var(--ground),var(--ground-2) 40%,var(--ground))}
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-@media (max-width:760px){.pillars{grid-template-columns:1fr}}
-.pillar{background:var(--ground-2);padding:clamp(28px,3.5vw,44px);display:flex;flex-direction:column;gap:14px;min-width:0}
-.pillar .glyph{font-family:var(--display);font-size:54px;line-height:1;color:var(--honey);font-style:italic}
-.pillar h3{font-size:28px}
-.pillar p{color:var(--muted)}
-.fine{margin-top:20px;font-size:13px;color:var(--faint);max-width:80ch}
+.wide-photo{border-radius:8px;overflow:hidden;aspect-ratio:1671/941;width:100%;max-width:100%;margin-bottom:clamp(28px,4vw,48px);box-shadow:0 24px 50px rgba(59,34,10,.14)}
+.wide-photo img{width:100%;height:100%;object-fit:cover}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:900px){.pillars{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.pillars{grid-template-columns:1fr}}
+.pillar{background:var(--linen);border-radius:8px;padding:26px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.pillar h3{font-size:23px}
+.pillar p{font-size:15px}
+.fine{margin-top:22px;font-size:13px;color:var(--muted);max-width:80ch}
 
-/* craft */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.5vw,32px);counter-reset:s}
+.split{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:700px){.split{grid-template-columns:1fr}}
+.split figure{margin:0;position:relative;border-radius:8px;overflow:hidden;aspect-ratio:3/2}
+.split img{width:100%;height:100%;object-fit:cover}
+.split figcaption{position:absolute;left:14px;bottom:14px;background:var(--paper);color:var(--ink);font-size:13px;font-weight:500;padding:7px 12px;border-radius:999px}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.5vw,32px)}
 @media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.steps{grid-template-columns:1fr}}
-.step{border-top:1px solid var(--line-strong);padding-top:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
-.step .n{font-family:var(--display);font-size:15px;color:var(--honey);letter-spacing:.1em}
-.step h3{font-size:24px}
-.step p{color:var(--muted);font-size:15.5px}
+.step{border-top:2px solid var(--amber);padding-top:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.step .n{font-family:var(--display);font-size:15px;color:var(--amber);font-weight:600}
+.step h3{font-size:23px}
+.step p{font-size:15px}
 
-/* compare */
-.compare{overflow-x:auto;border:1px solid var(--line);border-radius:4px}
+.compare{overflow-x:auto;border-radius:8px;background:var(--paper);border:1px solid var(--line)}
 table{width:100%;border-collapse:collapse;min-width:560px}
-th,td{padding:18px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
-th{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
-th.us,td.us{background:rgba(214,162,78,.07);color:var(--cream)}
-th.us{color:var(--honey-hi)}
-td{color:var(--muted)}
-td:first-child{color:var(--cream)}
+th,td{padding:17px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+th{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+th.us,td.us{background:rgba(230,200,155,.28);color:var(--ink);font-weight:500}
+th.us{color:var(--amber)}
+td:first-child{color:var(--ink);font-weight:500}
 tr:last-child td{border-bottom:0}
 
-/* fit tool */
-.fit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:start}
-@media (max-width:820px){.fit{grid-template-columns:1fr}}
-.fit-card{background:var(--ground-2);border:1px solid var(--line);border-radius:4px;padding:clamp(22px,3vw,36px);display:flex;flex-direction:column;gap:18px}
+.size-card{background:var(--linen);border-radius:10px;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:20px}
+.size-viz{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap}
+.ring{width:190px;height:190px;border-radius:50%;border:14px dotted var(--amber);display:grid;place-content:center;text-align:center;font-family:var(--display);color:var(--ink);font-size:26px;line-height:1.1}
+.ring small{display:block;font-family:var(--body);font-size:12px;color:var(--muted);margin-top:4px}
+.bead-size{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.bead-size i{width:46px;height:46px;border-radius:50%;background:url("img/hero-stone.webp") 47% 73%/1400% auto;box-shadow:0 4px 10px rgba(59,34,10,.3)}
+.bead-size b{font-family:var(--display);font-size:22px;color:var(--ink)}
 .field{display:flex;flex-direction:column;gap:8px}
-.field label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
-input[type=text],input[type=tel],input[type=number],textarea,select{width:100%;background:var(--ground);border:1px solid var(--line-strong);border-radius:3px;color:var(--cream);font-family:var(--body);font-size:16px;padding:14px 14px;font-weight:400}
+.field label{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+input[type=text],input[type=tel],input[type=number],textarea{width:100%;background:var(--paper);border:1.5px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:var(--body);font-size:16px;padding:13px 14px}
+input:focus,textarea:focus{border-color:var(--amber);outline:none;box-shadow:0 0 0 3px rgba(200,139,58,.18)}
 textarea{resize:vertical;min-height:84px}
-input::placeholder,textarea::placeholder{color:var(--faint)}
-.range-row{display:flex;align-items:center;gap:14px}
-input[type=range]{flex:1;accent-color:var(--honey)}
-.fit-out{font-family:var(--display);font-size:48px;line-height:1}
-.fit-out small{font-family:var(--body);font-size:15px;color:var(--muted);display:block;margin-top:8px;line-height:1.5}
-.how{display:flex;flex-direction:column;gap:14px;color:var(--muted)}
-.how li{padding-left:4px}
+input::placeholder,textarea::placeholder{color:#b49c80}
+.fit-result{font-size:15px;padding:12px 14px;border-radius:6px;background:var(--paper);color:var(--ink)}
 .how ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px}
 
-/* box */
-.box-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.box-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media (max-width:820px){.box-grid{grid-template-columns:1fr 1fr}}
-.box-item{background:var(--ground);padding:28px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.box-item svg{width:34px;height:34px;stroke:var(--honey);fill:none;stroke-width:1.1}
+.box-item{background:var(--paper);border-radius:8px;padding:26px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .box-item h3{font-size:20px}
-.box-item p{font-size:14.5px;color:var(--muted)}
+.box-item p{font-size:14.5px}
 
-/* faq */
 .faq{max-width:860px}
 details{border-bottom:1px solid var(--line)}
 details:first-of-type{border-top:1px solid var(--line)}
-summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-family:var(--display);font-size:clamp(19px,2.2vw,23px);position:relative}
+summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-family:var(--display);font-size:clamp(19px,2.2vw,22px);color:var(--ink);position:relative}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";position:absolute;right:4px;top:18px;font-family:var(--body);font-weight:300;font-size:26px;color:var(--honey);transition:transform .25s}
+summary::after{content:"+";position:absolute;right:4px;top:17px;font-family:var(--body);font-weight:300;font-size:28px;color:var(--amber);transition:transform .25s}
 details[open] summary::after{transform:rotate(45deg)}
-details p{padding:0 0 24px;color:var(--muted);max-width:68ch}
+details p{padding:0 0 24px;max-width:68ch}
 
-/* final */
-.final{text-align:center;position:relative;overflow:hidden}
-.final::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 50% 60%,rgba(214,162,78,.14),transparent 70%);pointer-events:none}
-.final .wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px}
-.final h2{font-size:clamp(40px,6.5vw,86px)}
+.final{background:var(--ink);color:var(--sand)}
+.final h2{color:var(--paper);font-size:clamp(38px,5.6vw,70px)}
+.final h2 em{color:var(--amber-hi)}
+.final .lede{color:var(--sand)}
+.final-photo{border-radius:10px;overflow:hidden;aspect-ratio:1/1;width:100%;max-width:100%}
+.final-photo img{width:100%;height:100%;object-fit:cover}
+.final-copy{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
 .final .btn{max-width:420px}
-footer{border-top:1px solid var(--line);padding-block:36px 120px;color:var(--faint);font-size:13px}
+footer{background:var(--ink);border-top:1px solid rgba(230,200,155,.18);padding-block:30px 120px;color:rgba(230,200,155,.75);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
-/* sticky mobile bar */
-.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(17,11,6,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line-strong);padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));padding-left:var(--gutter-l);padding-right:var(--gutter-r);display:flex;align-items:center;gap:14px;transform:translateY(calc(100% + 48px));transition:transform .35s ease}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(59,34,10,.08);padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));padding-left:var(--gutter-l);padding-right:var(--gutter-r);display:flex;align-items:center;gap:14px;transform:translateY(calc(100% + 48px));transition:transform .35s ease}
 .sticky.show{transform:none}
 .sticky .sp{display:flex;flex-direction:column;line-height:1.2;flex:none}
-.sticky .sp b{font-family:var(--display);font-size:22px;font-weight:400}
-.sticky .sp s{color:var(--faint);font-size:12.5px}
+.sticky .sp b{font-family:var(--display);font-size:22px;color:var(--ink)}
+.sticky .sp s{color:var(--muted);font-size:12.5px}
 .sticky .btn{min-height:50px;font-size:13px}
-@media (min-width:901px){.sticky{max-width:560px;left:auto;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));border:1px solid var(--line-strong);border-radius:6px;padding:12px 14px}}
+@media (min-width:921px){.sticky{max-width:540px;left:auto;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));border:1px solid var(--line);border-radius:10px;padding:12px 14px}}
 
-/* checkout sheet */
-.sheet-back{position:fixed;inset:0;z-index:70;background:rgba(5,3,1,.72);display:flex;align-items:flex-end;justify-content:center}
+.sheet-back{position:fixed;inset:0;z-index:70;background:rgba(59,34,10,.45);display:flex;align-items:flex-end;justify-content:center}
 @media (min-width:700px){.sheet-back{align-items:center}}
-.sheet{width:100%;max-width:560px;max-height:92vh;overflow-y:auto;background:var(--ground-2);border:1px solid var(--line-strong);border-radius:10px 10px 0 0;padding:26px var(--gutter-r) calc(26px + env(safe-area-inset-bottom,0px)) var(--gutter-l);display:flex;flex-direction:column;gap:18px}
-@media (min-width:700px){.sheet{border-radius:8px;padding:32px}}
+.sheet{width:100%;max-width:560px;max-height:92vh;overflow-y:auto;background:var(--paper);border-radius:14px 14px 0 0;padding:26px var(--gutter-r) calc(26px + env(safe-area-inset-bottom,0px)) var(--gutter-l);display:flex;flex-direction:column;gap:18px}
+@media (min-width:700px){.sheet{border-radius:12px;padding:32px}}
 .sheet-top{display:flex;justify-content:space-between;align-items:start;gap:12px}
 .sheet h3{font-size:30px}
-.x{background:none;border:1px solid var(--line);color:var(--cream);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;flex:none}
-.summary{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:4px;padding:16px;font-size:14.5px}
-.summary .r{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.summary .r.t{color:var(--cream);font-size:17px;border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+.x{background:var(--linen);border:0;color:var(--ink);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:20px;flex:none}
+.summary{display:flex;gap:14px;align-items:center;background:var(--linen);border-radius:8px;padding:12px}
+.summary img{width:76px;height:76px;object-fit:cover;border-radius:6px;flex:none}
+.summary .rows{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0;font-size:14px}
+.summary .r{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.summary .r.t{color:var(--ink);font-weight:600;font-size:16px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:420px){.row2{grid-template-columns:1fr}}
-.err{color:#e9a08a;font-size:13.5px}
+.pay label{min-height:58px}
+.err{color:#a8432a;font-size:13.5px}
 .done{display:flex;flex-direction:column;gap:14px;text-align:center;align-items:center}
-.done .seal{width:64px;height:64px;border-radius:50%;border:1px solid var(--honey);display:grid;place-items:center;color:var(--honey-hi);font-family:var(--display);font-size:28px}
-.order-text{width:100%;text-align:left;font-size:13px;color:var(--muted);background:var(--ground);border:1px solid var(--line);border-radius:3px;padding:12px;white-space:pre-wrap;font-family:var(--body)}
+.done .seal{width:64px;height:64px;border-radius:50%;background:var(--sand);display:grid;place-items:center;color:var(--ink);font-size:28px}
+.order-text{width:100%;text-align:left;font-size:13px;background:var(--linen);border-radius:6px;padding:12px;white-space:pre-wrap}
 
 @media (prefers-reduced-motion:reduce){
-  .btn-gold,.marquee-track{animation:none}
+  .btn-gold,.strip-track{animation:none}
   html{scroll-behavior:auto}
+  .main-photo img{transition:none}
 }
 </style>
 
@@ -248,11 +255,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Tigris home">TIGRIS</a>
+    <a class="brand" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26c-3-3-4-7-4-10s1.5-6 4-9c2.5 3 4 6 4 9s-1 7-4 10zM16 26c-4-1-8-4-10-9 3-.5 6 0 8 2M16 26c4-1 8-4 10-9-3-.5-6 0-8 2"/></svg>Tiger Eye</a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#stone">The Stone</a>
-      <a href="#craft">Craft</a>
-      <a href="#fit">Sizing</a>
+      <a href="#meaning">Meaning</a>
+      <a href="#size">Size Guide</a>
       <a href="#faq">FAQ</a>
     </nav>
     <button class="nav-cta" type="button" data-buy>Shop now</button>
@@ -262,28 +269,29 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <main id="top">
   <div class="hero">
     <div class="wrap hero-grid">
-      <div class="hero-media">
-        <div class="stage" id="stage">
-          <canvas id="bracelet" aria-label="A tiger eye bead bracelet slowly turning, with golden light moving across each bead"></canvas>
-          <span class="stage-tag">Natural stone</span>
-          <span class="stage-note" id="stageNote">Move to catch the light</span>
+      <div class="gallery">
+        <div class="main-photo" id="mainPhoto">
+          <img id="mainImg" src="img/hero-stone.webp" alt="Tiger eye bead bracelet resting on a natural stone slab beside raw tiger eye" width="1400" height="933">
+          <span class="badge">100% natural stone</span>
+          <span class="zoom-hint" id="zoomHint">Hover to zoom</span>
         </div>
-        <div class="thumbs" role="group" aria-label="Bead size preview">
-          <button class="thumb" type="button" data-preview="8" aria-pressed="true">8 mm bead</button>
-          <button class="thumb" type="button" data-preview="10" aria-pressed="false">10 mm bead</button>
-          <button class="thumb" type="button" data-preview="still" aria-pressed="false">Pause</button>
+        <div class="thumbs" role="group" aria-label="Product photos">
+          <button class="thumb" type="button" aria-pressed="true" aria-label="Photo 1: on a stone slab" data-src="img/hero-stone.webp" data-alt="Tiger eye bead bracelet resting on a natural stone slab beside raw tiger eye"><img src="img/hero-stone.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 2: on quartz" data-src="img/quartz-slab.webp" data-alt="Tiger eye bracelet on a pale quartz slab in soft sunlight"><img src="img/quartz-slab.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 3: on wood" data-src="img/wood-slice.webp" data-alt="Tiger eye bracelet on a wooden slice with linen and leaves"><img src="img/wood-slice.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 4: in display box" data-src="img/box-display.webp" data-alt="Tiger eye bracelet displayed in a wooden presentation box"><img src="img/box-display.webp" alt=""></button>
         </div>
       </div>
 
       <form class="buy" id="buyForm" novalidate>
-        <span class="label">The Tigris Bracelet</span>
-        <h1>The stone that <em>holds the light.</em></h1>
-        <p class="lede">Natural tiger eye, cut into beads and polished until the golden band inside each one moves as you move. Hand-strung on a strong stretch cord. Made to be worn every day.</p>
-        <div class="stars-free">
-          <span class="chip">Genuine tiger eye</span>
-          <span class="chip">Hand-strung</span>
-          <span class="chip">Unisex</span>
+        <div class="rating-row">
+          <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Genuine tiger eye</span>
+          <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Hand-strung</span>
+          <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Unisex</span>
         </div>
+        <span class="label">Natural Tiger Eye Bracelet</span>
+        <h1>The stone of <em>confidence</em> and courage.</h1>
+        <p class="lede">Polished 8 mm tiger eye beads with a golden band of light that glides across each stone as you move. Hand-strung on a strong stretch cord, made to be worn every day.</p>
 
         <div class="price-row">
           <span class="price" id="price">₹1,499</span>
@@ -292,40 +300,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <span class="tax">Inclusive of all taxes. Free delivery.</span>
         </div>
 
+        <div class="benefits" aria-label="Traditionally worn for">
+          <div class="benefit"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>Confidence</div>
+          <div class="benefit"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span>Focus</div>
+          <div class="benefit"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19c-3-2-4-5-4-8 0-2 1.5-4.5 4-7 2.5 2.5 4 5 4 7 0 3-1 6-4 8zM12 19c-4 0-7-2-9-5 2 0 4 0 6 1.5M12 19c4 0 7-2 9-5-2 0-4 0-6 1.5"/></svg></span>Calm</div>
+          <div class="benefit"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 17v-4M10 17V9M14 17v-6M18 17V5"/></svg></span>Success</div>
+        </div>
+
         <fieldset>
           <legend>Choose your offer</legend>
-          <div class="opts two bundle">
+          <div class="opts">
             <div class="opt">
               <input type="radio" name="bundle" id="b1" value="1" checked>
               <label for="b1"><span><b>One bracelet</b><small>For you</small></span><span class="bp" id="bp1">₹1,499</span></label>
             </div>
             <div class="opt">
               <input type="radio" name="bundle" id="b2" value="2">
-              <label for="b2"><span><b>Pair</b><small>For two, or a gift</small></span><span class="bp" id="bp2">₹2,599</span></label>
+              <label for="b2"><span><b>Pair</b><small>Gift one</small></span><span class="bp" id="bp2">₹2,599</span></label>
               <span class="flag">Best value</span>
             </div>
           </div>
         </fieldset>
 
-        <fieldset>
-          <legend>Bead size</legend>
-          <div class="opts two">
-            <div class="opt"><input type="radio" name="bead" id="bead8" value="8 mm" checked><label for="bead8"><b>8 mm</b><small>Refined, everyday</small></label></div>
-            <div class="opt"><input type="radio" name="bead" id="bead10" value="10 mm"><label for="bead10"><b>10 mm</b><small>Bold, statement</small></label></div>
-          </div>
-        </fieldset>
+        <div class="fit-line"><span><b>One size, stretch fit.</b> Fits wrists 17–21 cm.</span><a href="#size">Size guide</a></div>
 
-        <fieldset>
-          <legend>Wrist size <button type="button" data-goto="fit">Find my size</button></legend>
-          <div class="opts" id="sizeOpts">
-            <div class="opt"><input type="radio" name="size" id="sS" value="S"><label for="sS"><b>S</b><small>15.5 cm</small></label></div>
-            <div class="opt"><input type="radio" name="size" id="sM" value="M" checked><label for="sM"><b>M</b><small>16.5 cm</small></label></div>
-            <div class="opt"><input type="radio" name="size" id="sL" value="L"><label for="sL"><b>L</b><small>17.5 cm</small></label></div>
-            <div class="opt"><input type="radio" name="size" id="sXL" value="XL"><label for="sXL"><b>XL</b><small>18.5 cm</small></label></div>
-          </div>
-        </fieldset>
-
-        <button class="btn btn-gold" type="submit">Buy now · <span id="btnPrice">₹1,499</span></button>
+        <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>Buy now · <span id="btnPrice">₹1,499</span></button>
         <p class="ship-note"><span class="dot" aria-hidden="true"></span>In stock. Ships within 24 hours in a gift-ready box.</p>
 
         <div class="assure">
@@ -337,52 +336,68 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
   </div>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Polished by hand</span><span>Golden chatoyance</span><span>Strung to last</span><span>Gift-ready packaging</span><span>Worn by men and women</span>
-      <span>Polished by hand</span><span>Golden chatoyance</span><span>Strung to last</span><span>Gift-ready packaging</span><span>Worn by men and women</span>
+  <div class="strip" aria-hidden="true">
+    <div class="strip-track">
+      <span>Natural stone</span><span>Polished by hand</span><span>Golden chatoyance</span><span>Gift-ready packaging</span><span>Worn by men and women</span>
+      <span>Natural stone</span><span>Polished by hand</span><span>Golden chatoyance</span><span>Gift-ready packaging</span><span>Worn by men and women</span>
     </div>
   </div>
 
   <section id="stone">
-    <div class="wrap macro-grid">
-      <div class="macro" id="macroWrap">
-        <canvas id="macro" aria-label="Close-up of a single tiger eye bead, the golden band shifting with your pointer"></canvas>
-        <span class="macro-cap">One bead, up close</span>
+    <div class="wrap two-col">
+      <div class="macro-wrap">
+        <div class="macro" role="img" aria-label="Close-up of a tiger eye bead showing its golden silky band"></div>
+        <div class="macro-tag"><b>Up close</b>Look for the silky band.<br>Glass can’t copy it.</div>
       </div>
       <div>
-        <div class="sec-head">
+        <div class="sec-head" style="margin-bottom:0">
           <span class="label">The Stone</span>
           <h2>Light, <em>folded</em> into quartz.</h2>
-          <p class="lede">Tiger eye forms when quartz slowly replaces fine mineral fibres, keeping their silky structure. Polish it into a sphere and those fibres catch light in a single bright band. Gemmologists call it chatoyancy, from the French for “cat’s eye.” Turn your wrist and the band glides across the bead.</p>
+          <p class="lede">Tiger eye forms when quartz slowly replaces fine mineral fibres and keeps their silky structure. Polish it into a sphere and those fibres catch the light in a single bright band. Gemmologists call it chatoyancy, from the French for “cat’s eye.” Turn your wrist and the band moves with you.</p>
         </div>
         <dl class="specs">
-          <div><dt>Stone</dt><dd>Tiger eye <small>natural quartz</small></dd></div>
-          <div><dt>Hardness</dt><dd>7 <small>Mohs scale</small></dd></div>
-          <div><dt>Bead</dt><dd>8 or 10 mm <small>round, polished</small></dd></div>
-          <div><dt>Cord</dt><dd>Stretch fit <small>high-tension elastic</small></dd></div>
+          <div><dt>Stone</dt><dd>Natural tiger eye</dd></div>
+          <div><dt>Hardness</dt><dd>7 on the Mohs scale</dd></div>
+          <div><dt>Bead</dt><dd>8 mm, round</dd></div>
+          <div><dt>Fit</dt><dd>Stretch, 17–21 cm</dd></div>
         </dl>
       </div>
     </div>
   </section>
 
-  <section class="meaning">
+  <section id="meaning" class="white">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head center">
         <span class="label">What it stands for</span>
         <h2>Worn for centuries as a <em>stone of resolve.</em></h2>
-        <p class="lede">Soldiers, traders and travellers have carried tiger eye as a talisman. Today people wear it as a daily reminder of the person they mean to be.</p>
+        <p class="lede">Soldiers, traders and travellers carried tiger eye as a talisman. Today people wear it as a daily reminder of who they mean to be.</p>
       </div>
+      <div class="wide-photo"><img src="img/box-display.webp" alt="Tiger eye bracelet in a wooden display box, with notes on courage, focus, calm and confidence" loading="lazy" width="1400" height="788"></div>
       <div class="pillars">
-        <div class="pillar"><span class="glyph">i.</span><h3>Focus</h3><p>A steady, warm stone for long days and clear decisions. Many wear it to work as a quiet anchor.</p></div>
-        <div class="pillar"><span class="glyph">ii.</span><h3>Courage</h3><p>Traditionally linked with confidence and nerve, the qualities it was carried for on long journeys.</p></div>
-        <div class="pillar"><span class="glyph">iii.</span><h3>Grounding</h3><p>Earthy browns and gold that sit close to the skin, said to bring calm and balance.</p></div>
+        <div class="pillar"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><h3>Confidence</h3><p>Traditionally linked with self-belief and nerve, the qualities it was carried for on long journeys.</p></div>
+        <div class="pillar"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></span><h3>Focus</h3><p>A steady, warm stone for long days and clear decisions. Many wear it to work as a quiet anchor.</p></div>
+        <div class="pillar"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19c-3-2-4-5-4-8 0-2 1.5-4.5 4-7 2.5 2.5 4 5 4 7 0 3-1 6-4 8zM12 19c-4 0-7-2-9-5 2 0 4 0 6 1.5M12 19c4 0 7-2 9-5-2 0-4 0-6 1.5"/></svg></span><h3>Calm</h3><p>Earthy browns and gold that sit close to the skin, long said to bring balance and grounding.</p></div>
+        <div class="pillar"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 17v-4M10 17V9M14 17v-6M18 17V5"/></svg></span><h3>Success</h3><p>In many traditions it is a stone of prosperity, worn by people starting something new.</p></div>
       </div>
-      <p class="fine">These meanings come from tradition and folklore. Tiger eye is jewellery, and is not a substitute for medical or professional advice.</p>
+      <p class="fine">These meanings come from tradition and folklore. Tiger eye is jewellery and is not a substitute for medical or professional advice.</p>
     </div>
   </section>
 
-  <section id="craft">
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Every bead is different</span>
+        <h2>No two bracelets are <em>alike.</em></h2>
+        <p class="lede">Each bead is cut from natural stone, so the bands of gold and brown fall differently on every one. Yours will be unique.</p>
+      </div>
+      <div class="split">
+        <figure><img src="img/quartz-slab.webp" alt="Tiger eye bracelet on a quartz slab with raw tiger eye stones" loading="lazy" width="1400" height="933"><figcaption>Deep golden bands</figcaption></figure>
+        <figure><img src="img/wood-slice.webp" alt="Tiger eye bracelet on a sunlit wooden slice" loading="lazy" width="1400" height="933"><figcaption>Warm in daylight</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="white">
     <div class="wrap">
       <div class="sec-head">
         <span class="label">How each one is made</span>
@@ -390,7 +405,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div class="steps">
         <div class="step"><span class="n">01</span><h3>Selected</h3><p>Beads are sorted by eye for a strong golden band and even colour. Dull or cracked beads are set aside.</p></div>
-        <div class="step"><span class="n">02</span><h3>Polished</h3><p>Each bead is polished to a glass-smooth finish, which is what makes the shimmer sharp and bright.</p></div>
+        <div class="step"><span class="n">02</span><h3>Polished</h3><p>Each bead is polished to a glass-smooth finish, which keeps the shimmer sharp and bright.</p></div>
         <div class="step"><span class="n">03</span><h3>Strung</h3><p>Strung by hand on a doubled, high-tension elastic cord, then knotted and tucked inside a bead.</p></div>
         <div class="step"><span class="n">04</span><h3>Checked</h3><p>Stretch-tested and inspected before it is boxed, so it arrives ready to wear.</p></div>
       </div>
@@ -406,7 +421,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div class="compare">
         <table>
-          <thead><tr><th></th><th class="us">Tigris</th><th>Typical market bracelet</th></tr></thead>
+          <thead><tr><th></th><th class="us">Tiger Eye</th><th>Typical market bracelet</th></tr></thead>
           <tbody>
             <tr><td>Material</td><td class="us">Natural tiger eye quartz</td><td>Often dyed glass, resin or plastic</td></tr>
             <tr><td>Shimmer</td><td class="us">Deep band that moves with light</td><td>Flat, printed or painted look</td></tr>
@@ -419,77 +434,80 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
   </section>
 
-  <section id="fit" class="meaning">
-    <div class="wrap fit">
+  <section id="size" class="white">
+    <div class="wrap two-col" style="align-items:start">
       <div class="sec-head" style="margin-bottom:0">
-        <span class="label">Find your size</span>
-        <h2>A fit that sits <em>just right.</em></h2>
+        <span class="label">Size guide</span>
+        <h2>One size that <em>fits most.</em></h2>
         <div class="how">
           <ol>
             <li>Wrap a soft measuring tape, or a strip of paper, around your wrist just above the bone.</li>
             <li>Mark where it meets and measure the length in centimetres.</li>
-            <li>Enter it here. We add about 1.5 cm for a comfortable fit.</li>
+            <li>Enter it here to check the fit.</li>
           </ol>
         </div>
       </div>
-      <div class="fit-card">
+      <div class="size-card">
+        <div class="size-viz">
+          <div class="ring">17–21 cm<small>Stretch fit</small></div>
+          <div class="bead-size"><i aria-hidden="true"></i><b>8 mm</b>Bead size</div>
+        </div>
         <div class="field">
           <label for="wrist">Your wrist (cm)</label>
-          <div class="range-row">
-            <input type="range" id="wristRange" min="12" max="20" step="0.5" value="15" aria-label="Wrist size slider">
-            <input type="number" id="wrist" min="12" max="20" step="0.5" value="15" style="max-width:96px">
-          </div>
+          <input type="number" id="wrist" min="10" max="26" step="0.5" placeholder="For example, 17.5" inputmode="decimal">
         </div>
-        <div class="fit-out" id="fitOut">Size M<small>Bracelet length 16.5 cm. Fits wrists around 14.5 to 15.5 cm.</small></div>
-        <button class="btn btn-ghost" type="button" id="useSize">Use this size</button>
+        <p class="fit-result" id="fitResult">Enter your wrist size to check the fit.</p>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head center">
         <span class="label">In the box</span>
         <h2>Arrives ready <em>to give.</em></h2>
       </div>
       <div class="box-grid">
-        <div class="box-item"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="12"/><circle cx="20" cy="8" r="3"/><circle cx="32" cy="20" r="3"/><circle cx="20" cy="32" r="3"/><circle cx="8" cy="20" r="3"/></svg><h3>The bracelet</h3><p>Natural tiger eye, in your chosen bead and wrist size.</p></div>
-        <div class="box-item"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="12" width="28" height="20" rx="1"/><path d="M6 18h28M20 12v20"/></svg><h3>Gift box</h3><p>A rigid box that makes it gift-ready with nothing more to buy.</p></div>
-        <div class="box-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12 10h16l-2 22H14z"/><path d="M14 10c0-4 12-4 12 0"/></svg><h3>Soft pouch</h3><p>For travel, and to keep the polish safe when you take it off.</p></div>
-        <div class="box-item"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="9" y="7" width="22" height="26" rx="1"/><path d="M13 14h14M13 19h14M13 24h9"/></svg><h3>Care card</h3><p>Simple steps to keep the stone bright for years.</p></div>
+        <div class="box-item"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="5" r="1.8"/><circle cx="19" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/><circle cx="5" cy="12" r="1.8"/></svg></span><h3>The bracelet</h3><p>Natural 8 mm tiger eye on a doubled stretch cord.</p></div>
+        <div class="box-item"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="1"/><path d="M3 12h18M12 8v12M8 8c-2-3 2-5 4 0 2-5 6-3 4 0"/></svg></span><h3>Gift box</h3><p>A rigid box, gift-ready with nothing more to buy.</p></div>
+        <div class="box-item"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10l-1.5 13h-7z"/><path d="M8.5 7c0-3 7-3 7 0"/></svg></span><h3>Soft pouch</h3><p>For travel, and to keep the polish safe.</p></div>
+        <div class="box-item"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><h3>Care card</h3><p>Simple steps to keep the stone bright for years.</p></div>
       </div>
     </div>
   </section>
 
-  <section id="faq">
+  <section id="faq" class="white">
     <div class="wrap faq">
       <div class="sec-head">
         <span class="label">Questions</span>
         <h2>Before you <em>order.</em></h2>
       </div>
       <details open><summary>Is this real tiger eye?</summary><p>Yes. Every bead is natural tiger eye quartz. Because it is a natural stone, each bead has its own pattern and no two bracelets look exactly alike.</p></details>
+      <details><summary>Will it fit my wrist?</summary><p>The bracelet stretches to fit wrists from 17 to 21 cm, which covers most adults. If your wrist is outside that range, mention your size when you order and we will string one to fit.</p></details>
       <details><summary>Can I pay cash on delivery?</summary><p>Yes. Cash on delivery is available across India. You can also pay by UPI when you place your order.</p></details>
       <details><summary>How long does delivery take?</summary><p>Orders ship within 24 hours. Most metro cities receive them in 3 to 5 days, and other locations in 5 to 7 days.</p></details>
-      <details><summary>What if it does not fit?</summary><p>Message us within 7 days of delivery and we will exchange the size or arrange a return. The bracelet should be unworn and in its box.</p></details>
-      <details><summary>Can men and women both wear it?</summary><p>Yes. The 8 mm bead suits a finer, everyday look. The 10 mm bead is bolder and is popular with men.</p></details>
+      <details><summary>What if I don’t like it?</summary><p>Message us within 7 days of delivery and we will arrange a return. The bracelet should be unworn and in its box.</p></details>
       <details><summary>How do I care for it?</summary><p>Take it off before bathing, swimming or exercise, and keep it away from perfume. Wipe with a soft dry cloth. Roll it on and off instead of pulling the cord.</p></details>
     </div>
   </section>
 
   <section class="final">
-    <div class="wrap">
-      <span class="label">Your stone is waiting</span>
-      <h2>Wear the light <em>that moves.</em></h2>
-      <p class="lede">Free shipping, cash on delivery and a 7-day return window. Order in under a minute.</p>
-      <button class="btn btn-gold" type="button" data-buy>Order now · <span class="js-price">₹1,499</span></button>
+    <div class="wrap two-col">
+      <div class="final-photo"><img src="img/ad-square.webp" alt="Natural tiger eye bracelet on a stone slab" loading="lazy" width="1254" height="1254"></div>
+      <div class="final-copy">
+        <span class="label">Your stone is waiting</span>
+        <h2>Wear the light <em>that moves.</em></h2>
+        <p class="lede">Free shipping, cash on delivery and a 7-day return window. Order in under a minute.</p>
+        <button class="btn btn-gold" type="button" data-buy>Order now · <span class="js-price">₹1,499</span></button>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Tigris. Natural stone jewellery.</span>
-    <span>Natural stones vary in pattern and colour. Images are illustrations.</span>
+    <span>© 2026 Tiger Eye. Natural stone jewellery.</span>
+    <span>Natural stones vary in pattern and colour.</span>
   </div>
 </footer>
 
@@ -506,7 +524,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
     <form id="orderForm" novalidate>
       <div style="display:flex;flex-direction:column;gap:16px">
-        <div class="summary" id="summary"></div>
+        <div class="summary"><img src="img/hero-stone.webp" alt=""><div class="rows" id="summary"></div></div>
         <div class="field"><label for="oName">Full name</label><input type="text" id="oName" autocomplete="name" placeholder="As on the parcel" required></div>
         <div class="field"><label for="oPhone">Mobile number</label><input type="tel" id="oPhone" autocomplete="tel" inputmode="numeric" placeholder="10-digit number" required></div>
         <div class="field"><label for="oAddr">Delivery address</label><textarea id="oAddr" autocomplete="street-address" placeholder="House, street, area, landmark" required></textarea></div>
@@ -516,9 +534,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         </div>
         <fieldset>
           <legend>Payment</legend>
-          <div class="opts two">
-            <div class="opt"><input type="radio" name="pay" id="payCod" value="Cash on delivery" checked><label for="payCod"><b>Cash on delivery</b><small>Pay when it arrives</small></label></div>
-            <div class="opt"><input type="radio" name="pay" id="payUpi" value="UPI"><label for="payUpi"><b>UPI</b><small>We send a payment link</small></label></div>
+          <div class="opts pay">
+            <div class="opt"><input type="radio" name="pay" id="payCod" value="Cash on delivery" checked><label for="payCod"><span><b>Cash on delivery</b><small>Pay when it arrives</small></span></label></div>
+            <div class="opt"><input type="radio" name="pay" id="payUpi" value="UPI"><label for="payUpi"><span><b>UPI</b><small>We send a payment link</small></span></label></div>
           </div>
         </fieldset>
         <p class="err" id="err" hidden></p>
@@ -528,9 +546,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="done" id="done" hidden>
       <div class="seal">✓</div>
       <h3>One last step</h3>
-      <p class="lede" style="font-size:16px">Send your order to us on WhatsApp to confirm it. We reply with your dispatch details.</p>
+      <p>Send your order to us on WhatsApp to confirm it. We reply with your dispatch details.</p>
       <a class="btn btn-gold" id="waLink" href="#" target="_blank" rel="noopener">Confirm on WhatsApp</a>
-      <p style="font-size:13.5px;color:var(--muted)">WhatsApp did not open? Message <b id="waNum" style="color:var(--cream);user-select:all"></b> with the order below.</p>
+      <p style="font-size:13.5px;color:var(--muted)">WhatsApp did not open? Message <b id="waNum" style="color:var(--ink);user-select:all"></b> with the order below.</p>
       <div class="order-text" id="orderText"></div>
       <button class="btn btn-ghost" type="button" id="copyOrder">Copy order</button>
     </div>
@@ -548,17 +566,28 @@ const STORE = {
 const inr = n => "₹" + n.toLocaleString("en-IN");
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- offer + price ---------- */
+/* gallery */
+const mainPhoto = $("#mainPhoto"), mainImg = $("#mainImg");
+$$(".thumb").forEach(t => t.addEventListener("click", () => {
+  $$(".thumb").forEach(x => x.setAttribute("aria-pressed", String(x === t)));
+  mainImg.src = t.dataset.src; mainImg.alt = t.dataset.alt;
+}));
+if (matchMedia("(hover: hover)").matches){
+  mainPhoto.addEventListener("pointerenter", () => mainPhoto.classList.add("zoom"));
+  mainPhoto.addEventListener("pointerleave", () => mainPhoto.classList.remove("zoom"));
+  mainPhoto.addEventListener("pointermove", e => {
+    const b = mainPhoto.getBoundingClientRect();
+    mainImg.style.transformOrigin = ((e.clientX-b.left)/b.width*100) + "% " + ((e.clientY-b.top)/b.height*100) + "%";
+  });
+} else {
+  $("#zoomHint").hidden = true;
+}
+
+/* price */
 function state(){
   const q = +document.querySelector('input[name=bundle]:checked').value;
-  return {
-    qty:q,
-    bead:document.querySelector('input[name=bead]:checked').value,
-    size:document.querySelector('input[name=size]:checked').value,
-    ...STORE.prices[q]
-  };
+  return {qty:q, ...STORE.prices[q]};
 }
 function renderPrice(){
   const s = state();
@@ -571,42 +600,21 @@ function renderPrice(){
 }
 $("#bp1").textContent = inr(STORE.prices[1].price);
 $("#bp2").textContent = inr(STORE.prices[2].price);
-$$('input[name=bundle], input[name=bead], input[name=size]').forEach(i => i.addEventListener("change", () => {
-  renderPrice();
-  if (i.name === "bead") setBead(parseInt(i.value));
-}));
+$$('input[name=bundle]').forEach(i => i.addEventListener("change", renderPrice));
 renderPrice();
 
-/* ---------- sizing tool ---------- */
-const SIZES = [["S",15.5],["M",16.5],["L",17.5],["XL",18.5]];
-let recommended = "M";
-function fit(v){
-  v = Math.min(20, Math.max(12, +v || 15));
-  const target = v + 1.5;
-  let best = SIZES[0];
-  for (const s of SIZES) if (Math.abs(s[1]-target) < Math.abs(best[1]-target)) best = s;
-  recommended = best[0];
-  const out = $("#fitOut");
-  let note = "Bracelet length " + best[1] + " cm. Fits wrists around " + (best[1]-2) + " to " + (best[1]-1) + " cm.";
-  if (target > 19.5) note = "Bracelet length 18.5 cm is our largest. Message us for a custom length.";
-  if (target < 15) note = "Size S, 15.5 cm, is our smallest and will sit slightly loose.";
-  out.innerHTML = "Size " + best[0] + "<small></small>";
-  out.querySelector("small").textContent = note;
-}
-$("#wristRange").addEventListener("input", e => { $("#wrist").value = e.target.value; fit(e.target.value); });
-$("#wrist").addEventListener("input", e => { $("#wristRange").value = e.target.value; fit(e.target.value); });
-$("#useSize").addEventListener("click", () => {
-  $("#s" + recommended).checked = true; renderPrice();
-  $("#buyForm").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"center"});
-  $("#useSize").textContent = "Size " + recommended + " selected";
-  setTimeout(() => $("#useSize").textContent = "Use this size", 2200);
+/* fit check */
+$("#wrist").addEventListener("input", e => {
+  const v = parseFloat(e.target.value), out = $("#fitResult");
+  if (!v) { out.textContent = "Enter your wrist size to check the fit."; return; }
+  if (v < 12 || v > 26) out.textContent = "That looks unusual. Measure again around the wrist, just above the bone.";
+  else if (v < 17) out.textContent = "It will sit a little loose on you. Your size is added to your order, so we can string one to fit.";
+  else if (v <= 21) out.textContent = "A comfortable fit. The standard bracelet is right for you.";
+  else out.textContent = "Slightly snug for the standard size. Your size is added to your order, so we can string one to fit.";
 });
-fit(15);
-$$("[data-goto]").forEach(b => b.addEventListener("click", () => document.getElementById(b.dataset.goto).scrollIntoView({behavior: reduce ? "auto" : "smooth"})));
 
-/* ---------- sticky bar ---------- */
-const sticky = $("#sticky");
-const buyForm = $("#buyForm");
+/* sticky bar */
+const sticky = $("#sticky"), buyForm = $("#buyForm");
 new IntersectionObserver(([e]) => {
   const show = !e.isIntersecting && e.boundingClientRect.top < 0;
   sticky.classList.toggle("show", show);
@@ -614,28 +622,22 @@ new IntersectionObserver(([e]) => {
   sticky.querySelector("button").tabIndex = show ? 0 : -1;
 }).observe(buyForm.querySelector(".btn-gold"));
 
-/* ---------- checkout ---------- */
+/* checkout */
 const back = $("#sheetBack");
 function openSheet(){
-  const s = state();
-  $("#summary").innerHTML = "";
-  const rows = [
-    [(s.qty === 2 ? "Tigris Bracelet × 2" : "Tigris Bracelet"), inr(s.mrp)],
-    ["Bead " + s.bead + " · Size " + s.size, ""],
-    ["Discount", "− " + inr(s.mrp - s.price)],
-    ["Shipping", "Free"],
-    ["Total", inr(s.price)]
-  ];
-  rows.forEach((r,i) => {
-    const d = document.createElement("div");
-    d.className = "r" + (i === rows.length-1 ? " t" : "");
+  const s = state(), box = $("#summary");
+  box.innerHTML = "";
+  [[s.qty === 2 ? "Tiger Eye Bracelet × 2" : "Tiger Eye Bracelet", inr(s.mrp)],
+   ["Discount", "− " + inr(s.mrp - s.price)],
+   ["Shipping", "Free"],
+   ["Total", inr(s.price)]].forEach((r,i,arr) => {
+    const d = document.createElement("div"); d.className = "r" + (i === arr.length-1 ? " t" : "");
     const a = document.createElement("span"); a.textContent = r[0];
     const b = document.createElement("span"); b.textContent = r[1];
-    d.append(a,b); $("#summary").append(d);
+    d.append(a,b); box.append(d);
   });
   $("#orderForm").hidden = false; $("#done").hidden = true; $("#err").hidden = true;
-  back.hidden = false;
-  document.body.style.overflow = "hidden";
+  back.hidden = false; document.body.style.overflow = "hidden";
   setTimeout(() => $("#oName").focus(), 50);
 }
 function closeSheet(){ back.hidden = true; document.body.style.overflow = ""; }
@@ -655,15 +657,12 @@ $("#orderForm").addEventListener("submit", e => {
   if (v("#oAddr").length < 8) problems.push("your full address");
   if (!v("#oCity")) problems.push("your city");
   if (!/^\d{6}$/.test(v("#oPin"))) problems.push("a 6-digit pincode");
-  if (problems.length){
-    $("#err").textContent = "Please add " + problems.join(", ") + ".";
-    $("#err").hidden = false; return;
-  }
-  const s = state();
+  if (problems.length){ $("#err").textContent = "Please add " + problems.join(", ") + "."; $("#err").hidden = false; return; }
+  const s = state(), wrist = $("#wrist").value;
   const pay = document.querySelector('input[name=pay]:checked').value;
   const text = [
-    "New order: Tigris Tiger Eye Bracelet",
-    "Quantity: " + s.qty + " · Bead: " + s.bead + " · Size: " + s.size,
+    "New order: Tiger Eye Bracelet (8 mm)",
+    "Quantity: " + s.qty + (wrist ? " · Wrist: " + wrist + " cm" : ""),
     "Total: " + inr(s.price) + " (" + pay + ")",
     "",
     "Name: " + v("#oName"),
@@ -681,178 +680,6 @@ $("#copyOrder").addEventListener("click", () => {
   const fallback = () => { const r = document.createRange(); r.selectNodeContents($("#orderText")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = "Selected. Press copy."; };
   try { navigator.clipboard.writeText(t).then(() => btn.textContent = "Copied", fallback); } catch(_) { fallback(); }
 });
-
-/* ---------- tiger eye renderer ---------- */
-function rng(seed){ return () => (seed = (seed * 16807) % 2147483647, (seed - 1) / 2147483646); }
-function makeSprite(seed){
-  const S = 256, c = document.createElement("canvas"); c.width = c.height = S;
-  const g = c.getContext("2d"), r = rng(seed * 7919 + 13);
-  g.translate(S/2, S/2);
-  g.beginPath(); g.arc(0,0,S/2,0,Math.PI*2); g.clip();
-  const base = g.createLinearGradient(0,-S/2,0,S/2);
-  base.addColorStop(0,"#4a2a0e"); base.addColorStop(.5,"#6e4416"); base.addColorStop(1,"#3a200a");
-  g.fillStyle = base; g.fillRect(-S/2,-S/2,S,S);
-  const cols = ["#e5ae4f","#c38a35","#8a5520","#3f220b","#f5cb72","#2a1405","#a8702a"];
-  const bend = (r()-.5) * 30, bendF = .008 + r()*.01;
-  // broad dark and gold bands
-  for (let k = 0; k < 7; k++){
-    const y = -S/2 + r()*S, w = 14 + r()*40;
-    g.strokeStyle = r() < .55 ? "rgba(30,14,3,.55)" : "rgba(214,154,62,.35)";
-    g.lineWidth = w; g.beginPath();
-    for (let x = -S/2-20; x <= S/2+20; x += 8) g.lineTo(x, y + Math.sin(x*bendF)*bend);
-    g.stroke();
-  }
-  // fine silky fibres
-  for (let k = 0; k < 150; k++){
-    const y = -S/2 + r()*S, amp = 1 + r()*3, f = .02 + r()*.05, p = r()*6;
-    g.strokeStyle = cols[(r()*cols.length)|0];
-    g.globalAlpha = .18 + r()*.45;
-    g.lineWidth = .6 + r()*2.6;
-    g.beginPath();
-    for (let x = -S/2-10; x <= S/2+10; x += 6) g.lineTo(x, y + Math.sin(x*bendF)*bend + Math.sin(x*f+p)*amp);
-    g.stroke();
-  }
-  g.globalAlpha = 1;
-  return c;
-}
-const SPRITES = Array.from({length:10}, (_, i) => makeSprite(i+1));
-
-function drawBead(ctx, x, y, r, theta, light, sprite, dim){
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.clip();
-  ctx.save();
-  ctx.rotate(theta);
-  ctx.drawImage(sprite, -r*1.02, -r*1.02, r*2.04, r*2.04);
-  // chatoyant band: a bright stripe across the fibres that slides with the light
-  const off = Math.sin(light) * r * .85;
-  const band = ctx.createLinearGradient(0, off - r*.55, 0, off + r*.55);
-  band.addColorStop(0,"rgba(255,205,110,0)");
-  band.addColorStop(.42,"rgba(255,206,118,.34)");
-  band.addColorStop(.5,"rgba(255,226,160,.72)");
-  band.addColorStop(.58,"rgba(255,206,118,.34)");
-  band.addColorStop(1,"rgba(255,205,110,0)");
-  ctx.globalCompositeOperation = "screen";
-  ctx.fillStyle = band; ctx.fillRect(-r, -r, r*2, r*2);
-  ctx.restore();
-  // spherical shading
-  ctx.globalCompositeOperation = "source-over";
-  const sh = ctx.createRadialGradient(-r*.3, -r*.35, r*.1, 0, 0, r*1.05);
-  sh.addColorStop(0,"rgba(0,0,0,0)"); sh.addColorStop(.62,"rgba(10,5,1,.12)"); sh.addColorStop(1,"rgba(8,4,1,.78)");
-  ctx.fillStyle = sh; ctx.fillRect(-r,-r,r*2,r*2);
-  if (dim > 0){ ctx.fillStyle = "rgba(10,6,2," + dim + ")"; ctx.fillRect(-r,-r,r*2,r*2); }
-  // polish highlight
-  ctx.globalCompositeOperation = "screen";
-  const hl = ctx.createRadialGradient(-r*.36, -r*.44, 0, -r*.36, -r*.44, r*.36);
-  hl.addColorStop(0,"rgba(255,248,232," + (.75 - dim) + ")"); hl.addColorStop(1,"rgba(255,248,232,0)");
-  ctx.fillStyle = hl; ctx.fillRect(-r,-r,r*2,r*2);
-  const rim = ctx.createRadialGradient(r*.35, r*.45, 0, r*.35, r*.45, r*.5);
-  rim.addColorStop(0,"rgba(214,162,78,.18)"); rim.addColorStop(1,"rgba(214,162,78,0)");
-  ctx.fillStyle = rim; ctx.fillRect(-r,-r,r*2,r*2);
-  ctx.restore();
-}
-
-function setupCanvas(canvas){
-  const ctx = canvas.getContext("2d");
-  const size = () => {
-    const b = canvas.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1);
-    canvas.width = Math.max(1, Math.round(b.width*d)); canvas.height = Math.max(1, Math.round(b.height*d));
-  };
-  size(); new ResizeObserver(size).observe(canvas);
-  return ctx;
-}
-
-/* hero bracelet */
-const bc = $("#bracelet"), bctx = setupCanvas(bc);
-let beadMM = 8, beadCount = 20, paused = false, pointer = {x:.5, y:.5, active:false};
-const beads = Array.from({length:22}, (_, i) => ({sprite:SPRITES[i % SPRITES.length], fib:(i*2.39)%(Math.PI*2), ph:i*1.7}));
-function setBead(mm){
-  beadMM = mm; beadCount = mm === 10 ? 17 : 20;
-  $$(".thumb[data-preview]").forEach(t => { if (t.dataset.preview !== "still") t.setAttribute("aria-pressed", String(+t.dataset.preview === mm)); });
-}
-$$(".thumb").forEach(t => t.addEventListener("click", () => {
-  if (t.dataset.preview === "still"){
-    paused = !paused; t.setAttribute("aria-pressed", String(paused)); t.textContent = paused ? "Play" : "Pause"; return;
-  }
-  const mm = +t.dataset.preview; setBead(mm);
-  $(mm === 10 ? "#bead10" : "#bead8").checked = true; renderPrice();
-}));
-const stage = $("#stage");
-stage.addEventListener("pointermove", e => {
-  const b = stage.getBoundingClientRect();
-  pointer = {x:(e.clientX-b.left)/b.width, y:(e.clientY-b.top)/b.height, active:true};
-});
-stage.addEventListener("pointerleave", () => pointer.active = false);
-
-let rot = 0, lightT = 0, last = performance.now(), tiltCur = .42, lightPtr = 0;
-function frame(now){
-  const dt = Math.min(.05, (now - last)/1000); last = now;
-  if (!paused && !reduce) { rot += dt * .16; lightT += dt * .7; }
-  const W = bc.width, H = bc.height, ctx = bctx;
-  ctx.clearRect(0,0,W,H);
-  const cx = W/2, cy = H*.5, Rx = W*.33;
-  const tiltTarget = pointer.active ? .3 + pointer.y*.3 : .42;
-  tiltCur += (tiltTarget - tiltCur) * .06;
-  const lightTarget = pointer.active ? (pointer.x - .5) * 4 : 0;
-  lightPtr += (lightTarget - lightPtr) * .08;
-  const Ry = Rx * tiltCur;
-  // floor shadow
-  const sh = ctx.createRadialGradient(cx, cy + Ry + W*.09, 0, cx, cy + Ry + W*.09, Rx*1.25);
-  sh.addColorStop(0,"rgba(0,0,0,.55)"); sh.addColorStop(1,"rgba(0,0,0,0)");
-  ctx.save(); ctx.scale(1,.28); ctx.fillStyle = sh;
-  ctx.beginPath(); ctx.arc(cx, (cy + Ry + W*.09)/.28, Rx*1.25, 0, Math.PI*2); ctx.fill(); ctx.restore();
-  // glow
-  const gl = ctx.createRadialGradient(cx, cy, Rx*.3, cx, cy, Rx*1.4);
-  gl.addColorStop(0,"rgba(214,162,78,.10)"); gl.addColorStop(1,"rgba(214,162,78,0)");
-  ctx.fillStyle = gl; ctx.fillRect(0,0,W,H);
-  const n = beadCount, baseR = (Math.PI*2*Rx/n)/2 * .97;
-  const list = [];
-  for (let i = 0; i < n; i++){
-    const a = i/n*Math.PI*2 + rot;
-    const depth = Math.sin(a);
-    list.push({i, a, depth, x: cx + Math.cos(a)*Rx, y: cy + depth*Ry});
-  }
-  list.sort((p,q) => p.depth - q.depth);
-  // cord
-  ctx.strokeStyle = "rgba(40,24,12,.9)"; ctx.lineWidth = W*.004;
-  ctx.beginPath(); ctx.ellipse(cx, cy, Rx, Ry, 0, 0, Math.PI*2); ctx.stroke();
-  for (const p of list){
-    const b = beads[p.i], s = .8 + .2*(p.depth+1)/2;
-    const r = baseR * s * (1 + Math.abs(Math.cos(p.a))*.04);
-    const light = lightT + lightPtr + b.ph + p.a*1.2;
-    drawBead(ctx, p.x, p.y, r, b.fib + p.a*.35, light, b.sprite, Math.max(0, -p.depth)*.38);
-  }
-  // macro bead
-  drawMacro(now);
-  requestAnimationFrame(frame);
-}
-
-/* macro bead */
-const mc = $("#macro"), mctx = setupCanvas(mc), macroWrap = $("#macroWrap");
-let mPtr = {x:.5, y:.5, active:false}, mLight = 0, mFib = -.25;
-macroWrap.addEventListener("pointermove", e => {
-  const b = macroWrap.getBoundingClientRect();
-  mPtr = {x:(e.clientX-b.left)/b.width, y:(e.clientY-b.top)/b.height, active:true};
-});
-macroWrap.addEventListener("pointerleave", () => mPtr.active = false);
-function drawMacro(now){
-  const W = mc.width, H = mc.height;
-  const b = mc.getBoundingClientRect();
-  if (b.bottom < -50 || b.top > innerHeight + 50) return;
-  mctx.clearRect(0,0,W,H);
-  const r = Math.min(W,H)*.4;
-  const glow = mctx.createRadialGradient(W/2, H/2, r*.6, W/2, H/2, r*1.5);
-  glow.addColorStop(0,"rgba(214,162,78,.16)"); glow.addColorStop(1,"rgba(214,162,78,0)");
-  mctx.fillStyle = glow; mctx.fillRect(0,0,W,H);
-  // scroll position moves the light when no pointer
-  const scrollT = (innerHeight/2 - (b.top + b.height/2)) / innerHeight;
-  const target = mPtr.active ? (mPtr.y - .5) * 3.2 : scrollT * 2.6 + (reduce ? 0 : Math.sin(now/1600)*.35);
-  mLight += (target - mLight) * .08;
-  const fibT = mPtr.active ? -.25 + (mPtr.x - .5) * .5 : -.25;
-  mFib += (fibT - mFib) * .05;
-  drawBead(mctx, W/2, H/2, r, mFib, mLight, SPRITES[3], 0);
-}
-requestAnimationFrame(frame);
 </script>
 
 </body>
