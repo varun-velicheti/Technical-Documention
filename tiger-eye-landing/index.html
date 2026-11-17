@@ -561,9 +561,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="done" id="done" hidden>
       <div class="seal">✓</div>
       <h3>One last step</h3>
-      <p>Send your order to us on WhatsApp to confirm it. We reply with your dispatch details.</p>
+      <p id="doneMsg">Send your order to us on WhatsApp to confirm it. We reply with your dispatch details.</p>
       <a class="btn btn-gold" id="waLink" href="#" target="_blank" rel="noopener">Confirm on WhatsApp</a>
-      <p style="font-size:13.5px;color:var(--muted)">WhatsApp did not open? Message <b id="waNum" style="color:var(--ink);user-select:all"></b> with the order below.</p>
+      <p id="waHelp" style="font-size:13.5px;color:var(--muted)">WhatsApp did not open? Message <b id="waNum" style="color:var(--ink);user-select:all"></b> with the order below.</p>
       <div class="order-text" id="orderText"></div>
       <button class="btn btn-ghost" type="button" id="copyOrder">Copy order</button>
     </div>
@@ -573,8 +573,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <script>
 /* ===== Store settings: edit these ===== */
 const STORE = {
-  whatsapp: "919999999999",        // your WhatsApp number with country code, digits only
-  displayPhone: "+91 99999 99999",
+  whatsapp: "",                    // your WhatsApp number with country code, digits only, e.g. "9198xxxxxxxx"
+  displayPhone: "",                // the same number written for people, e.g. "+91 98xxx xxxxx"
   prices: {1:{price:1499, mrp:2999}, 2:{price:2599, mrp:5998}}
 };
 
@@ -705,8 +705,13 @@ $("#orderForm").addEventListener("submit", e => {
     "City: " + v("#oCity") + " - " + v("#oPin")
   ].join("\n");
   $("#orderText").textContent = text;
-  $("#waLink").href = "https://wa.me/" + STORE.whatsapp + "?text=" + encodeURIComponent(text);
-  $("#waNum").textContent = STORE.displayPhone;
+  const hasWa = /^\d{10,15}$/.test(STORE.whatsapp);
+  $("#waLink").hidden = !hasWa; $("#waHelp").hidden = !hasWa;
+  $("#doneMsg").textContent = hasWa ? "Send your order to us on WhatsApp to confirm it. We reply with your dispatch details." : "Online ordering opens soon. Copy your order details below to keep them.";
+  if (hasWa){
+    $("#waLink").href = "https://wa.me/" + STORE.whatsapp + "?text=" + encodeURIComponent(text);
+    $("#waNum").textContent = STORE.displayPhone || ("+" + STORE.whatsapp);
+  }
   $("#orderForm").hidden = true; $("#done").hidden = false;
 });
 $("#copyOrder").addEventListener("click", () => {
