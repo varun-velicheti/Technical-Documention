@@ -196,6 +196,17 @@ input::placeholder,textarea::placeholder{color:#b49c80}
 .box-item h3{font-size:20px}
 .box-item p{font-size:14.5px}
 
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:900px){.reviews{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.reviews{grid-template-columns:1fr}}
+.review{background:var(--paper);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0;border:1px solid var(--line)}
+.review img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.review-body{padding:20px;display:flex;flex-direction:column;gap:10px}
+.stars{color:var(--amber);letter-spacing:.12em;font-size:15px}
+.review q{font-family:var(--display);font-size:18px;color:var(--ink);quotes:none;line-height:1.45}
+.who{font-size:13.5px;color:var(--muted)}
+.who b{color:var(--ink);font-weight:600}
+.verified{display:inline-block;margin-left:6px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ok)}
 .faq{max-width:860px}
 details{border-bottom:1px solid var(--line)}
 details:first-of-type{border-top:1px solid var(--line)}
@@ -277,7 +288,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         </div>
         <div class="thumbs" role="group" aria-label="Product photos">
           <button class="thumb" type="button" aria-pressed="true" aria-label="Photo 1: on a stone slab" data-src="img/hero-stone.webp" data-alt="Tiger eye bead bracelet resting on a natural stone slab beside raw tiger eye"><img src="img/hero-stone.webp" alt=""></button>
-          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 2: on quartz" data-src="img/quartz-slab.webp" data-alt="Tiger eye bracelet on a pale quartz slab in soft sunlight"><img src="img/quartz-slab.webp" alt=""></button>
+          <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 2: bead close-up" data-src="img/bead-closeup.webp" data-alt="Close-up of polished tiger eye beads showing the golden band"><img src="img/bead-closeup.webp" alt=""></button>
           <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 3: on wood" data-src="img/wood-slice.webp" data-alt="Tiger eye bracelet on a wooden slice with linen and leaves"><img src="img/wood-slice.webp" alt=""></button>
           <button class="thumb" type="button" aria-pressed="false" aria-label="Photo 4: in display box" data-src="img/box-display.webp" data-alt="Tiger eye bracelet displayed in a wooden presentation box"><img src="img/box-display.webp" alt=""></button>
         </div>
@@ -476,6 +487,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
   </section>
 
+  <section id="reviews" hidden>
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="label">From our customers</span>
+        <h2>Worn and <em>loved.</em></h2>
+      </div>
+      <div class="reviews" id="reviewList"></div>
+    </div>
+  </section>
+
   <section id="faq" class="white">
     <div class="wrap faq">
       <div class="sec-head">
@@ -612,6 +633,25 @@ $("#wrist").addEventListener("input", e => {
   else if (v <= 21) out.textContent = "A comfortable fit. The standard bracelet is right for you.";
   else out.textContent = "Slightly snug for the standard size. Your size is added to your order, so we can string one to fit.";
 });
+
+/* reviews: add real customer reviews here; the section stays hidden while this list is empty.
+   Example entry: {name:"Customer name", city:"City", stars:5, text:"Their words", photo:"img/review-1.webp", verified:true} */
+const REVIEWS = [];
+if (REVIEWS.length){
+  const list = $("#reviewList");
+  REVIEWS.forEach(r => {
+    const card = document.createElement("article"); card.className = "review";
+    if (r.photo){ const im = document.createElement("img"); im.src = r.photo; im.alt = "Photo shared by " + r.name; im.loading = "lazy"; card.append(im); }
+    const body = document.createElement("div"); body.className = "review-body";
+    const st = document.createElement("div"); st.className = "stars"; st.textContent = "\u2605".repeat(r.stars || 5); st.setAttribute("aria-label", (r.stars || 5) + " out of 5 stars");
+    const q = document.createElement("q"); q.textContent = r.text;
+    const who = document.createElement("div"); who.className = "who";
+    const nm = document.createElement("b"); nm.textContent = r.name; who.append(nm, document.createTextNode(r.city ? ", " + r.city : ""));
+    if (r.verified){ const v = document.createElement("span"); v.className = "verified"; v.textContent = "Verified buyer"; who.append(v); }
+    body.append(st, q, who); card.append(body); list.append(card);
+  });
+  $("#reviews").hidden = false;
+}
 
 /* sticky bar */
 const sticky = $("#sticky"), buyForm = $("#buyForm");
