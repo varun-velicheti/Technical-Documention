@@ -373,7 +373,7 @@
       s.landed = false
       s.dir = s.dir || (Math.random() < .5 ? -1 : 1)
       s.spin0 = Math.random() * 360
-      s.spinRate = (s.dir) * (500 + Math.random() * 300)
+      s.spinRate = s.dir * (s.kind === 'wave' ? 900 + Math.random() * 500 : 500 + Math.random() * 300)   // deg per second
       if (s.bounceOut) {
          const side = s.idx === WAVE - 2 ? -1 : 1
          s.target = { x: .5 + side * .2, y: mound(.5 + side * .2), rot: side * 20 }
@@ -411,7 +411,7 @@
 
       for (const s of stream) {
          const T = toDoc(s.target.x, s.target.y)
-         let x, y, rot, sqX = 1, sqY = 1, inBowl = false
+         let x, y, rot, sqX = 1, sqY = 1, inBowl = false, flip = 1
 
          if (s.phase === 'rest') {
             // settled inside the pile
@@ -423,8 +423,11 @@
          if (s.phase === 'fly') {
             const u = (now - s.t0) / s.dur
             if (u < 0) { s.fxEl.style.opacity = 0; continue }
-            const spin = s.spin0 + s.spinRate * u * s.dur / 1000
-            rot = lerp(spin, s.target.rot, smooth(.82, 1, u))
+            const secs = u * s.dur / 1000
+            const spin = s.spin0 + s.spinRate * secs
+            rot = lerp(spin, s.target.rot, smooth(.9, 1, u))         // spins all the way down, settles at the end
+            // tumbles in 3D too (flattens and turns over), until just before it lands
+            flip = lerp(.3 + .7 * Math.abs(Math.cos(secs * 6.5 + s.idx)), 1, smooth(.9, 1, u))
             if (s.kind === 'wave') {
                // tornado -> bounce off the top of its sealed pack -> down into the bowl
                const pack = packs[s.flavor]
@@ -487,12 +490,12 @@
          }
 
          if (inBowl) {
-            placePile(s.pileEl, x - br.left, y - bowlTop + PILE_TOP * H, rot, 1, 1, 1)
+            placePile(s.pileEl, x - br.left, y - bowlTop + PILE_TOP * H, rot, flip, 1, 1)
             s.fxEl.style.opacity = 0
          } else {
             s.fxEl.style.width = cw + 'px'
             s.fxEl.style.height = 'auto'
-            place(s.fxEl, x - shakeX, y - shakeY, rot, sqX, sqY, 1, 6)
+            place(s.fxEl, x - shakeX, y - shakeY, rot, sqX * flip, sqY, 1, 6)
             s.pileEl.style.opacity = 0
          }
       }
@@ -611,9 +614,9 @@
                const a = i * 2.4
                const f = .45 + (i % 4) * .1
                const r = halfW(f) * 1.25 + 26 * k
-               s.dur = 5600 + (i % 3) * 450
+               s.dur = 3900 + (i % 3) * 300
                s.dir = i % 2 ? 1 : -1
-               launch(s, now + 1500 + i * 230, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })   // after the overflow chips
+               launch(s, now + 1300 + i * 150, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })   // after the overflow chips
             })
          }
          // Scrolled back up past the packs: empty the bowl so it can fill again
