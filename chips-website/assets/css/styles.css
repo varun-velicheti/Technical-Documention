@@ -300,8 +300,9 @@ body {
   width: 150%;
   height: 40%;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, hsla(170, 100%, 18%, .55) 0%, hsla(170, 100%, 18%, 0) 70%);
+  background: radial-gradient(ellipse at center, hsla(170, 100%, 12%, .75) 0%, hsla(170, 100%, 12%, 0) 70%);
   pointer-events: none;
+  opacity: .45;
 }
 
 .home__glow::before {
@@ -312,7 +313,7 @@ body {
   width: 95%;
   height: 170%;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, hsla(170, 100%, 20%, .4) 0%, hsla(170, 100%, 20%, 0) 65%);
+  background: radial-gradient(ellipse at center, hsla(175, 60%, 12%, .6) 0%, hsla(175, 60%, 12%, 0) 65%);
 }
 
 .home__tornado {
@@ -321,6 +322,7 @@ body {
   z-index: 5;
   pointer-events: none;
   mix-blend-mode: screen; /* the video's black background disappears into the page */
+  transform-origin: 50% 100%; /* grows upward from the ground (scale is set by tornado.js) */
   animation: tornado-in 1.6s .3s ease-out both;
 }
 
@@ -336,6 +338,28 @@ body {
   height: 100%;
   object-fit: contain;
   background: #000;
+  filter: brightness(calc(1.2 + .45 * var(--power, 0))) contrast(1.35);
+}
+
+/* Dust cloud kicked up at the base */
+.home__tornado::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: 80%;
+  height: 14%;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, hsla(160, 20%, 88%, .45) 0%, hsla(160, 20%, 80%, .18) 45%, hsla(160, 20%, 80%, 0) 70%);
+  filter: blur(10px);
+  opacity: var(--power, 0);
+  animation: tornado-dust .7s ease-in-out infinite alternate;
+}
+
+@keyframes tornado-dust {
+  from { transform: scale(.85, .9); }
+  to { transform: scale(1.1, 1.05); }
 }
 
 /* Flying produce and chips (positioned by tornado.js) */
@@ -359,8 +383,23 @@ body {
   opacity: 0;
 }
 
+.fx__debris {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 40%;
+  background-color: hsl(30, 25%, 22%);
+  will-change: transform, opacity;
+  opacity: 0;
+}
+
+.fx__debris--light {
+  background-color: hsl(45, 35%, 82%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home__tornado { animation: none; }
+  .home__tornado::after { animation: none; }
 }
 
 .home__meat {

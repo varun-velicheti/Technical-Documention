@@ -1,18 +1,27 @@
 /*=============== TORNADO: PRODUCE IN, VACUUM CHIPS OUT ===============*/
 /*
-   1. Whole fruits & vegetables fly in from both sides and spiral into the tornado.
-   2. Vacuum chips swirl around the lower funnel.
-   3. On scroll, every chip flies out and lands in its own flavor pack
-      in the Favorites section (scrolling back up reverses it).
+   1. Calm:   the tornado turns slowly; fruits, vegetables and loose chips float around it.
+   2. Surge:  it suddenly speeds up and grows, the ground shakes,
+              and everything floating is sucked inside.
+   3. Strong: produce keeps flying in from both sides, vacuum chips swirl out of the funnel.
+   4. Scroll: every chip flies out and lands in its own flavor pack in the Favorites
+              section (scrolling back up reverses it).
 */
 (() => {
    const stage = document.getElementById('home-stage')
+   const tornadoEl = document.getElementById('tornado')
    const packsWrap = document.getElementById('packs')
-   if (!stage || !packsWrap) return
+   if (!stage || !tornadoEl || !packsWrap) return
 
+   const video = tornadoEl.querySelector('video')
+   const glow = stage.querySelector('.home__glow')
    const FLAVORS = ['banana', 'okra', 'apple', 'potato', 'mango']
    const IMG = 'assets/img/flavors/'
    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+   /*----- Timeline (ms after the page starts animating) -----*/
+   const CALM_UNTIL = 2300      // slow, small tornado
+   const SURGE_MS = 850         // sudden ramp to full power
 
    /*----- Layer that spans the whole document -----*/
    const fx = document.createElement('div')
@@ -43,6 +52,7 @@
                y: u * u * a.y + 2 * u * t * c.y + t * t * b.y }
    }
    const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+   const easeIn = t => t * t * t
    const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t) }
    const place = (el, x, y, rot, sx, sy, op, z) => {
       el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${rot}deg) scale(${sx}, ${sy})`
@@ -63,9 +73,8 @@
             return tor.w * lerp(w0, w1, (f - f0) / (f1 - f0))
          }
       }
-      return tor.w * .02
+      return tor.w * .01
    }
-   const centerX = () => tor.x
 
    const measure = () => {
       vw = document.documentElement.clientWidth
@@ -74,16 +83,117 @@
       fx.style.height = '0px'
       fx.style.height = document.documentElement.scrollHeight + 'px'
       fx.querySelectorAll('.fx__item').forEach(el => el.style.height = (el.dataset.h * k) + 'px')
+      fx.querySelectorAll('.fx__debris').forEach(el => {
+         const s = el.dataset.s * k
+         el.style.width = el.style.height = s + 'px'
+      })
    }
+
+   // The stage keeps its layout size; the tornado's visual size grows with power
+   let power = 0, visualScale = .8
    const measureTornado = sy => {
       const r = stage.getBoundingClientRect()
       tor.x = r.left + r.width / 2
-      tor.top = r.top + sy
-      tor.w = r.width
-      tor.h = r.height
+      tor.w = r.width * visualScale
+      tor.h = r.height * visualScale
+      tor.top = r.top + sy + r.height - tor.h   // grows upward from the ground
    }
 
-   /*----- Produce (whole + cut) -----*/
+   /*----- Power curve: calm -> sudden surge -> strong -----*/
+   const powerAt = t => {
+      if (t < CALM_UNTIL) return 0
+      const s = (t - CALM_UNTIL) / SURGE_MS
+      if (s < 1) return (Math.pow(2, 9 * s) - 1) / 511          // explodes at the end
+      return 1 + .12 * Math.exp(-(s - 1) * 2.5) * Math.cos((s - 1) * 7)  // small overshoot, settles
+   }
+
+   let lastRate = 0
+   const applyPower = (t, p) => {
+      visualScale = lerp(.8, 1.14, clamp(p, 0, 1.15))
+      tornadoEl.style.scale = visualScale.toFixed(4)
+      tornadoEl.style.setProperty('--power', clamp(p, 0, 1.2).toFixed(3))
+      if (glow) glow.style.opacity = lerp(.45, 1, clamp(p)).toFixed(3)
+
+      // Ground shake right after the surge hits
+      const s = (t - CALM_UNTIL - SURGE_MS * .7) / 1000
+      const shake = s > 0 && s < 1.4 ? 7 * k * Math.exp(-s * 2.6) : 0
+      tornadoEl.style.translate = shake
+         ? `${(Math.random() - .5) * shake}px ${(Math.random() - .5) * shake}px` : '0 0'
+
+      if (video) {
+         const rate = lerp(.35, 1.9, clamp(p, 0, 1.1))
+         if (Math.abs(rate - lastRate) > .03) {
+            try { video.playbackRate = rate } catch (e) {}
+            lastRate = rate
+         }
+      }
+   }
+
+   /*----- Floaters: produce + loose chips drifting before the surge -----*/
+   const HOMES = [
+      // [flavor, kind, x offset (tornado widths), y (fraction of tornado height)]
+      ['banana', 'whole', -1.05, .18], ['apple', 'whole', 1.0, .16],
+      ['mango', 'whole', -.85, .55], ['okra', 'whole', .9, .5],
+      ['potato', 'whole', -1.15, .82], ['banana', 'cut', 1.12, .8],
+      ['apple', 'cut', -.55, .02], ['mango', 'cut', .6, .0],
+      ['okra', 'cut', -.5, .95], ['potato', 'cut', .55, .97],
+      ['banana', 'chip-1', -.7, .34], ['mango', 'chip-1', .74, .34],
+      ['apple', 'chip-1', -.95, .66], ['okra', 'chip-2', .98, .66],
+      ['potato', 'chip-1', -.32, .72], ['apple', 'chip-2', .36, .76]
+   ]
+   const floaters = HOMES.map(([flavor, kind, ox, oy], i) => {
+      const isChip = kind.startsWith('chip')
+      return {
+         el: make(`${IMG}${flavor}-${kind}.webp`, isChip ? 52 : (kind === 'cut' ? 78 : 88)),
+         ox, oy, phase: i * 1.7, rot0: (i * 47) % 360, spin: (i % 2 ? 1 : -1) * (14 + i * 3),
+         dist: Math.hypot(ox, (oy - .3) * 1.5), pulled: null
+      }
+   })
+   const dMin = Math.min(...floaters.map(f => f.dist))
+   const dMax = Math.max(...floaters.map(f => f.dist))
+   floaters.forEach(f => f.delay = (f.dist - dMin) / (dMax - dMin) * 420)
+
+   const updateFloaters = (t, sec) => {
+      const A = { x: tor.x, y: tor.top + tor.h * .24 }
+      const surgeAt = CALM_UNTIL + SURGE_MS * .45
+      const intro = smooth(0, 1, (t - 300) / 1200)
+      for (const f of floaters) {
+         if (f.done) continue
+         // calm drift around a home position, slowly leaning toward the tornado
+         const lean = smooth(0, 1, t / CALM_UNTIL) * .08
+         const hx = clamp(tor.x + f.ox * tor.w * (1 - lean), 34 * k, vw - 34 * k)
+         const hy = tor.top + f.oy * tor.h
+         const calm = {
+            x: hx + Math.sin(sec * .7 + f.phase) * 10 * k,
+            y: hy + Math.sin(sec * 1.1 + f.phase) * 12 * k
+         }
+         const rot = f.rot0 + f.spin * sec
+         const u = clamp((t - surgeAt - f.delay) / 1150)
+         if (u <= 0) {
+            place(f.el, calm.x, calm.y, rot, intro, intro, intro, 6)
+            continue
+         }
+         if (!f.pulled) {
+            const dx = calm.x - A.x
+            f.pulled = { r0: Math.abs(dx), ang0: dx < 0 ? Math.PI : 0, dy0: calm.y - A.y, rot }
+         }
+         if (u >= 1) { f.done = true; f.el.style.opacity = 0; continue }
+         const e = easeIn(u)
+         const P = f.pulled
+         const ang = P.ang0 + e * Math.PI * 2.6
+         const r = P.r0 * Math.pow(1 - e, 1.1)
+         const depth = Math.sin(ang)
+         const s = (1 - .85 * e) * (.88 + .12 * depth)
+         place(f.el,
+            A.x + Math.cos(ang) * r,
+            A.y + P.dy0 * Math.pow(1 - e, 2) + depth * r * .25,
+            P.rot + e * 900, s, s,
+            u > .8 ? (1 - u) / .2 : 1,
+            depth > 0 ? 6 : 4)
+      }
+   }
+
+   /*----- Continuous produce from both sides (after the surge) -----*/
    const produceSrc = FLAVORS.flatMap(f => [`${IMG}${f}-whole.webp`, `${IMG}${f}-cut.webp`])
    const produce = Array.from({ length: 14 }, (_, i) => ({
       el: make(produceSrc[i % produceSrc.length], i % 2 ? 80 : 92),
@@ -97,26 +207,26 @@
       p.el.src = produceSrc[spawnIndex++ % produceSrc.length]
       p.active = true
       p.t0 = now
-      p.dur = 2300 + Math.random() * 700
+      p.dur = 1900 + Math.random() * 500
       p.side = side = -side
       p.y0 = tor.top + tor.h * (.02 + Math.random() * .5)
       p.rot0 = Math.random() * 360
-      p.spin = (Math.random() < .5 ? -1 : 1) * (200 + Math.random() * 260)
+      p.spin = (Math.random() < .5 ? -1 : 1) * (260 + Math.random() * 300)
       p.lift = 40 + Math.random() * 90
    }
 
    const updateProduce = now => {
-      const A = { x: centerX(.22), y: tor.top + tor.h * .22 }
+      const A = { x: tor.x, y: tor.top + tor.h * .22 }
       const R0 = halfW(.22) * 1.02
       for (const p of produce) {
          if (!p.active) continue
          const t = (now - p.t0) / p.dur
          if (t >= 1) { p.active = false; p.el.style.opacity = 0; continue }
          const rot = p.rot0 + p.spin * t
-         const split = .52
+         const split = .5
          if (t < split) {
             const u = t / split
-            const uu = u * u * .45 + u * .55            // speeds up as it gets pulled in
+            const uu = u * u * .55 + u * .45            // speeds up as it gets pulled in
             const P0 = { x: p.side < 0 ? -60 * k : vw + 60 * k, y: p.y0 }
             const E = { x: A.x + p.side * R0, y: A.y }
             const C = { x: (P0.x + E.x) / 2, y: Math.min(P0.y, E.y) - p.lift * k }
@@ -124,7 +234,7 @@
             place(p.el, pos.x, pos.y, rot, 1, 1, clamp(t / .05), 6)
          } else {
             const u = (t - split) / (1 - split)
-            const ang = (p.side < 0 ? Math.PI : 0) + u * Math.PI * 3.2
+            const ang = (p.side < 0 ? Math.PI : 0) + u * Math.PI * 3.4
             const r = R0 * Math.pow(1 - u, 1.25)
             const depth = Math.sin(ang)
             const s = (1 - .82 * u) * (.86 + .14 * depth)
@@ -138,6 +248,26 @@
       }
    }
 
+   /*----- Debris whipping around the funnel -----*/
+   const debris = Array.from({ length: 26 }, (_, i) => {
+      const el = document.createElement('span')
+      el.className = 'fx__debris' + (i % 3 === 0 ? ' fx__debris--light' : '')
+      el.dataset.s = 3 + (i % 4) * 1.6
+      fx.appendChild(el)
+      return { el, f: .08 + ((i * 11) % 26) / 26 * .82, ang: i * 2.1, speed: 3.2 + (i % 5) * .6, out: 1.1 + (i % 4) * .18 }
+   })
+
+   const updateDebris = (dt, p) => {
+      const on = clamp(p)
+      for (const d of debris) {
+         d.ang += d.speed * dt * lerp(.2, 1.35, on)
+         const r = halfW(d.f) * d.out + 10 * k
+         const depth = Math.sin(d.ang)
+         place(d.el, tor.x + Math.cos(d.ang) * r, tor.top + tor.h * d.f + depth * r * .22,
+               0, 1, 1, on * (.55 + .45 * depth) * .9, depth > 0 ? 6 : 4)
+      }
+   }
+
    /*----- Vacuum chips (3 per flavor) -----*/
    const chips = Array.from({ length: 15 }, (_, i) => {
       const flavor = FLAVORS[i % 5]
@@ -146,7 +276,7 @@
          flavor,
          el: make(`${IMG}${flavor}-chip-${row === 1 ? 2 : 1}.webp`, 62 - row * 4),
          f: .4 + ((i * 7) % 15) / 15 * .4,
-         ang0: i * 2.39,
+         ang: i * 2.39,
          speed: 2 + (i % 3) * .35,
          flip: 1.3 + (i % 4) * .4,
          delay: (i % 5) * .055 + row * .05,
@@ -156,34 +286,34 @@
    })
 
    let sp = 0                    // smoothed scroll progress
-   let started = null
 
-   const updateChips = (now, sy) => {
+   const updateChips = (t, sec, dt, sy, p) => {
       // Scroll progress: 0 at the top, 1 when the packs reach the middle of the screen
       const pr = packsWrap.getBoundingClientRect()
       const end = Math.max(200, pr.top + sy + pr.height * .5 - vh * .55)
-      const p = clamp(sy / end)
-      sp += (p - sp) * .14
-      if (Math.abs(p - sp) < .0005) sp = p
+      const target = clamp(sy / end)
+      sp += (target - sp) * .14
+      if (Math.abs(target - sp) < .0005) sp = target
 
-      const sec = now / 1000
-      const tip = { x: centerX(1), y: tor.top + tor.h * .86 }
+      const tip = { x: tor.x, y: tor.top + tor.h * .86 }
       const landed = {}
+      const spinBoost = lerp(.4, 1.25, clamp(p))
+      const bornFrom = CALM_UNTIL + SURGE_MS + 500
 
       for (const [i, c] of chips.entries()) {
          // Orbit around the lower funnel
-         const ang = c.ang0 + c.speed * sec
+         c.ang += c.speed * dt * spinBoost
          const r = halfW(c.f) * 1.25 + 26 * k
-         const depth = Math.sin(ang)
+         const depth = Math.sin(c.ang)
          const O = {
-            x: centerX(c.f) + Math.cos(ang) * r,
+            x: tor.x + Math.cos(c.ang) * r,
             y: tor.top + tor.h * c.f + depth * r * .26 + Math.sin(sec * 2 + i) * 4
          }
-         const flipX = .45 + .55 * Math.abs(Math.cos(sec * c.flip + i))
-         const rot = (ang * 57.3 + i * 40) % 360
+         const flipX = .45 + .55 * Math.abs(Math.cos(sec * c.flip * spinBoost + i))
+         const rot = (c.ang * 57.3 + i * 40) % 360
 
-         // Chips come out of the tornado tip after the produce starts going in
-         const born = smooth(0, 1, (now - started - 1500 - i * 110) / 700)
+         // Chips come out of the tornado tip after the surge
+         const born = smooth(0, 1, (t - bornFrom - i * 90) / 650)
          const base = { x: lerp(tip.x, O.x, born), y: lerp(tip.y, O.y, born) }
 
          // Fly to the pack
@@ -192,8 +322,7 @@
          const pack = packs[c.flavor]
          let x = base.x, y = base.y, s = born * (.9 + .1 * depth), op = born, z = depth > 0 ? 6 : 4
 
-         if (q > 0 && pack) {
-            const r2 = pack.getBoundingClientRect()
+         if (q > 0 && pack && born > 0) {
             const img = pack.querySelector('img').getBoundingClientRect()
             const T = { x: img.left + img.width * (.5 + c.jx * .3), y: img.top + sy + img.height * (.58 + c.jy * .15) }
             const dir = base.x < tor.x ? -1 : 1
@@ -211,41 +340,56 @@
       // Each pack bounces as its chips drop in
       for (const f of FLAVORS) {
          const L = landed[f] || 0
-         const pop = 1 + .09 * Math.sin(Math.PI * L)
-         if (packs[f]) packs[f].style.scale = pop.toFixed(4)
+         if (packs[f]) packs[f].style.scale = (1 + .09 * Math.sin(Math.PI * L)).toFixed(4)
       }
    }
 
-   /*----- Reduced motion: a still composition -----*/
+   /*----- Reduced motion: a still composition at full power -----*/
    if (reduceMotion) {
-      const video = document.querySelector('.home__tornado-video')
       if (video) { video.removeAttribute('autoplay'); video.pause() }
       measure()
+      visualScale = 1
+      tornadoEl.style.setProperty('--power', 1)
       measureTornado(window.scrollY)
       chips.slice(0, 8).forEach((c, i) => {
          const ang = i * .8
-         const r = halfW(c.f) * 1.2 + 14 * k
-         place(c.el, centerX(c.f) + Math.cos(ang) * r, tor.top + tor.h * c.f + Math.sin(ang) * r * .26, i * 45, 1, 1, 1, 6)
+         const r = halfW(c.f) * 1.25 + 26 * k
+         place(c.el, tor.x + Math.cos(ang) * r, tor.top + tor.h * c.f + Math.sin(ang) * r * .26, i * 45, 1, 1, 1, 6)
       })
       return
    }
 
    /*----- Loop -----*/
+   let started = null, last = performance.now()
    const loop = now => {
-      if (started === null) started = now
+      // The sequence starts once the tornado is on screen (on phones it sits below the fold)
+      if (started === null) {
+         const r = stage.getBoundingClientRect()
+         if (r.top < vh * .7 && r.bottom > 0) started = now
+      }
+      const t = started === null ? 0 : now - started
+      const dt = Math.min(50, now - last) / 1000
+      last = now
+      const sec = now / 1000
       const sy = window.scrollY
+
+      power = powerAt(t)
+      applyPower(t, power)
       measureTornado(sy)
 
       const heroVisible = sy < tor.top + tor.h + 100
-      if (heroVisible && now - started > 500 && now - lastSpawn > 330) {
+      if (heroVisible && t > CALM_UNTIL + SURGE_MS + 300 && now - lastSpawn > 300) {
          spawn(now)
          lastSpawn = now
       }
+      updateFloaters(t, sec)
       updateProduce(now)
-      updateChips(now, sy)
+      updateDebris(dt, power)
+      updateChips(t, sec, dt, sy, power)
       requestAnimationFrame(loop)
    }
 
+   if (video) video.playbackRate = .35
    measure()
    window.addEventListener('resize', measure)
    window.addEventListener('load', measure)
