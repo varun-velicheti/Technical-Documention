@@ -58,6 +58,9 @@
    const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t) }
    let shakeX = 0, shakeY = 0       // screen-shake offset applied to everything in the hero
    const place = (el, x, y, rot, sx, sy, op, z) => {
+      const show = op > .01
+      if (el._show !== show) { el.style.visibility = show ? 'visible' : 'hidden'; el._show = show }
+      if (!show) return                         // invisible: skip the work and the repaint
       el.style.transform = `translate3d(${x + shakeX}px, ${y + shakeY}px, 0) translate(-50%, -50%) rotate(${rot}deg) scale(${sx}, ${sy})`
       el.style.opacity = op
       if (z !== undefined && el._z !== z) { el.style.zIndex = z; el._z = z }
@@ -115,12 +118,16 @@
       return 1 + .12 * Math.exp(-(s - 1) * 2.5) * Math.cos((s - 1) * 7)  // small overshoot, settles
    }
 
-   let lastRate = 0
+   let lastRate = 0, lastScale = '', lastPw = '', lastOff = ''
    const applyPower = (t, p) => {
       visualScale = lerp(.8, 1.36, clamp(p, 0, 1.12))
-      tornadoEl.style.scale = visualScale.toFixed(4)
-      tornadoEl.style.setProperty('--power', clamp(p, 0, 1.2).toFixed(3))
-      if (glow) glow.style.opacity = lerp(.45, 1, clamp(p)).toFixed(3)
+      const sc = visualScale.toFixed(3), pw = clamp(p, 0, 1.2).toFixed(2)
+      if (sc !== lastScale) { tornadoEl.style.scale = sc; lastScale = sc }
+      if (pw !== lastPw) {
+         tornadoEl.style.setProperty('--power', pw)
+         if (glow) glow.style.opacity = lerp(.45, 1, clamp(p)).toFixed(2)
+         lastPw = pw
+      }
 
       // Screen shake: a low rumble while the surge builds, then a heavy jolt that settles
       const build = clamp((t - CALM_UNTIL) / SURGE_MS)
@@ -131,9 +138,12 @@
       amp *= k
       shakeX = amp ? amp * (Math.sin(t * .083) + Math.sin(t * .131 + 1.3) * .6) / 1.6 : 0
       shakeY = amp ? amp * (Math.sin(t * .097 + 2.1) + Math.sin(t * .149) * .6) / 1.6 : 0
-      const off = amp ? `${shakeX.toFixed(2)}px ${shakeY.toFixed(2)}px` : ''
-      tornadoEl.style.translate = off
-      for (const el of shakeTargets) el.style.translate = off
+      const off = amp ? `${shakeX.toFixed(1)}px ${shakeY.toFixed(1)}px` : ''
+      if (off !== lastOff) {
+         tornadoEl.style.translate = off
+         for (const el of shakeTargets) el.style.translate = off
+         lastOff = off
+      }
 
       if (video) {
          const rate = lerp(.35, 1.9, clamp(p, 0, 1.1))
@@ -432,7 +442,7 @@
             if (s.kind === 'wave') {
                // tornado -> bounce off the top of its sealed pack -> down into the bowl
                const pack = packs[s.flavor]
-               const pi = pack.querySelector('img').getBoundingClientRect()
+               const pi = packImg[s.flavor]
                const B = { x: pi.left + pi.width * (.5 + (s.idx % 3 - 1) * .18), y: pi.top + sy + pi.height * .03 }
                const split = .32
                if (u < split) {
@@ -510,6 +520,7 @@
       }
    }
 
+   const packImg = {}            // pack image rects, refreshed once per frame
    let sp = 0                    // smoothed scroll progress
    const spice = window.SpiceStation
    let spiceSp = .5               // scroll progress at which chips pass the spice cloud
@@ -525,6 +536,9 @@
       }
       sp += (target - sp) * .06               // chips trail the scroll so they drift down gently
       if (Math.abs(target - sp) < .0005) sp = target
+
+      // read every pack's position once per frame (reading it per chip forced a re-layout each time)
+      for (const f of FLAVORS) if (packs[f]) packImg[f] = packs[f].querySelector('img').getBoundingClientRect()
 
       const tip = { x: tor.x, y: tor.top + tor.h * .86 }
       const landed = {}, flying = {}
@@ -558,7 +572,7 @@
          let x = base.x, y = base.y, s = born * (.9 + .1 * depth), op = born, z = depth > 0 ? 6 : 4
 
          if (q > 0 && pack && born > 0) {
-            const img = pack.querySelector('img').getBoundingClientRect()
+            const img = packImg[c.flavor]
             // Regular chips drop into the open mouth; overflow chips pile up on top of it
             const T = c.overflow
                ? { x: img.left + img.width * (.5 + c.jx), y: img.top + sy - img.height * (.02 - c.jy * .03) }
@@ -609,10 +623,12 @@
          const pack = packs[f]
          if (!pack) continue
          const L = landed[f] || 0
-         pack.style.scale = (1 + .07 * Math.sin(Math.PI * L)).toFixed(4)
+         const psc = (1 + .07 * Math.sin(Math.PI * L)).toFixed(3)
+         if (pack._sc !== psc) { pack.style.scale = psc; pack._sc = psc }
          const state = L > .995 ? 'sealed' : (flying[f] || 0) > .02 ? 'open' : 'closed'
          if (state !== 'sealed') allSealed = false
-         pack.classList.toggle('is-full', L > .55)
+         const full = L > .55
+         if (pack._full !== full) { pack.classList.toggle('is-full', full); pack._full = full }
          if (pack._state !== state) {
             pack.classList.toggle('is-open', state === 'open')
             pack.classList.toggle('is-sealed', state === 'sealed')
@@ -620,7 +636,8 @@
          }
          // Wobble when a chip from the second wave bounces off it
          const hitAge = pack._hitAt ? (now - pack._hitAt) / 1000 : 9
-         pack.style.rotate = hitAge < .6 ? (Math.sin(hitAge * 28) * 6 * Math.exp(-hitAge * 6)).toFixed(2) + 'deg' : '0deg'
+         const prot = hitAge < .6 ? (Math.sin(hitAge * 28) * 6 * Math.exp(-hitAge * 6)).toFixed(1) + 'deg' : '0deg'
+         if (pack._rot !== prot) { pack.style.rotate = prot; pack._rot = prot }
       }
 
       if (bowlApi) {
@@ -695,13 +712,14 @@
       measureTornado(sy)
 
       const heroVisible = sy < tor.top + tor.h + 100
+      if (video && heroVisible === video.paused) heroVisible ? video.play().catch(() => {}) : video.pause()
       if (heroVisible && t > CALM_UNTIL + SURGE_MS + 300 && now - lastSpawn > 300) {
          spawn(now)
          lastSpawn = now
       }
       updateFloaters(t, sec)
       updateProduce(now)
-      updateDebris(dt, power)
+      updateDebris(dt, heroVisible ? power : 0)     // hidden (and skipped) once the hero scrolls away
       updateChips(t, sec, dt, sy, power, now)
       requestAnimationFrame(loop)
    }

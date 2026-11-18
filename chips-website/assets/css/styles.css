@@ -379,7 +379,6 @@ body {
   height: auto;
   max-width: none;
   will-change: transform, opacity;
-  filter: drop-shadow(0 10px 14px hsla(0, 0%, 0%, .3));
   opacity: 0;
 }
 
@@ -388,7 +387,6 @@ body {
   top: 0;
   left: 0;
   border-radius: 45% 30% 50% 35%;
-  box-shadow: 0 4px 8px hsla(0, 0%, 0%, .25);
   background-color: hsl(30, 25%, 22%);
   will-change: transform, opacity;
   opacity: 0;
@@ -461,6 +459,7 @@ body {
 
 .favorite__pack {
   position: relative;
+  will-change: transform;  /* bounce/scale on the GPU so the pack shadow isn't redrawn every frame */
   width: 88px;
   text-align: center;
   transition: transform .4s;
@@ -602,8 +601,41 @@ body {
 }
 
 /*=============== SPICE ===============*/
+/* A warm near-black band (matches the video's own dark backdrop) that fades into the teal */
 .spice {
+  --spice-bg: #15120b;
   position: relative;
+  background-color: var(--spice-bg);
+  margin-block: 4rem 3rem;
+  padding-block: 3.5rem 2rem;
+}
+
+.spice::before,
+.spice::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  pointer-events: none;
+}
+
+.spice::before {
+  bottom: 100%;
+  background: linear-gradient(to bottom, hsla(170, 90%, 34%, 0), var(--spice-bg));
+}
+
+.spice::after {
+  top: 100%;
+  background: linear-gradient(to top, hsla(170, 90%, 34%, 0), var(--spice-bg));
+}
+
+.spice .section__title {
+  text-shadow: none;
+}
+
+.spice__description {
+  color: hsl(35, 30%, 80%);
 }
 
 .spice__container {
@@ -629,11 +661,9 @@ body {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  /* soft edges so the video melts into the page */
-  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-  mask-composite: intersect;
+  /* fade the video's edges into the band so there is no visible box */
+  -webkit-mask-image: radial-gradient(ellipse 60% 64% at 46% 50%, #000 58%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 64% at 46% 50%, #000 58%, transparent 100%);
 }
 
 /* Powder cloud blown from her hand (drawn by spice.js) */
@@ -709,11 +739,14 @@ body {
   left: 0;
   max-width: none;
   will-change: transform;
-  filter: drop-shadow(0 4px 6px hsla(0, 0%, 0%, .3));
 }
 
 .care__pile-chip {
   width: 13%;
+}
+
+.care__pile {
+  will-change: transform;  /* keep the masked pile on its own layer */
 }
 
 .care__deco {
@@ -1262,6 +1295,11 @@ body {
 
   .favorite__leaf-2 {
     left: -2.25rem;
+  }
+
+  /* Spice */
+  .spice {
+    padding-block: 5rem 3rem;
   }
 
   /* Care */

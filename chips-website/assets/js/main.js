@@ -34,7 +34,6 @@ const shadowHeader = () =>{
    this.scrollY >= 50 ? header.classList.add('shadow-header')
                       : header.classList.remove('shadow-header')
 }
-window.addEventListener('scroll', shadowHeader)
 
 /*=============== SHOW SCROLL UP ===============*/
 const scrollUp = () =>{
@@ -43,7 +42,6 @@ const scrollUp = () =>{
    this.scrollY >= 350 ? scrollUp.classList.add('show-scroll')
                        : scrollUp.classList.remove('show-scroll')
 }
-window.addEventListener('scroll', scrollUp)
 
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
 const sections = document.querySelectorAll('section[id]')
@@ -66,7 +64,14 @@ const scrollActive = () =>{
       }
    })
 }
-window.addEventListener('scroll', scrollActive)
+
+/* One passive scroll listener, at most once per frame */
+let scrollQueued = false
+window.addEventListener('scroll', () => {
+   if (scrollQueued) return
+   scrollQueued = true
+   requestAnimationFrame(() => { shadowHeader(); scrollUp(); scrollActive(); scrollQueued = false })
+}, { passive: true })
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
 const sr = ScrollReveal({
