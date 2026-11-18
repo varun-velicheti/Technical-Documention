@@ -316,7 +316,19 @@
       }
    })
 
+   /*----- Two stray chips that miss the packs and land under the bowl -----*/
+   const bowl = document.querySelector('.care__img')
+   const strays = [
+      { flavor: 'banana', src: 'chip-1', restX: .3, restRot: -18 },
+      { flavor: 'apple', src: 'chip-2', restX: .68, restRot: 26 }
+   ].map((d, i) => ({
+      ...d,
+      el: make(`${IMG}${d.flavor}-${d.src}.webp`, 58),
+      f: .52 + i * .14, ang: 1 + i * 3.1, speed: 4.4 + i * .5, flip: 2.3 + i * .6, dir: i ? 1 : -1
+   }))
+
    let sp = 0                    // smoothed scroll progress
+   let sp2 = 0                   // smoothed progress toward the bowl
 
    const updateChips = (t, sec, dt, sy, p) => {
       // Scroll progress: 0 at the top, 1 when the packs reach the middle of the screen
@@ -368,6 +380,45 @@
             flying[c.flavor] = Math.max(flying[c.flavor] || 0, q)
          }
          place(c.el, x, y, rot * (1 - e * .7), s * flipX, s, op, z)
+      }
+
+      // Strays: swirl with the others, then overshoot the packs and land under the bowl
+      if (bowl) {
+         const br = bowl.getBoundingClientRect()
+         const end2 = Math.max(300, br.top + sy + br.height * .6 - vh * .6)
+         const target2 = clamp(sy / end2)
+         sp2 += (target2 - sp2) * .06
+         if (Math.abs(target2 - sp2) < .0005) sp2 = target2
+
+         for (const [i, c] of strays.entries()) {
+            c.ang += c.speed * dt * spinBoost
+            const r = halfW(c.f) * 1.25 + 26 * k
+            const depth = Math.sin(c.ang)
+            const O = { x: tor.x + Math.cos(c.ang) * r, y: tor.top + tor.h * c.f + depth * r * .26 }
+            const flipX = .45 + .55 * Math.abs(Math.cos(sec * c.flip * spinBoost + i))
+            const spin = (c.ang * 57.3 + i * 90) % 360
+            const born = smooth(0, 1, (t - bornFrom - (15 + i) * 90) / 650)
+            const base = { x: lerp(tip.x, O.x, born), y: lerp(tip.y, O.y, born) }
+
+            const q = clamp((sp2 - .1) / .86)
+            const e = 1 - Math.pow(1 - smooth(0, .86, q), 1.5)      // touches down at q = .86
+            let x = base.x, y = base.y, s = born * (.9 + .1 * depth), z = depth > 0 ? 6 : 4, rot = spin, fx = flipX
+
+            if (q > 0 && born > 0) {
+               const T = { x: br.left + br.width * c.restX, y: br.top + sy + br.height * .97 }
+               const P1 = { x: base.x + c.dir * 170 * k, y: base.y - 140 * k }          // pops out of the swirl
+               const P2 = { x: T.x + c.dir * 220 * k, y: pr.top + sy - 60 * k }          // sails past the packs
+               const u = 1 - e
+               x = u * u * u * base.x + 3 * u * u * e * P1.x + 3 * u * e * e * P2.x + e * e * e * T.x
+               y = u * u * u * base.y + 3 * u * u * e * P1.y + 3 * u * e * e * P2.y + e * e * e * T.y
+               y -= Math.sin(Math.PI * smooth(.86, 1, q)) * 26 * k                       // little hop on landing
+               s = lerp(s, 1.15, e)
+               rot = lerp(spin, c.restRot, smooth(.6, 1, e))
+               fx = lerp(flipX, 1, smooth(.6, 1, e))
+               z = 6
+            }
+            place(c.el, x, y, rot, s * fx, s, born, z)
+         }
       }
 
       // Each pack opens while its chips fly in, bounces as they drop, and seals when full
