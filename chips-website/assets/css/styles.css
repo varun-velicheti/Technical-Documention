@@ -403,14 +403,6 @@ body {
   .home__tornado::after { animation: none; }
 }
 
-.home__meat {
-  position: absolute;
-  width: 40px;
-  opacity: .2;
-  top: 9rem;
-  right: 1.5rem;
-}
-
 /*=============== BUTTON ===============*/
 .button,
 .button__ghost {
@@ -607,23 +599,6 @@ body {
 .favorite__leaf-2 {
   bottom: 2rem;
   left: -1.25rem;
-}
-
-.favorite__shrimp,
-.favorite__cheese {
-  position: absolute;
-  width: 40px;
-  opacity: .2;
-}
-
-.favorite__shrimp {
-  top: 8rem;
-  left: 1.5rem;
-}
-
-.favorite__cheese {
-  top: 4.5rem;
-  right: 1.5rem;
 }
 
 /*=============== CARE ===============*/
@@ -860,23 +835,6 @@ body {
   transform: translateY(-.5rem) rotate(-6deg);
 }
 
-.products__hamburger,
-.products__crab {
-  position: absolute;
-  width: 40px;
-  opacity: .2;
-}
-
-.products__hamburger {
-  top: 9rem;
-  left: 1.5rem;
-}
-
-.products__crab {
-  bottom: 12rem;
-  right: 1.5rem;
-}
-
 /*=============== CONTACT ===============*/
 .contact__box {
   position: relative;
@@ -929,14 +887,6 @@ body {
   width: 220px;
   margin-inline: auto;
   filter: var(--shadow-img);
-}
-
-.contact__hamburger {
-  position: absolute;
-  width: 40px;
-  opacity: .2;
-  top: 2rem;
-  left: 1.5rem;
 }
 
 /*=============== FOOTER ===============*/
@@ -1228,13 +1178,6 @@ body {
     height: 570px;
   }
 
-  .home__meat {
-    width: 60px;
-    top: 18rem;
-    left: 37%;
-    right: auto;
-  }
-
   /* Favorites */
   .favorite__container {
     padding-bottom: 5rem;
@@ -1273,21 +1216,6 @@ body {
 
   .favorite__leaf-2 {
     left: -2.25rem;
-  }
-
-  .favorite__shrimp,
-  .favorite__cheese {
-    width: 60px;
-  }
-
-  .favorite__shrimp {
-    top: 14rem;
-    left: 12%;
-  }
-
-  .favorite__cheese {
-    top: 9rem;
-    right: 10%;
   }
 
   /* Care */
@@ -1360,21 +1288,6 @@ body {
     bottom: 1.5rem;
   }
 
-  .products__hamburger,
-  .products__crab {
-    width: 60px;
-  }
-
-  .products__hamburger {
-    top: 16rem;
-    left: 10%;
-  }
-
-  .products__crab {
-    bottom: 16rem;
-    right: 10%;
-  }
-
   /* Contact */
   .contact__box {
     max-width: 1000px;
@@ -1399,12 +1312,6 @@ body {
 
   .contact__img {
     width: 340px;
-  }
-
-  .contact__hamburger {
-    width: 60px;
-    top: 3rem;
-    left: 3rem;
   }
 
   /* Footer */

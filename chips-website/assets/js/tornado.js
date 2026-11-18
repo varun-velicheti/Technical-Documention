@@ -15,7 +15,7 @@
 
    const video = tornadoEl.querySelector('video')
    // (the header's contents shake, not the header itself, so the mobile menu stays hidden)
-   const shakeTargets = ['.nav__logo', '.nav__menu', '.nav__toggle', '.home__data', '.home__meat']
+   const shakeTargets = ['.nav__logo', '.nav__menu', '.nav__toggle', '.home__data']
       .map(sel => document.querySelector(sel)).filter(Boolean)
    const glow = stage.querySelector('.home__glow')
    const FLAVORS = ['banana', 'okra', 'apple', 'potato', 'mango']
