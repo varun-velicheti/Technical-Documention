@@ -629,24 +629,7 @@ body {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  opacity: 0;              /* plays for timing only; the canvas shows her (fallback turns this back on) */
-}
-
-.spice__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   /* soft edges so the video melts into the page */
-  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-  mask-composite: intersect;
-}
-
-/* No WebGL: show the video itself (with the teal baked in) */
-.spice__video.is-fallback {
-  opacity: 1;
   -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
