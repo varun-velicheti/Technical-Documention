@@ -510,10 +510,10 @@ body {
 
 .favorite__mouth {
   position: absolute;
-  left: 5%;
-  right: 5%;
-  top: calc(var(--seal) - 4.5%);
-  height: 10%;
+  left: 1%;
+  right: 1%;
+  top: calc(var(--seal) - 6%);
+  height: 13%;
   border-radius: 50%;
   background:
     radial-gradient(ellipse at 50% 65%, hsl(30, 35%, 6%) 0%, hsl(30, 30%, 10%) 50%, hsla(30, 30%, 10%, 0) 71%);
@@ -524,7 +524,7 @@ body {
 }
 
 .favorite__pack.is-open .favorite__flap {
-  transform: translateY(-13%) rotateX(52deg);
+  transform: translateY(-17%) rotateX(50deg);
 }
 
 .favorite__pack.is-open .favorite__mouth {
@@ -553,7 +553,7 @@ body {
 }
 
 @keyframes pack-seal {
-  0% { transform: translateY(-13%) rotateX(52deg); }
+  0% { transform: translateY(-17%) rotateX(50deg); }
   50% { transform: translateY(1%) rotateX(0deg) scaleY(1.15); }
   70% { transform: scaleY(.88); }
   100% { transform: none; }

@@ -357,7 +357,7 @@
          if (q > 0 && pack && born > 0) {
             const img = pack.querySelector('img').getBoundingClientRect()
             // Drop into the open mouth at the top of the pack
-            const T = { x: img.left + img.width * (.5 + c.jx * .45), y: img.top + sy + img.height * (.1 + c.jy * .04) }
+            const T = { x: img.left + img.width * (.5 + c.jx * .65), y: img.top + sy + img.height * (.09 + c.jy * .05) }
             const dir = base.x < tor.x ? -1 : 1
             const C = { x: base.x + (T.x - base.x) * .3 + dir * 110 * k, y: Math.min(base.y, T.y) - 150 * k }
             const pos = bez(base, C, T, e)
