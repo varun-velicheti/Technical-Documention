@@ -387,7 +387,7 @@
          const br = bowl.getBoundingClientRect()
          const end2 = Math.max(300, br.top + sy + br.height * .6 - vh * .6)
          const target2 = clamp(sy / end2)
-         sp2 += (target2 - sp2) * .06
+         sp2 += (target2 - sp2) * .035           // trails the scroll more: slow descent
          if (Math.abs(target2 - sp2) < .0005) sp2 = target2
 
          for (const [i, c] of strays.entries()) {
@@ -401,7 +401,7 @@
             const base = { x: lerp(tip.x, O.x, born), y: lerp(tip.y, O.y, born) }
 
             const q = clamp((sp2 - .1) / .86)
-            const e = 1 - Math.pow(1 - smooth(0, .86, q), 1.5)      // touches down at q = .86
+            const e = 1 - Math.pow(1 - smooth(0, .86, q), 2.4)      // touches down at q = .86, easing in softly
             let x = base.x, y = base.y, s = born * (.9 + .1 * depth), z = depth > 0 ? 6 : 4, rot = spin, fx = flipX, sqX = 1, sqY = 1
 
             if (q > 0 && born > 0) {
@@ -421,14 +421,14 @@
                if (q < .8) c.landedAt = null
                if (c.landedAt != null) {
                   const tau = Math.max(0, t - c.landedAt) / 1000
-                  if (tau < 1.6) {
-                     const decay = Math.exp(-tau * 2)
-                     const wave = Math.abs(Math.sin(Math.PI * tau * 2.4))
+                  if (tau < 2.4) {
+                     const decay = Math.exp(-tau * 1.5)
+                     const wave = Math.abs(Math.sin(Math.PI * tau * 1.7))
                      y -= 90 * k * decay * wave                   // ~90px first hop, then smaller ones
                      const contact = decay * Math.pow(1 - wave, 6) // squash when it hits the ground
                      sqY = 1 - .3 * contact
                      sqX = 1 + .22 * contact
-                     rot += Math.sin(Math.PI * tau * 2.4) * 18 * decay * c.dir
+                     rot += Math.sin(Math.PI * tau * 1.7) * 18 * decay * c.dir
                   }
                }
             }
