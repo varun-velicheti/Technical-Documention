@@ -307,8 +307,8 @@
          el: make(`${IMG}${flavor}-chip-${row === 1 ? 2 : 1}.webp`, 62 - row * 4),
          f: .4 + ((i * 7) % 15) / 15 * .4,
          ang: i * 2.39,
-         speed: 2 + (i % 3) * .35,
-         flip: 1.3 + (i % 4) * .4,
+         speed: 4 + (i % 3) * .6,
+         flip: 2 + (i % 4) * .5,
          delay: (i % 5) * .055 + row * .05,
          jx: ((i * 37) % 11) / 10 - .5,
          jy: ((i * 53) % 7) / 6 - .5
@@ -327,7 +327,7 @@
 
       const tip = { x: tor.x, y: tor.top + tor.h * .86 }
       const landed = {}
-      const spinBoost = lerp(.4, 1.25, clamp(p))
+      const spinBoost = lerp(.4, 1.4, clamp(p))
       const bornFrom = CALM_UNTIL + SURGE_MS + 500
 
       for (const [i, c] of chips.entries()) {
