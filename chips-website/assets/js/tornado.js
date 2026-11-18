@@ -573,13 +573,6 @@
          if (pack._state !== state) {
             pack.classList.toggle('is-open', state === 'open')
             pack.classList.toggle('is-sealed', state === 'sealed')
-            if (state === 'sealed') {
-               chips.filter(c => c.flavor === f && c.overflow && !c.launched).forEach((c, j) => {
-                  c.launched = true
-                  launch({ kind: 'overflow', flavor: f, fxEl: c.el, pileEl: overflowPile.get(c), dir: j ? 1 : -1, dur: 2900 + j * 250 },
-                         now + 250 + j * 120, { x: c.pos.x, y: c.pos.y })
-               })
-            }
             pack._state = state
          }
          // Wobble when a chip from the second wave bounces off it
@@ -587,10 +580,26 @@
          pack.style.rotate = hitAge < .6 ? (Math.sin(hitAge * 28) * 6 * Math.exp(-hitAge * 6)).toFixed(2) + 'deg' : '0deg'
       }
 
-      // Second wave from the tornado once the packs are sealed and the bowl is on screen
       if (bowlApi) {
          const br = bowlApi.el.getBoundingClientRect()
-         if (allSealed && !waveOn && br.top < vh * .9 && br.bottom > 0) {
+         const bowlVisible = br.top < vh * .9 && br.bottom > 0
+
+         // Overflow chips wait on top of their sealed pack until the bowl is on screen,
+         // then get pushed off one after another
+         if (bowlVisible) {
+            let n = 0
+            for (const f of FLAVORS) {
+               if (packs[f]._state !== 'sealed') continue
+               chips.filter(c => c.flavor === f && c.overflow && !c.launched).forEach((c, j) => {
+                  c.launched = true
+                  launch({ kind: 'overflow', flavor: f, fxEl: c.el, pileEl: overflowPile.get(c), dir: j ? 1 : -1, dur: 2900 + j * 250 },
+                         now + 150 + n++ * 140, { x: c.pos.x, y: c.pos.y })
+               })
+            }
+         }
+
+         // Second wave from the tornado once the packs are sealed and the bowl is on screen
+         if (allSealed && !waveOn && bowlVisible) {
             waveOn = true
             wave.forEach((s, i) => {
                const a = i * 2.4
@@ -598,7 +607,7 @@
                const r = halfW(f) * 1.25 + 26 * k
                s.dur = 3400 + (i % 3) * 300
                s.dir = i % 2 ? 1 : -1
-               launch(s, now + i * 170, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })
+               launch(s, now + 1500 + i * 170, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })   // after the overflow chips
             })
          }
          // Scrolled back up past the packs: empty the bowl so it can fill again
