@@ -338,8 +338,8 @@
             const C = { x: base.x + (T.x - base.x) * .3 + dir * 110 * k, y: Math.min(base.y, T.y) - 150 * k }
             const pos = bez(base, C, T, e)
             x = pos.x; y = pos.y
-            s = lerp(s, .62, e)
-            op = born * (e < .86 ? 1 : (1 - e) / .14)
+            s = lerp(s, 1.4, e)            // chips grow as they come in to land
+            op = born * (e < .9 ? 1 : (1 - e) / .1)
             z = 6
             landed[c.flavor] = (landed[c.flavor] || 0) + smooth(.78, 1, e) / 3
          }
