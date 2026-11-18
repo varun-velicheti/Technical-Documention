@@ -36,24 +36,6 @@ const shadowHeader = () =>{
 }
 window.addEventListener('scroll', shadowHeader)
 
-/*=============== SWIPER FAVORITES ===============*/
-const swiperFavorites = new Swiper('.favorite__swiper', {
-   loop: true,
-   slidesPerView: 'auto',
-   centeredSlides: true,
-   grabCursor: true,
-   speed: 600,
-
-   breakpoints: {
-      768: {
-         spaceBetween: 32,
-      },
-      1150: {
-         spaceBetween: 48,
-      },
-   },
-})
-
 /*=============== SHOW SCROLL UP ===============*/
 const scrollUp = () =>{
    const scrollUp = document.getElementById('scroll-up')
@@ -95,11 +77,8 @@ const sr = ScrollReveal({
    // reset: true, // Animations repeat
 })
 
-sr.reveal(`.home__data, .favorite__container, .footer__container`)
-sr.reveal(`.home__circle, .home__img`, {delay: 600, scale: .5})
-sr.reveal(`.home__chips-1, .home__chips-2, .home__chips-3, .home__chips-4`, {delay: 1200, rotate: {z: -45}, interval: 100})
-sr.reveal(`.home__leaf-1, .home__leaf-2`, {delay: 1400, rotate: {z: 90}})
-sr.reveal(`.home__tomato-1, .home__tomato-2`, {delay: 1600, rotate: {z: 120}})
+sr.reveal(`.home__data, .favorite__description, .footer__container`)
+sr.reveal(`.favorite__pack`, {interval: 120, distance: '30px'})
 sr.reveal(`.care__img, .contact__img`, {origin: 'bottom'})
 sr.reveal(`.care__list, .contact__data`, {origin: 'bottom', delay: 600})
 sr.reveal(`.banner__item, .products__card`, {interval: 100})

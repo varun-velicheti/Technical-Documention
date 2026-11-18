@@ -10,9 +10,6 @@
       <!--=============== REMIXICONS ===============-->
       <link rel="stylesheet" href="assets/fonts/remixicon.css">
 
-      <!--=============== SWIPER CSS ===============-->
-      <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-
       <!--=============== CSS ===============-->
       <link rel="stylesheet" href="assets/css/styles.css">
 
@@ -82,17 +79,13 @@
                   </div>
                </div>
 
-               <div class="home__images">
-                  <div class="home__circle"></div>
-                  <img src="assets/img/home-chips.png" alt="image" class="home__img">
-                  <img src="assets/img/chips-1.png" alt="image" class="home__chips-1">
-                  <img src="assets/img/chips-2.png" alt="image" class="home__chips-2">
-                  <img src="assets/img/chips-3.png" alt="image" class="home__chips-3">
-                  <img src="assets/img/chips-1.png" alt="image" class="home__chips-4">
-                  <img src="assets/img/leaf-1.png" alt="image" class="home__leaf-1">
-                  <img src="assets/img/leaf-2.png" alt="image" class="home__leaf-2">
-                  <img src="assets/img/tomato-1.png" alt="image" class="home__tomato-1">
-                  <img src="assets/img/tomato-2.png" alt="image" class="home__tomato-2">
+               <div class="home__images" id="home-stage">
+                  <div class="home__glow"></div>
+                  <div class="home__tornado" id="tornado">
+                     <img src="assets/img/flavors/tornado.webp" alt="" class="home__tornado-img home__tornado-img--a">
+                     <img src="assets/img/flavors/tornado.webp" alt="" class="home__tornado-img home__tornado-img--b">
+                     <img src="assets/img/flavors/tornado.webp" alt="" class="home__tornado-img home__tornado-img--c">
+                  </div>
                </div>
             </div>
 
@@ -112,44 +105,33 @@
                   snack recipes from around the world for you.
                </p>
 
-               <div class="favorite__swiper swiper">
-                  <div class="swiper-wrapper">
-                     <article class="favorite__card swiper-slide">
-                        <img src="assets/img/favorite-chips-3.png" alt="image" class="favorite__img">
-                        <img src="assets/img/leaf-1.png" alt="image" class="favorite__leaf-1">
-                        <img src="assets/img/leaf-2.png" alt="image" class="favorite__leaf-2">
-                     </article>
+               <div class="favorite__packs" id="packs">
+                  <article class="favorite__pack" data-flavor="banana">
+                     <img src="assets/img/flavors/banana-pack.webp" alt="Banana vacuum fried chips pack" class="favorite__img">
+                     <span class="favorite__name">Banana</span>
+                  </article>
 
-                     <article class="favorite__card swiper-slide">
-                        <img src="assets/img/favorite-chips-1.png" alt="image" class="favorite__img">
-                        <img src="assets/img/leaf-1.png" alt="image" class="favorite__leaf-1">
-                        <img src="assets/img/leaf-2.png" alt="image" class="favorite__leaf-2">
-                     </article>
+                  <article class="favorite__pack" data-flavor="okra">
+                     <img src="assets/img/flavors/okra-pack.webp" alt="Okra vacuum fried chips pack" class="favorite__img">
+                     <span class="favorite__name">Okra</span>
+                  </article>
 
-                     <article class="favorite__card swiper-slide">
-                        <img src="assets/img/favorite-chips-2.png" alt="image" class="favorite__img">
-                        <img src="assets/img/leaf-1.png" alt="image" class="favorite__leaf-1">
-                        <img src="assets/img/leaf-2.png" alt="image" class="favorite__leaf-2">
-                     </article>
+                  <article class="favorite__pack favorite__pack--featured" data-flavor="potato">
+                     <img src="assets/img/flavors/potato-pack.webp" alt="Potato vacuum fried chips pack" class="favorite__img">
+                     <img src="assets/img/leaf-1.png" alt="" class="favorite__leaf-1">
+                     <img src="assets/img/leaf-2.png" alt="" class="favorite__leaf-2">
+                     <span class="favorite__name">Potato</span>
+                  </article>
 
-                     <article class="favorite__card swiper-slide">
-                        <img src="assets/img/favorite-chips-3.png" alt="image" class="favorite__img">
-                        <img src="assets/img/leaf-1.png" alt="image" class="favorite__leaf-1">
-                        <img src="assets/img/leaf-2.png" alt="image" class="favorite__leaf-2">
-                     </article>
+                  <article class="favorite__pack" data-flavor="apple">
+                     <img src="assets/img/flavors/apple-pack.webp" alt="Apple vacuum fried chips pack" class="favorite__img">
+                     <span class="favorite__name">Apple</span>
+                  </article>
 
-                     <article class="favorite__card swiper-slide">
-                        <img src="assets/img/favorite-chips-1.png" alt="image" class="favorite__img">
-                        <img src="assets/img/leaf-1.png" alt="image" class="favorite__leaf-1">
-                        <img src="assets/img/leaf-2.png" alt="image" class="favorite__leaf-2">
-                     </article>
-
-                     <article class="favorite__card swiper-slide">
-                        <img src="assets/img/favorite-chips-2.png" alt="image" class="favorite__img">
-                        <img src="assets/img/leaf-1.png" alt="image" class="favorite__leaf-1">
-                        <img src="assets/img/leaf-2.png" alt="image" class="favorite__leaf-2">
-                     </article>
-                  </div>
+                  <article class="favorite__pack" data-flavor="mango">
+                     <img src="assets/img/flavors/mango-pack.webp" alt="Mango vacuum fried chips pack" class="favorite__img">
+                     <span class="favorite__name">Mango</span>
+                  </article>
                </div>
             </div>
 
@@ -257,70 +239,70 @@
             <div class="products__container container grid">
                <article class="products__card">
                   <div class="products__image">
-                     <img src="assets/img/product-chips-1.png" alt="image" class="products__img">
+                     <img src="assets/img/flavors/banana-pack.webp" alt="Banana chips" class="products__img">
                   </div>
                   <div class="products__data">
-                     <span class="products__subtitle">Crab</span>
+                     <span class="products__subtitle">Banana</span>
                      <h3 class="products__title">Chips</h3>
                      <span class="products__price">$8</span>
                   </div>
-                  <button class="products__button">
+                  <button class="products__button" aria-label="Add Banana chips to bag">
                      <i class="ri-shopping-bag-3-line"></i>
                   </button>
                </article>
 
                <article class="products__card">
                   <div class="products__image">
-                     <img src="assets/img/product-chips-2.png" alt="image" class="products__img">
+                     <img src="assets/img/flavors/okra-pack.webp" alt="Okra chips" class="products__img">
                   </div>
                   <div class="products__data">
-                     <span class="products__subtitle">Cheese</span>
+                     <span class="products__subtitle">Okra</span>
                      <h3 class="products__title">Chips</h3>
                      <span class="products__price">$5</span>
                   </div>
-                  <button class="products__button">
+                  <button class="products__button" aria-label="Add Okra chips to bag">
                      <i class="ri-shopping-bag-3-line"></i>
                   </button>
                </article>
 
                <article class="products__card">
                   <div class="products__image">
-                     <img src="assets/img/product-chips-3.png" alt="image" class="products__img">
+                     <img src="assets/img/flavors/apple-pack.webp" alt="Apple chips" class="products__img">
                   </div>
                   <div class="products__data">
-                     <span class="products__subtitle">BBQ</span>
+                     <span class="products__subtitle">Apple</span>
                      <h3 class="products__title">Chips</h3>
                      <span class="products__price">$6</span>
                   </div>
-                  <button class="products__button">
+                  <button class="products__button" aria-label="Add Apple chips to bag">
                      <i class="ri-shopping-bag-3-line"></i>
                   </button>
                </article>
 
                <article class="products__card">
                   <div class="products__image">
-                     <img src="assets/img/product-chips-4.png" alt="image" class="products__img">
+                     <img src="assets/img/flavors/potato-pack.webp" alt="Potato chips" class="products__img">
                   </div>
                   <div class="products__data">
-                     <span class="products__subtitle">Hot</span>
+                     <span class="products__subtitle">Potato</span>
                      <h3 class="products__title">Chips</h3>
                      <span class="products__price">$5</span>
                   </div>
-                  <button class="products__button">
+                  <button class="products__button" aria-label="Add Potato chips to bag">
                      <i class="ri-shopping-bag-3-line"></i>
                   </button>
                </article>
 
                <article class="products__card">
                   <div class="products__image">
-                     <img src="assets/img/product-chips-5.png" alt="image" class="products__img">
+                     <img src="assets/img/flavors/mango-pack.webp" alt="Mango chips" class="products__img">
                   </div>
                   <div class="products__data">
-                     <span class="products__subtitle">Mix</span>
+                     <span class="products__subtitle">Mango</span>
                      <h3 class="products__title">Chips</h3>
                      <span class="products__price">$10</span>
                   </div>
-                  <button class="products__button">
+                  <button class="products__button" aria-label="Add Mango chips to bag">
                      <i class="ri-shopping-bag-3-line"></i>
                   </button>
                </article>
@@ -405,10 +387,10 @@
       <!--=============== SCROLLREVEAL ===============-->
       <script src="assets/js/scrollreveal.min.js"></script>
 
-      <!--=============== SWIPER JS ===============-->
-      <script src="assets/js/swiper-bundle.min.js"></script>
-
       <!--=============== MAIN JS ===============-->
       <script src="assets/js/main.js"></script>
+
+      <!--=============== TORNADO ANIMATION ===============-->
+      <script src="assets/js/tornado.js"></script>
    </body>
 </html>
