@@ -487,6 +487,83 @@ body {
   filter: var(--shadow-img);
 }
 
+/* Pack opening: the top crimp is a flap that opens while chips drop in, then seals */
+.favorite__bag {
+  --seal: 8%;
+  position: relative;
+  perspective: 500px;
+}
+
+.favorite__bag .favorite__img {
+  clip-path: inset(var(--seal) 0 0 0);
+}
+
+.favorite__flap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  clip-path: inset(0 0 calc(100% - var(--seal)) 0);
+  transform-origin: 50% var(--seal);
+  transition: transform .45s cubic-bezier(.3, 1.5, .5, 1);
+  pointer-events: none;
+}
+
+.favorite__mouth {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: calc(var(--seal) - 4.5%);
+  height: 10%;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 50% 65%, hsl(30, 35%, 6%) 0%, hsl(30, 30%, 10%) 50%, hsla(30, 30%, 10%, 0) 71%);
+  opacity: 0;
+  transform: scaleY(.15);
+  transition: opacity .3s, transform .35s cubic-bezier(.3, 1.5, .5, 1);
+  pointer-events: none;
+}
+
+.favorite__pack.is-open .favorite__flap {
+  transform: translateY(-13%) rotateX(52deg);
+}
+
+.favorite__pack.is-open .favorite__mouth {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* Sealing: the flap snaps shut, the crimp squeezes and a shine runs across it */
+.favorite__pack.is-sealed .favorite__flap {
+  animation: pack-seal .6s ease-out;
+}
+
+.favorite__bag::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 calc(100% - var(--seal) - 1%) 0;
+  background: linear-gradient(100deg, transparent 30%, hsla(0, 0%, 100%, .85) 50%, transparent 70%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 160% 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.favorite__pack.is-sealed .favorite__bag::after {
+  animation: pack-shine .7s .3s ease-in-out;
+}
+
+@keyframes pack-seal {
+  0% { transform: translateY(-13%) rotateX(52deg); }
+  50% { transform: translateY(1%) rotateX(0deg) scaleY(1.15); }
+  70% { transform: scaleY(.88); }
+  100% { transform: none; }
+}
+
+@keyframes pack-shine {
+  0% { opacity: 1; background-position: 160% 0; }
+  100% { opacity: 1; background-position: -60% 0; }
+}
+
 .favorite__name {
   display: block;
   margin-top: 1rem;

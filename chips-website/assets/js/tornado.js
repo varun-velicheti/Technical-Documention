@@ -328,7 +328,7 @@
       if (Math.abs(target - sp) < .0005) sp = target
 
       const tip = { x: tor.x, y: tor.top + tor.h * .86 }
-      const landed = {}
+      const landed = {}, flying = {}
       const spinBoost = lerp(.4, 1.4, clamp(p))
       const bornFrom = CALM_UNTIL + SURGE_MS + 500
 
@@ -356,7 +356,8 @@
 
          if (q > 0 && pack && born > 0) {
             const img = pack.querySelector('img').getBoundingClientRect()
-            const T = { x: img.left + img.width * (.5 + c.jx * .3), y: img.top + sy + img.height * (.58 + c.jy * .15) }
+            // Drop into the open mouth at the top of the pack
+            const T = { x: img.left + img.width * (.5 + c.jx * .45), y: img.top + sy + img.height * (.1 + c.jy * .04) }
             const dir = base.x < tor.x ? -1 : 1
             const C = { x: base.x + (T.x - base.x) * .3 + dir * 110 * k, y: Math.min(base.y, T.y) - 150 * k }
             const pos = bez(base, C, T, e)
@@ -365,14 +366,23 @@
             op = born * (e < .9 ? 1 : (1 - e) / .1)
             z = 6
             landed[c.flavor] = (landed[c.flavor] || 0) + smooth(.78, 1, e) / 3
+            flying[c.flavor] = Math.max(flying[c.flavor] || 0, q)
          }
          place(c.el, x, y, rot * (1 - e * .7), s * flipX, s, op, z)
       }
 
-      // Each pack bounces as its chips drop in
+      // Each pack opens while its chips fly in, bounces as they drop, and seals when full
       for (const f of FLAVORS) {
+         const pack = packs[f]
+         if (!pack) continue
          const L = landed[f] || 0
-         if (packs[f]) packs[f].style.scale = (1 + .09 * Math.sin(Math.PI * L)).toFixed(4)
+         pack.style.scale = (1 + .09 * Math.sin(Math.PI * L)).toFixed(4)
+         const state = L > .995 ? 'sealed' : (flying[f] || 0) > .02 ? 'open' : 'closed'
+         if (pack._state !== state) {
+            pack.classList.toggle('is-open', state === 'open')
+            pack.classList.toggle('is-sealed', state === 'sealed')
+            pack._state = state
+         }
       }
    }
 
