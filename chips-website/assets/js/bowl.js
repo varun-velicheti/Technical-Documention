@@ -77,7 +77,7 @@
    }
 
    const loop = () => {
-      level += (target - level) * .05                    // the pile rises gently after each landing
+      level += (target - level) * .14                    // the pile rises quickly with each landing
       if (Math.abs(target - level) < .0005) level = target
       if (Math.abs(level - drawn) > .0003) render()
       requestAnimationFrame(loop)

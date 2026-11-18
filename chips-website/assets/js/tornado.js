@@ -344,7 +344,7 @@
       return img
    }
    const stream = []                        // active bowl-bound chips
-   let nextSlot = 0, landedCount = 0, waveOn = false, fullShown = false
+   let nextSlot = 0, landedCount = 0, waveOn = false, fullShown = false, fullAt = 0
 
    // Second wave: thrown from the tornado once every pack is sealed
    const wave = Array.from({ length: WAVE }, (_, i) => {
@@ -396,7 +396,7 @@
          c.el.style.width = ''
          c.el.style.height = (c.el.dataset.h * k) + 'px'
       })
-      nextSlot = 0; landedCount = 0; waveOn = false; fullShown = false
+      nextSlot = 0; landedCount = 0; waveOn = false; fullShown = false; fullAt = 0
       if (bowlApi) bowlApi.reset()
    }
 
@@ -501,7 +501,9 @@
       }
 
       bowlApi.setLevel(landedCount / SLOTS)
-      if (!fullShown && landedCount >= SLOTS && bouncers === 2 && bouncedDone === 2) {
+      // Leaf and tomato pop on about 1.3s after the last chip settles in the bowl
+      if (landedCount >= SLOTS && !fullAt) fullAt = now
+      if (!fullShown && fullAt && now - fullAt > 1300) {
          fullShown = true
          bowlApi.setFull(true)
       }
@@ -592,7 +594,7 @@
       if (bowlApi) {
          const br = bowlApi.el.getBoundingClientRect()
          // Start as the bowl approaches (just below the screen) so it is already filling when it scrolls in
-         const bowlVisible = br.top < vh * 1.45 && br.bottom > 0
+         const bowlVisible = br.top < vh * 2 && br.bottom > 0
 
          // Overflow chips wait on top of their sealed pack until the bowl is near,
          // then get pushed off one after another
@@ -602,8 +604,8 @@
                if (packs[f]._state !== 'sealed') continue
                chips.filter(c => c.flavor === f && c.overflow && !c.launched).forEach((c, j) => {
                   c.launched = true
-                  launch({ kind: 'overflow', flavor: f, fxEl: c.el, pileEl: overflowPile.get(c), dir: j ? 1 : -1, dur: 2000 + j * 200 },
-                         now + 100 + n++ * 90, { x: c.pos.x, y: c.pos.y })
+                  launch({ kind: 'overflow', flavor: f, fxEl: c.el, pileEl: overflowPile.get(c), dir: j ? 1 : -1, dur: 1700 + j * 150 },
+                         now + 100 + n++ * 60, { x: c.pos.x, y: c.pos.y })
                })
             }
          }
@@ -615,9 +617,9 @@
                const a = i * 2.4
                const f = .45 + (i % 4) * .1
                const r = halfW(f) * 1.25 + 26 * k
-               s.dur = 2400 + (i % 3) * 200
+               s.dur = 1450 + (i % 3) * 120
                s.dir = i % 2 ? 1 : -1
-               launch(s, now + 500 + i * 90, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })   // after the overflow chips
+               launch(s, now + 100 + i * 40, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })   // after the overflow chips
             })
          }
          // Scrolled back up past the packs: empty the bowl so it can fill again
