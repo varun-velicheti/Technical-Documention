@@ -76,14 +76,15 @@ window.addEventListener('scroll', () => {
 /*=============== SCROLL REVEAL ANIMATION ===============*/
 const sr = ScrollReveal({
    origin: 'top',
-   distance: '60px',
-   duration: 2000,
-   delay: 300,
+   distance: '40px',
+   duration: 900,        // snappy: content is there as you arrive
+   delay: 80,
+   viewFactor: .1,
    // reset: true, // Animations repeat
 })
 
 sr.reveal(`.home__data, .favorite__description, .footer__container`)
-sr.reveal(`.favorite__pack`, {interval: 120, distance: '30px'})
+sr.reveal(`.favorite__pack`, {interval: 60, distance: '24px'})
 sr.reveal(`.care__bowl, .contact__img`, {origin: 'bottom'})
-sr.reveal(`.care__list, .contact__data`, {origin: 'bottom', delay: 600})
-sr.reveal(`.banner__item, .products__card`, {interval: 100})
+sr.reveal(`.care__list, .contact__data`, {origin: 'bottom', delay: 200})
+sr.reveal(`.banner__item, .products__card`, {interval: 50})

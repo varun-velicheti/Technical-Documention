@@ -338,7 +338,9 @@ body {
   height: 100%;
   object-fit: contain;
   background: #000;
-  filter: brightness(calc(1.2 + .45 * var(--power, 0))) contrast(1.35);
+  /* brightness/contrast are baked into the video file (a live filter cost a repaint every frame);
+     before the surge the funnel is simply a little more transparent */
+  opacity: calc(.72 + .28 * min(var(--power, 0), 1));
 }
 
 /* Dust cloud kicked up at the base */
@@ -730,14 +732,7 @@ body {
   height: 170%;
   z-index: 2;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(#000, #000), radial-gradient(ellipse 46.9% 19.2% at 50% var(--rim), #000 98%, transparent 100%);
-  -webkit-mask-size: 100% var(--rim), 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: top, center;
-  mask-image: linear-gradient(#000, #000), radial-gradient(ellipse 46.9% 19.2% at 50% var(--rim), #000 98%, transparent 100%);
-  mask-size: 100% var(--rim), 100% 100%;
-  mask-repeat: no-repeat;
-  mask-position: top, center;
+  /* clip-path (set by bowl.js): everything above the rim, plus the bowl's oval opening */
 }
 
 .care__pile img {
@@ -753,7 +748,7 @@ body {
 }
 
 .care__pile {
-  will-change: transform;  /* keep the masked pile on its own layer */
+  will-change: transform;  /* keep the clipped pile on its own layer */
 }
 
 .care__deco {

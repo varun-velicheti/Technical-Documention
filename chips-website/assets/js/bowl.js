@@ -40,6 +40,11 @@
       W = bowl.offsetWidth
       H = bowl.offsetHeight
       heaps.forEach(h => h.el.style.width = (h.w * W) + 'px')
+      // Chips show above the rim and inside the bowl's oval opening only.
+      // A clip-path is much cheaper than a CSS mask while the chips move.
+      const pw = pile.offsetWidth, ph = pile.offsetHeight
+      const cx = pw / 2, rx = pw * .469, ry = ph * .192, rim = ph * .626
+      pile.style.clipPath = `path('M0 0 H${pw} V${rim} H${cx + rx} A${rx} ${ry} 0 0 1 ${cx - rx} ${rim} H0 Z')`
       drawn = -1
    }
 
