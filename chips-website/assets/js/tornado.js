@@ -402,7 +402,7 @@
 
             const q = clamp((sp2 - .1) / .86)
             const e = 1 - Math.pow(1 - smooth(0, .86, q), 1.5)      // touches down at q = .86
-            let x = base.x, y = base.y, s = born * (.9 + .1 * depth), z = depth > 0 ? 6 : 4, rot = spin, fx = flipX
+            let x = base.x, y = base.y, s = born * (.9 + .1 * depth), z = depth > 0 ? 6 : 4, rot = spin, fx = flipX, sqX = 1, sqY = 1
 
             if (q > 0 && born > 0) {
                const T = { x: br.left + br.width * c.restX, y: br.top + sy + br.height * .99 }
@@ -411,13 +411,28 @@
                const u = 1 - e
                x = u * u * u * base.x + 3 * u * u * e * P1.x + 3 * u * e * e * P2.x + e * e * e * T.x
                y = u * u * u * base.y + 3 * u * u * e * P1.y + 3 * u * e * e * P2.y + e * e * e * T.y
-               y -= Math.sin(Math.PI * smooth(.86, 1, q)) * 30 * k                       // little hop on landing
                s = lerp(s, 1.75, e)                 // grow as they fall; land big under the bowl
                rot = lerp(spin, c.restRot, smooth(.6, 1, e))
                fx = lerp(flipX, 1, smooth(.6, 1, e))
                z = 6
+
+               // Touchdown: a big, springy bounce that plays out in time (not tied to scroll)
+               if (q >= .86 && c.landedAt == null) c.landedAt = t + i * 120
+               if (q < .8) c.landedAt = null
+               if (c.landedAt != null) {
+                  const tau = Math.max(0, t - c.landedAt) / 1000
+                  if (tau < 1.6) {
+                     const decay = Math.exp(-tau * 2)
+                     const wave = Math.abs(Math.sin(Math.PI * tau * 2.4))
+                     y -= 90 * k * decay * wave                   // ~90px first hop, then smaller ones
+                     const contact = decay * Math.pow(1 - wave, 6) // squash when it hits the ground
+                     sqY = 1 - .3 * contact
+                     sqX = 1 + .22 * contact
+                     rot += Math.sin(Math.PI * tau * 2.4) * 18 * decay * c.dir
+                  }
+               }
             }
-            place(c.el, x, y, rot, s * fx, s, born, z)
+            place(c.el, x, y, rot, s * fx * sqX, s * sqY, born, z)
          }
       }
 
