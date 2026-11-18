@@ -161,9 +161,6 @@
          dist: Math.hypot(ox, (oy - .3) * 1.5), pulled: null
       }
    })
-   const dMin = Math.min(...floaters.map(f => f.dist))
-   const dMax = Math.max(...floaters.map(f => f.dist))
-   floaters.forEach(f => f.delay = (f.dist - dMin) / (dMax - dMin) * 420)
 
    // Entry order: alternate left / right so they stream in from both sides
    const lefts = floaters.filter(f => f.ox < 0), rights = floaters.filter(f => f.ox >= 0)
@@ -172,20 +169,22 @@
       if (lefts[i]) order.push(lefts[i])
       if (rights[i]) order.push(rights[i])
    }
+   // Each piece arrives exactly when the surge grabs it, so it never stops moving
+   const PULL_AT = CALM_UNTIL + SURGE_MS * .45
    order.forEach((f, i) => {
       f.enterAt = 150 + i * 115                 // ms after start
-      f.enterDur = 1500 + (i % 3) * 200
+      f.delay = i * 18                          // pull order follows arrival order
+      f.enterDur = PULL_AT + f.delay - f.enterAt
       f.side = f.ox < 0 ? -1 : 1
       f.lift = 50 + (i % 4) * 30
    })
 
    const updateFloaters = (t, sec) => {
       const A = { x: tor.x, y: tor.top + tor.h * .24 }
-      const surgeAt = CALM_UNTIL + SURGE_MS * .45
       for (const f of floaters) {
          if (f.done) continue
          // Target spot near the tornado; the weak tornado keeps drawing it closer
-         const lean = smooth(0, 1, t / CALM_UNTIL) * .22
+         const lean = .15
          const hx = clamp(tor.x + f.ox * tor.w * (1 - lean), 34 * k, vw - 34 * k)
          const hy = tor.top + f.oy * tor.h
          const home = {
@@ -194,12 +193,12 @@
          }
          // Fly in from the screen edge on its side
          const v = clamp((t - f.enterAt) / f.enterDur)
-         const ev = 1 - Math.pow(1 - v, 3)
+         const ev = v * v * .35 + v * .65          // picks up speed as the tornado draws it in
          const P0 = { x: f.side < 0 ? -90 * k : vw + 90 * k, y: hy + (f.oy < .5 ? -40 : 40) * k }
          const C = { x: (P0.x + home.x) / 2, y: Math.min(P0.y, home.y) - f.lift * k }
          const calm = v < 1 ? bez(P0, C, home, ev) : home
          const rot = f.rot0 + f.spin * sec + (1 - ev) * 220 * f.side
-         const u = clamp((t - surgeAt - f.delay) / 950)
+         const u = clamp((t - PULL_AT - f.delay) / 950)
          if (u <= 0) {
             place(f.el, calm.x, calm.y, rot, 1, 1, v > 0 ? 1 : 0, 6)
             continue
