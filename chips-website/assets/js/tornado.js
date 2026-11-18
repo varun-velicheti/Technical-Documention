@@ -14,7 +14,9 @@
    if (!stage || !tornadoEl || !packsWrap) return
 
    const video = tornadoEl.querySelector('video')
-   const shakeTargets = [document.getElementById('header'), document.querySelector('.home__data'), document.querySelector('.home__meat')].filter(Boolean)
+   // (the header's contents shake, not the header itself, so the mobile menu stays hidden)
+   const shakeTargets = ['.nav__logo', '.nav__menu', '.nav__toggle', '.home__data', '.home__meat']
+      .map(sel => document.querySelector(sel)).filter(Boolean)
    const glow = stage.querySelector('.home__glow')
    const FLAVORS = ['banana', 'okra', 'apple', 'potato', 'mango']
    const IMG = 'assets/img/flavors/'
@@ -92,13 +94,14 @@
    }
 
    // The stage keeps its layout size; the tornado's visual size grows with power
+   const GROW_ORIGIN = .42            // matches transform-origin in the CSS
    let power = 0, visualScale = .8
    const measureTornado = sy => {
       const r = stage.getBoundingClientRect()
       tor.x = r.left + r.width / 2
       tor.w = r.width * visualScale
       tor.h = r.height * visualScale
-      tor.top = r.top + sy + r.height - tor.h   // grows upward from the ground
+      tor.top = r.top + sy + r.height * GROW_ORIGIN * (1 - visualScale)
    }
 
    /*----- Power curve: calm -> sudden surge -> strong -----*/
@@ -111,7 +114,7 @@
 
    let lastRate = 0
    const applyPower = (t, p) => {
-      visualScale = lerp(.8, 1.14, clamp(p, 0, 1.15))
+      visualScale = lerp(.8, 1.36, clamp(p, 0, 1.12))
       tornadoEl.style.scale = visualScale.toFixed(4)
       tornadoEl.style.setProperty('--power', clamp(p, 0, 1.2).toFixed(3))
       if (glow) glow.style.opacity = lerp(.45, 1, clamp(p)).toFixed(3)

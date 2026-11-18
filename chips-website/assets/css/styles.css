@@ -322,13 +322,13 @@ body {
   z-index: 5;
   pointer-events: none;
   mix-blend-mode: screen; /* the video's black background disappears into the page */
-  transform-origin: 50% 100%; /* grows upward from the ground (scale is set by tornado.js) */
+  transform-origin: 50% 42%; /* grows up and out (scale is set by tornado.js) */
   animation: tornado-in 1.6s .3s ease-out both;
 }
 
 @keyframes tornado-in {
-  from { opacity: 0; transform: scale(.6, .2); transform-origin: 50% 100%; }
-  to { opacity: 1; transform: none; transform-origin: 50% 100%; }
+  from { opacity: 0; transform: scale(.6, .2); }
+  to { opacity: 1; transform: none; }
 }
 
 .home__tornado-video {
