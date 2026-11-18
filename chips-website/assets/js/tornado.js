@@ -284,16 +284,16 @@
       el.className = 'fx__debris' + (i % 3 === 0 ? ' fx__debris--light' : '')
       el.dataset.s = 8 + (i % 4) * 4             // 8-20px chunks
       fx.appendChild(el)
-      return { el, f: .08 + ((i * 11) % 26) / 26 * .82, ang: i * 2.1, speed: 3.2 + (i % 5) * .6, out: 1.1 + (i % 4) * .18, rot: i * 37, squash: .45 + (i % 3) * .2 }
+      return { el, f: .08 + ((i * 11) % 26) / 26 * .82, ang: i * 2.1, speed: 6.5 + (i % 5) * 1, out: 1.1 + (i % 4) * .18, rot: i * 37, squash: .45 + (i % 3) * .2 }
    })
 
    const updateDebris = (dt, p) => {
       const on = clamp(p)
       for (const d of debris) {
-         d.ang += d.speed * dt * lerp(.2, 1.35, on)
+         d.ang += d.speed * dt * lerp(.2, 1.5, on)
          const r = halfW(d.f) * d.out + 10 * k
          const depth = Math.sin(d.ang)
-         d.rot += dt * 540 * lerp(.3, 1, on)
+         d.rot += dt * 900 * lerp(.3, 1, on)
          const size = .8 + .2 * depth                 // a little smaller behind the funnel
          place(d.el, tor.x + Math.cos(d.ang) * r, tor.top + tor.h * d.f + depth * r * .22,
                d.rot, size, size * d.squash, on * (.6 + .4 * depth), depth > 0 ? 6 : 4)
