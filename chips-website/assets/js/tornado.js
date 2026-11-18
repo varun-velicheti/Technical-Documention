@@ -14,6 +14,7 @@
    if (!stage || !tornadoEl || !packsWrap) return
 
    const video = tornadoEl.querySelector('video')
+   const shakeTargets = [document.getElementById('header'), document.querySelector('.home__data'), document.querySelector('.home__meat')].filter(Boolean)
    const glow = stage.querySelector('.home__glow')
    const FLAVORS = ['banana', 'okra', 'apple', 'potato', 'mango']
    const IMG = 'assets/img/flavors/'
@@ -54,8 +55,9 @@
    const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
    const easeIn = t => t * t * t
    const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t) }
+   let shakeX = 0, shakeY = 0       // screen-shake offset applied to everything in the hero
    const place = (el, x, y, rot, sx, sy, op, z) => {
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${rot}deg) scale(${sx}, ${sy})`
+      el.style.transform = `translate3d(${x + shakeX}px, ${y + shakeY}px, 0) translate(-50%, -50%) rotate(${rot}deg) scale(${sx}, ${sy})`
       el.style.opacity = op
       if (z !== undefined && el._z !== z) { el.style.zIndex = z; el._z = z }
    }
@@ -114,11 +116,18 @@
       tornadoEl.style.setProperty('--power', clamp(p, 0, 1.2).toFixed(3))
       if (glow) glow.style.opacity = lerp(.45, 1, clamp(p)).toFixed(3)
 
-      // Ground shake right after the surge hits
-      const s = (t - CALM_UNTIL - SURGE_MS * .7) / 1000
-      const shake = s > 0 && s < 1.4 ? 7 * k * Math.exp(-s * 2.6) : 0
-      tornadoEl.style.translate = shake
-         ? `${(Math.random() - .5) * shake}px ${(Math.random() - .5) * shake}px` : '0 0'
+      // Screen shake: a low rumble while the surge builds, then a heavy jolt that settles
+      const build = clamp((t - CALM_UNTIL) / SURGE_MS)
+      const s = (t - CALM_UNTIL - SURGE_MS) / 1000
+      let amp = 0
+      if (t > CALM_UNTIL && s < 0) amp = 5 * build * build
+      else if (s >= 0 && s < 2) amp = 20 * Math.exp(-s * 1.9)
+      amp *= k
+      shakeX = amp ? amp * (Math.sin(t * .083) + Math.sin(t * .131 + 1.3) * .6) / 1.6 : 0
+      shakeY = amp ? amp * (Math.sin(t * .097 + 2.1) + Math.sin(t * .149) * .6) / 1.6 : 0
+      const off = amp ? `${shakeX.toFixed(2)}px ${shakeY.toFixed(2)}px` : ''
+      tornadoEl.style.translate = off
+      for (const el of shakeTargets) el.style.translate = off
 
       if (video) {
          const rate = lerp(.35, 1.9, clamp(p, 0, 1.1))
