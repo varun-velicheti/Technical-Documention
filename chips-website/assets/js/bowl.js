@@ -27,7 +27,7 @@
       ['okra', .64, .62, .4, .7, .28]
    ].map(([flavor, x, y, w, ar, start]) => {
       const img = new Image()
-      img.src = `${IMG}${flavor}-heap.webp`
+      img.src = `${IMG}${flavor}-heap-spiced.webp`        // the bowl holds seasoned chips
       img.alt = ''
       img.decoding = 'async'
       img.className = 'care__heap'

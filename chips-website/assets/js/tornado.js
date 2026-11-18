@@ -318,7 +318,8 @@
          delay: overflow ? .19 + (i % 5) * .016 + (row - 3) * .02 : (i % 5) * .045 + row * .04,
          jx: overflow ? (row === 3 ? -.32 : .32) + (((i * 37) % 5) - 2) * .03 : ((i * 37) % 11) / 10 - .5,
          jy: ((i * 53) % 7) / 6 - .5,
-         launched: false, pos: { x: 0, y: 0 }
+         launched: false, pos: { x: 0, y: 0 }, spiced: false,
+         plainSrc: `${IMG}${flavor}-chip-${row % 2 ? 2 : 1}.webp`
       }
    })
 
@@ -349,7 +350,7 @@
    // Second wave: thrown from the tornado once every pack is sealed
    const wave = Array.from({ length: WAVE }, (_, i) => {
       const flavor = FLAVORS[i % 5]
-      const src = `${IMG}${flavor}-chip-${i % 3 === 1 ? 2 : 1}.webp`
+      const src = `${IMG}${flavor}-chip-${i % 3 === 1 ? 2 : 1}-spiced.webp`   // already seasoned
       const fxEl = make(src)
       fxEl.dataset.bw = .13
       return { kind: 'wave', flavor, fxEl, pileEl: pileImg(src), idx: i, bounceOut: i >= WAVE - 2 }
@@ -357,7 +358,7 @@
    const overflowPile = new Map()
    chips.filter(c => c.overflow).forEach(c => {
       c.el.dataset.bw = ''
-      overflowPile.set(c, pileImg(c.el.src))
+      overflowPile.set(c, pileImg(c.el.src.replace('.webp', '-spiced.webp')))
    })
 
    const placePile = (el, x, y, rot, sx, sy, op) => {
@@ -510,12 +511,18 @@
    }
 
    let sp = 0                    // smoothed scroll progress
+   const spice = window.SpiceStation
+   let spiceSp = .5               // scroll progress at which chips pass the spice cloud
 
    const updateChips = (t, sec, dt, sy, p, now) => {
       // Scroll progress: 0 at the top, 1 when the packs reach the middle of the screen
       const pr = packsWrap.getBoundingClientRect()
       const end = Math.max(200, pr.top + sy + pr.height * .5 - vh * .55)
       const target = clamp(sy / end)
+      if (spice) {
+         spiceSp = clamp(spice.centreScroll() / end, .15, .85)
+         spice.setApproach(clamp(sp / spiceSp, 0, 1.5))     // tells the lady when to blow
+      }
       sp += (target - sp) * .06               // chips trail the scroll so they drift down gently
       if (Math.abs(target - sp) < .0005) sp = target
 
@@ -557,8 +564,31 @@
                ? { x: img.left + img.width * (.5 + c.jx), y: img.top + sy - img.height * (.02 - c.jy * .03) }
                : { x: img.left + img.width * (.5 + c.jx * .65), y: img.top + sy + img.height * (.09 + c.jy * .05) }
             const dir = base.x < tor.x ? -1 : 1
-            const C = { x: base.x + (T.x - base.x) * .3 + dir * 110 * k, y: Math.min(base.y, T.y) - 150 * k }
-            const pos = bez(base, C, T, e)
+            let pos
+            if (spice) {
+               // Through the spice cloud: tornado -> past her hand (waypoint) -> pack.
+               // Chips reach the cloud when the spice stage is in the middle of the screen.
+               const W = spice.waypoint(c.jx, c.jy)
+               const split = clamp((spiceSp - c.delay) / .72, .2, .8)
+               if (q < split) {
+                  const u = smooth(0, 1, q / split)
+                  const C1 = { x: base.x + (W.x - base.x) * .25 + dir * 110 * k, y: Math.min(base.y, W.y) - 120 * k }
+                  pos = bez(base, C1, W, u)
+               } else {
+                  const u = 1 - Math.pow(1 - smooth(0, 1, (q - split) / (1 - split)), 1.7)
+                  const C2 = { x: W.x + (T.x - W.x) * .55, y: Math.min(W.y, T.y) - 60 * k }
+                  pos = bez(W, C2, T, u)
+               }
+               // Seasoned from the moment it flies through the powder
+               const spiced = q >= split
+               if (c.spiced !== spiced) {
+                  c.spiced = spiced
+                  c.el.src = spiced ? c.plainSrc.replace('.webp', '-spiced.webp') : c.plainSrc
+               }
+            } else {
+               const C = { x: base.x + (T.x - base.x) * .3 + dir * 110 * k, y: Math.min(base.y, T.y) - 150 * k }
+               pos = bez(base, C, T, e)
+            }
             x = pos.x; y = pos.y
             s = lerp(s, c.overflow ? 1.2 : 1.4, e)
             op = c.overflow ? born : born * (e < .9 ? 1 : (1 - e) / .1)

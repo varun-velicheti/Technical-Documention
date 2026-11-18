@@ -601,6 +601,51 @@ body {
   left: -1.25rem;
 }
 
+/*=============== SPICE ===============*/
+.spice {
+  position: relative;
+}
+
+.spice__container {
+  display: grid;
+  row-gap: 1.5rem;
+}
+
+.spice__description {
+  text-align: center;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.spice__stage {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  justify-self: center;
+}
+
+.spice__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  /* soft edges so the video melts into the page */
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, #000 78%, transparent 100%), linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* Powder cloud blown from her hand (drawn by spice.js) */
+.spice__powder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 7;
+  pointer-events: none;
+}
+
 /*=============== CARE ===============*/
 .care {
   background-color: var(--first-color-dark);

@@ -90,6 +90,27 @@
 
          </section>
 
+         <!--==================== SPICE ====================-->
+         <section class="spice section" id="spice">
+            <h2 class="section__title">
+               SPICE IT <br> UP
+            </h2>
+
+            <div class="spice__container container">
+               <p class="spice__description">
+                  Ground by hand from sun-dried chillies and whole spices,
+                  then blown over every chip on its way to the pack.
+               </p>
+
+               <div class="spice__stage" id="spice-stage">
+                  <video class="spice__video" src="assets/img/spice/spice.mp4" poster="assets/img/spice/spice-poster.jpg"
+                         muted playsinline preload="auto" aria-label="A woman grinds red masala in a stone mortar and blows the powder over the chips"></video>
+               </div>
+            </div>
+
+            <canvas class="spice__powder" id="spice-powder" aria-hidden="true"></canvas>
+         </section>
+
          <!--==================== FAVORITES ====================-->
          <section class="favorite section" id="favorites">
             <h2 class="section__title">
@@ -409,6 +430,9 @@
 
       <!--=============== MAIN JS ===============-->
       <script src="assets/js/main.js"></script>
+
+      <!--=============== SPICE STATION (video + powder) ===============-->
+      <script src="assets/js/spice.js"></script>
 
       <!--=============== BOWL (filled by the tornado's chips) ===============-->
       <script src="assets/js/bowl.js"></script>
