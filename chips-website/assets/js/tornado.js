@@ -325,7 +325,8 @@
    /*----- Bowl stream: chips that end up in the bowl (time-based, not tied to scroll) -----*/
    const bowlApi = window.ChipsBowl
    const PILE_TOP = bowlApi ? bowlApi.PILE_TOP : .7
-   const SLOTS = 22                         // chips that settle in the bowl
+   const WAVE = 24                          // second-wave chips (the last 2 bounce out beside the bowl)
+   const SLOTS = 10 + WAVE - 2              // chips that settle in the bowl
    const mound = x => .05 + 2.4 * Math.pow(x - .5, 2)
    const slotAt = n => {
       const x = .22 + ((n * 7) % SLOTS) / (SLOTS - 1) * .56
@@ -346,12 +347,12 @@
    let nextSlot = 0, landedCount = 0, waveOn = false, fullShown = false
 
    // Second wave: thrown from the tornado once every pack is sealed
-   const wave = Array.from({ length: 14 }, (_, i) => {
+   const wave = Array.from({ length: WAVE }, (_, i) => {
       const flavor = FLAVORS[i % 5]
       const src = `${IMG}${flavor}-chip-${i % 3 === 1 ? 2 : 1}.webp`
       const fxEl = make(src)
       fxEl.dataset.bw = .13
-      return { kind: 'wave', flavor, fxEl, pileEl: pileImg(src), idx: i, bounceOut: i >= 12 }
+      return { kind: 'wave', flavor, fxEl, pileEl: pileImg(src), idx: i, bounceOut: i >= WAVE - 2 }
    })
    const overflowPile = new Map()
    chips.filter(c => c.overflow).forEach(c => {
@@ -374,7 +375,7 @@
       s.spin0 = Math.random() * 360
       s.spinRate = (s.dir) * (500 + Math.random() * 300)
       if (s.bounceOut) {
-         const side = s.idx === 12 ? -1 : 1
+         const side = s.idx === WAVE - 2 ? -1 : 1
          s.target = { x: .5 + side * .2, y: mound(.5 + side * .2), rot: side * 20 }
          s.ground = { x: .5 + side * .43, y: 1.0 }
       } else {
@@ -429,17 +430,22 @@
                const pack = packs[s.flavor]
                const pi = pack.querySelector('img').getBoundingClientRect()
                const B = { x: pi.left + pi.width * (.5 + (s.idx % 3 - 1) * .18), y: pi.top + sy + pi.height * .03 }
-               const split = .45
+               const split = .32
                if (u < split) {
                   const v = smooth(0, 1, u / split)
                   const C = { x: (s.P0.x + B.x) / 2 + s.dir * 140 * k, y: Math.min(s.P0.y, B.y) - 180 * k }
                   ;({ x, y } = bez(s.P0, C, B, v))
                } else {
                   if (!s.hit) { s.hit = true; pack._hitAt = now }
-                  const w = (u - split) / (1 - split)
-                  const g = w * w * .55 + w * .45                     // gravity
-                  const C = { x: B.x + (T.x - B.x) * .35 + s.dir * 90 * k, y: B.y - 130 * k }
-                  ;({ x, y } = bez(B, C, T, Math.min(1, g)))
+                  // Bounce up off the pack, float over above the bowl, then rain straight down
+                  const w = Math.min(1, (u - split) / (1 - split))
+                  const g = w < .2 ? smooth(0, 1, w / .2) * .2 : .2 + (w - .2) * 1   // quick hop, then a steady fall
+                  const P1 = { x: lerp(B.x, T.x, .7) + s.dir * 50 * k, y: B.y - 110 * k }
+                  const P2 = { x: T.x + s.dir * 15 * k, y: lerp(B.y, T.y, .45) }
+                  const v = 1 - g
+                  x = v * v * v * B.x + 3 * v * v * g * P1.x + 3 * v * g * g * P2.x + g * g * g * T.x
+                  y = v * v * v * B.y + 3 * v * v * g * P1.y + 3 * v * g * g * P2.y + g * g * g * T.y
+                  x += Math.sin(w * 9 + s.idx) * 14 * k * (1 - w)           // sways like a falling leaf
                }
             } else {
                // overflow chip pushed off the pack mouth when it seals
@@ -605,9 +611,9 @@
                const a = i * 2.4
                const f = .45 + (i % 4) * .1
                const r = halfW(f) * 1.25 + 26 * k
-               s.dur = 3400 + (i % 3) * 300
+               s.dur = 5600 + (i % 3) * 450
                s.dir = i % 2 ? 1 : -1
-               launch(s, now + 1500 + i * 170, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })   // after the overflow chips
+               launch(s, now + 1500 + i * 230, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })   // after the overflow chips
             })
          }
          // Scrolled back up past the packs: empty the bowl so it can fill again
