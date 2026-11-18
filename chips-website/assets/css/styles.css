@@ -548,6 +548,26 @@ body {
   pointer-events: none;
 }
 
+/* Sealed: the full pack hops with a squash and stretch */
+.favorite__bag {
+  transform-origin: 50% 100%;
+}
+
+.favorite__pack.is-sealed .favorite__bag {
+  animation: pack-bounce 1s .2s cubic-bezier(.3, .7, .4, 1);
+}
+
+@keyframes pack-bounce {
+  0% { transform: none; }
+  12% { transform: scale(1.1, .86); }
+  32% { transform: translateY(-22%) scale(.94, 1.08) rotate(-3deg); }
+  50% { transform: translateY(0) scale(1.08, .9); }
+  64% { transform: translateY(-9%) scale(.97, 1.04) rotate(2deg); }
+  78% { transform: translateY(0) scale(1.04, .96); }
+  90% { transform: translateY(-2%) scale(1, 1); }
+  100% { transform: none; }
+}
+
 .favorite__pack.is-sealed .favorite__bag::after {
   animation: pack-shine .7s .3s ease-in-out;
 }
