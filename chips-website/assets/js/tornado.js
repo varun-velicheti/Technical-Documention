@@ -41,7 +41,7 @@
       img.alt = ''
       img.decoding = 'async'
       img.className = 'fx__item'
-      img.dataset.h = h
+      if (h) img.dataset.h = h
       fx.appendChild(img)
       return img
    }
@@ -85,7 +85,11 @@
       k = clamp(vw / 1300, .55, 1)
       fx.style.height = '0px'
       fx.style.height = document.documentElement.scrollHeight + 'px'
-      fx.querySelectorAll('.fx__item').forEach(el => el.style.height = (el.dataset.h * k) + 'px')
+      const bw = window.ChipsBowl ? window.ChipsBowl.el.offsetWidth : 300
+      fx.querySelectorAll('.fx__item').forEach(el => {
+         if (el.dataset.bw) el.style.width = (el.dataset.bw * bw) + 'px'
+         else if (el.dataset.h) el.style.height = (el.dataset.h * k) + 'px'
+      })
       fx.querySelectorAll('.fx__debris').forEach(el => {
          const s = el.dataset.s * k
          el.style.width = el.style.height = s + 'px'
@@ -299,38 +303,204 @@
       }
    }
 
-   /*----- Vacuum chips (3 per flavor) -----*/
-   const chips = Array.from({ length: 15 }, (_, i) => {
+   /*----- Vacuum chips: 3 per flavor go into the pack, 2 more overflow its mouth -----*/
+   const chips = Array.from({ length: 25 }, (_, i) => {
       const flavor = FLAVORS[i % 5]
       const row = Math.floor(i / 5)
+      const overflow = row >= 3
       return {
-         flavor,
-         el: make(`${IMG}${flavor}-chip-${row === 1 ? 2 : 1}.webp`, 62 - row * 4),
-         f: .4 + ((i * 7) % 15) / 15 * .4,
+         flavor, overflow,
+         el: make(`${IMG}${flavor}-chip-${row % 2 ? 2 : 1}.webp`, overflow ? 54 : 62 - row * 4),
+         f: .4 + ((i * 7) % 25) / 25 * .42,
          ang: i * 2.39,
          speed: 4 + (i % 3) * .6,
          flip: 2 + (i % 4) * .5,
-         delay: (i % 5) * .045 + row * .04,
-         jx: ((i * 37) % 11) / 10 - .5,
-         jy: ((i * 53) % 7) / 6 - .5
+         delay: overflow ? .19 + (i % 5) * .016 + (row - 3) * .02 : (i % 5) * .045 + row * .04,
+         jx: overflow ? (row === 3 ? -.32 : .32) + (((i * 37) % 5) - 2) * .03 : ((i * 37) % 11) / 10 - .5,
+         jy: ((i * 53) % 7) / 6 - .5,
+         launched: false, pos: { x: 0, y: 0 }
       }
    })
 
-   /*----- Two stray chips that miss the packs and land under the bowl -----*/
-   const bowl = document.querySelector('.care__bowl')
-   const strays = [
-      { flavor: 'banana', src: 'chip-1', restX: .26, restRot: -18 },
-      { flavor: 'apple', src: 'chip-2', restX: .72, restRot: 26 }
-   ].map((d, i) => ({
-      ...d,
-      el: make(`${IMG}${d.flavor}-${d.src}.webp`, 62),
-      f: .52 + i * .14, ang: 1 + i * 3.1, speed: 4.4 + i * .5, flip: 2.3 + i * .6, dir: i ? 1 : -1
-   }))
+   /*----- Bowl stream: chips that end up in the bowl (time-based, not tied to scroll) -----*/
+   const bowlApi = window.ChipsBowl
+   const PILE_TOP = bowlApi ? bowlApi.PILE_TOP : .7
+   const SLOTS = 22                         // chips that settle in the bowl
+   const mound = x => .05 + 2.4 * Math.pow(x - .5, 2)
+   const slotAt = n => {
+      const x = .22 + ((n * 7) % SLOTS) / (SLOTS - 1) * .56
+      const lvl = (n + 1) / SLOTS
+      return { x, y: lerp(.62, mound(x), Math.pow(lvl, .85)), rot: ((n * 47) % 70) - 35 }
+   }
+   const pileImg = src => {
+      const img = new Image()
+      img.src = src
+      img.alt = ''
+      img.decoding = 'async'
+      img.className = 'care__pile-chip'
+      img.style.opacity = 0
+      if (bowlApi) bowlApi.pile.appendChild(img)
+      return img
+   }
+   const stream = []                        // active bowl-bound chips
+   let nextSlot = 0, landedCount = 0, waveOn = false, fullShown = false
+
+   // Second wave: thrown from the tornado once every pack is sealed
+   const wave = Array.from({ length: 14 }, (_, i) => {
+      const flavor = FLAVORS[i % 5]
+      const src = `${IMG}${flavor}-chip-${i % 3 === 1 ? 2 : 1}.webp`
+      const fxEl = make(src)
+      fxEl.dataset.bw = .13
+      return { kind: 'wave', flavor, fxEl, pileEl: pileImg(src), idx: i, bounceOut: i >= 12 }
+   })
+   const overflowPile = new Map()
+   chips.filter(c => c.overflow).forEach(c => {
+      c.el.dataset.bw = ''
+      overflowPile.set(c, pileImg(c.el.src))
+   })
+
+   const placePile = (el, x, y, rot, sx, sy, op) => {
+      el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${rot}deg) scale(${sx}, ${sy})`
+      el.style.opacity = op
+   }
+
+   const launch = (s, now, P0) => {
+      s.t0 = now
+      s.P0 = P0
+      s.phase = 'fly'
+      s.hit = false
+      s.landed = false
+      s.dir = s.dir || (Math.random() < .5 ? -1 : 1)
+      s.spin0 = Math.random() * 360
+      s.spinRate = (s.dir) * (500 + Math.random() * 300)
+      if (s.bounceOut) {
+         const side = s.idx === 12 ? -1 : 1
+         s.target = { x: .5 + side * .2, y: mound(.5 + side * .2), rot: side * 20 }
+         s.ground = { x: .5 + side * .43, y: 1.0 }
+      } else {
+         s.target = slotAt(nextSlot++)
+      }
+      stream.push(s)
+   }
+
+   const resetStream = () => {
+      for (const s of stream) {
+         s.fxEl.style.opacity = 0
+         s.pileEl.style.opacity = 0
+      }
+      stream.length = 0
+      chips.forEach(c => {
+         if (!c.overflow) return
+         c.launched = false
+         c.el.style.width = ''
+         c.el.style.height = (c.el.dataset.h * k) + 'px'
+      })
+      nextSlot = 0; landedCount = 0; waveOn = false; fullShown = false
+      if (bowlApi) bowlApi.reset()
+   }
+
+   const updateStream = (now, sy, sec) => {
+      if (!bowlApi) return
+      const br = bowlApi.el.getBoundingClientRect()
+      const { W, H } = bowlApi.size()
+      const bowlTop = br.top + sy
+      const toDoc = (fx, fy) => ({ x: br.left + fx * W, y: bowlTop + fy * H })
+      const cw = .13 * W
+      let bouncedDone = 0, bouncers = 0
+
+      for (const s of stream) {
+         const T = toDoc(s.target.x, s.target.y)
+         let x, y, rot, sqX = 1, sqY = 1, inBowl = false
+
+         if (s.phase === 'rest') {
+            // settled inside the pile
+            placePile(s.pileEl, s.target.x * W, (s.target.y + PILE_TOP) * H, s.target.rot, 1, 1, 1)
+            s.fxEl.style.opacity = 0
+            continue
+         }
+
+         if (s.phase === 'fly') {
+            const u = (now - s.t0) / s.dur
+            if (u < 0) { s.fxEl.style.opacity = 0; continue }
+            const spin = s.spin0 + s.spinRate * u * s.dur / 1000
+            rot = lerp(spin, s.target.rot, smooth(.82, 1, u))
+            if (s.kind === 'wave') {
+               // tornado -> bounce off the top of its sealed pack -> down into the bowl
+               const pack = packs[s.flavor]
+               const pi = pack.querySelector('img').getBoundingClientRect()
+               const B = { x: pi.left + pi.width * (.5 + (s.idx % 3 - 1) * .18), y: pi.top + sy + pi.height * .03 }
+               const split = .45
+               if (u < split) {
+                  const v = smooth(0, 1, u / split)
+                  const C = { x: (s.P0.x + B.x) / 2 + s.dir * 140 * k, y: Math.min(s.P0.y, B.y) - 180 * k }
+                  ;({ x, y } = bez(s.P0, C, B, v))
+               } else {
+                  if (!s.hit) { s.hit = true; pack._hitAt = now }
+                  const w = (u - split) / (1 - split)
+                  const g = w * w * .55 + w * .45                     // gravity
+                  const C = { x: B.x + (T.x - B.x) * .35 + s.dir * 90 * k, y: B.y - 130 * k }
+                  ;({ x, y } = bez(B, C, T, Math.min(1, g)))
+               }
+            } else {
+               // overflow chip pushed off the pack mouth when it seals
+               const w = Math.min(1, u)
+               const g = w * w * .55 + w * .45
+               const C = { x: s.P0.x + s.dir * 90 * k + (T.x - s.P0.x) * .3, y: s.P0.y - 150 * k }
+               ;({ x, y } = bez(s.P0, C, T, g))
+            }
+            if (u >= 1) {
+               if (s.bounceOut) { s.phase = 'out'; s.t1 = now }
+               else { s.phase = 'rest'; landedCount++; s.fxEl.style.opacity = 0; continue }
+            }
+            inBowl = y > bowlTop - .55 * H
+         }
+
+         if (s.phase === 'out') {
+            // bounce off the mound and hop onto the ground beside the bowl
+            bouncers++
+            inBowl = false
+            const G = toDoc(s.ground.x, s.ground.y)
+            const tau = (now - s.t1) / 1000
+            if (tau < .7) {
+               const v = tau / .7
+               x = lerp(T.x, G.x, v)
+               y = lerp(T.y, G.y, v) - Math.sin(Math.PI * v) * 90 * k
+               rot = s.target.rot + v * 300 * (s.ground.x < .5 ? -1 : 1)
+            } else {
+               const t2 = tau - .7
+               const decay = Math.exp(-t2 * 2)
+               const wv = Math.abs(Math.sin(Math.PI * t2 * 1.9))
+               x = G.x
+               y = G.y - 55 * k * decay * wv
+               const contact = decay * Math.pow(1 - wv, 6)
+               sqY = 1 - .28 * contact
+               sqX = 1 + .2 * contact
+               rot = (s.ground.x < .5 ? -1 : 1) * 18 + Math.sin(Math.PI * t2 * 1.9) * 14 * decay
+               if (t2 > .6) bouncedDone++
+            }
+         }
+
+         if (inBowl) {
+            placePile(s.pileEl, x - br.left, y - bowlTop + PILE_TOP * H, rot, 1, 1, 1)
+            s.fxEl.style.opacity = 0
+         } else {
+            s.fxEl.style.width = cw + 'px'
+            s.fxEl.style.height = 'auto'
+            place(s.fxEl, x - shakeX, y - shakeY, rot, sqX, sqY, 1, 6)
+            s.pileEl.style.opacity = 0
+         }
+      }
+
+      bowlApi.setLevel(landedCount / SLOTS)
+      if (!fullShown && landedCount >= SLOTS && bouncers === 2 && bouncedDone === 2) {
+         fullShown = true
+         bowlApi.setFull(true)
+      }
+   }
 
    let sp = 0                    // smoothed scroll progress
-   let sp2 = 0                   // smoothed progress toward the bowl
 
-   const updateChips = (t, sec, dt, sy, p) => {
+   const updateChips = (t, sec, dt, sy, p, now) => {
       // Scroll progress: 0 at the top, 1 when the packs reach the middle of the screen
       const pr = packsWrap.getBoundingClientRect()
       const end = Math.max(200, pr.top + sy + pr.height * .5 - vh * .55)
@@ -346,6 +516,10 @@
       for (const [i, c] of chips.entries()) {
          // Orbit around the lower funnel
          c.ang += c.speed * dt * spinBoost
+         if (c.launched) {                       // now part of the bowl stream; still counts as filled
+            landed[c.flavor] = (landed[c.flavor] || 0) + .2
+            continue
+         }
          const r = halfW(c.f) * 1.25 + 26 * k
          const depth = Math.sin(c.ang)
          const O = {
@@ -356,7 +530,7 @@
          const rot = (c.ang * 57.3 + i * 40) % 360
 
          // Chips come out of the tornado tip after the surge
-         const born = smooth(0, 1, (t - bornFrom - i * 90) / 650)
+         const born = smooth(0, 1, (t - bornFrom - i * 70) / 650)
          const base = { x: lerp(tip.x, O.x, born), y: lerp(tip.y, O.y, born) }
 
          // Fly to the pack
@@ -367,89 +541,71 @@
 
          if (q > 0 && pack && born > 0) {
             const img = pack.querySelector('img').getBoundingClientRect()
-            // Drop into the open mouth at the top of the pack
-            const T = { x: img.left + img.width * (.5 + c.jx * .65), y: img.top + sy + img.height * (.09 + c.jy * .05) }
+            // Regular chips drop into the open mouth; overflow chips pile up on top of it
+            const T = c.overflow
+               ? { x: img.left + img.width * (.5 + c.jx), y: img.top + sy - img.height * (.02 - c.jy * .03) }
+               : { x: img.left + img.width * (.5 + c.jx * .65), y: img.top + sy + img.height * (.09 + c.jy * .05) }
             const dir = base.x < tor.x ? -1 : 1
             const C = { x: base.x + (T.x - base.x) * .3 + dir * 110 * k, y: Math.min(base.y, T.y) - 150 * k }
             const pos = bez(base, C, T, e)
             x = pos.x; y = pos.y
-            s = lerp(s, 1.4, e)            // chips grow as they come in to land
-            op = born * (e < .9 ? 1 : (1 - e) / .1)
+            s = lerp(s, c.overflow ? 1.2 : 1.4, e)
+            op = c.overflow ? born : born * (e < .9 ? 1 : (1 - e) / .1)
             z = 6
-            landed[c.flavor] = (landed[c.flavor] || 0) + smooth(.78, 1, e) / 3
+            landed[c.flavor] = (landed[c.flavor] || 0) + smooth(.78, 1, e) / 5
             flying[c.flavor] = Math.max(flying[c.flavor] || 0, q)
          }
+         c.pos.x = x; c.pos.y = y
          place(c.el, x, y, rot * (1 - e * .7), s * flipX, s, op, z)
       }
 
-      // Strays: swirl with the others, then overshoot the packs and land under the bowl
-      if (bowl) {
-         const br = bowl.getBoundingClientRect()
-         const end2 = Math.max(300, br.top + sy + br.height * .6 - vh * .6)
-         const target2 = clamp(sy / end2)
-         sp2 += (target2 - sp2) * .035           // trails the scroll more: slow descent
-         if (Math.abs(target2 - sp2) < .0005) sp2 = target2
-
-         for (const [i, c] of strays.entries()) {
-            c.ang += c.speed * dt * spinBoost
-            const r = halfW(c.f) * 1.25 + 26 * k
-            const depth = Math.sin(c.ang)
-            const O = { x: tor.x + Math.cos(c.ang) * r, y: tor.top + tor.h * c.f + depth * r * .26 }
-            const flipX = .45 + .55 * Math.abs(Math.cos(sec * c.flip * spinBoost + i))
-            const spin = (c.ang * 57.3 + i * 90) % 360
-            const born = smooth(0, 1, (t - bornFrom - (15 + i) * 90) / 650)
-            const base = { x: lerp(tip.x, O.x, born), y: lerp(tip.y, O.y, born) }
-
-            const q = clamp((sp2 - .1) / .86)
-            const e = 1 - Math.pow(1 - smooth(0, .86, q), 2.4)      // touches down at q = .86, easing in softly
-            let x = base.x, y = base.y, s = born * (.9 + .1 * depth), z = depth > 0 ? 6 : 4, rot = spin, fx = flipX, sqX = 1, sqY = 1
-
-            if (q > 0 && born > 0) {
-               const T = { x: br.left + br.width * c.restX, y: br.top + sy + br.height * .99 }
-               const P1 = { x: base.x + c.dir * 170 * k, y: base.y - 140 * k }          // pops out of the swirl
-               const P2 = { x: T.x + c.dir * 220 * k, y: pr.top + sy - 60 * k }          // sails past the packs
-               const u = 1 - e
-               x = u * u * u * base.x + 3 * u * u * e * P1.x + 3 * u * e * e * P2.x + e * e * e * T.x
-               y = u * u * u * base.y + 3 * u * u * e * P1.y + 3 * u * e * e * P2.y + e * e * e * T.y
-               s = lerp(s, 1.75, e)                 // grow as they fall; land big under the bowl
-               // Tumble all the way down: 6 full turns that unwind to the resting angle
-               rot = lerp(spin, c.restRot + c.dir * 2160 * Math.pow(1 - e, 1.1), smooth(0, .1, e))
-               fx = lerp(flipX, 1, smooth(.88, 1, e))    // keeps flipping in 3D until just before touchdown
-               z = 6
-
-               // Touchdown: a big, springy bounce that plays out in time (not tied to scroll)
-               if (q >= .86 && c.landedAt == null) c.landedAt = t + i * 120
-               if (q < .8) c.landedAt = null
-               if (c.landedAt != null) {
-                  const tau = Math.max(0, t - c.landedAt) / 1000
-                  if (tau < 2.4) {
-                     const decay = Math.exp(-tau * 1.5)
-                     const wave = Math.abs(Math.sin(Math.PI * tau * 1.7))
-                     y -= 90 * k * decay * wave                   // ~90px first hop, then smaller ones
-                     const contact = decay * Math.pow(1 - wave, 6) // squash when it hits the ground
-                     sqY = 1 - .3 * contact
-                     sqX = 1 + .22 * contact
-                     rot += Math.sin(Math.PI * tau * 1.7) * 18 * decay * c.dir
-                  }
-               }
-            }
-            place(c.el, x, y, rot, s * fx * sqX, s * sqY, born, z)
-         }
-      }
-
-      // Each pack opens while its chips fly in, bounces as they drop, and seals when full
+      // Each pack opens while its chips fly in, bulges when full, and seals;
+      // sealing pushes its overflow chips off toward the bowl
+      let allSealed = true
       for (const f of FLAVORS) {
          const pack = packs[f]
          if (!pack) continue
          const L = landed[f] || 0
-         pack.style.scale = (1 + .09 * Math.sin(Math.PI * L)).toFixed(4)
+         pack.style.scale = (1 + .07 * Math.sin(Math.PI * L)).toFixed(4)
          const state = L > .995 ? 'sealed' : (flying[f] || 0) > .02 ? 'open' : 'closed'
+         if (state !== 'sealed') allSealed = false
+         pack.classList.toggle('is-full', L > .55)
          if (pack._state !== state) {
             pack.classList.toggle('is-open', state === 'open')
             pack.classList.toggle('is-sealed', state === 'sealed')
+            if (state === 'sealed') {
+               chips.filter(c => c.flavor === f && c.overflow && !c.launched).forEach((c, j) => {
+                  c.launched = true
+                  launch({ kind: 'overflow', flavor: f, fxEl: c.el, pileEl: overflowPile.get(c), dir: j ? 1 : -1, dur: 2900 + j * 250 },
+                         now + 250 + j * 120, { x: c.pos.x, y: c.pos.y })
+               })
+            }
             pack._state = state
          }
+         // Wobble when a chip from the second wave bounces off it
+         const hitAge = pack._hitAt ? (now - pack._hitAt) / 1000 : 9
+         pack.style.rotate = hitAge < .6 ? (Math.sin(hitAge * 28) * 6 * Math.exp(-hitAge * 6)).toFixed(2) + 'deg' : '0deg'
       }
+
+      // Second wave from the tornado once the packs are sealed and the bowl is on screen
+      if (bowlApi) {
+         const br = bowlApi.el.getBoundingClientRect()
+         if (allSealed && !waveOn && br.top < vh * .9 && br.bottom > 0) {
+            waveOn = true
+            wave.forEach((s, i) => {
+               const a = i * 2.4
+               const f = .45 + (i % 4) * .1
+               const r = halfW(f) * 1.25 + 26 * k
+               s.dur = 3400 + (i % 3) * 300
+               s.dir = i % 2 ? 1 : -1
+               launch(s, now + i * 170, { x: tor.x + Math.cos(a) * r, y: tor.top + tor.h * f + Math.sin(a) * r * .26 })
+            })
+         }
+         // Scrolled back up past the packs: empty the bowl so it can fill again
+         if (sp < .5 && stream.length) resetStream()
+      }
+
+      updateStream(now, sy, sec)
    }
 
    /*----- Reduced motion: a still composition at full power -----*/
@@ -493,7 +649,7 @@
       updateFloaters(t, sec)
       updateProduce(now)
       updateDebris(dt, power)
-      updateChips(t, sec, dt, sy, power)
+      updateChips(t, sec, dt, sy, power, now)
       requestAnimationFrame(loop)
    }
 

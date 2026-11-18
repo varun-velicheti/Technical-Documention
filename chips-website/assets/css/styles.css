@@ -691,12 +691,30 @@ body {
   filter: drop-shadow(0 4px 6px hsla(0, 0%, 0%, .3));
 }
 
+.care__pile-chip {
+  width: 13%;
+}
+
 .care__deco {
   position: absolute;
   z-index: 4;
   filter: var(--shadow-img);
   transform: scale(0);
+  transition: transform .5s cubic-bezier(.3, 1.7, .5, 1);
   pointer-events: none;
+}
+
+.care__bowl.is-full .care__deco { transform: scale(1); }
+.care__bowl.is-full .care__deco--tomato { transition-delay: .12s; }
+.care__bowl.is-full .care__deco--leaf-2 { transition-delay: .24s; }
+
+/* Packs bulge a little when they are full to the brim */
+.favorite__pack.is-open.is-full .favorite__bag {
+  transform: scale(1.06, .97);
+}
+
+.favorite__bag {
+  transition: transform .35s cubic-bezier(.3, 1.5, .5, 1);
 }
 
 .care__deco--leaf-1 { width: 16%; left: 6%; top: 8%; }
