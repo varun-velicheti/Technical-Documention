@@ -172,9 +172,9 @@
    // Each piece arrives exactly when the surge grabs it, so it never stops moving
    const PULL_AT = CALM_UNTIL + SURGE_MS * .45
    order.forEach((f, i) => {
-      f.enterAt = 150 + i * 115                 // ms after start
       f.delay = i * 18                          // pull order follows arrival order
-      f.enterDur = PULL_AT + f.delay - f.enterAt
+      f.enterDur = 1500 - i * 32                // quick flights: 1.5s down to 1s
+      f.enterAt = PULL_AT + f.delay - f.enterDur
       f.side = f.ox < 0 ? -1 : 1
       f.lift = 50 + (i % 4) * 30
    })
