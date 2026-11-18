@@ -55,7 +55,7 @@
    const tor = { x: 0, top: 0, w: 0, h: 0 }
 
    // Funnel half-width (fraction of tornado width) at a given height fraction
-   const FUNNEL = [[0, .30], [.12, .46], [.25, .44], [.4, .30], [.55, .19], [.7, .11], [.85, .06], [1, .02]]
+   const FUNNEL = [[0, .12], [.08, .26], [.14, .39], [.2, .41], [.3, .33], [.4, .21], [.5, .13], [.6, .08], [.7, .045], [.8, .023], [.87, .01], [1, .01]]
    const halfW = f => {
       for (let i = 1; i < FUNNEL.length; i++) {
          if (f <= FUNNEL[i][0]) {
@@ -65,7 +65,7 @@
       }
       return tor.w * .02
    }
-   const centerX = f => tor.x - tor.w * .035 * clamp((f - .55) / .45)
+   const centerX = () => tor.x
 
    const measure = () => {
       vw = document.documentElement.clientWidth
@@ -106,8 +106,8 @@
    }
 
    const updateProduce = now => {
-      const A = { x: centerX(.27), y: tor.top + tor.h * .27 }
-      const R0 = halfW(.27) * 1.05
+      const A = { x: centerX(.22), y: tor.top + tor.h * .22 }
+      const R0 = halfW(.22) * 1.02
       for (const p of produce) {
          if (!p.active) continue
          const t = (now - p.t0) / p.dur
@@ -145,7 +145,7 @@
       return {
          flavor,
          el: make(`${IMG}${flavor}-chip-${row === 1 ? 2 : 1}.webp`, 62 - row * 4),
-         f: .44 + ((i * 7) % 15) / 15 * .4,
+         f: .4 + ((i * 7) % 15) / 15 * .4,
          ang0: i * 2.39,
          speed: 2 + (i % 3) * .35,
          flip: 1.3 + (i % 4) * .4,
@@ -167,13 +167,13 @@
       if (Math.abs(p - sp) < .0005) sp = p
 
       const sec = now / 1000
-      const tip = { x: centerX(1), y: tor.top + tor.h * .97 }
+      const tip = { x: centerX(1), y: tor.top + tor.h * .86 }
       const landed = {}
 
       for (const [i, c] of chips.entries()) {
          // Orbit around the lower funnel
          const ang = c.ang0 + c.speed * sec
-         const r = halfW(c.f) * 1.2 + 14 * k
+         const r = halfW(c.f) * 1.25 + 26 * k
          const depth = Math.sin(ang)
          const O = {
             x: centerX(c.f) + Math.cos(ang) * r,
@@ -218,6 +218,8 @@
 
    /*----- Reduced motion: a still composition -----*/
    if (reduceMotion) {
+      const video = document.querySelector('.home__tornado-video')
+      if (video) { video.removeAttribute('autoplay'); video.pause() }
       measure()
       measureTornado(window.scrollY)
       chips.slice(0, 8).forEach((c, i) => {
