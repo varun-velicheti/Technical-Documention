@@ -317,7 +317,7 @@
    })
 
    /*----- Two stray chips that miss the packs and land under the bowl -----*/
-   const bowl = document.querySelector('.care__img')
+   const bowl = document.querySelector('.care__bowl')
    const strays = [
       { flavor: 'banana', src: 'chip-1', restX: .26, restRot: -18 },
       { flavor: 'apple', src: 'chip-2', restX: .72, restRot: 26 }

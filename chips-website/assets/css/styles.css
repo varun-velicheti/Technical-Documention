@@ -636,11 +636,72 @@ body {
   row-gap: 3rem;
 }
 
-.care__img {
-  width: 320px;
+/* Bowl that fills with chips: back half, chip pile, front half */
+.care__bowl {
+  position: relative;
+  width: 300px;
+  aspect-ratio: 710 / 545;
   justify-self: center;
+  margin-top: 4rem; /* room for the heap rising above the rim */
+}
+
+.care__bowl-back,
+.care__bowl-front {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.care__bowl-back {
+  z-index: 1;
   filter: var(--shadow-img);
 }
+
+.care__bowl-front {
+  z-index: 3;
+}
+
+/* The pile is only visible inside the bowl's opening or above the rim */
+.care__pile {
+  --rim: 62.6%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -70%;
+  height: 170%;
+  z-index: 2;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000, #000), radial-gradient(ellipse 46.9% 19.2% at 50% var(--rim), #000 98%, transparent 100%);
+  -webkit-mask-size: 100% var(--rim), 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: top, center;
+  mask-image: linear-gradient(#000, #000), radial-gradient(ellipse 46.9% 19.2% at 50% var(--rim), #000 98%, transparent 100%);
+  mask-size: 100% var(--rim), 100% 100%;
+  mask-repeat: no-repeat;
+  mask-position: top, center;
+}
+
+.care__pile img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+  will-change: transform;
+  filter: drop-shadow(0 4px 6px hsla(0, 0%, 0%, .3));
+}
+
+.care__deco {
+  position: absolute;
+  z-index: 4;
+  filter: var(--shadow-img);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.care__deco--leaf-1 { width: 16%; left: 6%; top: 8%; }
+.care__deco--tomato { width: 15%; right: 6%; top: 12%; }
+.care__deco--leaf-2 { width: 14%; left: 44%; top: 58%; }
 
 .care__list {
   row-gap: 1.25rem;
@@ -1221,8 +1282,9 @@ body {
     justify-content: space-between;
   }
 
-  .care__img {
-    width: 500px;
+  .care__bowl {
+    width: 440px;
+    margin-top: 5rem;
   }
 
   .care__list {

@@ -79,6 +79,6 @@ const sr = ScrollReveal({
 
 sr.reveal(`.home__data, .favorite__description, .footer__container`)
 sr.reveal(`.favorite__pack`, {interval: 120, distance: '30px'})
-sr.reveal(`.care__img, .contact__img`, {origin: 'bottom'})
+sr.reveal(`.care__bowl, .contact__img`, {origin: 'bottom'})
 sr.reveal(`.care__list, .contact__data`, {origin: 'bottom', delay: 600})
 sr.reveal(`.banner__item, .products__card`, {interval: 100})
