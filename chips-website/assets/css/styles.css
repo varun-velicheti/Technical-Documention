@@ -323,7 +323,7 @@ body {
   pointer-events: none;
   mix-blend-mode: screen; /* the video's black background disappears into the page */
   transform-origin: 50% 42%; /* grows up and out (scale is set by tornado.js) */
-  animation: tornado-in 1.6s .3s ease-out both;
+  animation: tornado-in 1.1s .1s ease-out both;
 }
 
 @keyframes tornado-in {

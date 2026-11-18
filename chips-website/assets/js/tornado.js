@@ -23,7 +23,7 @@
    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
    /*----- Timeline (ms after the page starts animating) -----*/
-   const CALM_UNTIL = 3600      // slow, small tornado
+   const CALM_UNTIL = 1900      // slow, small tornado
    const SURGE_MS = 450         // sudden ramp to full power
 
    /*----- Layer that spans the whole document -----*/
