@@ -25,7 +25,7 @@
    // The video holds her colours (over black) in the top half and a black-and-white
    // transparency mask in the bottom half; the shader combines them.
    const glCanvas = stage.querySelector('.spice__canvas')
-   let gl = null, drawVideo = () => {}
+   let gl = null, drawVideo = () => {}, useFrameCallback = false
    try { gl = glCanvas && glCanvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false }) } catch (e) {}
    if (gl) {
       const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o }
@@ -71,6 +71,13 @@
          }
          video.addEventListener('loadeddata', () => drawVideo(true))
          video.addEventListener('seeked', () => drawVideo(true))
+         window.addEventListener('resize', () => drawVideo(true))
+         // Draw exactly once per decoded video frame (smooth on 60/120 Hz screens and in Safari)
+         if ('requestVideoFrameCallback' in video) {
+            useFrameCallback = true
+            const onFrame = () => { drawVideo(true); video.requestVideoFrameCallback(onFrame) }
+            video.requestVideoFrameCallback(onFrame)
+         }
       }
    }
    if (!gl) {
@@ -200,7 +207,7 @@
 
    let last = performance.now()
    const loop = now => {
-      drawVideo()
+      if (!useFrameCallback) drawVideo()          // older browsers: poll for new frames
       const dt = Math.min(50, now - last) / 1000
       last = now
       const t = now / 1000
