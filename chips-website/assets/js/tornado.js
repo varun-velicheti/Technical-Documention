@@ -412,8 +412,8 @@
                x = u * u * u * base.x + 3 * u * u * e * P1.x + 3 * u * e * e * P2.x + e * e * e * T.x
                y = u * u * u * base.y + 3 * u * u * e * P1.y + 3 * u * e * e * P2.y + e * e * e * T.y
                s = lerp(s, 1.75, e)                 // grow as they fall; land big under the bowl
-               // Tumble all the way down: 3 full turns that unwind to the resting angle
-               rot = lerp(spin, c.restRot + c.dir * 1080 * Math.pow(1 - e, 1.2), smooth(0, .12, e))
+               // Tumble all the way down: 6 full turns that unwind to the resting angle
+               rot = lerp(spin, c.restRot + c.dir * 2160 * Math.pow(1 - e, 1.1), smooth(0, .1, e))
                fx = lerp(flipX, 1, smooth(.88, 1, e))    // keeps flipping in 3D until just before touchdown
                z = 6
 
