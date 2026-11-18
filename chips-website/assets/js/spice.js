@@ -33,8 +33,8 @@
    let cw = 0, ch = 0, dpr = 1
    const resize = () => {
       dpr = Math.min(1.5, window.devicePixelRatio || 1)
-      cw = section.offsetWidth
-      ch = section.offsetHeight
+      cw = canvas.offsetWidth
+      ch = canvas.offsetHeight
       canvas.width = Math.round(cw * dpr)
       canvas.height = Math.round(ch * dpr)
    }
@@ -45,8 +45,8 @@
    {
       const g = puff.getContext('2d')
       const grd = g.createRadialGradient(32, 32, 0, 32, 32, 32)
-      grd.addColorStop(0, 'rgba(224, 92, 40, .55)')
-      grd.addColorStop(.5, 'rgba(206, 70, 30, .22)')
+      grd.addColorStop(0, 'rgba(224, 92, 40, .4)')
+      grd.addColorStop(.5, 'rgba(206, 70, 30, .14)')
       grd.addColorStop(1, 'rgba(206, 70, 30, 0)')
       g.fillStyle = grd
       g.fillRect(0, 0, 64, 64)
@@ -55,19 +55,21 @@
    const parts = []
    let emitting = 0              // ms of emission left
    const emit = (dt, scale) => {
-      const sr = section.getBoundingClientRect()
+      const cr = canvas.getBoundingClientRect()
       const h = hand()
-      const ox = h.x - sr.left, oy = h.y - (sr.top + window.scrollY)
-      const specks = Math.round(420 * dt), puffs = Math.max(1, Math.round(32 * dt))
-      for (let i = 0; i < specks && parts.length < 1400; i++) {
-         parts.push({ kind: 0, x: ox + rand(-6, 6) * scale, y: oy + rand(-6, 6) * scale,
-            vx: rand(260, 640) * scale, vy: rand(-90, 40) * scale, life: rand(2.2, 3.8), age: 0,
+      const ox = h.x - cr.left, oy = h.y - (cr.top + window.scrollY)
+      // a wide fan of powder: big spread in speed and angle so the cloud opens out
+      const specks = Math.round(480 * dt), puffs = Math.max(1, Math.round(36 * dt))
+      for (let i = 0; i < specks && parts.length < 2200; i++) {
+         parts.push({ kind: 0, x: ox + rand(-18, 18) * scale, y: oy + rand(-18, 18) * scale,
+            vx: rand(180, 920) * scale, vy: rand(-300, 230) * scale, life: rand(3, 5.2), age: 0,
             size: rand(1.4, 3.6) * Math.max(.7, scale), seed: Math.random() * 10,
             col: `hsl(${rand(6, 26) | 0}, ${rand(78, 92) | 0}%, ${rand(36, 54) | 0}%)` })
       }
       for (let i = 0; i < puffs; i++) {
-         parts.push({ kind: 1, x: ox, y: oy, vx: rand(220, 460) * scale, vy: rand(-60, 10) * scale,
-            life: rand(2.6, 4.2), age: 0, size: rand(18, 34) * scale, grow: rand(28, 60) * scale, seed: Math.random() * 10 })
+         parts.push({ kind: 1, x: ox + rand(-10, 10) * scale, y: oy + rand(-10, 10) * scale,
+            vx: rand(150, 760) * scale, vy: rand(-230, 160) * scale,
+            life: rand(3.6, 5.8), age: 0, size: rand(26, 50) * scale, grow: rand(60, 140) * scale, seed: Math.random() * 10 })
       }
    }
 
@@ -78,10 +80,10 @@
          const p = parts[i]
          p.age += dt
          if (p.age >= p.life) { parts.splice(i, 1); continue }
-         const drag = Math.exp(-(p.kind ? 1.1 : .9) * dt)
+         const drag = Math.exp(-(p.kind ? .7 : .55) * dt)      // light drag: the cloud keeps drifting outward
          p.vx *= drag; p.vy *= drag
          // swirling breath: waves along the flow, like the cloud in the video
-         p.vy += Math.sin(p.x * .011 + t * 2.4 + p.seed) * 120 * scale * dt
+         p.vy += Math.sin(p.x * .009 + t * 2.2 + p.seed) * 160 * scale * dt
          p.vx += Math.cos(p.y * .013 + t * 1.7 + p.seed) * 40 * scale * dt
          if (p.kind === 0) p.vy += 28 * scale * dt           // specks slowly settle
          else { p.vy -= 10 * scale * dt; p.size += p.grow * dt }  // smoke rises and spreads
@@ -92,7 +94,7 @@
             ctx.fillStyle = p.col
             ctx.fillRect(p.x, p.y, p.size, p.size)
          } else {
-            ctx.globalAlpha = fade * .8
+            ctx.globalAlpha = fade * .42                        // airy, not a dense blob
             ctx.drawImage(puff, p.x - p.size, p.y - p.size, p.size * 2, p.size * 2)
          }
       }
@@ -148,7 +150,7 @@
          if (video.currentTime >= GRIND_END) { try { video.currentTime = .05 } catch (e) {} }
          if (approach > .58) toBlow()                       // chips are on their way: blow!
       } else {
-         if (!puffed && video.currentTime >= PUFF_AT) { puffed = true; emitting = 2.3 }
+         if (!puffed && video.currentTime >= PUFF_AT) { puffed = true; emitting = 2.8 }
          if (approach < .3 && !emitting && !parts.length) toGrind()   // scrolled back up
       }
 
