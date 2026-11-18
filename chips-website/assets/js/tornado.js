@@ -54,7 +54,6 @@
       return { x: u * u * a.x + 2 * u * t * c.x + t * t * b.x,
                y: u * u * a.y + 2 * u * t * c.y + t * t * b.y }
    }
-   const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
    const easeIn = t => t * t * t
    const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t) }
    let shakeX = 0, shakeY = 0       // screen-shake offset applied to everything in the hero
@@ -311,7 +310,7 @@
          ang: i * 2.39,
          speed: 4 + (i % 3) * .6,
          flip: 2 + (i % 4) * .5,
-         delay: (i % 5) * .055 + row * .05,
+         delay: (i % 5) * .045 + row * .04,
          jx: ((i * 37) % 11) / 10 - .5,
          jy: ((i * 53) % 7) / 6 - .5
       }
@@ -324,7 +323,7 @@
       const pr = packsWrap.getBoundingClientRect()
       const end = Math.max(200, pr.top + sy + pr.height * .5 - vh * .55)
       const target = clamp(sy / end)
-      sp += (target - sp) * .14
+      sp += (target - sp) * .06               // chips trail the scroll so they drift down gently
       if (Math.abs(target - sp) < .0005) sp = target
 
       const tip = { x: tor.x, y: tor.top + tor.h * .86 }
@@ -349,8 +348,8 @@
          const base = { x: lerp(tip.x, O.x, born), y: lerp(tip.y, O.y, born) }
 
          // Fly to the pack
-         const q = clamp((sp - c.delay) / .62)
-         const e = easeInOut(q)
+         const q = clamp((sp - c.delay) / .72)
+         const e = 1 - Math.pow(1 - smooth(0, 1, q), 1.7)   // slow, soft drop at the end
          const pack = packs[c.flavor]
          let x = base.x, y = base.y, s = born * (.9 + .1 * depth), op = born, z = depth > 0 ? 6 : 4
 
