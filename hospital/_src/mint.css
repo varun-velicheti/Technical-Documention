@@ -289,3 +289,4 @@ footer .big em,.cta-band h2 em,.dark-band h2 em{color:#8fe3d9}
 .story-stage .ribs{opacity:.75}
 .story-stage:not(.all) .ribs{opacity:.32}
 .story-stage:not(.all) .vessels.central{opacity:.55}
+.er-num{white-space:nowrap;font-size:clamp(30px,4.2vw,58px)}
