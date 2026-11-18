@@ -20,8 +20,8 @@
    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
    /*----- Timeline (ms after the page starts animating) -----*/
-   const CALM_UNTIL = 2300      // slow, small tornado
-   const SURGE_MS = 850         // sudden ramp to full power
+   const CALM_UNTIL = 3600      // slow, small tornado
+   const SURGE_MS = 450         // sudden ramp to full power
 
    /*----- Layer that spans the whole document -----*/
    const fx = document.createElement('div')
@@ -168,7 +168,7 @@
             y: hy + Math.sin(sec * 1.1 + f.phase) * 12 * k
          }
          const rot = f.rot0 + f.spin * sec
-         const u = clamp((t - surgeAt - f.delay) / 1150)
+         const u = clamp((t - surgeAt - f.delay) / 950)
          if (u <= 0) {
             place(f.el, calm.x, calm.y, rot, intro, intro, intro, 6)
             continue
