@@ -395,7 +395,7 @@ body {
 }
 
 .fx__debris--light {
-  background-color: hsl(45, 35%, 82%);
+  background-color: hsl(35, 35%, 46%);
 }
 
 @media (prefers-reduced-motion: reduce) {
