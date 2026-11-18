@@ -319,11 +319,11 @@
    /*----- Two stray chips that miss the packs and land under the bowl -----*/
    const bowl = document.querySelector('.care__img')
    const strays = [
-      { flavor: 'banana', src: 'chip-1', restX: .3, restRot: -18 },
-      { flavor: 'apple', src: 'chip-2', restX: .68, restRot: 26 }
+      { flavor: 'banana', src: 'chip-1', restX: .26, restRot: -18 },
+      { flavor: 'apple', src: 'chip-2', restX: .72, restRot: 26 }
    ].map((d, i) => ({
       ...d,
-      el: make(`${IMG}${d.flavor}-${d.src}.webp`, 58),
+      el: make(`${IMG}${d.flavor}-${d.src}.webp`, 62),
       f: .52 + i * .14, ang: 1 + i * 3.1, speed: 4.4 + i * .5, flip: 2.3 + i * .6, dir: i ? 1 : -1
    }))
 
@@ -405,14 +405,14 @@
             let x = base.x, y = base.y, s = born * (.9 + .1 * depth), z = depth > 0 ? 6 : 4, rot = spin, fx = flipX
 
             if (q > 0 && born > 0) {
-               const T = { x: br.left + br.width * c.restX, y: br.top + sy + br.height * .97 }
+               const T = { x: br.left + br.width * c.restX, y: br.top + sy + br.height * .99 }
                const P1 = { x: base.x + c.dir * 170 * k, y: base.y - 140 * k }          // pops out of the swirl
                const P2 = { x: T.x + c.dir * 220 * k, y: pr.top + sy - 60 * k }          // sails past the packs
                const u = 1 - e
                x = u * u * u * base.x + 3 * u * u * e * P1.x + 3 * u * e * e * P2.x + e * e * e * T.x
                y = u * u * u * base.y + 3 * u * u * e * P1.y + 3 * u * e * e * P2.y + e * e * e * T.y
-               y -= Math.sin(Math.PI * smooth(.86, 1, q)) * 26 * k                       // little hop on landing
-               s = lerp(s, 1.15, e)
+               y -= Math.sin(Math.PI * smooth(.86, 1, q)) * 30 * k                       // little hop on landing
+               s = lerp(s, 1.75, e)                 // grow as they fall; land big under the bowl
                rot = lerp(spin, c.restRot, smooth(.6, 1, e))
                fx = lerp(flipX, 1, smooth(.6, 1, e))
                z = 6
