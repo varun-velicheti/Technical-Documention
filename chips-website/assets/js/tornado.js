@@ -553,7 +553,7 @@
 
          // Fly to the pack
          const q = clamp((sp - c.delay) / .72)
-         const e = 1 - Math.pow(1 - smooth(0, 1, q), 1.7)   // slow, soft drop at the end
+         let e = 1 - Math.pow(1 - smooth(0, 1, q), 1.7)     // slow, soft drop at the end (overall flight progress)
          const pack = packs[c.flavor]
          let x = base.x, y = base.y, s = born * (.9 + .1 * depth), op = born, z = depth > 0 ? 6 : 4
 
@@ -574,10 +574,12 @@
                   const u = smooth(0, 1, q / split)
                   const C1 = { x: base.x + (W.x - base.x) * .25 + dir * 110 * k, y: Math.min(base.y, W.y) - 120 * k }
                   pos = bez(base, C1, W, u)
+                  e = u * .5
                } else {
                   const u = 1 - Math.pow(1 - smooth(0, 1, (q - split) / (1 - split)), 1.7)
                   const C2 = { x: W.x + (T.x - W.x) * .55, y: Math.min(W.y, T.y) - 60 * k }
                   pos = bez(W, C2, T, u)
+                  e = .5 + u * .5                              // growth, fade and landing follow the real path
                }
                // Seasoned from the moment it flies through the powder
                const spiced = q >= split

@@ -21,6 +21,65 @@
    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v))
    const rand = (a, b) => a + Math.random() * (b - a)
 
+   /*----- Draw her with a transparent background (WebGL) -----*/
+   // The video holds her colours (over black) in the top half and a black-and-white
+   // transparency mask in the bottom half; the shader combines them.
+   const glCanvas = stage.querySelector('.spice__canvas')
+   let gl = null, drawVideo = () => {}
+   try { gl = glCanvas && glCanvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false }) } catch (e) {}
+   if (gl) {
+      const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o }
+      const prog = gl.createProgram()
+      gl.attachShader(prog, sh(gl.VERTEX_SHADER,
+         'attribute vec2 p; varying vec2 uv; void main(){ uv = vec2((p.x + 1.0) * .5, (1.0 - p.y) * .5); gl_Position = vec4(p, 0.0, 1.0); }'))
+      gl.attachShader(prog, sh(gl.FRAGMENT_SHADER,
+         'precision mediump float; uniform sampler2D t; varying vec2 uv;' +
+         'void main(){ float y = clamp(uv.y, .002, .998);' +
+         ' vec3 c = texture2D(t, vec2(uv.x, y * .5)).rgb;' +
+         ' float a = texture2D(t, vec2(uv.x, .5 + y * .5)).r;' +
+         ' a = smoothstep(.04, .96, a);' +
+         ' gl_FragColor = vec4(min(c, vec3(a)), a); }'))   // colours are already premultiplied (shot over black)
+      gl.linkProgram(prog)
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) gl = null
+      else {
+         gl.useProgram(prog)
+         const buf = gl.createBuffer()
+         gl.bindBuffer(gl.ARRAY_BUFFER, buf)
+         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW)
+         const loc = gl.getAttribLocation(prog, 'p')
+         gl.enableVertexAttribArray(loc)
+         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
+         const tex = gl.createTexture()
+         gl.bindTexture(gl.TEXTURE_2D, tex)
+         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+         let lastT = -1
+         drawVideo = force => {
+            if (video.readyState < 2) return
+            const w = Math.round(glCanvas.clientWidth * Math.min(1.5, window.devicePixelRatio || 1))
+            const h = Math.round(glCanvas.clientHeight * Math.min(1.5, window.devicePixelRatio || 1))
+            if (glCanvas.width !== w || glCanvas.height !== h) { glCanvas.width = w; glCanvas.height = h; force = true }
+            if (!force && video.currentTime === lastT) return
+            lastT = video.currentTime
+            gl.viewport(0, 0, w, h)
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, video)
+            gl.clearColor(0, 0, 0, 0)
+            gl.clear(gl.COLOR_BUFFER_BIT)
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+         }
+         video.addEventListener('loadeddata', () => drawVideo(true))
+         video.addEventListener('seeked', () => drawVideo(true))
+      }
+   }
+   if (!gl) {
+      // No WebGL: fall back to the version with the page teal baked in
+      video.src = 'assets/img/spice/spice.mp4'
+      video.classList.add('is-fallback')
+      if (glCanvas) glCanvas.remove()
+   }
+
    /*----- Geometry (document coordinates) -----*/
    const videoBox = () => {
       const r = video.getBoundingClientRect()
@@ -141,6 +200,7 @@
 
    let last = performance.now()
    const loop = now => {
+      drawVideo()
       const dt = Math.min(50, now - last) / 1000
       last = now
       const t = now / 1000

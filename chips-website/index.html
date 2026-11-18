@@ -103,8 +103,10 @@
                </p>
 
                <div class="spice__stage" id="spice-stage">
-                  <video class="spice__video" src="assets/img/spice/spice.mp4" poster="assets/img/spice/spice-poster.jpg"
-                         muted playsinline preload="auto" aria-label="A woman grinds red masala in a stone mortar and blows the powder over the chips"></video>
+                  <!-- Colour on top, transparency mask below; spice.js draws her with a see-through background -->
+                  <video class="spice__video" src="assets/img/spice/spice-packed.mp4"
+                         muted playsinline preload="auto" aria-hidden="true"></video>
+                  <canvas class="spice__canvas" role="img" aria-label="A woman grinds red masala in a stone mortar and blows the powder over the chips"></canvas>
                </div>
             </div>
 
