@@ -2,7 +2,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import LiquidImage, { KEMPS_BOTTLE } from "./LiquidImage";
+import LiquidImage from "./LiquidImage";
+import { KEMPS_BOTTLE } from "@/lib/liquid-presets";
 
 gsap.registerPlugin(ScrollTrigger);
 
