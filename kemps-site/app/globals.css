@@ -875,3 +875,8 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 }
 
 @media (max-width: 720px) { .hero__bg .liquid img { object-position: 69% 50% !important; } }
+
+/* Photoreal Eight Plus: fade the photo's own backdrop into the section */
+.liquid--fade { width: auto; max-width: 100%; aspect-ratio: 3 / 4; margin: 0 auto; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 52%, transparent 98%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 52%, transparent 98%); }
+.phero__aside .liquid--fade { margin: 0 0 0 auto; }
+.liquid--fade img, .liquid--fade canvas { filter: none !important; }

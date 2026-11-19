@@ -23,7 +23,8 @@ MAP = {
     "kemps-bottle": ("kemps-bottle-cut.png", 1244, True),
     "ep-bottle": ("ep-bottle-hd.png", 900, True),
     "droplet-clean": ("droplet-clean.png", 2400, False),
-    "hero-kemps": ("hero-kemps.png", 2400, False),  # supplied by the client; cut out with scripts below
+    "hero-kemps": ("hero-kemps.png", 2400, False),
+    "ep-real": ("ep-real.png", 1792, False),  # supplied by the client; cut out with scripts below
     "ep-duo": ("EightPlusImages_123.png", 1500, True),
     "ep-splash": ("EightPlusImages_4.2.png", 1400, True),
     "ep-logo": ("EightPlusImages_8+_logo.png", 1000, True),

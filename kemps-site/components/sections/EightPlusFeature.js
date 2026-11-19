@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { asset } from "@/lib/base";
 import Img from "../Img";
-import SwirlBottle from "../SwirlBottle";
+import LiquidImage from "../LiquidImage";
+import { EP_REAL } from "@/lib/liquid-presets";
 import LiquidText from "../LiquidText";
 import { Arrow, Download } from "../Icons";
 
@@ -9,7 +10,7 @@ export default function EightPlusFeature() {
   return (
     <section className="section ep" id="eight-plus" aria-labelledby="ep-title">
       <div className="wrap grid-2">
-        <div className="ep__img" data-parallax="-6" style={{ height: "min(78vh, 700px)" }}><SwirlBottle alt="An Eight Plus alkaline water bottle with water swirling around it" sizes="(max-width: 900px) 80vw, 40vw" /></div>
+        <div className="ep__img" data-parallax="-6" style={{ height: "min(78vh, 700px)" }}><LiquidImage className="liquid--float liquid--fade" name="ep-real" mode="splash" fit="contain" protect={EP_REAL.protect} angle={EP_REAL.angle} strength={1.3} alt="An Eight Plus alkaline water bottle with a spiral of water swirling around it" sizes="(max-width: 900px) 80vw, 40vw" /></div>
         <div>
           <Img name="ep-logo" alt="Eight Plus" sizes="260px" style={{ backgroundColor: "transparent", width: 260, height: "auto", filter: "brightness(0) invert(1)" }} />
           <div style={{ height: 30 }} />
