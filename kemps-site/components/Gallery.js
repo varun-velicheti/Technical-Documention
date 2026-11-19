@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Img from "./Img";
 import { IMAGES } from "@/lib/images";
+import { BASE } from "@/lib/base";
 import { Close, Arrow } from "./Icons";
 
 export default function Gallery({ items }) {
@@ -19,7 +20,7 @@ export default function Gallery({ items }) {
   }, [open, close, step]);
 
   const cur = items[idx];
-  const big = cur ? `/img/${cur.img}-${IMAGES[cur.img].widths.at(-1)}.webp` : "";
+  const big = cur ? `${BASE}/img/${cur.img}-${IMAGES[cur.img].widths.at(-1)}.webp` : "";
   return (
     <>
       <div className="gallery">

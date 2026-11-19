@@ -1,4 +1,5 @@
 import { waLink } from "@/lib/wa";
+import { asset } from "@/lib/base";
 import Motion from "@/components/Motion";
 import PageHero from "@/components/PageHero";
 import LiquidText from "@/components/LiquidText";
@@ -19,7 +20,7 @@ export default function EightPlus() {
       <Motion />
       <PageHero image="droplet" aside="ep-splash" asideAlt="An Eight Plus alkaline water bottle wrapped in a splash of water" eyebrow="Eight Plus · Alkaline water" lines={["Your go-to drink", <em key="e">to balance your life.</em>]} lede="A premium water-based electrolyte beverage with a pH above 8 — enhanced with electrolytes and minerals." >
         <div className="cta__row" data-fade>
-          <a href="/docs/eight-plus-brochure.pdf" download className="btn btn--light"><Download width={16} height={16} /> Download brochure</a>
+          <a href={asset("/docs/eight-plus-brochure.pdf")} download className="btn btn--light"><Download width={16} height={16} /> Download brochure</a>
           <a href={waLink("Hello Kemp's, I'd like to enquire about Eight Plus alkaline water.")} target="_blank" rel="noopener noreferrer" className="btn btn--glass"><WhatsApp width={16} height={16} /> Enquire</a>
         </div>
       </PageHero>

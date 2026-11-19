@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { asset } from "@/lib/base";
 import Img from "../Img";
 import LiquidText from "../LiquidText";
 import { Arrow, Download } from "../Icons";
@@ -18,7 +19,7 @@ export default function EightPlusFeature() {
           </div>
           <div className="cta__row" data-fade>
             <Link href="/eight-plus/" className="btn btn--light">Discover Eight Plus <Arrow /></Link>
-            <a href="/docs/eight-plus-brochure.pdf" download className="btn btn--glass"><Download width={16} height={16} /> Brochure (PDF)</a>
+            <a href={asset("/docs/eight-plus-brochure.pdf")} download className="btn btn--glass"><Download width={16} height={16} /> Brochure (PDF)</a>
           </div>
         </div>
       </div>

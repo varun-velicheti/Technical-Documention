@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BRAND, NAV } from "@/content/site";
 import { waLink } from "@/lib/wa";
+import { asset } from "@/lib/base";
 import { WhatsApp, Arrow } from "./Icons";
 
 export default function Footer() {
@@ -10,7 +11,7 @@ export default function Footer() {
         <div className="wrap">
           <div className="footer__top">
             <div>
-              <Link href="/" aria-label="Kemp's — home"><img src="/logo-kemps-white.png" alt="Kemp's — with added minerals" width="220" height="98" style={{ width: 200, height: "auto" }} loading="lazy" /></Link>
+              <Link href="/" aria-label="Kemp's — home"><img src={asset("/logo-kemps-white.png")} alt="Kemp's — with added minerals" width="220" height="98" style={{ width: 200, height: "auto" }} loading="lazy" /></Link>
               <p style={{ maxWidth: "38ch", marginTop: 22 }}>Packaged drinking water with added minerals, alkaline water and sodas — made in Hosapete, Karnataka, since 1997.</p>
               <a className="btn btn--light" style={{ marginTop: 12 }} href={waLink("Hello Kemp's, I'd like to enquire about your products.")} target="_blank" rel="noopener noreferrer"><WhatsApp width={18} height={18} /> Chat on WhatsApp</a>
             </div>

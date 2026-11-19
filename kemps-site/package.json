@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve@14 out"
+    "start": "npx serve@14 out",
+    "build:pages": "NEXT_PUBLIC_BASE_PATH=/Technical-Documention/kemps next build && rm -rf ../kemps && cp -r out ../kemps"
   },
   "dependencies": {
     "next": "16.0.10",

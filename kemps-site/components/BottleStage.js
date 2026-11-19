@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { asset } from "@/lib/base";
 
 /**
  * A single fixed WebGL canvas that renders the glass bottle and follows
@@ -61,7 +62,7 @@ function makeLabelTexture(THREE) {
   paint(null);
   const img = new Image();
   img.onload = () => paint(img);
-  img.src = "/img/label-logo.png";
+  img.src = asset("/img/label-logo.png");
   return tex;
 }
 
@@ -117,7 +118,7 @@ function buildScene(THREE, host, reduce) {
   // Environment for reflections: the brand's own lake photograph, used as an equirect map.
   const pmrem = new THREE.PMREMGenerator(renderer);
   const envLoader = new THREE.TextureLoader();
-  envLoader.load("/img/lake-1280.webp", (tex) => {
+  envLoader.load(asset("/img/lake-1280.webp"), (tex) => {
     tex.mapping = THREE.EquirectangularReflectionMapping;
     tex.colorSpace = THREE.SRGBColorSpace;
     const env = pmrem.fromEquirectangular(tex).texture;

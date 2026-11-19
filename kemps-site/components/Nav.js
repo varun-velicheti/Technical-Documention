@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { BRAND, NAV } from "@/content/site";
 import { waLink } from "@/lib/wa";
+import { asset } from "@/lib/base";
 import { Menu, Close, Arrow, WhatsApp } from "./Icons";
 import Magnetic from "./Magnetic";
 
@@ -47,7 +48,7 @@ export default function Nav() {
       <header className={`nav${solid ? " is-solid" : ""}${hidden ? " is-hidden" : ""}`}>
         <div className="wrap nav__inner">
           <Link href="/" className="brand-logo" aria-label={`${BRAND.name} — home`}>
-            <img src={solid ? "/logo-kemps-mark.png" : "/logo-kemps-white-mark.png"} alt="Kemp's" width="480" height="188" />
+            <img src={asset(solid ? "/logo-kemps-mark.png" : "/logo-kemps-white-mark.png")} alt="Kemp's" width="480" height="188" />
           </Link>
           <nav aria-label="Primary">
             <ul className="nav__links">

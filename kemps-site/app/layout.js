@@ -1,6 +1,7 @@
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { BRAND } from "@/content/site";
+import { asset } from "@/lib/base";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -14,7 +15,7 @@ export const metadata = {
   description: "Kemp's packaged drinking water with added minerals, Eight Plus alkaline water and Kemp's sodas — made by Kempannavar Industries in Hosapete, Karnataka, since 1997.",
   openGraph: { type: "website", siteName: "Kemp's", images: [{ url: "/og.jpg", width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/logo-kemps-mark.png" },
+  icons: { icon: asset("/logo-kemps-mark.png") },
 };
 
 export const viewport = { themeColor: "#f5f8fa", width: "device-width", initialScale: 1 };
