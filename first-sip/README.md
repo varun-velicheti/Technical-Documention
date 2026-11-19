@@ -23,6 +23,7 @@ Page content lives in `_src/pages/*.html`; the shared header, footer, cart and i
 ```
 python3 _src/build.py        # pages in this folder
 python3 _src/standalone.py   # single-file copies in ../first-sip-html/
+python3 _src/singlefile.py   # the whole site in one file: ../first-sip-website.html
 ```
 
 Styles: `assets/css/style.css` (colour tokens at the top). Interactions and shop/café data: `assets/js/main.js`. Bean-to-cup animation: `assets/js/brew.js`.
