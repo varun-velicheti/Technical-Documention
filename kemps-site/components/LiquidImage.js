@@ -17,18 +17,14 @@ import { asset } from "@/lib/base";
  * The plain <Img> is rendered first (SEO, LCP, no-JS, reduced motion) and the
  * canvas fades in over it once the texture is ready.
  */
-/** Presets measured on the source images (fractions of width/height). */
-export const SPLASH_BOTTLE = [0.36, 0.02, 0.745, 0.99];
-/** Kemp's 1 L bottle photo: protect box in the bottle's own (upright) frame, plus its tilt in radians. */
-export const KEMPS_BOTTLE = { protect: [0.35, 0.15, 0.705, 1.03], angle: 0.28 };
-export const DROPLET = { center: [0.5, 0.62], drop: [0.5, 0.28, 0.06] };
-
-export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover", mode = "ripple", center = [0.5, 0.6], drop = null, protect = [0.36, 0.08, 0.64, 0.98], angle = 0, strength = 1, className = "", imgStyle }) {
+export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover", mode = "ripple", center = [0.5, 0.6], drop = null, protect = [0.36, 0.08, 0.64, 0.98], angle = 0, strength = 1, focus: focusDesktop = [0.5, 0.5], focusMobile, rippleProtect = false, priority = false, className = "", imgStyle }) {
   const wrap = useRef(null);
   const canvas = useRef(null);
+  const focus = focusDesktop;
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const focus = focusMobile && window.matchMedia("(max-width: 720px)").matches ? focusMobile : focusDesktop;
     const cv = canvas.current;
     const gl = cv.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false });
     if (!gl) return;
@@ -41,7 +37,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
       varying vec2 vUv;
       uniform sampler2D uTex;
       uniform vec2 uRes; uniform float uImgAspect; uniform float uTime; uniform float uFit; uniform float uMode;
-      uniform vec2 uCenter; uniform vec3 uDrop; uniform vec4 uProtect; uniform float uStrength; uniform float uAngle;
+      uniform vec2 uCenter; uniform vec3 uDrop; uniform vec4 uProtect; uniform float uStrength; uniform float uAngle; uniform vec2 uFocus; uniform float uRippleProtect;
       uniform vec2 uMouse; uniform float uMouseT;
 
       vec2 fitUv(vec2 uv){
@@ -49,7 +45,16 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
         vec2 s = vec2(1.0);
         if (uFit < 0.5) { if (ca > uImgAspect) s.y = uImgAspect / ca; else s.x = ca / uImgAspect; }
         else { if (ca > uImgAspect) s.x = ca / uImgAspect; else s.y = uImgAspect / ca; }
-        return (uv - 0.5) * s + 0.5;
+        return uv * s + (1.0 - s) * uFocus;
+      }
+
+      float protectMask(vec2 p, vec2 asp){
+        vec2 pc = (uProtect.xy + uProtect.zw) * 0.5;
+        vec2 d = (p - pc) * asp;
+        float ca = cos(uAngle), sa = sin(uAngle);
+        vec2 b = vec2(ca * d.x - sa * d.y, sa * d.x + ca * d.y) / asp + pc;
+        vec2 q = smoothstep(uProtect.xy - 0.02, uProtect.xy + 0.02, b) * (1.0 - smoothstep(uProtect.zw - 0.02, uProtect.zw + 0.02, b));
+        return q.x * q.y;
       }
 
       void main(){
@@ -61,7 +66,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
           // ── ripple: waves from the crown, stronger on the water surface
           vec2 d = (p - uCenter) * asp;
           float r = length(d);
-          float surface = smoothstep(uCenter.y - 0.32, uCenter.y + 0.02, p.y);
+          float surface = smoothstep(uCenter.y - 0.32, uCenter.y + 0.02, p.y) * (1.0 - protectMask(p, asp) * step(0.0001, uProtect.z - uProtect.x) * uRippleProtect);
           float w = sin(r * 46.0 - uTime * 2.0) * exp(-r * 1.6);
           w += 0.5 * sin(r * 90.0 - uTime * 3.1) * exp(-r * 3.0);
           p += normalize(d + 1e-5) / asp * w * 0.0045 * surface * uStrength;
@@ -119,7 +124,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const U = (n) => gl.getUniformLocation(prog, n);
-    const u = { res: U("uRes"), asp: U("uImgAspect"), time: U("uTime"), fit: U("uFit"), mode: U("uMode"), center: U("uCenter"), drop: U("uDrop"), protect: U("uProtect"), strength: U("uStrength"), mouse: U("uMouse"), mouseT: U("uMouseT"), angle: U("uAngle") };
+    const u = { res: U("uRes"), asp: U("uImgAspect"), time: U("uTime"), fit: U("uFit"), mode: U("uMode"), center: U("uCenter"), drop: U("uDrop"), protect: U("uProtect"), strength: U("uStrength"), mouse: U("uMouse"), mouseT: U("uMouseT"), angle: U("uAngle"), focus: U("uFocus"), rp: U("uRippleProtect") };
     gl.uniform1f(u.asp, imgAspect);
     gl.uniform1f(u.fit, fit === "cover" ? 0 : 1);
     gl.uniform1f(u.mode, mode === "ripple" ? 0 : 1);
@@ -128,6 +133,8 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
     gl.uniform4f(u.protect, ...protect);
     gl.uniform1f(u.strength, strength);
     gl.uniform1f(u.angle, angle);
+    gl.uniform2f(u.focus, focus[0], focus[1]);
+    gl.uniform1f(u.rp, rippleProtect ? 1 : 0);
     gl.uniform2f(u.mouse, -5, -5);
     gl.uniform1f(u.mouseT, -100);
 
@@ -191,7 +198,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
       const ca = r.width / r.height;
       let sx = 1, sy = 1;
       if (fit === "cover") { if (ca > imgAspect) sy = imgAspect / ca; else sx = ca / imgAspect; }
-      gl.uniform2f(u.mouse, (x - 0.5) * sx + 0.5, (y - 0.5) * sy + 0.5);
+      gl.uniform2f(u.mouse, x * sx + (1 - sx) * focus[0], y * sy + (1 - sy) * focus[1]);
       gl.uniform1f(u.mouseT, now);
       last = now;
     };
@@ -207,7 +214,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
 
   return (
     <div ref={wrap} className={`liquid liquid--${fit} ${className}`}>
-      <Img name={name} alt={alt} sizes={sizes} style={{ backgroundColor: "transparent", ...imgStyle }} />
+      <Img name={name} alt={alt} sizes={sizes} priority={priority} style={{ backgroundColor: "transparent", objectPosition: `${focus[0] * 100}% ${focus[1] * 100}%`, ...imgStyle }} />
       <canvas ref={canvas} aria-hidden="true" />
     </div>
   );
