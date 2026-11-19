@@ -1,0 +1,5 @@
+node_modules
+.next
+out
+_raw
+data/submissions.ndjson
