@@ -19,9 +19,11 @@ import { asset } from "@/lib/base";
  */
 /** Presets measured on the source images (fractions of width/height). */
 export const SPLASH_BOTTLE = [0.36, 0.02, 0.745, 0.99];
+/** Kemp's 1 L bottle photo: protect box in the bottle's own (upright) frame, plus its tilt in radians. */
+export const KEMPS_BOTTLE = { protect: [0.35, 0.15, 0.705, 1.03], angle: 0.28 };
 export const DROPLET = { center: [0.5, 0.62], drop: [0.5, 0.28, 0.06] };
 
-export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover", mode = "ripple", center = [0.5, 0.6], drop = null, protect = [0.36, 0.08, 0.64, 0.98], strength = 1, className = "", imgStyle }) {
+export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover", mode = "ripple", center = [0.5, 0.6], drop = null, protect = [0.36, 0.08, 0.64, 0.98], angle = 0, strength = 1, className = "", imgStyle }) {
   const wrap = useRef(null);
   const canvas = useRef(null);
 
@@ -39,7 +41,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
       varying vec2 vUv;
       uniform sampler2D uTex;
       uniform vec2 uRes; uniform float uImgAspect; uniform float uTime; uniform float uFit; uniform float uMode;
-      uniform vec2 uCenter; uniform vec3 uDrop; uniform vec4 uProtect; uniform float uStrength;
+      uniform vec2 uCenter; uniform vec3 uDrop; uniform vec4 uProtect; uniform float uStrength; uniform float uAngle;
       uniform vec2 uMouse; uniform float uMouseT;
 
       vec2 fitUv(vec2 uv){
@@ -77,7 +79,12 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
           }
         } else {
           // ── splash: flowing water outside the protected bottle area
-          vec2 q = smoothstep(uProtect.xy - 0.03, uProtect.xy + 0.03, p) * (1.0 - smoothstep(uProtect.zw - 0.03, uProtect.zw + 0.03, p));
+          // move into the bottle's upright frame (handles tilted bottles)
+          vec2 pc = (uProtect.xy + uProtect.zw) * 0.5;
+          vec2 dd0 = (p - pc) * asp;
+          float ca = cos(uAngle), sa = sin(uAngle);
+          vec2 b = vec2(ca * dd0.x - sa * dd0.y, sa * dd0.x + ca * dd0.y) / asp + pc;
+          vec2 q = smoothstep(uProtect.xy - 0.02, uProtect.xy + 0.02, b) * (1.0 - smoothstep(uProtect.zw - 0.02, uProtect.zw + 0.02, b));
           float inside = q.x * q.y;
           float flow = 1.0 - inside;
           vec2 o = vec2(
@@ -86,7 +93,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
           );
           p += o * 0.0032 * flow * uStrength;
           // light sheen sweeping across the bottle every few seconds
-          float x = (p.x - uProtect.x) / (uProtect.z - uProtect.x) + (p.y - 0.5) * 0.35;
+          float x = (b.x - uProtect.x) / (uProtect.z - uProtect.x) + (b.y - 0.5) * 0.35;
           float pos = fract(uTime * 0.11) * 2.6 - 0.8;
           sheen = smoothstep(0.16, 0.0, abs(x - pos)) * inside * 0.32;
           // sparkle on splash highlights
@@ -112,7 +119,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const U = (n) => gl.getUniformLocation(prog, n);
-    const u = { res: U("uRes"), asp: U("uImgAspect"), time: U("uTime"), fit: U("uFit"), mode: U("uMode"), center: U("uCenter"), drop: U("uDrop"), protect: U("uProtect"), strength: U("uStrength"), mouse: U("uMouse"), mouseT: U("uMouseT") };
+    const u = { res: U("uRes"), asp: U("uImgAspect"), time: U("uTime"), fit: U("uFit"), mode: U("uMode"), center: U("uCenter"), drop: U("uDrop"), protect: U("uProtect"), strength: U("uStrength"), mouse: U("uMouse"), mouseT: U("uMouseT"), angle: U("uAngle") };
     gl.uniform1f(u.asp, imgAspect);
     gl.uniform1f(u.fit, fit === "cover" ? 0 : 1);
     gl.uniform1f(u.mode, mode === "ripple" ? 0 : 1);
@@ -120,6 +127,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
     gl.uniform3f(u.drop, ...(drop || [0, 0, 0]));
     gl.uniform4f(u.protect, ...protect);
     gl.uniform1f(u.strength, strength);
+    gl.uniform1f(u.angle, angle);
     gl.uniform2f(u.mouse, -5, -5);
     gl.uniform1f(u.mouseT, -100);
 

@@ -200,5 +200,15 @@ export const IMAGES = {
  "logo": {
   "w": 900,
   "h": 399
+ },
+ "kemps-bottle": {
+  "w": 1107,
+  "h": 1487,
+  "widths": [
+   400,
+   800,
+   1107
+  ],
+  "color": null
  }
 };
