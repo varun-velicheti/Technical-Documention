@@ -20,7 +20,9 @@ MAP = {
     "p-orange": ("products_orange.png", 900, True),
     "p-pudina": ("products_pudina_twist.png", 900, True),
     "jeera-mockup": ("jeera_soda_bottle_mockup_copy.png", 1400, True),
-    "kemps-bottle": ("kemps-bottle-cut.png", 1244, True),  # supplied by the client; cut out with scripts below
+    "kemps-bottle": ("kemps-bottle-cut.png", 1244, True),
+    "ep-bottle": ("ep-bottle-hd.png", 900, True),
+    "droplet-clean": ("droplet-clean.png", 2400, False),  # supplied by the client; cut out with scripts below
     "ep-duo": ("EightPlusImages_123.png", 1500, True),
     "ep-splash": ("EightPlusImages_4.2.png", 1400, True),
     "ep-logo": ("EightPlusImages_8+_logo.png", 1000, True),
