@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BRAND } from "@/content/site";
 import { waLink } from "@/lib/wa";
 import Img from "../Img";
+import FloatingBottle from "../FloatingBottle";
 import LiquidText from "../LiquidText";
 import Magnetic from "../Magnetic";
 import { Arrow, WhatsApp } from "../Icons";
@@ -12,7 +13,7 @@ export default function Hero() {
       <div className="hero__bg" data-parallax="6">
         <Img name="lake" alt="A still, crystal-clear lake at blue hour with mountains reflected in the water" priority sizes="100vw" />
       </div>
-      <div className="hero__anchor" data-bottle-anchor="hero" />
+      <FloatingBottle variant="hero" className="hero__bottle" sizes="(max-width: 720px) 60vw, 34vw" />
       <div className="wrap hero__content">
         <div style={{ alignSelf: "end" }}>
           <span className="eyebrow" data-fade style={{ color: "rgba(255,255,255,.8)" }}>Kemp&apos;s · Since 1997 · Hosapete</span>

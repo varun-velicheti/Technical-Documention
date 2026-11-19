@@ -1,4 +1,3 @@
-import BottleStage from "@/components/BottleStage";
 import Motion from "@/components/Motion";
 import Ripple from "@/components/Ripple";
 import Hero from "@/components/sections/Hero";
@@ -15,7 +14,6 @@ import Cta from "@/components/sections/Cta";
 export default function Home() {
   return (
     <>
-      <BottleStage />
       <Motion />
       <Hero />
       <Legacy />
