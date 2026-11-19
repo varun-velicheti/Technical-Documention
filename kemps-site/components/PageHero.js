@@ -1,13 +1,14 @@
 import Img from "./Img";
 import DropSplash from "./DropSplash";
-import SwirlBottle from "./SwirlBottle";
+import LiquidImage from "./LiquidImage";
+import { EP_REAL } from "@/lib/liquid-presets";
 import LiquidText from "./LiquidText";
 
 export default function PageHero({ eyebrow, lines, lede, image, alt = "", light = false, aside, asideAlt = "", children }) {
   return (
     <section className={`phero${light ? " phero--light" : ""}`} aria-labelledby="page-title">
       {image && <div className="phero__bg" data-parallax="8">{image === "droplet" ? <DropSplash alt={alt} sizes="100vw" /> : <Img name={image} alt={alt} priority sizes="100vw" />}</div>}
-      {aside && <div className="phero__aside" data-parallax="-6">{aside === "ep-splash" ? <SwirlBottle alt={asideAlt} sizes="34vw" /> : <div className="fit" style={{ height: "100%" }}><Img name={aside} alt={asideAlt} priority sizes="34vw" style={{ backgroundColor: "transparent" }} /></div>}</div>}
+      {aside && <div className="phero__aside" data-parallax="-6">{aside === "ep-splash" ? <LiquidImage className="liquid--float liquid--fade" name="ep-real" mode="splash" fit="contain" protect={EP_REAL.protect} angle={EP_REAL.angle} strength={1.3} alt={asideAlt} sizes="34vw" priority /> : <div className="fit" style={{ height: "100%" }}><Img name={aside} alt={asideAlt} priority sizes="34vw" style={{ backgroundColor: "transparent" }} /></div>}</div>}
       <div className="wrap">
         <span className="eyebrow" style={light ? undefined : { color: "rgba(255,255,255,.75)" }}>{eyebrow}</span>
         <div style={{ height: 24 }} />

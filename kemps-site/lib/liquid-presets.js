@@ -7,3 +7,5 @@ export const KEMPS_BOTTLE = { protect: [0.35, 0.15, 0.705, 1.03], angle: 0.28 };
 export const HERO_SHOT = { protect: [0.585, 0.12, 0.775, 0.79], angle: -0.14, center: [0.665, 0.745], focus: [0.64, 0.5], focusMobile: [0.69, 0.5] };
 export const DROPLET = { center: [0.5, 0.62], drop: [0.5, 0.28, 0.06] };
 
+/** Photoreal Eight Plus with a water spiral: keep the bottle body crisp, let the swirl around it flow. */
+export const EP_REAL = { protect: [0.345, 0.12, 0.665, 0.935], angle: 0 };

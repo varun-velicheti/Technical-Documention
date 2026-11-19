@@ -61,6 +61,7 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
         vec2 p = fitUv(vUv);
         vec2 asp = vec2(uImgAspect, 1.0);
         float sheen = 0.0;
+        float sparkle = 0.0;
 
         if (uMode < 0.5) {
           // ── ripple: waves from the crown, stronger on the water surface
@@ -102,12 +103,14 @@ export default function LiquidImage({ name, alt, sizes = "100vw", fit = "cover",
           float pos = fract(uTime * 0.11) * 2.6 - 0.8;
           sheen = smoothstep(0.16, 0.0, abs(x - pos)) * inside * 0.32;
           // sparkle on splash highlights
-          sheen += flow * 0.18 * pow(max(0.0, sin(p.x * 140.0 + uTime * 3.0) * sin(p.y * 120.0 - uTime * 2.4)), 24.0);
+          sparkle = flow * 0.22 * pow(max(0.0, sin(p.x * 140.0 + uTime * 3.0) * sin(p.y * 120.0 - uTime * 2.4)), 24.0);
         }
 
         if (p.x < 0.0 || p.x > 1.0 || p.y < 0.0 || p.y > 1.0) { gl_FragColor = vec4(0.0); return; }
         vec4 c = texture2D(uTex, p);
-        c.rgb += sheen * c.a;
+        float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
+        // sheen only on the bottle, sparkle only on bright water highlights (never on dark backdrops)
+        c.rgb += (sheen * smoothstep(0.15, 0.5, lum) + sparkle * smoothstep(0.55, 0.9, lum)) * c.a;
         gl_FragColor = c;
       }`;
 
