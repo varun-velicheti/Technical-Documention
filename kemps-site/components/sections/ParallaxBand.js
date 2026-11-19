@@ -1,11 +1,12 @@
 import Img from "../Img";
+import LiquidImage, { DROPLET } from "../LiquidImage";
 import LiquidText from "../LiquidText";
 
 export default function ParallaxBand() {
   return (
     <section className="parallax" aria-label="Brand statement">
       <div className="parallax__layer" data-parallax="12">
-        <Img name="droplet" alt="" sizes="100vw" />
+        <LiquidImage name="droplet" alt="" mode="ripple" fit="cover" center={DROPLET.center} drop={DROPLET.drop} sizes="100vw" />
       </div>
       <div className="parallax__mist" />
       <div className="parallax__layer" data-parallax="-10" style={{ inset: "auto 7% -6% auto", width: "min(22vw, 250px)", height: "auto", zIndex: 1 }}>
