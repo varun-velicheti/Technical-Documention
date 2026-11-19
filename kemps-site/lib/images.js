@@ -210,5 +210,26 @@ export const IMAGES = {
    1107
   ],
   "color": null
+ },
+ "ep-bottle": {
+  "w": 684,
+  "h": 2455,
+  "widths": [
+   400,
+   684
+  ],
+  "color": null
+ },
+ "droplet-clean": {
+  "w": 2752,
+  "h": 1536,
+  "widths": [
+   400,
+   800,
+   1200,
+   1600,
+   2400
+  ],
+  "color": "#3c5e7d"
  }
 };

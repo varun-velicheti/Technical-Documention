@@ -853,3 +853,15 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 .showcase__spin--photo .fbottle { flex: 1; width: 100%; min-height: 0; }
 .showcase__spin--photo .showcase__hint { margin: 8px 0 0; }
 @media (max-width: 900px) { .showcase__spin--photo { height: 58vh; } }
+
+/* 3D water swirl around the Eight Plus bottle */
+.swirl { position: relative; width: 100%; height: 100%; }
+.swirl__fallback { position: absolute; inset: 0; transition: opacity .8s var(--ease); }
+.swirl__fallback picture { position: relative; display: block; width: 100%; height: 100%; }
+.swirl__fallback img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 40px 60px rgba(0,0,0,.45)); }
+.swirl__stage { position: absolute; inset: 0; opacity: 0; transition: opacity 1s var(--ease); }
+.swirl__stage canvas { width: 100% !important; height: 100% !important; display: block; }
+.swirl.is-live .swirl__stage { opacity: 1; }
+.swirl.is-live .swirl__fallback { opacity: 0; }
+.ep__img::after { display: none; }
+@media (max-width: 900px) { .ep__img { height: 62vh !important; } }
