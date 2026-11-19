@@ -1,0 +1,18 @@
+import Img from "./Img";
+import LiquidText from "./LiquidText";
+
+export default function PageHero({ eyebrow, lines, lede, image, alt = "", light = false, aside, asideAlt = "", children }) {
+  return (
+    <section className={`phero${light ? " phero--light" : ""}`} aria-labelledby="page-title">
+      {image && <div className="phero__bg" data-parallax="8"><Img name={image} alt={alt} priority sizes="100vw" /></div>}
+      {aside && <div className="phero__aside fit" data-parallax="-6"><Img name={aside} alt={asideAlt} priority sizes="34vw" style={{ backgroundColor: "transparent" }} /></div>}
+      <div className="wrap">
+        <span className="eyebrow" style={light ? undefined : { color: "rgba(255,255,255,.75)" }}>{eyebrow}</span>
+        <div style={{ height: 24 }} />
+        <LiquidText as="h1" id="page-title" className="display" auto lines={lines} />
+        {lede && <p className="lede" data-fade style={{ marginTop: 28 }}>{lede}</p>}
+        {children}
+      </div>
+    </section>
+  );
+}

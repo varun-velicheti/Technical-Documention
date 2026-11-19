@@ -1,0 +1,17 @@
+const s = { fill: "none", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round", strokeLinejoin: "round" };
+export const Arrow = (p) => (<svg viewBox="0 0 16 16" className="arrow" aria-hidden="true" {...s} {...p}><path d="M2 8h12M9 3l5 5-5 5" /></svg>);
+export const Bag = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" {...s} {...p}><path d="M5 8h14l-1 12H6L5 8z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>);
+export const Menu = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" {...s} {...p}><path d="M4 9h16M4 15h16" /></svg>);
+export const Close = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" {...s} {...p}><path d="M6 6l12 12M18 6L6 18" /></svg>);
+export const Drop = (p) => (<svg viewBox="0 0 40 40" aria-hidden="true" {...s} {...p}><path d="M20 4c6 8 11 14 11 20a11 11 0 0 1-22 0c0-6 5-12 11-20z" /><path d="M15 26a5 5 0 0 0 5 5" /></svg>);
+export const Shield = (p) => (<svg viewBox="0 0 40 40" aria-hidden="true" {...s} {...p}><path d="M20 4l13 5v10c0 9-6 14-13 17C13 33 7 28 7 19V9l13-5z" /><path d="M14 20l4 4 8-8" /></svg>);
+export const Bottle = (p) => (<svg viewBox="0 0 40 40" aria-hidden="true" {...s} {...p}><rect x="16" y="3" width="8" height="5" rx="1" /><path d="M15 8h10l1 4v23a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V12l1-4z" /><path d="M14 18h12" /></svg>);
+export const Trace = (p) => (<svg viewBox="0 0 40 40" aria-hidden="true" {...s} {...p}><path d="M6 10h4M6 16h4M6 22h4M6 28h4M14 10v18M18 10v18M24 10v18M30 10v18M34 10v18" /></svg>);
+export const Truck = (p) => (<svg viewBox="0 0 40 40" aria-hidden="true" {...s} {...p}><path d="M4 11h20v16H4zM24 17h7l5 5v5H24z" /><circle cx="11" cy="29" r="3" /><circle cx="30" cy="29" r="3" /></svg>);
+export const Leaf = (p) => (<svg viewBox="0 0 40 40" aria-hidden="true" {...s} {...p}><path d="M8 32C8 16 18 7 34 6c0 16-9 26-25 26z" /><path d="M8 32l14-14" /></svg>);
+export const Glass = (p) => (<svg viewBox="0 0 40 40" aria-hidden="true" {...s} {...p}><path d="M10 6h20l-3 28H13L10 6z" /><path d="M11 15c4 2 8-2 18 0" /></svg>);
+export const Recycle = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" {...s} {...p}><path d="M7 19H4l3-5M17 19h3l-3-5M9 5l3-2 3 5M7 14l-3 5M20 19l-3-5M12 3l3 5" /></svg>);
+export const Check = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" {...s} {...p}><path d="M5 12l5 5 9-10" /></svg>);
+export const Pin = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" {...s} {...p}><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z" /><circle cx="12" cy="9" r="2.5" /></svg>);
+export const Download = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" {...s} {...p}><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>);
+export const WhatsApp = (p) => (<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...p}><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3z" /></svg>);
