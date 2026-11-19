@@ -368,7 +368,7 @@
    const overflowPile = new Map()
    chips.filter(c => c.overflow).forEach(c => {
       c.el.dataset.bw = ''
-      overflowPile.set(c, pileImg(c.el.src.replace('.webp', '-spiced.webp')))
+      overflowPile.set(c, pileImg(c.plainSrc.replace('.webp', '-spiced.webp')))
    })
 
    const placePile = (el, x, y, rot, sx, sy, op) => {
