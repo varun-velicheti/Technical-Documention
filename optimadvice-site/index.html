@@ -339,7 +339,7 @@ h2 em{font-style:normal;color:var(--blue)}
 .cube-ctl .btn-ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:#fff}
 .cube-ctl .btn-ghost:hover{border-color:rgba(255,255,255,.5)}
 .cube-ctl p{flex-basis:100%;margin-top:6px;font-size:14px;line-height:1.5;color:var(--navy-body);text-align:center}
-.cube-stage{--s:min(400px,calc(100vw - 150px));position:relative;height:calc(var(--s)*1.5);display:grid;place-items:center;perspective:1700px;margin:4px 0}
+.cube-stage{--s:min(400px,calc(100vw - 150px));position:relative;height:calc(var(--s)*1.5 + 56px);padding-bottom:56px;box-sizing:border-box;display:grid;place-items:center;perspective:1700px;margin:4px 0}
 .rc-floor{position:absolute;left:50%;bottom:calc(var(--s)*.02);width:calc(var(--s)*1.15);height:calc(var(--s)*.22);transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.65),transparent 70%);filter:blur(6px)}
 .rc-floor::after{content:"";position:absolute;inset:-40% -10%;border-radius:50%;background:radial-gradient(ellipse,rgba(47,107,219,.35),transparent 65%);filter:blur(20px)}
 .rc{width:var(--s);height:var(--s);position:relative;transform-style:preserve-3d;transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-24deg) rotateY(-36deg);transition:transform .9s var(--ease)}
@@ -390,6 +390,40 @@ h2 em{font-style:normal;color:var(--blue)}
 .d-state::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green-l);box-shadow:0 0 8px var(--green-l);flex-shrink:0}
 .d-state.miss{color:#FFA796;background:rgba(255,112,112,.1);border-color:rgba(255,112,112,.3)}
 .d-state.miss::before{background:#FF7070;box-shadow:0 0 8px #FF7070}
+/* missing = empty socket, cube locked */
+.tile.miss{background:#020408;color:rgba(255,255,255,.4);box-shadow:inset 0 calc(var(--s)*.012) calc(var(--s)*.03) rgba(0,0,0,.95),inset 0 0 0 1.5px rgba(255,112,112,.45)}
+.tile.miss::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 6px,transparent 6px 12px)}
+.tile.miss em{opacity:.5}
+.tile.miss .tn{opacity:.5}
+.tile.miss .tag{background:rgba(255,112,112,.18);color:#FF9C8A}
+.tile.miss.on{box-shadow:inset 0 calc(var(--s)*.012) calc(var(--s)*.03) rgba(0,0,0,.95),0 0 0 3px #FF9C8A,0 0 22px rgba(255,112,112,.45)}
+.tile.pop::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(145deg,#4F8FF7,#2A60CC);z-index:2;animation:popOut .6s var(--ease) forwards;pointer-events:none}
+@keyframes popOut{0%{transform:none;opacity:1}100%{transform:translate(18%,-55%) rotate(14deg) scale(.7);opacity:0}}
+.tile.snap{animation:snapIn .55s cubic-bezier(.3,1.5,.5,1) backwards}
+@keyframes snapIn{0%{transform:translate(-12%,-45%) rotate(-10deg) scale(1.25);opacity:0}100%{transform:none;opacity:1}}
+.tile.snap::before{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 3px #9DD35C,0 0 26px rgba(157,211,92,.8);animation:snapGlow .9s ease-out forwards;z-index:2;pointer-events:none}
+@keyframes snapGlow{from{opacity:1}to{opacity:0}}
+.rc.shake{animation:rcShake .55s ease-in-out}
+@keyframes rcShake{0%,100%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-24deg) rotateY(-36deg)}20%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-24deg) rotateY(-30deg) rotateZ(-2deg)}40%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-24deg) rotateY(-42deg) rotateZ(2deg)}60%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-24deg) rotateY(-32deg) rotateZ(-1deg)}80%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-24deg) rotateY(-39deg) rotateZ(1deg)}}
+.cube-stage.dragging .rc{transition:none}
+.cube-stage{touch-action:pan-y;cursor:grab}
+.cube-stage.locked{cursor:not-allowed}
+.cube-stage.dragging{cursor:grabbing}
+.rc-chip{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:2;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;backdrop-filter:blur(8px);transition:background .3s,color .3s,border-color .3s}
+.rc-chip::before{content:"";width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rc-chip.ok{background:rgba(157,211,92,.14);border:1px solid rgba(157,211,92,.4);color:var(--green-l)}
+.rc-chip.ok::before{background:var(--green-l);box-shadow:0 0 8px var(--green-l)}
+.rc-chip.lock{background:rgba(255,112,112,.14);border:1px solid rgba(255,112,112,.45);color:#FFA796}
+.rc-chip.lock::before{background:#FF7070;box-shadow:0 0 8px #FF7070}
+.rc-chip.nudge{animation:chipNudge .5s ease}
+@keyframes chipNudge{0%,100%{transform:translateX(-50%)}25%{transform:translateX(calc(-50% - 6px))}75%{transform:translateX(calc(-50% + 6px))}}
+.st-head{display:flex;align-items:center;gap:12px}
+.st-lock{width:34px;height:34px;flex-shrink:0;border-radius:10px;display:grid;place-items:center;background:rgba(157,211,92,.14);color:var(--green-l)}
+.st-lock::before{content:"";width:14px;height:14px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E")}
+.cube-status.locked .st-lock{background:rgba(255,112,112,.14);color:#FF8E7A}
+.cube-status.locked .st-lock::before{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M17 9V7A5 5 0 0 0 7 7v2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2zM9 7a3 3 0 0 1 6 0v2H9z'/%3E%3C/svg%3E")}
+.cube-status.locked .meter i{background:linear-gradient(90deg,#FF7070,#FFB25C)}
+@media (max-width:620px){.rc-chip{font-size:12px;padding:7px 12px}}
 .sys-steps .method{background:rgba(255,255,255,.04);border-color:var(--navy-line)}
 .sys-steps .method span{background:rgba(255,255,255,.08);border-color:transparent;color:var(--blue-l)}
 .sys-steps .method p{color:var(--navy-body)}
@@ -399,10 +433,10 @@ h2 em{font-style:normal;color:var(--blue)}
 .sys-cta{margin-top:44px;display:flex;gap:16px 24px;align-items:center;flex-wrap:wrap}
 .sys-cta span{font-size:15px;color:var(--navy-body)}
 @media (max-width:620px){
-  .cube-stage{--s:min(400px,calc(100vw - 150px))}
+  .cube-stage{--s:min(400px,calc(100vw - 175px))}
   .tile em,.tile .tn{display:none}
   .tile{justify-content:flex-end}
-  .tile b{font-size:12.5px}
+  .tile b{font-size:11px;letter-spacing:-.03em}
   .tile .tag{font-size:7.5px;padding:2px 5px}
 }
 
@@ -899,14 +933,15 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
     <div class="cube-wrap">
       <div class="reveal">
         <div class="cube-ctl">
-          <button class="btn btn-ink btn-sm" id="scrambleBtn">Scramble the cube</button>
-          <button class="btn btn-green btn-sm" id="solveBtn">Solve it</button>
+          <button class="btn btn-ink btn-sm" id="scrambleBtn">Remove 3 pieces</button>
+          <button class="btn btn-green btn-sm" id="solveBtn">Fix missing pieces</button>
+          <button class="btn btn-ghost btn-sm" id="playBtn">Turn the cube</button>
           <button class="btn btn-ghost btn-sm" id="resetBtn">Reset</button>
-          <p>Scramble breaks three pieces. Solve fixes them one by one, the way we fix a business.</p>
+          <p>A cube with even one piece missing can't be played. Your business works the same way. Remove pieces, try to turn the cube, then fix it.</p>
         </div>
-        <div class="cube-stage"><div class="rc-floor"></div><div class="rc" id="rc"><div class="rc-face rc-back" data-face="back"></div><div class="rc-face rc-bottom" data-face="bottom"></div><div class="rc-face rc-left" data-face="left"></div><div class="rc-face rc-right" data-face="right"></div><div class="rc-face rc-top" data-face="top"></div><div class="rc-face rc-front" id="cube"></div></div></div>
+        <div class="cube-stage" id="cubeStage"><div class="rc-floor"></div><div class="rc-chip ok" id="rcChip" role="status">Complete: ready to play</div><div class="rc" id="rc"><div class="rc-face rc-back" data-face="back"></div><div class="rc-face rc-bottom" data-face="bottom"></div><div class="rc-face rc-left" data-face="left"></div><div class="rc-face rc-right" data-face="right"></div><div class="rc-face rc-top" data-face="top"></div><div class="rc-face rc-front" id="cube"></div></div></div>
         <div class="cube-status">
-          <b id="stCount">9 of 9 pieces in place</b>
+          <div class="st-head"><span class="st-lock" id="stLock" aria-hidden="true"></span><b id="stCount">9 of 9 pieces in place</b></div>
           <div class="meter"><i id="stMeter" style="width:100%"></i></div>
           <p id="stMsg"></p>
           <a class="btn btn-ink btn-sm" style="margin-top:18px" href="#lead">Get this checked for free <span class="arr" aria-hidden="true">↗</span></a>
@@ -1187,28 +1222,24 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
     {key:'websites',name:'Websites',q:'Where do they land?',check:'Speed, mobile layout, clarity, forms and tracking.',mistake:'Sending paid traffic to a slow or confusing page.',fix:'We build a fast, clear page with one action, wired to tracking and WhatsApp.'}
   ];
   var SOLVED = {top:'w', right:'g', left:'o', back:'y', bottom:'r'};
-  var ALL = ['w','y','r','o','b','g'], WRONG = ['r','o','y'];
   var fill = function(c){ return [c,c,c,c,c,c,c,c,c]; };
-  var solvedFaces = function(){ var f = {}; for(var k in SOLVED) f[k] = fill(SOLVED[k]); return f; };
-  var S = {cube:'mistakes', broken:{}, wrong:{}, order:[0,1,2,3,4,5,6,7,8], solved:false, solving:false, faces:solvedFaces()};
+  var S = {cube:'mistakes', broken:{}, solved:false, solving:false};
   var timer = null;
   var pad = function(n){ return n<10 ? '0'+n : ''+n; };
   var shuffle = function(arr){ var a = arr.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; };
-  var rnd = function(arr){ return arr[Math.floor(Math.random()*arr.length)]; };
   var missing = function(){ return PIECES.filter(function(p){ return S.broken[p.key]; }); };
-  var rc = $('rc'), cubeEl = $('cube');
-  var spin = function(){ rc.classList.remove('spin'); void rc.offsetWidth; rc.classList.add('spin'); };
-  rc.addEventListener('animationend', function(e){ if(e.target===rc) rc.classList.remove('spin'); });
-  var renderFaces = function(flipAll){
-    document.querySelectorAll('.rc-face[data-face]').forEach(function(el){
-      el.innerHTML = S.faces[el.dataset.face].map(function(c,i){ return '<span class="sk c-'+c+(flipAll?' flip':'')+'"'+(flipAll?' style="animation-delay:'+(i*0.04)+'s"':'')+'></span>'; }).join('');
-    });
-  };
-  var renderCube = function(flip){
-    flip = flip || {};
-    cubeEl.innerHTML = S.order.map(function(i,pos){
-      var p = PIECES[i], miss = !!S.broken[p.key], f = flip.all || flip[p.key];
-      return '<button class="tile c-'+(miss ? S.wrong[p.key] : 'b')+(S.cube===p.key?' on':'')+(miss?' miss':'')+(f?' flip':'')+'" data-key="'+p.key+'" aria-label="'+p.name+(miss?', marked missing':'')+'" aria-pressed="'+(S.cube===p.key)+'"'+(f && flip.all ? ' style="animation-delay:'+(pos*0.06)+'s"' : '')+'>'+
+  var rc = $('rc'), cubeEl = $('cube'), stage = $('cubeStage'), chip = $('rcChip');
+  var replay = function(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+  rc.addEventListener('animationend', function(e){ if(e.target===rc){ rc.classList.remove('spin'); rc.classList.remove('shake'); } });
+  chip.addEventListener('animationend', function(){ chip.classList.remove('nudge'); });
+  document.querySelectorAll('.rc-face[data-face]').forEach(function(el){
+    el.innerHTML = fill(SOLVED[el.dataset.face]).map(function(c){ return '<span class="sk c-'+c+'"></span>'; }).join('');
+  });
+  var renderCube = function(anim){
+    anim = anim || {};
+    cubeEl.innerHTML = PIECES.map(function(p,i){
+      var miss = !!S.broken[p.key], a = anim[p.key] || '';
+      return '<button class="tile '+(miss?'miss':'c-b')+(S.cube===p.key?' on':'')+(a?' '+a:'')+'" data-key="'+p.key+'" aria-label="'+p.name+(miss?', missing':'')+'" aria-pressed="'+(S.cube===p.key)+'">'+
         '<span class="tn">'+pad(i+1)+'</span><span class="tag">Missing</span><span><b>'+p.name+'</b><em>'+p.q+'</em></span></button>';
     }).join('');
     var cur = PIECES.filter(function(p){ return p.key===S.cube; })[0] || PIECES[0];
@@ -1217,45 +1248,75 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
     $('dName').textContent = cur.name;
     $('dQ').textContent = cur.q;
     var st = $('dState');
-    st.textContent = isMiss ? 'Marked as missing. This is where we start.' : 'In place. We still check that it works with the other eight.';
+    st.textContent = isMiss ? 'Missing. Without this piece the cube can’t be played, and neither can your funnel.' : 'In place. It locks in with the other eight.';
     st.classList.toggle('miss', isMiss);
     $('dCheck').textContent = cur.check;
     $('dMistake').textContent = cur.mistake;
     $('dFix').textContent = cur.fix;
     $('dLinks').textContent = LINKS[cur.key];
-    $('toggleBtn').textContent = isMiss ? 'Mark as in place' : 'Mark as missing';
-    var m = missing();
-    $('stCount').textContent = (9-m.length)+' of 9 pieces in place';
+    $('toggleBtn').textContent = isMiss ? 'Put this piece back' : 'Remove this piece';
+    var m = missing(), locked = m.length > 0;
+    $('stCount').textContent = locked ? (9-m.length)+' of 9 pieces: cube locked' : '9 of 9 pieces: cube complete';
     $('stMeter').style.width = Math.round(((9-m.length)/9)*100)+'%';
-    $('stMsg').textContent = m.length===0
-      ? (S.solved ? 'Cube solved. Every piece is in place, so the funnel is ready to scale.' : 'All nine pieces are in place. We tune the funnel and scale what works. Try Scramble to see how we fix it.')
-      : 'Missing: '+m.map(function(p){ return p.name; }).join(', ')+'. We fix '+(m.length===1?'this piece':'these pieces')+' first, then put the funnel back through the cube.';
-    ['scrambleBtn','solveBtn','toggleBtn'].forEach(function(id){ $(id).disabled = S.solving; });
+    $('stMsg').textContent = locked
+      ? 'Missing: '+m.map(function(p){ return p.name; }).join(', ')+'. With '+(m.length===1?'a piece':'pieces')+' missing the cube can’t be played, and a business can’t grow. We find '+(m.length===1?'it':'them')+' and fix '+(m.length===1?'it':'them')+' first.'
+      : (S.solved ? 'Every piece is back. The cube turns again, so the funnel is ready to scale.' : 'All nine pieces are in place, so the cube can be played. Remove a few pieces to see what happens.');
+    $('stLock').parentNode.parentNode.classList.toggle('locked', locked);
+    chip.className = 'rc-chip '+(locked ? 'lock' : 'ok');
+    chip.textContent = locked ? 'Locked: '+m.length+' missing, can’t be played' : 'Complete: drag to turn';
+    stage.classList.toggle('locked', locked);
+    ['scrambleBtn','solveBtn','toggleBtn','playBtn'].forEach(function(id){ $(id).disabled = S.solving; });
+    $('solveBtn').disabled = S.solving || !locked;
     updateWA();
   };
-  var set = function(o, flip){ for(var k in o) S[k]=o[k]; renderCube(flip); };
-  cubeEl.addEventListener('click', function(e){ var t = e.target.closest('.tile'); if(t) set({cube:t.dataset.key}); });
+  var set = function(o, anim){ for(var k in o) S[k]=o[k]; renderCube(anim); };
+  var refuse = function(){ replay(rc,'shake'); replay(chip,'nudge'); };
+  var tryTurn = function(){ if(missing().length){ refuse(); return false; } replay(rc,'spin'); return true; };
+  cubeEl.addEventListener('click', function(e){ if(dragMoved) return; var t = e.target.closest('.tile'); if(t) set({cube:t.dataset.key}); });
   $('scrambleBtn').addEventListener('click', function(){
     clearTimeout(timer);
-    var idx=[0,1,2,3,4,5,6,7,8], pick=shuffle(idx).slice(0,3), b={}, w={}, cols=shuffle(WRONG);
-    pick.forEach(function(i,n){ b[PIECES[i].key]=true; w[PIECES[i].key]=cols[n]; });
-    var faces = {}; for(var k in SOLVED) faces[k] = fill(0).map(function(){ return rnd(ALL); });
-    S.faces = faces; spin(); renderFaces(false);
-    set({order:shuffle(idx), broken:b, wrong:w, cube:PIECES[pick[0]].key, solved:false, solving:false});
+    var pick = shuffle([0,1,2,3,4,5,6,7,8]).slice(0,3), b = Object.assign({}, S.broken), anim = {};
+    pick.forEach(function(i){ if(!b[PIECES[i].key]){ anim[PIECES[i].key]='pop'; } b[PIECES[i].key]=true; });
+    set({broken:b, cube:PIECES[pick[0]].key, solved:false, solving:false}, anim);
   });
   var solveStep = function(){
     var next = PIECES.filter(function(p){ return S.broken[p.key]; })[0];
-    if(next){ var b = Object.assign({}, S.broken); b[next.key]=false; var fl = {}; fl[next.key]=true; set({broken:b, cube:next.key}, fl); timer=setTimeout(solveStep, 1000); }
-    else { S.faces = solvedFaces(); spin(); renderFaces(false); set({order:[0,1,2,3,4,5,6,7,8], solved:true, solving:false, cube:'mistakes'}); }
+    if(next){ var b = Object.assign({}, S.broken), anim = {}; b[next.key]=false; anim[next.key]='snap'; set({broken:b, cube:next.key}, anim); timer=setTimeout(solveStep, 900); }
+    else { set({solved:true, solving:false, cube:'mistakes'}); setTimeout(function(){ replay(rc,'spin'); }, 250); }
   };
-  $('solveBtn').addEventListener('click', function(){ clearTimeout(timer); set({solving:true, solved:false}); timer=setTimeout(solveStep, 400); });
-  $('resetBtn').addEventListener('click', function(){ clearTimeout(timer); S.faces = solvedFaces(); spin(); renderFaces(false); set({broken:{}, wrong:{}, cube:'mistakes', order:[0,1,2,3,4,5,6,7,8], solved:false, solving:false}); });
+  $('solveBtn').addEventListener('click', function(){ clearTimeout(timer); set({solving:true, solved:false}); timer=setTimeout(solveStep, 300); });
+  $('playBtn').addEventListener('click', tryTurn);
+  $('resetBtn').addEventListener('click', function(){ clearTimeout(timer); var anim = {}; missing().forEach(function(p){ anim[p.key]='snap'; }); set({broken:{}, cube:'mistakes', solved:false, solving:false}, anim); });
   $('toggleBtn').addEventListener('click', function(){
-    var b = Object.assign({}, S.broken), w = Object.assign({}, S.wrong), k = S.cube;
-    b[k] = !b[k]; if(b[k]) w[k] = rnd(WRONG);
-    var fl = {}; fl[k] = true; set({broken:b, wrong:w}, fl);
+    var b = Object.assign({}, S.broken), k = S.cube, anim = {};
+    b[k] = !b[k]; anim[k] = b[k] ? 'pop' : 'snap';
+    set({broken:b, solved:false}, anim);
   });
-  renderFaces(false);
+  /* drag to turn (only when complete) */
+  var drag = null, dragMoved = false;
+  var BASE = 'translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) ';
+  stage.addEventListener('pointerdown', function(e){
+    if(e.button>0 || e.target.closest('.rc-chip')) return;
+    drag = {x:e.clientX, y:e.clientY, id:e.pointerId}; dragMoved = false;
+  });
+  window.addEventListener('pointermove', function(e){
+    if(!drag || e.pointerId!==drag.id) return;
+    var dx = e.clientX-drag.x, dy = e.clientY-drag.y;
+    if(!dragMoved && Math.abs(dx)+Math.abs(dy) < 8) return;
+    if(!dragMoved){
+      dragMoved = true;
+      if(missing().length){ refuse(); drag = null; return; }
+      stage.classList.add('dragging');
+    }
+    rc.style.transform = BASE+'rotateX('+(-24 - dy*0.4)+'deg) rotateY('+(-36 + dx*0.5)+'deg)';
+  });
+  var endDrag = function(){
+    if(!drag && !dragMoved) return;
+    drag = null; stage.classList.remove('dragging'); rc.style.transform = '';
+    setTimeout(function(){ dragMoved = false; }, 0);
+  };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
 
   /* Team profiles: replace the placeholders below with each person's real details */
   var TEAM = [
