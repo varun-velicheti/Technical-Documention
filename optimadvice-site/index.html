@@ -476,6 +476,48 @@ h2 em{font-style:normal;color:var(--blue)}
   .member span{font-size:12px}
 }
 
+button.member{font:inherit;color:inherit;text-align:left;width:100%;cursor:pointer}
+button.member:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.m-go{position:absolute;right:14px;top:12px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:var(--blue);background:var(--blue-soft);opacity:0;transform:translate(-4px,4px);transition:opacity .3s,transform .3s var(--ease)}
+.member:hover .m-go,.member:focus-visible .m-go{opacity:1;transform:none}
+[hidden]{display:none!important}
+.tm-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.tm-backdrop{position:absolute;inset:0;background:rgba(7,16,38,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .3s}
+.tm-panel{position:relative;width:min(540px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:28px;box-shadow:0 50px 100px -30px rgba(0,0,0,.6);opacity:0;transform:translateY(16px) scale(.97);transition:opacity .3s var(--ease),transform .35s var(--ease)}
+.tm-modal.open .tm-backdrop{opacity:1}
+.tm-modal.open .tm-panel{opacity:1;transform:none}
+.tm-top{position:relative;padding:36px 32px 28px;color:#fff;display:flex;align-items:center;gap:22px;background:radial-gradient(ellipse 80% 90% at 0% 0%,rgba(47,107,219,.6),transparent 60%),radial-gradient(ellipse 60% 70% at 100% 100%,rgba(157,211,92,.2),transparent 60%),linear-gradient(160deg,var(--navy-2),var(--navy-3));overflow:hidden}
+.tm-top::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:linear-gradient(90deg,#000,transparent);mask-image:linear-gradient(90deg,#000,transparent)}
+.tm-top>*{position:relative}
+.tm-av{width:96px;height:96px;flex-shrink:0;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,#7FB0FF,#9DD35C,#2F6BDB,#7FB0FF);box-shadow:0 0 40px rgba(47,107,219,.5)}
+.tm-av span{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:linear-gradient(160deg,#16295A,#0A1630);font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.02em}
+.tm-k{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-l);margin-bottom:6px}
+.tm-top h3{font-weight:800;font-size:28px;letter-spacing:-.035em;line-height:1.1}
+.tm-top p{margin-top:4px;font-size:15px;color:var(--navy-body)}
+.tm-x{position:absolute;right:14px;top:14px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:22px;line-height:1;cursor:pointer;transition:background .2s}
+.tm-x:hover{background:rgba(255,255,255,.18)}
+.tm-body{padding:28px 32px 8px;display:flex;flex-direction:column;gap:10px}
+.tm-body small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tm-body p{font-size:15.5px;line-height:1.75;color:var(--ink-2);margin-bottom:12px}
+.tm-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tm-tags span{padding:6px 12px;border-radius:999px;font-size:13px;font-weight:500;background:var(--blue-soft);color:var(--blue-d)}
+.tm-tags span:nth-child(even){background:var(--green-soft);color:var(--green)}
+.tm-foot{display:flex;align-items:center;gap:10px;padding:24px 32px 28px}
+.tm-foot .btn{flex:1}
+.tm-nav{width:44px;height:44px;flex-shrink:0;border-radius:50%;border:1px solid var(--line-2);background:#fff;color:var(--ink);font-size:18px;cursor:pointer;transition:border-color .2s,color .2s}
+.tm-nav:hover{border-color:var(--blue);color:var(--blue)}
+.tm-count{font-size:12px;font-weight:600;color:var(--muted);text-align:center;padding-bottom:18px;margin-top:-10px}
+@media (max-width:620px){
+  .tm-modal{place-items:end center;padding:0}
+  .tm-panel{width:100%;border-radius:24px 24px 0 0;max-height:88vh;transform:translateY(40px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .tm-top{flex-direction:column;align-items:flex-start;padding:28px 22px 22px;gap:16px}
+  .tm-av{width:80px;height:80px}
+  .tm-top h3{font-size:24px}
+  .tm-body{padding:22px 22px 4px}
+  .tm-foot{padding:20px 22px 22px}
+}
+@media (prefers-reduced-motion:reduce){.tm-panel,.tm-backdrop{transition:none}}
+
 /* ---------- CTA ---------- */
 .cta-section{padding:0 0 128px;background:var(--bg-2)}
 .cta{padding:64px;border-radius:32px;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:56px;align-items:start;color:#fff;background:radial-gradient(ellipse 70% 70% at 0% 0%,rgba(47,107,219,.55),transparent 60%),radial-gradient(ellipse 50% 60% at 100% 100%,rgba(157,211,92,.2),transparent 60%),linear-gradient(160deg,var(--navy-2),var(--navy-3));box-shadow:0 50px 100px -50px rgba(10,22,48,.8)}
@@ -914,15 +956,15 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
         <a class="btn btn-primary" href="https://wa.me/919704365718">Talk to Nithin <span class="arr" aria-hidden="true">↗</span></a>
       </article>
       <div class="team-grid">
-<div class="member"><span class="avatar "><i>02</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar g"><i>03</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar s"><i>04</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar "><i>05</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar g"><i>06</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar s"><i>07</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar "><i>08</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar g"><i>09</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
-<div class="member"><span class="avatar s"><i>10</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<button type="button" class="member" data-m="0" aria-haspopup="dialog" aria-label="View profile of team member 02"><span class="avatar "><i>02</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="1" aria-haspopup="dialog" aria-label="View profile of team member 03"><span class="avatar g"><i>03</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="2" aria-haspopup="dialog" aria-label="View profile of team member 04"><span class="avatar s"><i>04</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="3" aria-haspopup="dialog" aria-label="View profile of team member 05"><span class="avatar "><i>05</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="4" aria-haspopup="dialog" aria-label="View profile of team member 06"><span class="avatar g"><i>06</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="5" aria-haspopup="dialog" aria-label="View profile of team member 07"><span class="avatar s"><i>07</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="6" aria-haspopup="dialog" aria-label="View profile of team member 08"><span class="avatar "><i>08</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="7" aria-haspopup="dialog" aria-label="View profile of team member 09"><span class="avatar g"><i>09</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
+<button type="button" class="member" data-m="8" aria-haspopup="dialog" aria-label="View profile of team member 10"><span class="avatar s"><i>10</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div><span class="m-go" aria-hidden="true">↗</span></button>
         <div class="team-note"><p><b>One team, one plan.</b> Strategy, marketing, design and build work together on every account.</p><a class="btn btn-ghost btn-sm" href="#lead">Work with us <span class="arr" aria-hidden="true">↗</span></a></div>
       </div>
     </div>
@@ -975,6 +1017,28 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
   </div>
 </section>
 </main>
+<div class="tm-modal" id="tmModal" hidden>
+  <div class="tm-backdrop" data-close></div>
+  <div class="tm-panel" role="dialog" aria-modal="true" aria-labelledby="tmName">
+    <button type="button" class="tm-x" data-close aria-label="Close profile">×</button>
+    <div class="tm-top">
+      <div class="tm-av"><span id="tmAv">02</span></div>
+      <div><span class="tm-k" id="tmK">Team member</span><h3 id="tmName">[Name]</h3><p id="tmRole">[Role]</p></div>
+    </div>
+    <div class="tm-body">
+      <small>About</small>
+      <p id="tmBio"></p>
+      <small>Focus areas</small>
+      <div class="tm-tags" id="tmTags"></div>
+    </div>
+    <div class="tm-foot">
+      <button type="button" class="tm-nav" id="tmPrev" aria-label="Previous team member">←</button>
+      <a class="btn btn-primary btn-sm" id="tmCta" href="https://wa.me/919704365718" target="_blank" rel="noopener">Start a conversation <span class="arr" aria-hidden="true">↗</span></a>
+      <button type="button" class="tm-nav" id="tmNext" aria-label="Next team member">→</button>
+    </div>
+    <div class="tm-count" id="tmCount">2 of 10</div>
+  </div>
+</div>
 
 <footer>
   <div class="container">
@@ -1192,6 +1256,66 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
     var fl = {}; fl[k] = true; set({broken:b, wrong:w}, fl);
   });
   renderFaces(false);
+
+  /* Team profiles: replace the placeholders below with each person's real details */
+  var TEAM = [
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']},
+    {name:'[Name]', role:'[Role]', bio:'[Short bio: two or three sentences about their background, what they handle at OptimAdvice and the kind of work they focus on.]', focus:['[Focus area]','[Focus area]','[Focus area]']}
+  ];
+  var isPh = function(t){ return /^\[.*\]$/.test(t); };
+  var initials = function(n){ return n.split(/\s+/).map(function(w){ return w.charAt(0); }).join('').slice(0,2).toUpperCase(); };
+  document.querySelectorAll('button.member').forEach(function(card){
+    var t = TEAM[+card.dataset.m]; if(!t) return;
+    card.querySelector('.m-txt b').textContent = t.name;
+    card.querySelector('.m-txt span').textContent = t.role;
+    if(!isPh(t.name)){ card.setAttribute('aria-label','View profile of '+t.name); card.querySelector('.avatar i').textContent = initials(t.name); }
+  });
+  var tm = $('tmModal'), tmCur = 0, tmLast = null, tmCloseT = null;
+  var tmFill = function(i){
+    tmCur = (i+TEAM.length)%TEAM.length;
+    var t = TEAM[tmCur], num = pad(tmCur+2);
+    $('tmAv').textContent = isPh(t.name) ? num : initials(t.name);
+    $('tmK').textContent = 'Team member '+num;
+    $('tmName').textContent = t.name;
+    $('tmRole').textContent = t.role;
+    $('tmBio').textContent = t.bio;
+    $('tmTags').innerHTML = t.focus.map(function(f){ return '<span>'+esc(f)+'</span>'; }).join('');
+    $('tmCount').textContent = (tmCur+2)+' of 10';
+    $('tmCta').href = WA+'?text='+encodeURIComponent(isPh(t.name) ? 'Hi OptimAdvice, I would like to talk to your team.' : 'Hi OptimAdvice, I would like to talk to '+t.name+'.');
+  };
+  var tmOpen = function(i){
+    clearTimeout(tmCloseT); tmLast = document.activeElement; tmFill(i);
+    tm.hidden = false; document.documentElement.style.overflow = 'hidden';
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ tm.classList.add('open'); }); });
+    tm.querySelector('.tm-x').focus({preventScroll:true});
+  };
+  var tmClose = function(){
+    tm.classList.remove('open'); document.documentElement.style.overflow = '';
+    tmCloseT = setTimeout(function(){ tm.hidden = true; }, reduce ? 0 : 300);
+    if(tmLast && tmLast.focus) tmLast.focus({preventScroll:true});
+  };
+  document.querySelector('.team-grid').addEventListener('click', function(e){ var c = e.target.closest('button.member'); if(c) tmOpen(+c.dataset.m); });
+  tm.addEventListener('click', function(e){ if(e.target.closest('[data-close]')) tmClose(); });
+  $('tmPrev').addEventListener('click', function(){ tmFill(tmCur-1); });
+  $('tmNext').addEventListener('click', function(){ tmFill(tmCur+1); });
+  document.addEventListener('keydown', function(e){
+    if(tm.hidden) return;
+    if(e.key==='Escape') tmClose();
+    else if(e.key==='ArrowLeft') tmFill(tmCur-1);
+    else if(e.key==='ArrowRight') tmFill(tmCur+1);
+    else if(e.key==='Tab'){
+      var f = tm.querySelectorAll('button, a[href]'), first = f[0], last = f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  });
 
   /* Lead form → WhatsApp */
   var fields = ['fName','fPhone','fBiz','fProblem'];
