@@ -407,19 +407,74 @@ h2 em{font-style:normal;color:var(--blue)}
 }
 
 /* ---------- Team ---------- */
-#team{background:#fff}
-.team-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.member{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 16px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;transition:transform .3s var(--ease),box-shadow .3s}
-.member:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
-.avatar{width:80px;height:80px;border-radius:50%;background:var(--blue-soft);color:var(--blue-d);display:grid;place-items:center;margin-bottom:14px;font-family:var(--display);font-weight:700;font-size:20px}
-.avatar.g{background:var(--green-soft);color:var(--green)}
-.avatar.s{background:#EEF0F6;color:var(--navy)}
-.member b{font-family:var(--display);font-weight:700;font-size:16px}
-.member span{font-size:13px;color:var(--muted)}
-.member.lead{background:linear-gradient(160deg,var(--navy-2),var(--navy));border-color:var(--navy);color:#fff}
-.member.lead span{color:var(--navy-body)}
-.member.lead .avatar{background:linear-gradient(135deg,#3A76C4,#5E9A2A);color:#fff;font-size:24px;box-shadow:0 0 0 4px rgba(255,255,255,.1)}
-.member.ph{border-style:dashed;border-color:var(--line-2);background:#FBFCFE}
+#team{background:radial-gradient(ellipse 50% 40% at 0% 100%,rgba(47,107,219,.07),transparent 70%),radial-gradient(ellipse 40% 40% at 100% 0%,rgba(157,211,92,.08),transparent 70%),var(--bg-2)}
+.team-intro{justify-self:end;max-width:430px}
+@media (max-width:900px){.team-intro{justify-self:start}}
+.team-roles{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.team-roles span{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink-2);box-shadow:var(--sh)}
+.team-roles span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.team-roles span:nth-child(even)::before{background:var(--green)}
+.team-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2.1fr);gap:20px;align-items:stretch}
+.founder{position:relative;overflow:hidden;border-radius:28px;padding:36px 32px 32px;color:#fff;display:flex;flex-direction:column;align-items:flex-start;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(47,107,219,.55),transparent 65%),radial-gradient(ellipse 70% 50% at 100% 100%,rgba(157,211,92,.18),transparent 60%),linear-gradient(170deg,var(--navy-2),var(--navy-3));box-shadow:0 40px 80px -36px rgba(10,22,48,.75)}
+.founder::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:linear-gradient(#000,transparent 60%);mask-image:linear-gradient(#000,transparent 60%);pointer-events:none}
+.founder>*{position:relative}
+.f-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#E3E9F4}
+.f-badge::before{content:"★";color:var(--green-l);font-size:11px}
+.f-photo{margin:30px 0 26px;width:136px;height:136px;border-radius:50%;padding:4px;background:conic-gradient(from 210deg,#7FB0FF,#9DD35C,#2F6BDB,#7FB0FF);box-shadow:0 0 0 10px rgba(127,176,255,.08),0 0 60px rgba(47,107,219,.55);position:relative}
+.f-photo span{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:linear-gradient(160deg,#16295A,#0A1630);font-family:var(--display);font-weight:800;font-size:44px;letter-spacing:-.03em}
+.f-photo::after{content:"";position:absolute;right:8px;bottom:8px;width:22px;height:22px;border-radius:50%;background:var(--green-l);border:4px solid var(--navy-2)}
+.founder h3{font-weight:800;font-size:32px;letter-spacing:-.035em;line-height:1.05}
+.f-role{margin-top:8px;font-size:15px;color:var(--navy-body)}
+.f-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:28px 0;width:100%;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)}
+.f-stats div{background:rgba(10,22,48,.55);padding:16px}
+.f-stats b{display:block;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.03em;color:var(--blue-l)}
+.f-stats div:last-child b{color:var(--green-l)}
+.f-stats small{display:block;margin-top:2px;font-size:12px;color:var(--navy-body);line-height:1.4}
+.founder .btn{margin-top:auto;width:100%}
+.team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.member{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px 20px;display:flex;align-items:center;gap:16px;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s}
+.member::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue);transform:scaleY(0);transition:transform .35s var(--ease)}
+.member:nth-child(3n+2)::after{background:var(--green)}
+.member:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:transparent}
+.member:hover::after{transform:scaleY(1)}
+.avatar{flex-shrink:0;width:60px;height:60px;border-radius:50%;padding:2px;background:conic-gradient(from 200deg,#7FB0FF,#2F6BDB,#7FB0FF);position:relative}
+.avatar.g{background:conic-gradient(from 200deg,#B6E37C,#4F8A1F,#B6E37C)}
+.avatar.s{background:conic-gradient(from 200deg,#9AA6BF,#0F2148,#9AA6BF)}
+.avatar i{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#fff;font-style:normal;font-family:var(--display);font-weight:700;font-size:16px;color:var(--blue-d)}
+.avatar.g i{color:var(--green)}
+.avatar.s i{color:var(--navy)}
+.member .m-txt{min-width:0}
+.member b{display:block;font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.015em}
+.member span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.member .m-n{position:absolute;right:16px;top:14px;font-family:var(--display);font-weight:700;font-size:11px;color:var(--line-2)}
+.team-note{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;padding:20px 24px;border-radius:22px;background:#fff;border:1px dashed var(--line-2)}
+.team-note p{flex:1 1 320px;font-size:15px;color:var(--body)}
+.team-note p b{color:var(--ink)}
+@media (max-width:1080px){
+  .team-layout{grid-template-columns:minmax(0,1fr)}
+  .founder{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:28px;align-items:center}
+  .founder .f-badge{grid-column:1/-1;justify-self:start}
+  .f-photo{grid-row:span 3;margin:24px 0 0}
+  .founder h3{align-self:end;margin-top:24px}
+  .f-role{align-self:start}
+  .f-stats,.founder .btn{grid-column:1/-1}
+}
+@media (max-width:620px){
+  .founder{display:flex;align-items:center;text-align:center;padding:28px 22px 24px}
+  .founder .f-badge,.founder h3,.f-role{align-self:center}
+  .f-photo{width:112px;height:112px;margin:24px 0 20px}
+  .f-photo span{font-size:36px}
+  .founder h3{font-size:28px;margin-top:0}
+  .f-stats{text-align:left}
+  .team-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .member{flex-direction:column;text-align:center;gap:10px;padding:18px 8px 16px;border-radius:18px}
+  .member::after{left:0;right:0;top:auto;bottom:0;width:auto;height:3px;transform:scaleX(0)}
+  .member:hover::after{transform:scaleX(1)}
+  .avatar{width:48px;height:48px}
+  .avatar i{font-size:14px}
+  .member b{font-size:14px}
+  .member span{font-size:12px}
+}
 
 /* ---------- CTA ---------- */
 .cta-section{padding:0 0 128px;background:#fff}
@@ -467,7 +522,6 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
   .hero-visual{max-width:620px}
   .tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .svc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
   .tailor{grid-template-columns:minmax(0,1fr)}
   .tailor-arrow{display:none}
 }
@@ -521,7 +575,6 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
   .project h3{font-size:22px}
   .tool-grid,.svc-grid,.method-grid{grid-template-columns:minmax(0,1fr)}
   .tool{min-height:0}
-  .team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .spend-card{padding:30px 24px}
   .fl{height:60px}
   .fl b{display:none}
@@ -808,19 +861,29 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
   <div class="container">
     <div class="section-top reveal">
       <div><div class="label">Our team</div><h2>The 10 people<br>behind the <em>work.</em></h2></div>
-      <p class="section-intro">Strategists, marketers, designers and builders working as one team on your growth.</p>
+      <div class="team-intro"><p class="section-intro">Strategists, marketers, designers and builders working as one team on your growth.</p><div class="team-roles"><span>Strategists</span><span>Marketers</span><span>Designers</span><span>Builders</span></div></div>
     </div>
-    <div class="team-grid reveal">
-      <div class="member lead"><div class="avatar">NA</div><b>Nithin Ambati</b><span>Founder and CEO</span></div>
-      <div class="member ph"><div class="avatar">02</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar g">03</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar s">04</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar">05</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar g">06</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar s">07</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar">08</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar g">09</div><b>[Name]</b><span>[Role]</span></div>
-      <div class="member ph"><div class="avatar s">10</div><b>[Name]</b><span>[Role]</span></div>
+    <div class="team-layout reveal">
+      <article class="founder">
+        <span class="f-badge">Founder</span>
+        <div class="f-photo"><span>NA</span></div>
+        <h3>Nithin Ambati</h3>
+        <p class="f-role">Founder and CEO, OptimAdvice</p>
+        <div class="f-stats"><div><b>₹6 Cr</b><small>Ads budget we maintain</small></div><div><b>1,000+</b><small>Businesses served</small></div></div>
+        <a class="btn btn-primary" href="https://wa.me/919704365718">Talk to Nithin <span class="arr" aria-hidden="true">↗</span></a>
+      </article>
+      <div class="team-grid">
+<div class="member"><span class="avatar "><i>02</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar g"><i>03</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar s"><i>04</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar "><i>05</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar g"><i>06</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar s"><i>07</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar "><i>08</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar g"><i>09</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+<div class="member"><span class="avatar s"><i>10</i></span><div class="m-txt"><b>[Name]</b><span>[Role]</span></div></div>
+        <div class="team-note"><p><b>One team, one plan.</b> Strategy, marketing, design and build work together on every account.</p><a class="btn btn-ghost btn-sm" href="#lead">Work with us <span class="arr" aria-hidden="true">↗</span></a></div>
+      </div>
     </div>
   </div>
 </section>
