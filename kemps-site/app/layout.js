@@ -6,8 +6,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400"], style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
-const sans = Manrope({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans", display: "swap" });
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500", "600"], style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
+const sans = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-sans", display: "swap" });
 
 export const metadata = {
   metadataBase: new URL(BRAND.siteUrl),
@@ -18,7 +18,7 @@ export const metadata = {
   icons: { icon: asset("/logo-kemps-mark.png") },
 };
 
-export const viewport = { themeColor: "#f5f8fa", width: "device-width", initialScale: 1 };
+export const viewport = { themeColor: "#0b2f55", width: "device-width", initialScale: 1 };
 
 const orgLd = {
   "@context": "https://schema.org",

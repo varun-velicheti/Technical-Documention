@@ -46,16 +46,16 @@ export const CATEGORIES = [
 
 /** Product range and pack sizes as listed on kemps.in. */
 export const PRODUCTS = [
-  { slug: "kemps-water", name: "Kemp's Water", line: "Packaged drinking water with added minerals", cat: "water", sizes: ["2 L", "1 L", "500 ml", "250 ml"], image: "p-water-blue", tint: "#dcebf6" },
-  { slug: "kemps-water-pink", name: "Kemp's Water", line: "Packaged drinking water · signature pink edition", cat: "water", sizes: ["1 L", "500 ml", "250 ml"], image: "p-water-pink", tint: "#f6e1ec" },
-  { slug: "eight-plus", name: "Eight Plus", line: "Alkaline water · pH 8+ with electrolytes & minerals", cat: "water", sizes: ["1 L", "500 ml"], image: "p-eightplus", tint: "#dbe4f3", href: "/eight-plus/" },
-  { slug: "club-soda", name: "Club Soda", line: "Crisp, extra-strong sparkle", cat: "soda", sizes: ["300 ml", "200 ml"], image: "p-club-soda", tint: "#e6eaee" },
-  { slug: "jeera-soda", name: "Jeera Soda", line: "Cumin-spiced, refreshingly tangy", cat: "soda", sizes: ["2 L", "600 ml", "300 ml", "200 ml"], image: "p-jeera-soda", tint: "#f1dfdc" },
-  { slug: "kokum-jeera", name: "Kokum Jeera Masala", line: "Kokum, cumin and spice", cat: "soda", sizes: ["200 ml"], image: "p-kokum", tint: "#f4dde2" },
-  { slug: "lemon-soda", name: "Lemon Soda", line: "Zesty lemon fizz", cat: "soda", sizes: ["300 ml", "200 ml"], image: "p-lemon", tint: "#e1efdc" },
-  { slug: "mango", name: "Mango", line: "Sunny mango drink", cat: "soda", sizes: ["200 ml"], image: "p-mango", tint: "#f8ead2" },
-  { slug: "orange", name: "Orange", line: "Bright orange sparkle", cat: "soda", sizes: ["200 ml"], image: "p-orange", tint: "#f8e2d3" },
-  { slug: "pudina-twist", name: "Pudina Twist", line: "Cool mint refresher", cat: "soda", sizes: ["200 ml"], image: "p-pudina", tint: "#e0efdc" },
+  { slug: "kemps-water", name: "Kemp's Water", line: "Packaged drinking water with added minerals", cat: "water", sizes: ["2 L", "1 L", "500 ml", "250 ml"], image: "p-water-blue", tint: "#b9daf3" },
+  { slug: "kemps-water-pink", name: "Kemp's Water", line: "Packaged drinking water · signature pink edition", cat: "water", sizes: ["1 L", "500 ml", "250 ml"], image: "p-water-pink", tint: "#f6c4dd" },
+  { slug: "eight-plus", name: "Eight Plus", line: "Alkaline water · pH 8+ with electrolytes & minerals", cat: "water", sizes: ["1 L", "500 ml"], image: "p-eightplus", tint: "#b8cbec", href: "/eight-plus/" },
+  { slug: "club-soda", name: "Club Soda", line: "Crisp, extra-strong sparkle", cat: "soda", sizes: ["300 ml", "200 ml"], image: "p-club-soda", tint: "#d3dbe3" },
+  { slug: "jeera-soda", name: "Jeera Soda", line: "Cumin-spiced, refreshingly tangy", cat: "soda", sizes: ["2 L", "600 ml", "300 ml", "200 ml"], image: "p-jeera-soda", tint: "#f3c4bb" },
+  { slug: "kokum-jeera", name: "Kokum Jeera Masala", line: "Kokum, cumin and spice", cat: "soda", sizes: ["200 ml"], image: "p-kokum", tint: "#f2bcc8" },
+  { slug: "lemon-soda", name: "Lemon Soda", line: "Zesty lemon fizz", cat: "soda", sizes: ["300 ml", "200 ml"], image: "p-lemon", tint: "#c4e5b8" },
+  { slug: "mango", name: "Mango", line: "Sunny mango drink", cat: "soda", sizes: ["200 ml"], image: "p-mango", tint: "#fbd99c" },
+  { slug: "orange", name: "Orange", line: "Bright orange sparkle", cat: "soda", sizes: ["200 ml"], image: "p-orange", tint: "#fbcaa6" },
+  { slug: "pudina-twist", name: "Pudina Twist", line: "Cool mint refresher", cat: "soda", sizes: ["200 ml"], image: "p-pudina", tint: "#c3e6bd" },
 ];
 
 export const MILESTONES = [
