@@ -24,7 +24,7 @@ export default function Home() {
       <Ripple from="var(--ice)" to="var(--ocean-deep)" />
       <EightPlusFeature />
       <Ripple from="var(--ocean-deep)" to="var(--glacier)" />
-      <Plant />
+      <Plant dark />
       <Award />
       <Cta />
     </>

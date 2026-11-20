@@ -4,9 +4,9 @@ import LiquidText from "../LiquidText";
 import { Arrow } from "../Icons";
 
 const B = [
-  { tag: "Packaged drinking water", title: "Kemp's Water", text: "Our original — packaged drinking water with added minerals, from 250 ml to 2 L.", img: "p-water-blue", href: "/products/", bg: "linear-gradient(180deg, #e3f0fa 0%, #bcdaf0 100%)", color: "var(--ink)" },
-  { tag: "Alkaline water", title: "Eight Plus", text: "pH 8+ alkaline water enhanced with electrolytes and minerals.", img: "ep-duo", href: "/eight-plus/", bg: "radial-gradient(ellipse at 50% 30%, #1a4f93, #071a30 75%)", color: "#fff" },
-  { tag: "Sodas & beverages", title: "Kemp's Beverages", text: "Club soda, jeera soda, lemon, orange, mango, pudina twist and kokum jeera masala.", img: "jeera-mockup", href: "/products/", bg: "linear-gradient(180deg, #fbe9e4 0%, #f2c9bf 100%)", color: "var(--ink)" },
+  { tag: "Packaged drinking water", title: "Kemp's Water", text: "Our original — packaged drinking water with added minerals, from 250 ml to 2 L.", img: "p-water-blue", href: "/products/", bg: "linear-gradient(180deg, #cfe6f8 0%, #7fb6e6 100%)", color: "var(--ink)" },
+  { tag: "Alkaline water", title: "Eight Plus", text: "pH 8+ alkaline water enhanced with electrolytes and minerals.", img: "ep-duo", href: "/eight-plus/", bg: "radial-gradient(ellipse at 50% 30%, #1f63b8, #061a33 78%)", color: "#fff" },
+  { tag: "Sodas & beverages", title: "Kemp's Beverages", text: "Club soda, jeera soda, lemon, orange, mango, pudina twist and kokum jeera masala.", img: "jeera-mockup", href: "/products/", bg: "linear-gradient(180deg, #fbd9cf 0%, #ee9d88 100%)", color: "var(--ink)" },
 ];
 
 export default function Brands() {
