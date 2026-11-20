@@ -206,20 +206,20 @@ h2 em{font-style:normal;color:var(--blue)}
 .filter{border:0;background:transparent;color:var(--body);padding:0 18px;min-height:40px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
 .filter:hover{color:var(--ink)}
 .filter.active{background:var(--navy);color:#fff}
-.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .project{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--sh);transition:transform .35s var(--ease),box-shadow .35s var(--ease);display:flex;flex-direction:column}
 .project:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
 .project.hide{display:none}
 .project.wide{grid-column:1/-1;flex-direction:row}
-.project.wide .project-art{flex:1.1;height:auto;min-height:340px}
-.project.wide .project-info{flex:1;justify-content:center;padding:44px}
-.project-art{height:290px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding-top:52px}
+.project.wide .project-art{flex:1.15;height:auto;min-height:300px}
+.project.wide .project-info{flex:1;justify-content:center;padding:36px 40px}
+.project-art{height:210px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding-top:46px}
 .art-a{background:radial-gradient(circle at 15% 0%,#5B92EE 0,transparent 55%),linear-gradient(160deg,#2F6BDB,#1A3F8F)}
 .art-b{background:radial-gradient(circle at 85% 0%,#B5E07D 0,transparent 50%),linear-gradient(160deg,#5E9A2A,#2E5A16)}
 .art-c{background:radial-gradient(circle at 20% 0%,#DCE8FF 0,transparent 60%),linear-gradient(160deg,#EAF1FF,#C9DAF8)}
 .art-d{background:radial-gradient(circle at 80% 0%,#2F6BDB 0,transparent 55%),linear-gradient(160deg,#10214A,#071026)}
 .art-c .art-caption{color:var(--navy)}
-.window{width:80%;height:220px;background:#fff;border-radius:12px 12px 0 0;box-shadow:0 -16px 40px -12px rgba(7,16,38,.4);padding:14px;transition:transform .5s var(--ease)}
+.window{width:84%;height:164px;background:#fff;border-radius:12px 12px 0 0;box-shadow:0 -16px 40px -12px rgba(7,16,38,.4);padding:14px;transition:transform .5s var(--ease)}
 .project:hover .window{transform:translateY(-6px)}
 .window-bar{display:flex;gap:6px;margin-bottom:14px}
 .window-bar i{width:8px;height:8px;border-radius:50%;background:#F08C7E}
@@ -242,11 +242,26 @@ h2 em{font-style:normal;color:var(--blue)}
 .window.shot img{width:100%;flex:1;min-height:0;object-fit:cover;object-position:top center;display:block}
 .live-pill{position:absolute;right:18px;top:16px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.95);color:var(--ink);font-size:12px;font-weight:700;box-shadow:0 8px 20px -10px rgba(0,0,0,.5);transition:transform .25s var(--ease)}
 .art-live:hover .live-pill{transform:translateY(-2px)}
-.project-info{padding:28px 30px 26px;display:flex;flex-direction:column;flex:1}
+.project-info{padding:20px 22px 18px;display:flex;flex-direction:column;flex:1}
+.project:not(.wide) .project-meta{font-size:10px}
+.project:not(.wide) .chips{margin-top:12px;gap:5px}
+.project:not(.wide) .chip{font-size:11px;padding:3px 9px}
+.project:not(.wide) .project-link{font-size:13px;min-height:36px;padding-top:10px}
+.project:not(.wide) .art-caption{left:16px;top:14px;font-size:10px}
+.project:not(.wide) .live-pill{right:12px;top:10px;font-size:11px;padding:5px 10px}
+.project:not(.wide) .window.shot .window-bar{padding:7px 10px}
+.project:not(.wide) .window-content{height:120px}
+.project:not(.wide) .window-main{padding:12px}
+.project:not(.wide) .tiles i{height:34px}
+.project.wide .window{width:82%;height:250px}
+.project.wide h3{font-size:24px}
+.project.wide p{font-size:15px}
+@media (max-width:1080px){.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 .project-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:600}
 .project-meta span:first-child{color:var(--blue)}
-.project h3{font-weight:700;font-size:24px;letter-spacing:-.03em;line-height:1.2;margin:14px 0 10px}
-.project p{font-size:15px;line-height:1.7;color:var(--body)}
+.project h3{font-weight:700;font-size:19px;letter-spacing:-.025em;line-height:1.25;margin:10px 0 8px}
+.project p{font-size:13.5px;line-height:1.6;color:var(--body)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
 .chip{background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:500;color:var(--ink-2)}
 .project-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:auto;padding-top:14px;color:var(--blue);font-size:14px;font-weight:600}
@@ -739,9 +754,12 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
 @media (max-width:900px){
   .section-top{grid-template-columns:minmax(0,1fr);gap:20px}
   .section-intro{justify-self:start}
-  .project-grid,.marketing-layout,.cube-wrap,.cta{grid-template-columns:minmax(0,1fr)}
+  .marketing-layout,.cube-wrap,.cta{grid-template-columns:minmax(0,1fr)}
+  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .project.wide .window{height:180px;width:84%}
   .project.wide{flex-direction:column}
-  .project.wide .project-art{flex:none;height:290px;min-height:0}
+  .project.wide .project-art{flex:none;height:240px;min-height:0}
+  .project.wide .project-info{padding:22px}
   .cube-detail{position:static}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stat:nth-child(3){padding-left:0;border-left:0}
@@ -776,10 +794,11 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
   .section-top{margin-bottom:36px}
   .filters{display:flex;border-radius:18px}
   .filter{flex:1 1 auto;padding:0 12px}
-  .project-art{height:240px}
-  .window{height:180px}
-  .project-info{padding:24px 22px}
-  .project h3{font-size:22px}
+  .project-grid{grid-template-columns:minmax(0,1fr)}
+  .project-art{height:220px}
+  .window{height:170px}
+  .project-info{padding:20px 20px}
+  .project h3{font-size:20px}
   .svc-grid,.method-grid{grid-template-columns:minmax(0,1fr)}
   .spend-card{padding:30px 24px}
   .fl{height:60px}
@@ -937,7 +956,7 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
         <div class="project-info"><div class="project-meta"><span>Marketing</span><span>Funnels &amp; events</span></div><h3>Masterclass and camp marketing</h3><p>Paid and community marketing that fills live masterclasses and multi-day offline camps across Telangana and Andhra Pradesh.</p><div class="chips"><span class="chip">Live sessions</span><span class="chip">Offline camps</span><span class="chip">WhatsApp community</span></div><a class="project-link" href="#marketing">See the funnel <span aria-hidden="true">↗</span></a></div>
       </article>
 
-      <article class="project wide reveal" data-type="product">
+      <article class="project reveal" data-type="product">
         <div class="project-art art-d"><div class="art-caption">10 / Digital products</div><div class="window"><div class="window-bar"><i></i><i></i><i></i></div><div class="window-content"><div class="window-side"></div><div class="window-main"><div class="line big"></div><div class="line"></div><div class="line small"></div><div class="tiles"><i></i><i></i><i></i></div></div></div></div></div>
         <div class="project-info"><div class="project-meta"><span>OptimAdvice product</span><span>Tools &amp; automation</span></div><h3>Custom business tools</h3><p>Purpose-built tools that simplify marketing research, business calculations and day-to-day decisions, from license-key suites to Chrome extensions.</p><div class="chips"><span class="chip">Web apps</span><span class="chip">AI workflows</span><span class="chip">Automation</span></div><a class="project-link" href="#tools">Explore our tools <span aria-hidden="true">↗</span></a></div>
       </article>
