@@ -258,7 +258,7 @@ h2 em{font-style:normal;color:var(--blue)}
 .fn-col{position:relative}
 .fn-col::before{content:"";position:absolute;left:10%;right:10%;top:10%;bottom:-10%;background:radial-gradient(ellipse at 50% 30%,rgba(47,107,219,.45),transparent 65%),radial-gradient(ellipse at 50% 95%,rgba(157,211,92,.3),transparent 55%);filter:blur(30px);pointer-events:none}
 .fn-viz{position:relative;display:flex;flex-direction:column;gap:8px;filter:drop-shadow(0 24px 36px rgba(0,0,0,.45))}
-.fl{height:96px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px;color:#fff;cursor:default;transition:filter .35s var(--ease);animation:flIn .6s var(--ease) both}
+.fl{height:96px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px;color:#fff;cursor:default;transition:filter .35s var(--ease);animation:flIn .6s var(--ease) backwards}
 .fl::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent 10%,rgba(255,255,255,.55),transparent 90%)}
 .fl::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%);pointer-events:none}
 .fl small{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);position:relative;z-index:1}
@@ -270,8 +270,16 @@ h2 em{font-style:normal;color:var(--blue)}
 .fl:nth-child(5){background:linear-gradient(180deg,#B6E37C,#8DC84C)}
 .fl:nth-child(5) small{color:rgba(20,40,6,.65)}
 .fl:nth-child(5) b{color:#0F1E04}
-.fn.has-active .fl:not(.active){filter:brightness(.6) saturate(.8)}
-.fl.active{filter:brightness(1.15)}
+.fl{transition:opacity .45s var(--ease),transform .45s var(--ease),filter .45s}
+.fn.has-active .fl:not(.active){opacity:.42}
+.fl.active{filter:brightness(1.12);transform:scale(1.025);z-index:1}
+.fl.active::after{background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%) -160% 0/55% 100% no-repeat,linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%);animation:shine 1.3s var(--ease) .1s both}
+@keyframes shine{to{background-position:260% 0,0 0}}
+.fn-tip{position:relative;width:12px;height:12px;margin:18px auto 0;border-radius:50%;background:var(--green-l);box-shadow:0 0 18px 4px rgba(157,211,92,.55)}
+.fn-tip::before{content:"";position:absolute;left:50%;bottom:100%;width:2px;height:18px;transform:translateX(-50%);background:linear-gradient(rgba(157,211,92,0),rgba(157,211,92,.8))}
+.fn-tip::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(157,211,92,.6);animation:ring 2.4s ease-out infinite}
+@keyframes ring{from{transform:scale(.6);opacity:1}to{transform:scale(2.2);opacity:0}}
+.fn-steps::after{content:"";position:absolute;left:30px;top:48px;width:2px;border-radius:2px;height:calc((100% - 96px)*var(--p,0));background:linear-gradient(180deg,var(--blue-l),var(--green-l));box-shadow:0 0 10px rgba(127,176,255,.6);transition:height .6s var(--ease)}
 @keyframes flIn{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
 .fn-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;position:relative}
 .fn-steps::before{content:"";position:absolute;left:30px;top:48px;bottom:48px;width:2px;border-radius:2px;background:linear-gradient(180deg,rgba(127,176,255,.15),rgba(127,176,255,.6) 70%,rgba(157,211,92,.8))}
@@ -484,6 +492,7 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
   .fl small{font-size:11px}
   .fs .t b{font-size:17px}
   .fn-steps::before{top:40px;bottom:40px}
+  .fn-steps::after{top:40px;height:calc((100% - 80px)*var(--p,0))}
   .tile{min-height:112px;padding:12px;border-radius:13px}
   .tile::after{border-radius:13px}
   .tile em{font-size:11.5px}
@@ -924,22 +933,26 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
     var steps = f.s.map(function(s,i){
       return '<li class="fs" data-i="'+i+'"><span class="n">0'+(i+1)+'</span><div class="t"><small>'+STAGES[i]+'</small><b>'+esc(s[0])+'</b><p>'+esc(s[1])+'</p></div></li>';
     }).join('');
-    funnel.innerHTML = '<div class="fn"><div class="fn-col"><div class="fn-viz">'+layers+'</div></div><ol class="fn-steps">'+steps+'</ol></div>'+
+    funnel.innerHTML = '<div class="fn"><div class="fn-col"><div class="fn-viz">'+layers+'</div><div class="fn-tip" aria-hidden="true"></div></div><ol class="fn-steps">'+steps+'</ol></div>'+
       '<div class="flow-note"><div><b>Best for</b>'+esc(f.n[0])+'</div><div><b>We track</b>'+esc(f.n[1])+'</div><div><b>We tailor</b>'+esc(f.n[2])+'</div></div>';
   };
+  var fnCur = 0, fnTimer = null, fnHover = false;
   var setActive = function(i){
     var fn = funnel.querySelector('.fn'); if(!fn) return;
     fn.classList.toggle('has-active', i!=null);
-    fn.querySelectorAll('[data-i]').forEach(function(el){ el.classList.toggle('active', el.dataset.i===i); });
+    fn.querySelectorAll('[data-i]').forEach(function(el){ el.classList.toggle('active', el.dataset.i===String(i)); });
+    var st = fn.querySelector('.fn-steps'); if(st) st.style.setProperty('--p', i==null ? 0 : i/4);
   };
-  funnel.addEventListener('mouseover', function(e){ var el = e.target.closest('[data-i]'); setActive(el ? el.dataset.i : null); });
-  funnel.addEventListener('mouseleave', function(){ setActive(null); });
+  var fnTick = function(){ if(!fnHover){ setActive(fnCur); fnCur = (fnCur+1)%5; } };
+  var fnStart = function(){ clearInterval(fnTimer); fnCur = 0; if(reduce) return; fnTick(); fnTimer = setInterval(fnTick, 2600); };
+  funnel.addEventListener('mouseover', function(e){ var el = e.target.closest('[data-i]'); if(!el) return; fnHover = true; setActive(+el.dataset.i); fnCur = (+el.dataset.i+1)%5; });
+  funnel.addEventListener('mouseleave', function(){ fnHover = false; if(reduce) setActive(null); });
   ftabs.addEventListener('click', function(e){
     var b = e.target.closest('.ftab'); if(!b) return;
     ftabs.querySelectorAll('.ftab').forEach(function(x){ x.classList.toggle('active', x===b); });
-    renderFunnel(b.dataset.k);
+    renderFunnel(b.dataset.k); fnStart();
   });
-  renderFunnel('edu');
+  renderFunnel('edu'); fnStart();
 
   /* Cube */
   var LINKS = {
