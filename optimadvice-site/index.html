@@ -346,15 +346,18 @@ h2 em{font-style:normal;color:var(--blue)}
 .cube-stage:hover .rc{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-14deg) rotateY(-22deg)}
 .rc.spin{animation:rcSpin 1.4s cubic-bezier(.65,0,.35,1)}
 @keyframes rcSpin{0%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-24deg) rotateY(-36deg)}55%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.1)) rotateX(-200deg) rotateY(-220deg) scale(.92)}100%{transform:translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) rotateX(-384deg) rotateY(-396deg)}}
-.rc-face{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:calc(var(--s)*.022);padding:calc(var(--s)*.026);background:#07090F;border-radius:calc(var(--s)*.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 0 calc(var(--s)*.06) rgba(0,0,0,.9);pointer-events:none;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.rc-front{transform:translateZ(calc(var(--s)/2));pointer-events:auto}
-.rc-back{transform:rotateY(180deg) translateZ(calc(var(--s)/2))}
-.rc-right{transform:rotateY(90deg) translateZ(calc(var(--s)/2))}
-.rc-left{transform:rotateY(-90deg) translateZ(calc(var(--s)/2))}
-.rc-top{transform:rotateX(90deg) translateZ(calc(var(--s)/2))}
-.rc-bottom{transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
-.rc-right,.rc-left{filter:brightness(.78)}
-.rc-top{filter:brightness(1.06)}
+.cubie{position:absolute;left:calc(var(--s)/3);top:calc(var(--s)/3);width:calc(var(--s)/3);height:calc(var(--s)/3);transform-style:preserve-3d}
+.rc-pivot{position:absolute;inset:0;transform-style:preserve-3d}
+.cf{position:absolute;inset:0;background:#07090F;padding:calc(var(--s)*.011);backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.cf>*{width:100%;height:100%;display:flex}
+.cf.f-f{transform:translateZ(calc(var(--s)/6))}
+.cf.f-b{transform:rotateY(180deg) translateZ(calc(var(--s)/6))}
+.cf.f-r{transform:rotateY(90deg) translateZ(calc(var(--s)/6))}
+.cf.f-l{transform:rotateY(-90deg) translateZ(calc(var(--s)/6))}
+.cf.f-u{transform:rotateX(90deg) translateZ(calc(var(--s)/6))}
+.cf.f-d{transform:rotateX(-90deg) translateZ(calc(var(--s)/6))}
+.slot{pointer-events:auto}
+.slot>.tile{flex:1 1 auto;min-width:0;width:100%}
 .sk,.tile{border-radius:calc(var(--s)*.035);position:relative;overflow:hidden}
 .sk::after,.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.08) 38%,rgba(255,255,255,0) 50%,rgba(0,0,0,.12) 100%);pointer-events:none}
 .c-b{background:linear-gradient(145deg,#4F8FF7,#2A60CC);color:#fff}
@@ -937,9 +940,9 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
           <button class="btn btn-green btn-sm" id="solveBtn">Fix missing pieces</button>
           <button class="btn btn-ghost btn-sm" id="playBtn">Turn the cube</button>
           <button class="btn btn-ghost btn-sm" id="resetBtn">Reset</button>
-          <p>A cube with even one piece missing can't be played. Your business works the same way. Remove pieces, try to turn the cube, then fix it.</p>
+          <p>Drag any piece up or down to turn its column, or sideways to turn its row. A cube with even one piece missing can't be played, and your business works the same way.</p>
         </div>
-        <div class="cube-stage" id="cubeStage"><div class="rc-floor"></div><div class="rc-chip ok" id="rcChip" role="status">Complete: ready to play</div><div class="rc" id="rc"><div class="rc-face rc-back" data-face="back"></div><div class="rc-face rc-bottom" data-face="bottom"></div><div class="rc-face rc-left" data-face="left"></div><div class="rc-face rc-right" data-face="right"></div><div class="rc-face rc-top" data-face="top"></div><div class="rc-face rc-front" id="cube"></div></div></div>
+        <div class="cube-stage" id="cubeStage"><div class="rc-floor"></div><div class="rc-chip ok" id="rcChip" role="status">Complete: drag a piece to turn</div><div class="rc" id="rc"><div class="rc-pivot" id="rcPivot"></div></div></div>
         <div class="cube-status">
           <div class="st-head"><span class="st-lock" id="stLock" aria-hidden="true"></span><b id="stCount">9 of 9 pieces in place</b></div>
           <div class="meter"><i id="stMeter" style="width:100%"></i></div>
@@ -1221,27 +1224,76 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
     {key:'service',name:'Service',q:'What after the yes?',check:'Delivery, response time, support and the chance of repeat purchase.',mistake:'Winning a customer, then losing them to slow replies or weak delivery.',fix:'We map the journey after the sale and set simple systems for follow-up, reviews and referrals.'},
     {key:'websites',name:'Websites',q:'Where do they land?',check:'Speed, mobile layout, clarity, forms and tracking.',mistake:'Sending paid traffic to a slow or confusing page.',fix:'We build a fast, clear page with one action, wired to tracking and WhatsApp.'}
   ];
-  var SOLVED = {top:'w', right:'g', left:'o', back:'y', bottom:'r'};
-  var fill = function(c){ return [c,c,c,c,c,c,c,c,c]; };
   var S = {cube:'mistakes', broken:{}, solved:false, solving:false};
   var timer = null;
   var pad = function(n){ return n<10 ? '0'+n : ''+n; };
   var shuffle = function(arr){ var a = arr.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; };
   var missing = function(){ return PIECES.filter(function(p){ return S.broken[p.key]; }); };
-  var rc = $('rc'), cubeEl = $('cube'), stage = $('cubeStage'), chip = $('rcChip');
+  var rc = $('rc'), pivot = $('rcPivot'), stage = $('cubeStage'), chip = $('rcChip');
   var replay = function(el, cls){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
   rc.addEventListener('animationend', function(e){ if(e.target===rc){ rc.classList.remove('spin'); rc.classList.remove('shake'); } });
   chip.addEventListener('animationend', function(){ chip.classList.remove('nudge'); });
-  document.querySelectorAll('.rc-face[data-face]').forEach(function(el){
-    el.innerHTML = fill(SOLVED[el.dataset.face]).map(function(c){ return '<span class="sk c-'+c+'"></span>'; }).join('');
-  });
+
+  /* Build 26 cubies. x: -1 left..1 right, y: -1 top..1 bottom, z: 1 front..-1 back */
+  var FACE_COL = {u:'w', d:'r', r:'g', l:'o', b:'y'};
+  var cubies = [], slots = {};
+  var T = function(n){ return 'calc(var(--s) * '+(n/3)+')'; };
+  for(var x=-1;x<=1;x++) for(var y=-1;y<=1;y++) for(var z=-1;z<=1;z++){
+    if(!x && !y && !z) continue;
+    var el = document.createElement('div'); el.className = 'cubie';
+    var html = '';
+    [['f',z===1],['b',z===-1],['r',x===1],['l',x===-1],['u',y===-1],['d',y===1]].forEach(function(f){
+      var inner = '';
+      if(f[1]){
+        if(f[0]==='f'){ var idx = (y+1)*3+(x+1); inner = '<div class="slot" data-piece="'+PIECES[idx].key+'"></div>'; }
+        else inner = '<span class="sk c-'+FACE_COL[f[0]]+'"></span>';
+      }
+      html += '<div class="cf f-'+f[0]+'">'+inner+'</div>';
+    });
+    el.innerHTML = html;
+    var c = {el:el, home:[x,y,z], pos:[x,y,z], rot:''};
+    el.style.transform = 'translate3d('+T(x)+','+T(y)+','+T(z)+')';
+    rc.appendChild(el); cubies.push(c);
+  }
+  rc.querySelectorAll('.slot').forEach(function(sl){ slots[sl.dataset.piece] = sl; });
+  var place = function(c){ c.el.style.transform = c.rot+'translate3d('+T(c.home[0])+','+T(c.home[1])+','+T(c.home[2])+')'; };
+
+  /* Layer turns */
+  var history = [], busy = false;
+  var rotPos = function(p, axis, deg){
+    var a = deg*Math.PI/180, co = Math.round(Math.cos(a)), si = Math.round(Math.sin(a)), x=p[0], y=p[1], z=p[2];
+    if(axis==='x') return [x, y*co - z*si, y*si + z*co];
+    return [x*co + z*si, y, -x*si + z*co];
+  };
+  var turn = function(axis, layer, deg, dur, record, cb){
+    busy = true;
+    var k = axis==='x' ? 0 : 1, sel = cubies.filter(function(c){ return c.pos[k]===layer; });
+    sel.forEach(function(c){ pivot.appendChild(c.el); });
+    var fn = axis==='x' ? 'rotateX' : 'rotateY';
+    var anim = pivot.animate([{transform:fn+'(0deg)'},{transform:fn+'('+deg+'deg)'}], {duration: reduce ? 1 : dur, easing:'cubic-bezier(.45,0,.25,1)'});
+    anim.onfinish = function(){
+      sel.forEach(function(c){ c.rot = fn+'('+deg+'deg) '+c.rot; c.pos = rotPos(c.pos, axis, deg); place(c); rc.appendChild(c.el); });
+      anim.cancel();
+      if(record) history.push({axis:axis, layer:layer, deg:deg});
+      busy = false;
+      if(!history.length) cubies.forEach(function(c){ c.rot=''; place(c); });
+      if(cb) cb();
+    };
+  };
+  var unwind = function(cb, dur){
+    if(!history.length){ if(cb) cb(); return; }
+    var m = history.pop();
+    turn(m.axis, m.layer, -m.deg, dur||260, false, function(){ unwind(cb, dur); });
+  };
+  var atHome = function(fn){ return function(){ if(busy) return; clearTimeout(playT); if(history.length) unwind(fn, 200); else fn(); }; };
+
   var renderCube = function(anim){
     anim = anim || {};
-    cubeEl.innerHTML = PIECES.map(function(p,i){
+    PIECES.forEach(function(p,i){
       var miss = !!S.broken[p.key], a = anim[p.key] || '';
-      return '<button class="tile '+(miss?'miss':'c-b')+(S.cube===p.key?' on':'')+(a?' '+a:'')+'" data-key="'+p.key+'" aria-label="'+p.name+(miss?', missing':'')+'" aria-pressed="'+(S.cube===p.key)+'">'+
+      slots[p.key].innerHTML = '<button class="tile '+(miss?'miss':'c-b')+(S.cube===p.key?' on':'')+(a?' '+a:'')+'" data-key="'+p.key+'" aria-label="'+p.name+(miss?', missing':'')+'" aria-pressed="'+(S.cube===p.key)+'">'+
         '<span class="tn">'+pad(i+1)+'</span><span class="tag">Missing</span><span><b>'+p.name+'</b><em>'+p.q+'</em></span></button>';
-    }).join('');
+    });
     var cur = PIECES.filter(function(p){ return p.key===S.cube; })[0] || PIECES[0];
     var idx = PIECES.indexOf(cur), isMiss = !!S.broken[cur.key];
     $('dNum').textContent = 'Piece '+pad(idx+1)+' of 09';
@@ -1260,58 +1312,86 @@ footer{background:var(--navy-3);color:var(--navy-body);padding:72px 0 32px;font-
     $('stMeter').style.width = Math.round(((9-m.length)/9)*100)+'%';
     $('stMsg').textContent = locked
       ? 'Missing: '+m.map(function(p){ return p.name; }).join(', ')+'. With '+(m.length===1?'a piece':'pieces')+' missing the cube can’t be played, and a business can’t grow. We find '+(m.length===1?'it':'them')+' and fix '+(m.length===1?'it':'them')+' first.'
-      : (S.solved ? 'Every piece is back. The cube turns again, so the funnel is ready to scale.' : 'All nine pieces are in place, so the cube can be played. Remove a few pieces to see what happens.');
+      : (S.solved ? 'Every piece is back. The cube turns again, so the funnel is ready to scale.' : 'All nine pieces are in place, so the cube can be played. Drag a piece up, down or sideways to turn its column or row.');
     $('stLock').parentNode.parentNode.classList.toggle('locked', locked);
     chip.className = 'rc-chip '+(locked ? 'lock' : 'ok');
-    chip.textContent = locked ? 'Locked: '+m.length+' missing, can’t be played' : 'Complete: drag to turn';
+    chip.textContent = locked ? 'Locked: '+m.length+' missing, can’t be played' : 'Complete: drag a piece to turn';
     stage.classList.toggle('locked', locked);
-    ['scrambleBtn','solveBtn','toggleBtn','playBtn'].forEach(function(id){ $(id).disabled = S.solving; });
+    ['scrambleBtn','toggleBtn','playBtn'].forEach(function(id){ $(id).disabled = S.solving; });
     $('solveBtn').disabled = S.solving || !locked;
     updateWA();
   };
   var set = function(o, anim){ for(var k in o) S[k]=o[k]; renderCube(anim); };
   var refuse = function(){ replay(rc,'shake'); replay(chip,'nudge'); };
-  var tryTurn = function(){ if(missing().length){ refuse(); return false; } replay(rc,'spin'); return true; };
-  cubeEl.addEventListener('click', function(e){ if(dragMoved) return; var t = e.target.closest('.tile'); if(t) set({cube:t.dataset.key}); });
-  $('scrambleBtn').addEventListener('click', function(){
+  rc.addEventListener('click', function(e){ if(dragMoved) return; var t = e.target.closest('.tile'); if(t) set({cube:t.dataset.key}); });
+
+  $('scrambleBtn').addEventListener('click', atHome(function(){
     clearTimeout(timer);
     var pick = shuffle([0,1,2,3,4,5,6,7,8]).slice(0,3), b = Object.assign({}, S.broken), anim = {};
-    pick.forEach(function(i){ if(!b[PIECES[i].key]){ anim[PIECES[i].key]='pop'; } b[PIECES[i].key]=true; });
+    pick.forEach(function(i){ if(!b[PIECES[i].key]) anim[PIECES[i].key]='pop'; b[PIECES[i].key]=true; });
     set({broken:b, cube:PIECES[pick[0]].key, solved:false, solving:false}, anim);
-  });
+  }));
   var solveStep = function(){
     var next = PIECES.filter(function(p){ return S.broken[p.key]; })[0];
     if(next){ var b = Object.assign({}, S.broken), anim = {}; b[next.key]=false; anim[next.key]='snap'; set({broken:b, cube:next.key}, anim); timer=setTimeout(solveStep, 900); }
     else { set({solved:true, solving:false, cube:'mistakes'}); setTimeout(function(){ replay(rc,'spin'); }, 250); }
   };
-  $('solveBtn').addEventListener('click', function(){ clearTimeout(timer); set({solving:true, solved:false}); timer=setTimeout(solveStep, 300); });
-  $('playBtn').addEventListener('click', tryTurn);
-  $('resetBtn').addEventListener('click', function(){ clearTimeout(timer); var anim = {}; missing().forEach(function(p){ anim[p.key]='snap'; }); set({broken:{}, cube:'mistakes', solved:false, solving:false}, anim); });
-  $('toggleBtn').addEventListener('click', function(){
+  $('solveBtn').addEventListener('click', atHome(function(){ clearTimeout(timer); set({solving:true, solved:false}); timer=setTimeout(solveStep, 300); }));
+  $('resetBtn').addEventListener('click', atHome(function(){ clearTimeout(timer); var anim = {}; missing().forEach(function(p){ anim[p.key]='snap'; }); set({broken:{}, cube:'mistakes', solved:false, solving:false}, anim); }));
+  $('toggleBtn').addEventListener('click', atHome(function(){
     var b = Object.assign({}, S.broken), k = S.cube, anim = {};
     b[k] = !b[k]; anim[k] = b[k] ? 'pop' : 'snap';
     set({broken:b, solved:false}, anim);
+  }));
+
+  /* Turn the cube: a few column and row turns, then turn them back */
+  var playT = null;
+  $('playBtn').addEventListener('click', function(){
+    if(missing().length){ refuse(); return; }
+    if(busy) return;
+    clearTimeout(playT);
+    var moves = [], last = '';
+    while(moves.length < 4){
+      var axis = Math.random() < .6 ? 'x' : 'y', layer = [-1,0,1][Math.floor(Math.random()*3)], key = axis+layer;
+      if(key===last) continue; last = key;
+      moves.push({axis:axis, layer:layer, deg: Math.random()<.5 ? 90 : -90});
+    }
+    var run = function(i){
+      if(i>=moves.length){ playT = setTimeout(function(){ unwind(null, 380); }, 900); return; }
+      turn(moves[i].axis, moves[i].layer, moves[i].deg, 420, true, function(){ run(i+1); });
+    };
+    run(0);
   });
-  /* drag to turn (only when complete) */
+
+  /* Drag: on a front piece turns its column (up/down) or row (sideways); elsewhere tilts the view */
   var drag = null, dragMoved = false;
   var BASE = 'translateX(calc(var(--s)*.07)) translateY(calc(var(--s)*-.04)) ';
+  var cubieOf = function(el){ var ce = el.closest('.cubie'); return cubies.filter(function(c){ return c.el===ce; })[0]; };
   stage.addEventListener('pointerdown', function(e){
     if(e.button>0 || e.target.closest('.rc-chip')) return;
-    drag = {x:e.clientX, y:e.clientY, id:e.pointerId}; dragMoved = false;
+    var t = e.target.closest('.tile'), c = t ? cubieOf(t) : null;
+    drag = {x:e.clientX, y:e.clientY, id:e.pointerId, cubie: (c && c.pos[2]===1) ? c : null, view:false}; dragMoved = false;
   });
   window.addEventListener('pointermove', function(e){
     if(!drag || e.pointerId!==drag.id) return;
     var dx = e.clientX-drag.x, dy = e.clientY-drag.y;
-    if(!dragMoved && Math.abs(dx)+Math.abs(dy) < 8) return;
+    if(!dragMoved && Math.abs(dx)+Math.abs(dy) < 12) return;
     if(!dragMoved){
       dragMoved = true;
       if(missing().length){ refuse(); drag = null; return; }
-      stage.classList.add('dragging');
+      if(drag.cubie){
+        if(!busy){
+          clearTimeout(playT);
+          if(Math.abs(dy) >= Math.abs(dx)) turn('x', drag.cubie.pos[0], dy>0 ? -90 : 90, 420, true);
+          else turn('y', drag.cubie.pos[1], dx>0 ? 90 : -90, 420, true);
+        }
+        drag = null; return;
+      }
+      drag.view = true; stage.classList.add('dragging');
     }
-    rc.style.transform = BASE+'rotateX('+(-24 - dy*0.4)+'deg) rotateY('+(-36 + dx*0.5)+'deg)';
+    if(drag.view) rc.style.transform = BASE+'rotateX('+(-24 - dy*0.4)+'deg) rotateY('+(-36 + dx*0.5)+'deg)';
   });
   var endDrag = function(){
-    if(!drag && !dragMoved) return;
     drag = null; stage.classList.remove('dragging'); rc.style.transform = '';
     setTimeout(function(){ dragMoved = false; }, 0);
   };
